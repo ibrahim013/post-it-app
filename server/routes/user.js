@@ -14,29 +14,26 @@ import * as firebase from "firebase";
   };
   firebase.initializeApp(config);
 
-//Exterblish Database Connection=====================================
-apiRouter.use((req, res, next) => {
-	console.log("someone just came to the app");
-	// this is where we authenticate users
-	next();
-})
-apiRouter.get('/',(req, res) => {
-	res.json({ message: 'woah check out this json'});
-});
+// apiRouter.use((req, res, next) => {
+// 	console.log("someone just came to the app");
+// 	// this is where we authenticate users
+// 	next();
+// })
+// apiRouter.get('/',(req, res) => {
+// 	res.json({ message: 'woah check out this json'});
+// });
 
 // SIGNUP ROUTE=========================================================
 apiRouter.route('/user/signup')
 	//create a user
 	.post((req, res) => {
-	let firstName = req.body.firstname,
-		lastName =req.body.lastname,
+	let username = req.body.username,
 		email = req.body.email,
 		password = req.body.password;
 	firebase.auth().createUserWithEmailAndPassword(email, password)
 	.then(user =>{
 		firebase.database().ref("user").push({
-		firstname:firstName,
-		lastname:lastName,
+		username:username,
 		email:email,
 		password:password
 		});
@@ -49,18 +46,54 @@ apiRouter.route('/user/signup')
 		})
 
 	});
-//SIGNIN ROUTE=============================================================
+
+//SIGNIN ROUTE=================================================================
 	apiRouter.route('/user/signin')
+	.post((req, res) => {
+	let email = req.body.email,
+		password = req.body.password;
+	firebase.auth().signInWithEmailAndPassword(email, password)
+	.then (user => {
+		res.send({message: "Signin Sucessful"});
+	})
+	.catch(function(error) {
+  // Handle Errors here.=======================================================
+  let errorCode = error.code;
+  let errorMessage = error.message;
+  // ...
+})
+});
 
 
+//SIGNIN ROUTE=================================================================
+apiRouter.route('/user/group')
+	.post((req, res) => {
+		let email = req.body.email,
+			password = req.body.password,
+			groupname = req.body.groupname,
+	 		groupmember = [req.body.groupmember];
+		firebase.auth().signInWithEmailAndPassword(email, password)
+			.then(user => {
+				firebase.auth().onAuthStateChanged((user) => {
+					let userC = firebase.auth().currentUser,
+						uid = userC.uid,
+						name = userC.displayName;
+					if(userC !== null){
+						firebase.database().ref ("group").child(groupname).push({
+							GroupAdmin:uid,
+							GroupMembers: groupmember
+						})
+						
+					}
+					res.send({message: "group created successfuly"})
+				})
 			
-		
+			})
+			
+	});		
 
-
-
-
-
-
+	
+ 
 
 
 module.exports = apiRouter;
