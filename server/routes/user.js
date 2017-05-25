@@ -65,11 +65,11 @@ apiRouter.route('/group')
 			password = req.body.password;
 			groupname = req.body.groupname;
 	 		
-		firebase.auth().onAuthStateChanged(User => {
+		firebase.auth().onAuthStateChanged(user => {
 			
 			let userC = firebase.auth().currentUser;
     	
-    	if(User !== null){
+    	if(userC !== null){
       	 firebase.database().ref ("group").child(groupname).push({
 							GroupAdmin:email
 							
