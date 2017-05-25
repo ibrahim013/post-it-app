@@ -1,7 +1,7 @@
 import express from 'express';
+import * as firebase from "firebase";
 const apiRouter = express.Router();
 const morgan = require('morgan');
-import * as firebase from "firebase";
 
 // Inicializing firebase conection=======================================
   var config = {
@@ -14,14 +14,7 @@ import * as firebase from "firebase";
   };
   firebase.initializeApp(config);
 
-// apiRouter.use((req, res, next) => {
-// 	console.log("someone just came to the app");
-// 	// this is where we authenticate users
-// 	next();
-// })
-// apiRouter.get('/',(req, res) => {
-// 	res.json({ message: 'woah check out this json'});
-// });
+
 
 // SIGNUP ROUTE=========================================================
 apiRouter.route('/user/signup')
@@ -65,28 +58,26 @@ apiRouter.route('/user/signup')
 });
 
 
-//SIGNIN ROUTE=================================================================
+//CREATE GROUP ROUTE=================================================================
 apiRouter.route('/group')
 	.post((req, res) => {
 		let email = req.body.email,
-			password = req.body.password,
+			password = req.body.password;
 			groupname = req.body.groupname;
 	 		
-		firebase.auth().signInWithEmailAndPassword(email, password)
-			.then(user => {
-				firebase.auth().onAuthStateChanged((user) => {
-					let userC = firebase.auth().currentUser;
-					if(userC !== null){
-						firebase.database().ref ("group").child(groupname).push({
+		firebase.auth().onAuthStateChanged(User => {
+			
+			let userC = firebase.auth().currentUser;
+    	
+    	if(User !== null){
+      	 firebase.database().ref ("group").child(groupname).push({
 							GroupAdmin:email
 							
 						})
-						
-					}
-					res.send({message: "group created successfuly"})
-				})
-			
-			})
+ 		   }else{
+ 	      res.send({message:"you must be logged in to create a group"})
+   		 }
+		});
 			
 	});		
 
@@ -105,7 +96,7 @@ apiRouter.route('/group/groupid/user')
 					let userC = firebase.auth().currentUser;
 						
 					if(userC !== null){
-						firebase.database().ref ("user/group/").child(groupname).push({
+						firebase.database().ref ("user/group/").child(groupmember).push({
 							
 														
 						})
