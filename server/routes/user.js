@@ -66,22 +66,20 @@ apiRouter.route('/user/signup')
 
 
 //SIGNIN ROUTE=================================================================
-apiRouter.route('/user/group')
+apiRouter.route('/group')
 	.post((req, res) => {
 		let email = req.body.email,
 			password = req.body.password,
-			groupname = req.body.groupname,
-	 		groupmember = [req.body.groupmember];
+			groupname = req.body.groupname;
+	 		
 		firebase.auth().signInWithEmailAndPassword(email, password)
 			.then(user => {
 				firebase.auth().onAuthStateChanged((user) => {
-					let userC = firebase.auth().currentUser,
-						uid = userC.uid,
-						name = userC.displayName;
+					let userC = firebase.auth().currentUser;
 					if(userC !== null){
 						firebase.database().ref ("group").child(groupname).push({
-							GroupAdmin:uid,
-							GroupMembers: groupmember
+							GroupAdmin:email
+							
 						})
 						
 					}
@@ -93,7 +91,36 @@ apiRouter.route('/user/group')
 	});		
 
 	
- 
+ //ADD MEMBER TO GROUP ROUTE=================================================================
+apiRouter.route('/group/groupid/user')
+	.post((req, res) => {
+		let email = req.body.email,
+			password = req.body.password,
+			groupname = req.body.groupname,
+			groupmember = req.body.groupmember;
+	  		
+		firebase.auth().signInWithEmailAndPassword(email, password)
+			.then(user => {
+				firebase.auth().onAuthStateChanged((user) => {
+					let userC = firebase.auth().currentUser;
+						
+					if(userC !== null){
+						firebase.database().ref ("user/group/").child(groupname).push({
+							
+														
+						})
+						
+					}
+					res.send({message: "Group Created Sucessful"})
+				})
+			
+			})
+			
+	});		
+
+
+
+
 
 
 module.exports = apiRouter;
