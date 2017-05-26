@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-watch app.js"
+    "start": "node ./dist/app.js",
+    "build": "babel server/ -d dist",
+    "start-server": "babel-watch server/app.js"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
@@ -13,8 +15,12 @@
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-cli": "^6.24.1",
     "express": "~4.15.2",
     "firebase": "^4.0.0",
+    "webpack-dev-server": "^2.4.5",
     "firebase-admin": "^5.0.0",
     "jade": "~1.11.0",
     "morgan": "~1.8.1",

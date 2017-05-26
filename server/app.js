@@ -24,5 +24,4 @@ app.get('/', (req, res) => {
 // API LISTNER ============================================================
 app.use('/api', index);
 app.listen(8000);
-console.log('Runing on port 8000');
 

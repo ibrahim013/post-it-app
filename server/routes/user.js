@@ -1,7 +1,9 @@
 import express from 'express';
+
 import * as firebase from 'firebase';
+
 const apiRouter = express.Router();
-import morgan from 'morgan';
+
 
 // Inicializing firebase conection=======================================
 const config = {
@@ -36,13 +38,13 @@ apiRouter.route('/user/signup')
 // SIGNIN ROUTE=================================================================
 apiRouter.route('/user/signin')
 .post((req, res) => {
-  let email = req.body.email,
-	  password = req.body.password;
+  const email = req.body.email;
+  const password = req.body.password;
   firebase.auth().signInWithEmailAndPassword(email, password)
-.then((user) => {
+.then(() => {
   res.send({ message: 'Signin Sucessful' });
 })
-.catch((error) => {
+.catch(() => {
   res.json({ message: 'You will need to signup' });
 });
 });
@@ -53,7 +55,7 @@ apiRouter.route('/group')
   const email = req.body.email,
     groupname = req.body.groupname;
 
-  firebase.auth().onAuthStateChanged(user => {
+  firebase.auth().onAuthStateChanged(() => {
     const userC = firebase.auth().currentUser;
     if (userC !== null) {
       firebase.database().ref('group').child(groupname).push({
@@ -69,13 +71,14 @@ apiRouter.route('/group')
 // ADD MEMBER TO GROUP ROUTE===============================================
 apiRouter.route('/group/groupid/user')
 .post((req, res) => {
-  let groupname = req.body.groupname,
-      groupmember = req.body.groupmember;
-  firebase.auth().onAuthStateChanged((user) => {
+  const groupname = req.body.groupname;
+  const groupmember = req.body.groupmember;
+  firebase.auth().onAuthStateChanged(() => {
     const userC = firebase.auth().currentUser;
     if (userC !== null) {
-    firebase.database().ref('user/group/').child(groupmember).push({
-    });
+      firebase.database().ref('user/group/').child(groupmember).push({
+        groupName: groupname
+      });
       res.send({ message: 'Group Member Created Sucessful' });
     }
   });
