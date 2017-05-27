@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "Andele Second Week Bootcamp Project(postit)",
   "main": "app.js",
+
+   "engines": {
+    "node": "6.10.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./dist/app.js",
     "build": "babel server/ -d dist",
     "start-server": "babel-watch server/app.js"
   },
+ 
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
     "babel-watch": "^2.0.6",
