@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import index from './routes/user';
 
 const app = express();
-
+const port = parseInt(process.env.PORT, 10) || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -23,5 +23,5 @@ app.get('/', (req, res) => {
 
 // API LISTNER ============================================================
 app.use('/api', index);
-app.listen(8000);
+app.listen(port);
 
