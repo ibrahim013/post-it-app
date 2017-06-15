@@ -3,8 +3,15 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const index = require('./routes/user');
+const port = parseInt(process.env.PORT, 10) || 3000;
+const compiler = webpack(webpackConfig);
+import path from 'path';
+import webpack from 'webpack';
+import webpackmiddleware from 'webpack-dev-middleware';
 
+import webpackConfig from '../webpack.config';
 
+app.use(webpackmiddleware(compiler));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); 
 
@@ -18,11 +25,14 @@ app.use(function(req, res, next) {
 
 app.use(morgan('dev'));  // log all requests to the console
 
-app.get('/', function(req, res) {
-	res.send('welcome to the home page!');
-	console.log(ref);
+app.get('/', (req, res)=> {
+	res.sendFile(path.join(__dirname, './index.html'));
+	
 });
-
+app.get('/signin', (req, res)=> {
+	res.send('testing this out');
+	
+});
 
 
 
@@ -30,5 +40,5 @@ app.get('/', function(req, res) {
 
 
 app.use('/api', index);
-app.listen(8000);
-console.log('Runing on port 8000');
+app.listen(port);
+console.log('Runing on port 3000')

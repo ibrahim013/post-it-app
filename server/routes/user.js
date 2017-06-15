@@ -32,10 +32,10 @@ apiRouter.route('/user/signup')
 		});
 		
 		}).then(function() {
-	res.json({ message: "Success: User created."});
+	console.log({ message: "Success: User created."});
 				
 		}).catch(function(error){
-			res.json({ message: error.message});
+			console.log({ message: error.message});
 		})
 
 	});
@@ -45,18 +45,9 @@ apiRouter.route('/user/signup')
 	.post((req, res) => {
 	let email = req.body.email,
 		password = req.body.password;
-	firebase.auth().signInWithEmailAndPassword(email, password)
-	.then (user => {
-		res.send({message: "Signin Sucessful"});
-	})
-	.catch(function(error) {
-  // Handle Errors here.=======================================================
-  let errorCode = error.code;
-  let errorMessage = error.message;
-  // ...
-})
-});
-
+	const promise =firebase.auth().signInWithEmailAndPassword(email, password);
+	promise.catch(e => console.log(e.message));
+	});
 
 //CREATE GROUP ROUTE=================================================================
 apiRouter.route('/group')
