@@ -8,15 +8,15 @@ node js
 express 
 
 <h1>Installation</h1>
-Fork this Branch and clone the repo then run
-npm install
-npm run server
+Fork this Branch and clone the repo then run<br/>
+npm install<br/>
+npm run server<br/>
 
-<h1>Available Client Routes</h1>
-http://localhost:3000/
-http://localhost:3000/signup
-http://localhost:3000/messagebord
-http://localhost:3000/dashboard
+<h1>Available Client Routes</h1><br/>
+http://localhost:3000/ <br/>
+http://localhost:3000/signup <br/>
+http://localhost:3000/messagebord <br/>
+http://localhost:3000/dashboard <br/>
 <h1>Authors</h1>
 
 Ibrahim Abdulazeez - Initial work
