@@ -1,5 +1,4 @@
 const path = require('path');
-const port = parseInt(process.env.PORT, 10) || 3000;
 var webpackConfig = {
    entry: 
       './client/index.js',
@@ -15,7 +14,7 @@ var webpackConfig = {
       contentBase: './server',
       inline: true,
       hot: true,
-      port: port
+      port: 3000
    },
   
    module: {

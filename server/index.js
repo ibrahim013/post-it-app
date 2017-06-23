@@ -25,12 +25,8 @@ app.use(function(req, res, next) {
 
 app.use(morgan('dev'));  // log all requests to the console
 
-app.get('/', (req, res)=> {
+app.get('/*', (req, res)=> {
 	res.sendFile(path.join(__dirname, './index.html'));
-	
-});
-app.get('/signin', (req, res)=> {
-	res.send('testing this out');
 	
 });
 

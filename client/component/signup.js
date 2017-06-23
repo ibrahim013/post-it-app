@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import{ userSignupRequest } from '../actions/usersignupAction';
 import axios from 'axios';
 
+// Signup Components
 class Signup extends React.Component{
 constructor(props){
 	super(props);
@@ -25,9 +27,9 @@ onSubmit(e){
 		password:this.state.password});
 }
 render(){
+	const { userSignupRequest } = this.props;
 return(
-<div className="row">
-<div className= "col-md-4 col-md-offset-4">
+
 <form onSubmit={this.onSubmit}>
 <h2>CREATE ACCOUNT </h2>
 <div className="form-group">
@@ -48,11 +50,13 @@ return(
 </button>
 </div>
 </form>
-</div>
-</div>
+
 	);
 }
 }
 
+Signup.PropTypes = {
+	userSignupRequest: PropTypes.func.isRequired
+}
 export default Signup;
 
