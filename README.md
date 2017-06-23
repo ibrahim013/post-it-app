@@ -15,7 +15,7 @@ npm run server<br/>
 <h1>Available Client Routes</h1><br/>
 http://localhost:3000/ <br/>
 http://localhost:3000/signup <br/>
-http://localhost:3000/messagebord <br/>
+http://localhost:3000/messageboard <br/>
 http://localhost:3000/dashboard <br/>
 <h1>Authors</h1>
 
