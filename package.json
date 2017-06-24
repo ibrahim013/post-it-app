@@ -19,7 +19,7 @@
     "eslint-plugin-react": "^7.0.1",
     "mocha": "^3.4.2",
     "should": "^11.2.1",
-    "supertest": "^3.0.0",
+    "supertest": "^3.0.0"
     
   },
   "dependencies": {
