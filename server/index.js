@@ -37,4 +37,3 @@ app.get('/*', (req, res)=> {
 
 app.use('/api', index);
 app.listen(port);
-console.log('Runing on port 3000')
