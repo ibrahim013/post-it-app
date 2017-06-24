@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import{ userSignupRequest } from '../actions/usersignupAction';
 import axios from 'axios';
 
-// Signup Components
+
 class Signup extends React.Component{
 constructor(props){
 	super(props);

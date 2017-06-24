@@ -12,7 +12,7 @@ return(
 	 <div className="panel-heading">Groups
 	  <div className="panel-body ">
 	  <Addgroup/>
-	  
+	  {addGroupAction}
 	  </div>
 	 
 	 </div>
