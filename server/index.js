@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const index = require('./routes/user');
-const port = parseInt(process.env.PORT, 10) || 7000;
+const port = parseInt(process.env.PORT, 10) || 3000;
 const compiler = webpack(webpackConfig);
 import path from 'path';
 import webpack from 'webpack';
