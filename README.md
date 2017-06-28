@@ -10,7 +10,7 @@ express
 <h1>Installation</h1>
 Fork this Branch and clone the repo then run<br/>
 npm install<br/>
-npm run server<br/>
+npm start<br/>
 
 <h1>Available Client Routes</h1><br/>
 http://localhost:3000/ <br/>
