@@ -35,5 +35,5 @@ app.get('/*', (req, res)=> {
 // API MIDDLEWARE ============================================================
 
 
-app.use('/api', index);
+app.use('/', index);
 app.listen(port);

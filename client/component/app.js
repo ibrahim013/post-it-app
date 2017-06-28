@@ -1,7 +1,6 @@
 import React from 'react';
 import '../css/index.css';
 
-
 import NavigationBar from '../component/navigationBar';
 
 

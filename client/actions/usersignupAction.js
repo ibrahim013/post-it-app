@@ -1,10 +1,7 @@
-import database from '../../server/database';
-import firebase from 'firebase';
+import axios from 'axios';
 
-export function addGroupAction() {
-  const groupsReference = db.ref(`/users/${userId}/groups/`);
-        groupsReference.once('value', (snapshot) => {
-          const groupKeys = [];
-          console.log (groupKays)
-      })
-  }
+export function userSignupRequest(userData){
+		return dispatch => {
+		return axios.post('/user/signup',  userData);
+	}
+}

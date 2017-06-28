@@ -3,13 +3,50 @@ import * as firebase from "firebase";
 const apiRouter = express.Router();
 const morgan = require('morgan');
 import database from '../database';
+import Validator from 'validator';
+import isEmpty from 'lodash/isEmpty';
+
+//Data  Validation=====================================================
+function validateInput(data){
+	let errors={};
+	
+if (Validator.isEmpty(data.username)){
+	errors.username ='This field is required';
+}
+if (Validator.isEmpty(data.email)){
+	errors.email ='Email is invalid';
+}
+if (!Validator.isEmail(data.email)){
+	errors.email ='This field is required';
+}
+
+if (Validator.isEmpty(data.password)){
+	errors.password ='This field is required';
+}
+
+	return {
+		errors,
+		isValid: isEmpty(errors)
+	}
+}
+
 
 
 // SIGNUP ROUTE=========================================================
 apiRouter.route('/user/signup')
 	//create a user
 	.post((req, res) => {
-	let username = req.body.username,
+	
+		const {errors, isValid } = validateInput(req.body);
+		if (isValid){
+			res.status(200).json({Success:true});
+			
+		}
+		else {
+			res.status(400).json(errors);
+		}
+
+		let username = req.body.username,
 		email = req.body.email,
 		password = req.body.password;
 	firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -19,7 +56,7 @@ apiRouter.route('/user/signup')
 		email:email,
 		password:password
 		});
-		
+		console.log({ message: "Success: User created."});
 		}).then(function() {
 	console.log({ message: "Success: User created."});
 				
@@ -32,11 +69,12 @@ apiRouter.route('/user/signup')
 //SIGNIN ROUTE=================================================================
 	apiRouter.route('/user/signin')
 	.post((req, res) => {
-	let email = req.body.email,
+
+		let email = req.body.email,
 		password = req.body.password;
 	firebase.auth().signInWithEmailAndPassword(email, password)
 	.then (user => {
-		console.log({message: "Signin Sucessful"});
+		res.send("Signin Sucessful");
 	})
 	.catch(function(error) {
   // Handle Errors here.=======================================================
@@ -44,6 +82,15 @@ apiRouter.route('/user/signup')
   let errorMessage = error.message;
   // ...
 })
+});
+//Realtime Listener
+firebase.auth().onAuthStateChanged(firebaseUser => {
+	if(firebaseUser){
+		console.log(firebaseUser);
+	}
+	else{
+		console.log('No one is logged in');
+	}
 });
 
 //CREATE GROUP ROUTE=================================================================

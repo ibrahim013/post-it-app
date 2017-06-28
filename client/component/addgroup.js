@@ -17,7 +17,7 @@ onChange(e){
 }
 onSubmit(e){
 	e.preventDefault();
-	axios.post('http://localhost:3000/api/group', {groupname:this.state.groupname});;
+	axios.post('/group', {groupname:this.state.groupname});;
 }
 render(){
 
