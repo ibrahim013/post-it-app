@@ -1,13 +1,8 @@
-const ActionTypes = {
-  GetInviteRequested: 'GET_INVITE_REQUESTED',
-  GetInviteRejected: 'GET_INVITE_REJECTED',
-  GetInviteFulfilled: 'GET_INVITE_FULFILLED',
-
-  AddToInviteRequested: 'ADD_TO_INVITE_REQUESTED',
-  AddToInviteRejected: 'ADD_TO_INVITE_REJECTED',
-  AddToGroupFulfilled: 'ADD_TO_GROUP_FULFILLED',
-
-  MemberAdded: 'MEMBER_ADDED'
-};
-
-export default ActionTypes;
+export default {
+  LOAD_GROUP_REQUEST : 'LOAD_GROUP_REQUEST',
+  LOAD_GROUP_SUCCESS : 'LOAD_GROUP_SUCCESS',
+  LOAD_GROUP_FAILED : 'LOAD_GROUP_FAILED',
+  ADD_GROUP_SUCCESS : 'ADD_GROUP_SUCCESS',
+  ADD_GROUP_REQUEST : 'ADD_GROUP_REQUEST',
+  ADD_GROUP_FAILED : 'ADD_GROUP_FAILED'
+}

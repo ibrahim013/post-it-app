@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
-import {inviteReducer} from './invitereducer';
-const rootReducer = combineReducers({
-	invite: inviteReducer
-});
+import groups from './groups';
+
+
+
+const rootReducer = combineReducers({groups});
 
 export default rootReducer;

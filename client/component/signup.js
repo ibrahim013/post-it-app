@@ -6,6 +6,7 @@ import {browserHistory} from 'react-router-dom';
 
 
 
+
 class Signup extends React.Component{
 constructor(props){
 	super(props);

@@ -6,7 +6,7 @@ import firebase from 'firebase';
 
 import map from 'lodash/map';
 class AddGroup extends React.Component{
-	constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
       groupname: '',
@@ -18,11 +18,11 @@ this.onSubmit = this.onSubmit.bind(this);
 }
 
 onChange(e){
-	this.setState({[e.target.name]: e.target.value});
+  this.setState({[e.target.name]: e.target.value});
 }
 onSubmit(e){
-	e.preventDefault();
-	axios.post('/group', {groupname:this.state.groupname});;
+  e.preventDefault();
+  axios.post('/group', {groupname:this.state.groupname});;
 }
 componentDidMount(){
   const groupRef= firebase.database().ref('group');
@@ -50,9 +50,9 @@ return(
   onChange={this.onChange}/>
   <button  name="login" className="btn btn-primary btn-small"
    onSubmit = {this.onSubmit}>
-	 Create Group
-	</button> 
-</form>		
+   Create Group
+  </button> 
+</form>   
 <div className="row">
 <ul>
 {this.state.groups.map((group) => {
@@ -67,6 +67,6 @@ return(
 </div>
 
 </div>
-	)};
+  )};
 }
 export default AddGroup;

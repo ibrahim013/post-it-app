@@ -93,6 +93,19 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 	}
 });
 
+//Password Reset=================================================================
+	apiRouter.route('/user/passwordreset')
+	.post((req, res) => {
+	let auth = firebase.auth(),
+	emailAddress = req.body.email;
+	auth.sendPasswordResetEmail(emailAddress).then(function() {
+ 	console.log('Password Reset Mail Sent to' + emailAddress)
+}, function(error) {
+  console.log(error)
+});
+})
+	
+
 //CREATE GROUP ROUTE=================================================================
 apiRouter.route('/group')
 	.post((req, res) => {

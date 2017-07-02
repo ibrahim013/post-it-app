@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import {BrowserRouter}  from 'react-router-dom';
 import {createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import rootReducer from './reducer/rootreducer';
 import App from './component/app';
 
 import routes from './routes';
@@ -13,7 +14,7 @@ import createHistory from 'history/createBrowserHistory'
 const history = createHistory()
 
 const store = createStore(
-(state = {} )=> state, applyMiddleware(thunk)
+rootReducer, applyMiddleware(thunk)
 	);
 ReactDom.render(
 <Provider store={store}>

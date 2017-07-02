@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from'react-redux';
 import{ userSigninRequest } from '../actions/usersignupAction';
+import PasswordReset from '../component/passwordreset'
 import classnames from 'classnames';
 import {browserHistory} from 'react-router-dom';
+import GoogleButton from 'react-google-button';
+
 
 
 class Signin extends React.Component{
@@ -58,9 +61,18 @@ return(
 
 </form>
 <div>
+ <GoogleButton
+    onClick={() => { console.log('button clicked') }}
+  />
+</div>
+
+<div>
   <span>Dont have an Account? </span><Link to="/signup">Sign up</Link>
 </div>
 
+<div className= "col-sm-4 col-sm-offset-6" >
+  <Link to="/passwordreset" >Password Reset</Link>
+</div>
 </div>
 
 
