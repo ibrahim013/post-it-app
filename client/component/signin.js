@@ -7,6 +7,7 @@ import PasswordReset from '../component/passwordreset'
 import classnames from 'classnames';
 import {browserHistory} from 'react-router-dom';
 import GoogleButton from 'react-google-button';
+import {googleLogin} from '../actions/googlelogin'
 
 
 
@@ -40,15 +41,15 @@ return(
 
 <form onSubmit={this.onSubmit}>
 <h2>Login to POST IT</h2>
-<div className={classnames("form-group", {'has-error': errors.username})}>
+<div className="form-group">
 <label className="control-label">Email</label>
 <input value={this.state.email} onChange={this.onChange} type="email" name="email" className="form-control" placeholder="eg ibrahim@gmail.com"/>
-{errors.username && <span className='help-block'>{errors.username}</span>}
+
 </div>
-<div className={classnames("form-group", {'has-error': errors.password})}>
+<div className= "form-group">
 <label className="control-label">Password</label>
 <input value={this.state.password} onChange={this.onChange}  type="password" name="password" className="form-control" placeholder="must be at least 6 character long"/>
-{errors.username && <span className='help-block'>{errors.username}</span>}
+
 </div>
 <div className="form-group">
 <input  type="checkbox" value={this.state.checkbox} onChange={this.onChange}  name="checkbox"/><span>Remember Me</span>
@@ -62,7 +63,7 @@ return(
 </form>
 <div>
  <GoogleButton
-    onClick={() => { console.log('button clicked') }}
+    onClick={() => {googleLogin() }}
   />
 </div>
 

@@ -6,7 +6,7 @@ import SignupPage from './component/signuppage';
 import MessageBoard from './component/profilepage';
 import PasswordReset from './component/passwordreset';
 import dashBoard from './component/dashboard';
-
+import Authenticate from './component/authenticate';
 
 export default (
 <div>
