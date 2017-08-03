@@ -11,6 +11,8 @@ express
 Fork this Branch and clone the repo then run<br/>
 npm install<br/>
 npm start<br/>
+To run covarage test <br/>
+npm run cover
 
 <h1>Available Client Routes</h1><br/>
 http://localhost:3000/ <br/>
