@@ -1,4 +1,5 @@
 const path = require('path');
+var isCoverage = process.env.NODE_ENV === 'coverage';
 var webpackConfig = {
    entry: 
       './client/index.js',
@@ -18,6 +19,7 @@ var webpackConfig = {
    },
   
    module: {
+     
       loaders: [
          {
             test: /\.jsx?/,
