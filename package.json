@@ -1,0 +1,90 @@
+{
+  "name": "postit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --watch server --exec babel-node -- server/index.js",
+    "start1": "webpack-dev-server --hot",
+    "test": "mocha --compilers js:babel-core/register",
+    "cover": "cross-env NODE_ENV=test nyc mocha test/index_test.js"
+  },
+  "author": "Ibrahim Abdulazzez",
+  "license": "ISC",
+  "devdependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1",
+    "mocha": "^3.4.2",
+    "should": "^11.2.1",
+    "babel-loader": "^7.0.0",
+    "supertest": "^3.0.0",
+    "babel-plugin-istanbul": "^4.1.4",
+    "babel-register": "^6.24.1",
+    "chai": "^4.0.2",
+    "chai-http": "^3.0.0",
+    "coveralls": "^2.13.1",
+    "cross-env": "^5.0.1",
+    "css-loader": "^0.28.4",
+    "istanbul": "^0.4.5",
+    "istanbul-instrumenter-loader": "^2.0.0",
+    "mocha-lcov-reporter": "^1.3.0",
+    "node-sass": "^4.5.3",
+    "nyc": "^11.0.3",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack-hot-middleware": "^2.18.0"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-watch": "^2.0.6",
+    "body-parser": "^1.17.2",
+    "classnames": "^2.2.5",
+    "cookie-parser": "~1.4.3",
+    "css-loader": "^0.28.4",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "firebase": "^4.0.0",
+    "lodash": "^4.17.4",
+    "morgan": "^1.8.2",
+    "nodemon": "^1.11.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-google-button": "^0.3.0",
+    "react-hot-loader": "^1.3.1",
+    "react-redux": "^5.0.5",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
+    "router": "^1.3.1",
+    "serve-favicon": "~2.4.2",
+    "style-loader": "^0.18.1",
+    "url-loader": "^0.5.8",
+    "validator": "^7.1.0",
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5",
+    "webpack-hot-middleware": "^2.18.0"
+  },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.1"
+  }
+}
