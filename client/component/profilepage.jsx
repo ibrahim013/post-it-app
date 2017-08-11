@@ -1,5 +1,5 @@
 import React from 'react';
-import Message from '../component/message';
+
 
 
 class MessageBoard extends React.Component{

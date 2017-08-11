@@ -7,7 +7,6 @@ import {createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducer/rootreducer';
 import App from './component/app';
-
 import routes from './routes';
 import createHistory from 'history/createBrowserHistory'
 

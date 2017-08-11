@@ -1,11 +1,11 @@
 import React from 'react';
 import Addgroup from '../component/addgroup';
 import {addGroupAction} from '../actions/usersignupAction';
-
+import MessageList from '../component/messagelist';
   
 
 
-class dashBoard extends React.Component{
+class dashboard extends React.Component{
 
 render(){
 	
@@ -15,8 +15,8 @@ return(
 	<div className="panel panel-default ">
 	 <div className="panel-heading">Groups
 	  
-	  <ul id="sidebar" className="nav nav-pills nav-stacked" >
-      <li><a href="#"><span className="glyphicon glyphicon-user"></span>  Profile</a></li>
+	<ul id="sidebar" className="nav nav-pills nav-stacked" >
+    <li><a href="#"><span className="glyphicon glyphicon-user"></span>  Profile</a></li>
     <li><a href="#"><span className="glyphicon glyphicon-lock"></span>  Access</a></li>
     <li><a href="#"><span className="glyphicon glyphicon-envelope"></span>  Message</a></li>
     <li><a href="#"><span className="glyphicon glyphicon-list"></span>  Notifications</a></li>
@@ -34,10 +34,10 @@ return(
 	 </div>
 	<div className="row col-sm-3 col-sm-offset-1">
 	<div className="panel panel-default ">
-	 <div className="panel-heading">Messages
+	 <div className="panel-heading" > <MessageList />
 	 </div>
 	 </div>
-	 </div>
+	 </div>  
 	 <div className="row col-sm-4">
 	<div className="panel panel-default ">
 	 <div className="panel-heading">Messages
@@ -52,4 +52,4 @@ return(
 }
 
 
-export default dashBoard;
+export default dashboard;

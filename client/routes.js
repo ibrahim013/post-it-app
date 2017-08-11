@@ -3,7 +3,7 @@ import {Route} from 'react-router-dom';
 import App from './component/app'; 
 import SigninPage from './component/signinpage'; 
 import SignupPage from './component/signuppage';
-import MessageBoard from './component/profilepage';
+import MessageBoard from './component/messageboard';
 import PasswordReset from './component/passwordreset';
 import dashBoard from './component/dashboard';
 

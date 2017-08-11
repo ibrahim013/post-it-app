@@ -1,5 +1,4 @@
 import React from 'react';
-import Message from '../component/message';
 import axios from 'axios';
 
 
