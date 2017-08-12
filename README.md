@@ -1,6 +1,8 @@
 <h1>Project Title</h1>
 
 PostIt is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.
+Hosted version can be found [Here](https://post-it-app.herokuapp.com/)
+
 These application provieds a RestApi Endpoint [Api Documentation](https://github.com/ibrahim013/post-it-app/blob/developmain/server/Readme.md)
 
 <h1>Built With</h1>
