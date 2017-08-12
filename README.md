@@ -9,22 +9,31 @@ These application provieds a RestApi Endpoint [Api Documentation](https://github
  
 
 <h1>Installation</h1>
+
 ```
-Clone the repo https://github.com/ibrahim013/post-it-app.git <br/>
-run npm install on terminal<br/>
-run npm start to stat up server<br/> 
-To run covarage test <br/>
-npm run cover
-'''
+1. Clone the repo https://github.com/ibrahim013/post-it-app.git
+
+2. run npm install on terminal
+
+3. run npm start to stat up server
+
+4. To run covarage test 
+
+5. npm run cover
+```
 
 <h1>Available Client Routes</h1><br/>
-```
-http://localhost:3000/ <br/>
-http://localhost:3000/signup <br/>
-http://localhost:3000/messageboard <br/>
-http://localhost:3000/dashboard <br/>
 
 ```
+http://localhost:3000/ 
+
+http://localhost:3000/signup
+
+http://localhost:3000/messageboard 
+
+http://localhost:3000/dashboard 
+```
+
 <h1>Authors</h1>
 
 Ibrahim Abdulazeez - Initial work
