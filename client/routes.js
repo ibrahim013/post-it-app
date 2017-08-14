@@ -5,7 +5,7 @@ import SigninPage from './component/signinpage';
 import SignupPage from './component/signuppage';
 import MessageBoard from './component/messageboard';
 import PasswordReset from './component/passwordreset';
-import dashBoard from './component/dashboard';
+import DashBoard from './component/Dashboard';
 
 
 export default (
@@ -15,7 +15,7 @@ export default (
        <Route exact path="/" component={SigninPage}/>
        <Route exact path="/Signup" component={SignupPage} />
        <Route exact path="/messageboard" component={MessageBoard} />
-       <Route exact path="/dashboard" component={dashBoard} />
+       <Route exact path="/dashboard" component={DashBoard} />
        <Route exact path="/passwordreset" component={PasswordReset} />
        
     </div>

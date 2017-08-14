@@ -18,7 +18,8 @@ constructor(props){
 	email:'',
 	password:'',
 	errors:{},
-	isLoading: false
+	isLoading: false,
+	isLogIn:false
 
 	}
 	this.onChange = this.onChange.bind(this);
@@ -32,11 +33,13 @@ onSubmit(e){
 	this.setState({errors:{}, isLoading: true});
 	this.props.userSigninRequest(this.state).then(
 		() => {history.pushState(null,null,'/dashboard'); window.location.reload() },
-	(err)=> this.setState({errors: err.response.data, isLoading:false}))
+	(err)=> this.setState({errors: err.response.data, isLoading:false, isLogIn:true}))
 	
 }
 render(){
 	const {errors} =this.state;
+
+
 return(
 <div className="row">
 
@@ -76,11 +79,7 @@ return(
   <Link to="/passwordreset" >Password Reset</Link>
 </div>
 </div>
-
-
-
-
-		);
+	);
 
 }
 }

@@ -1,4 +1,5 @@
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 var isCoverage = process.env.NODE_ENV === 'coverage';
 var webpackConfig = {
    entry: 
@@ -32,23 +33,37 @@ var webpackConfig = {
             
          },
             
-           {
+         {
             test: /\.css$/,
-            loader: 'style-loader'
+            use: ['style-loader', 'css-loader']
           }, 
-          {
-          test: /\.css$/,
-          loader: 'css-loader',
-          query: {
-            modules: true,
-            localIdentName: '[name]__[local]___[hash:base64:5]'
-          }
-           }
+          // {
+          // test: /\.css$/,
+          // loader: 'css-loader',
+          // query: {
+          //   modules: true,
+          //   localIdentName: '[name]__[local]___[hash:base64:5]'
+          // }
+          //  },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          // resolve-url-loader may be chained before sass-loader if necessary
+          use: ['css-loader', 'sass-loader'],
+        }),
+      },
          ]
          },
   resolve: {
     extensions: ['*', '.js', '.jsx']
   },
+  plugins: [
+    new ExtractTextPlugin({
+      filename: 'style.css',
+      allChunks: true
+    })
+  ]
 }
 
 module.exports = webpackConfig;

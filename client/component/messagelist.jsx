@@ -15,7 +15,7 @@ class MessageList extends React.Component{
    render(){
        let messageNodes = this.state.messages.map((message)=>{
            return (
-               <MessageBoard message= {message}/>
+               <MessageBoard key={message} message= {message}/>
            );
        });
         return(

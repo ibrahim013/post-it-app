@@ -31,6 +31,13 @@ if (Validator.isEmpty(data.password)){
 }
 
 
+apiRouter.route('/group/getgroups')
+	.get((req, res) => {
+	const groupRef = firebase.database().ref('group');
+	groupRef.on('value', (snapshot) => {
+		return res.send(snapshot.val());
+	})
+})
 
 // SIGNUP ROUTE=========================================================
 apiRouter.route('/user/signup')
@@ -154,9 +161,7 @@ apiRouter.route('/group/groupid/user')
 			
 			})
 			
-	});		
-
-
+	});
 
 
 
