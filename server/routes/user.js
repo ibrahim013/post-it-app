@@ -123,7 +123,7 @@ apiRouter.route('/group')
 			let userId = firebase.auth().currentUser.email;
     	
     	if(userC !== null){
-      	 firebase.database().ref ("/group").child(groupname).push({
+      	 firebase.database().ref ("group").child(groupname).push({
 							GroupAdmin:userId
 						})
       	 	console.log({message:"group created Sucessfuly"})
@@ -167,25 +167,24 @@ apiRouter.route('/group/message')
 	.post((req, res) => {
 		let message = req.body.message;
 		let piority = req.body.piority;	
-		let groupname = req.body
+		let groupname = req.body.groupname;
 		firebase.auth().onAuthStateChanged(User => {
 			
 			let userC = firebase.auth().currentUser;
-			let userId = firebase.auth().currentUser.email;
-    	
+			let userId = firebase.auth().currentUser.uId;
     	if(userC !== null){
-      	 firebase.database().ref ("/message").child(message).push({
+      	 firebase.database().ref ("message").push({
 							SentBy: userId,
-							GroupName:groupName,
+							GroupName:groupname,
 							MessagePiority: piority,
-							Message: massage
+							Message: message
 
 						})
-      	 	res.send(
+      	 	console.log(
 				   {message:"message sent successfuly "}
 					)
  		   }else{
- 	      console.log({message:"you must be logged in to create a group"})
+ 	      console.log({message:"you must be logged in to send messages"})
    		 }
 		});
 			
