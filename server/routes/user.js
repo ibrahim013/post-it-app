@@ -173,8 +173,8 @@ apiRouter.route('/group/message')
 			let userC = firebase.auth().currentUser;
 			let userId = firebase.auth().currentUser.uId;
     	if(userC !== null){
-      	 firebase.database().ref ("message").push({
-							SentBy: userId,
+      	 firebase.database().ref (`${userId}/message`).child(message).push({
+							sentBy: userId,
 							GroupName:groupname,
 							MessagePiority: piority,
 							Message: message
