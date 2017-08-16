@@ -7755,31 +7755,9 @@ module.exports = SyntheticUIEvent;
 
 /***/ }),
 /* 61 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.userSignupRequest = userSignupRequest;
-
-var _axios = __webpack_require__(50);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * userSignupRequest() returns user data
- * from firebase signup end points
- */
-function userSignupRequest(userData) {
-  return function (dispatch) {
-    return _axios2.default.post('/user/signup', userData);
-  };
-}
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/andeladeveloper/Desktop/post-it-app/client/actions/usersignupAction.jsx'\n    at Error (native)");
 
 /***/ }),
 /* 62 */
@@ -16016,6 +15994,10 @@ var _navigationBar = __webpack_require__(275);
 
 var _navigationBar2 = _interopRequireDefault(_navigationBar);
 
+var _header = __webpack_require__(593);
+
+var _header2 = _interopRequireDefault(_header);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -16039,7 +16021,7 @@ var App = function (_React$Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(_navigationBar2.default, null)
+				_react2.default.createElement(_header2.default, null)
 			);
 		}
 	}]);
@@ -16881,9 +16863,9 @@ var Signin = function (_React$Component) {
 					'form',
 					{ onSubmit: this.onSubmit },
 					_react2.default.createElement(
-						'h2',
+						'h3',
 						null,
-						'Login to POST IT'
+						'Login '
 					),
 					_react2.default.createElement(
 						'div',
@@ -16908,19 +16890,9 @@ var Signin = function (_React$Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'form-group' },
-						_react2.default.createElement('input', { type: 'checkbox', value: this.state.checkbox, onChange: this.onChange, name: 'checkbox' }),
-						_react2.default.createElement(
-							'span',
-							null,
-							'Remember Me'
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'form-group' },
 						_react2.default.createElement(
 							'button',
-							{ disabled: this.state.isLoading, name: 'login', onSubmit: this.onSubmit, className: 'btn btn-primary btn-lg' },
+							{ disabled: this.state.isLoading, name: 'login', onSubmit: this.onSubmit, className: 'btn btn-primary btn-lg lgbotton' },
 							_react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
 							' Login'
 						)
@@ -16935,6 +16907,7 @@ var Signin = function (_React$Component) {
 						}
 					})
 				),
+				_react2.default.createElement('br', null),
 				_react2.default.createElement(
 					'div',
 					null,
@@ -16949,9 +16922,10 @@ var Signin = function (_React$Component) {
 						'Sign up'
 					)
 				),
+				_react2.default.createElement('br', null),
 				_react2.default.createElement(
 					'div',
-					{ className: 'col-sm-4 col-sm-offset-6' },
+					{ className: 'col-sm-6 ' },
 					_react2.default.createElement(
 						_reactRouterDom.Link,
 						{ to: '/passwordreset' },
@@ -16980,12 +16954,12 @@ exports.default = (0, _reactRedux.connect)(null, { userSigninRequest: _usersignu
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-// export default {
-//   SIGNED_IN:'SIGNED_IN',
-//   SIGNED_OUT:'SIGNED_OUT',
-// }
-
 var GET_ALL_GROUPS = exports.GET_ALL_GROUPS = 'GET_ALL_GROUPS';
+var USER_SIGN_IN = exports.USER_SIGN_IN = 'USER_SIGN_IN';
+var USER_SIGN_OUT = exports.USER_SIGN_OUT = 'USER_SIGN_OUT';
+var ADD_GROUP_MESSAGES = exports.ADD_GROUP_MESSAGES = 'ADD_GROUP_MESSAGES';
+var DELETE_GROUP_MESSAGES = exports.DELETE_GROUP_MESSAGES = 'DELETE_GROUP_MESSAGES';
+var GET_ALL_GROUP_MESSAGES = exports.GET_ALL_GROUP_MESSAGES = 'GET_ALL_GROUP_MESSAGES';
 
 /***/ }),
 /* 147 */
@@ -29420,7 +29394,7 @@ function warning(message) {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _redux = __webpack_require__(88);
@@ -29429,9 +29403,16 @@ var _groups = __webpack_require__(280);
 
 var _groups2 = _interopRequireDefault(_groups);
 
+var _authreducer = __webpack_require__(590);
+
+var _authreducer2 = _interopRequireDefault(_authreducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var rootReducer = (0, _redux.combineReducers)({ groups: _groups2.default });
+var rootReducer = (0, _redux.combineReducers)({
+    groups: _groups2.default
+
+});
 
 exports.default = rootReducer;
 
@@ -30377,46 +30358,9 @@ module.exports = function spread(callback) {
 
 /***/ }),
 /* 268 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.googleLogin = googleLogin;
-
-var _database = __webpack_require__(90);
-
-var _database2 = _interopRequireDefault(_database);
-
-var _firebase = __webpack_require__(69);
-
-var _firebase2 = _interopRequireDefault(_firebase);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//Group Added to Firebase
-function googleLogin() {
-  var provider = new _firebase2.default.auth.GoogleAuthProvider();
-  _firebase2.default.auth().signInWithPopup(provider).then(function (result) {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    var token = result.credential.accessToken;
-    // The signed-in user info.
-    var user = result.user;
-    // ...
-  }).catch(function (error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-  });
-}
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/andeladeveloper/Desktop/post-it-app/client/actions/googlelogin.jsx'\n    at Error (native)");
 
 /***/ }),
 /* 269 */
@@ -30461,31 +30405,9 @@ function getAllGroups() {
 
 /***/ }),
 /* 270 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.userSigninRequest = userSigninRequest;
-
-var _axios = __webpack_require__(50);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * userSigninRequest() returns user data
- * from firebase signin end points
- */
-function userSigninRequest(userData) {
-  return function (dispatch) {
-    return _axios2.default.post('/user/signin', userData);
-  };
-}
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/andeladeveloper/Desktop/post-it-app/client/actions/usersigninAction.jsx'\n    at Error (native)");
 
 /***/ }),
 /* 271 */
@@ -30505,6 +30427,8 @@ var _react = __webpack_require__(5);
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(31);
+
+var _reactRouterDom = __webpack_require__(49);
 
 var _addgroup = __webpack_require__(272);
 
@@ -30558,58 +30482,43 @@ var Dashboard = function (_React$Component) {
 				null,
 				_react2.default.createElement(
 					'div',
-					{ className: 'row col-sm-4 col-sm-offset-1' },
+					{ className: 'row' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'panel-group' },
+						{ className: 'col-md-4 col-md-offset-1' },
+						_react2.default.createElement('img', { src: 'https://firebasestorage.googleapis.com/v0/b/postit-ace3a.appspot.com/o/mypass.jpg?alt=media&token=ce82a2c9-1895-4436-8660-a81a94cbd087', className: 'img-responsive img-circle', width: '50%', alt: 'profile pics' })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-md-6' },
 						_react2.default.createElement(
-							'div',
-							{ className: 'panel panel-default' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'panel-heading' },
-								_react2.default.createElement(
-									'h4',
-									{ className: 'panel-title' },
-									_react2.default.createElement(
-										'a',
-										{ 'data-toggle': 'collapse', href: '#collapse1' },
-										'Collapsible list group'
-									)
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								{ id: 'collapse1', className: 'panel-collapse collapse' },
-								_react2.default.createElement(_addgroup2.default, null)
-							)
+							_reactRouterDom.Link,
+							{ to: '/signout' },
+							'Sign Out'
 						)
 					)
 				),
 				_react2.default.createElement(
 					'div',
-					{ className: 'row col-sm-6 col-sm-offset-1' },
+					{ className: 'row ' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'panel panel-default ' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'panel-heading' },
-							_react2.default.createElement(_messagelist2.default, null)
-						)
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'row col-sm-6 col-sm-offset-1' },
+						{ className: 'col-md-3 col-md-offset-1 scroll' },
+						_react2.default.createElement(_addgroup2.default, null)
+					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'panel panel-default ' },
+						{ className: 'col-md-5' },
+						_react2.default.createElement(_messagelist2.default, null),
+						_react2.default.createElement(_messagebox2.default, null)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-md-3' },
 						_react2.default.createElement(
-							'div',
-							{ className: 'panel-heading' },
-							' ',
-							_react2.default.createElement(_messagebox2.default, null)
+							'h1',
+							null,
+							'Users'
 						)
 					)
 				)
@@ -30701,24 +30610,6 @@ var AddGroup = function (_React$Component) {
       _axios2.default.post('/group', { groupname: this.state.groupname });;
     }
   }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      // const groupRef = firebase.database().ref('group');
-      // groupRef.on('value', (snapshot) => {
-      //   let groups = snapshot.val();
-      //   let newState = [];
-      // for (let group in groups) {
-      //   newState.push({
-      //     id: group,
-      //     name: group.name
-      //   });
-      // }
-      //   this.setState({
-      //     groups: newState
-      //   });
-      // });
-    }
-  }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       var newState = [];
@@ -30740,15 +30631,19 @@ var AddGroup = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
-          'form',
-          { onSubmit: this.onSubmit },
-          _react2.default.createElement('input', { type: 'text', name: 'groupname', placeholder: 'Group Name', value: this.state.groupname,
-            onChange: this.onChange }),
+          'div',
+          { className: 'row addgroup' },
           _react2.default.createElement(
-            'button',
-            { name: 'group', className: 'btn btn-primary btn-small',
-              onSubmit: this.onSubmit },
-            'Create Group'
+            'form',
+            { onSubmit: this.onSubmit },
+            _react2.default.createElement('input', { type: 'text', name: 'groupname', placeholder: 'Group Name', value: this.state.groupname,
+              onChange: this.onChange }),
+            _react2.default.createElement(
+              'button',
+              { name: 'group', className: 'btn btn-primary btn-small',
+                onSubmit: this.onSubmit },
+              '+'
+            )
           )
         ),
         _react2.default.createElement(
@@ -30976,57 +30871,6 @@ var NavigationBar = function (_React$Component) {
   _createClass(NavigationBar, [{
     key: 'render',
     value: function render() {
-      var user = void 0;
-      if (!user) {
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'ul',
-            null,
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                'a',
-                { href: '#' },
-                _react2.default.createElement('span', { className: 'glyphicon glyphicon-user' }),
-                ' Sign Up'
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                'a',
-                { href: '#' },
-                _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
-                ' Login'
-              )
-            )
-          )
-        );
-      } else {
-
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'ul',
-            null,
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                'a',
-                { href: '#' },
-                _react2.default.createElement('span', { className: 'glyphicon glyphicon-user' }),
-                ' Sign out'
-              )
-            )
-          )
-        );
-      }
       return _react2.default.createElement(
         'nav',
         { id: 'post', className: 'navbar navbar-default' },
@@ -31036,11 +30880,7 @@ var NavigationBar = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: ' ' },
-            _react2.default.createElement(
-              'a',
-              { className: 'navbar-brand', href: '#' },
-              'Post It'
-            )
+            _react2.default.createElement('a', { className: 'navbar-brand', href: '#' })
           ),
           _react2.default.createElement('ul', { className: 'nav navbar-nav navbar-right' })
         ),
@@ -31110,7 +30950,26 @@ var SigninPage = function (_React$Component) {
 				{ className: 'row' },
 				_react2.default.createElement(
 					'div',
-					{ className: 'col-md-4 col-md-offset-4' },
+					{ className: 'col-md-7 side' },
+					_react2.default.createElement(
+						'h1',
+						null,
+						'when it come\'s to messaging '
+					),
+					_react2.default.createElement(
+						'h2',
+						null,
+						'we got you covered  '
+					),
+					_react2.default.createElement(
+						'button',
+						{ className: 'btn btn-large botton' },
+						'Find out More '
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'col-md-3 ' },
 					_react2.default.createElement(_signin2.default, { userSigninRequest: userSigninRequest })
 				)
 			);
@@ -31209,66 +31068,70 @@ var Signup = function (_React$Component) {
 			var errors = this.state.errors;
 
 			return _react2.default.createElement(
-				'form',
-				{ onSubmit: this.onSubmit },
+				'div',
+				null,
 				_react2.default.createElement(
-					'h2',
-					null,
-					'CREATE ACCOUNT '
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: (0, _classnames2.default)("form-group", { 'has-error': errors.username }) },
+					'form',
+					{ onSubmit: this.onSubmit },
 					_react2.default.createElement(
-						'label',
-						{ className: 'control-label' },
-						'User Name'
+						'h2',
+						null,
+						'CREATE ACCOUNT '
 					),
-					_react2.default.createElement('input', { value: this.state.username, onChange: this.onChange, type: 'text', name: 'username', className: 'form-control', placeholder: 'eg:ibrahim' }),
-					errors.username && _react2.default.createElement(
-						'span',
-						{ className: 'help-block' },
-						errors.username
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: (0, _classnames2.default)("form-group", { 'has-error': errors.email }) },
 					_react2.default.createElement(
-						'label',
-						{ className: 'control-label' },
-						'Email'
+						'div',
+						{ className: (0, _classnames2.default)("form-group", { 'has-error': errors.username }) },
+						_react2.default.createElement(
+							'label',
+							{ className: 'control-label' },
+							'User Name'
+						),
+						_react2.default.createElement('input', { value: this.state.username, onChange: this.onChange, type: 'text', name: 'username', className: 'form-control', placeholder: 'eg:ibrahim' }),
+						errors.username && _react2.default.createElement(
+							'span',
+							{ className: 'help-block' },
+							errors.username
+						)
 					),
-					_react2.default.createElement('input', { value: this.state.emaii, onChange: this.onChange, type: 'email', name: 'email', className: 'form-control', placeholder: 'eg:abc@company.com' }),
-					errors.email && _react2.default.createElement(
-						'span',
-						{ className: 'help-block' },
-						errors.email
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: (0, _classnames2.default)("form-group", { 'has-error': errors.password }) },
 					_react2.default.createElement(
-						'label',
-						{ className: 'control-label' },
-						'Password'
+						'div',
+						{ className: (0, _classnames2.default)("form-group", { 'has-error': errors.email }) },
+						_react2.default.createElement(
+							'label',
+							{ className: 'control-label' },
+							'Email'
+						),
+						_react2.default.createElement('input', { value: this.state.emaii, onChange: this.onChange, type: 'email', name: 'email', className: 'form-control', placeholder: 'eg:abc@company.com' }),
+						errors.email && _react2.default.createElement(
+							'span',
+							{ className: 'help-block' },
+							errors.email
+						)
 					),
-					_react2.default.createElement('input', { value: this.state.password, onChange: this.onChange, type: 'password', name: 'password', className: 'form-control', placeholder: 'At least 6 Characters' }),
-					errors.password && _react2.default.createElement(
-						'span',
-						{ className: 'help-block' },
-						errors.password
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'form-group' },
 					_react2.default.createElement(
-						'button',
-						{ disabled: this.state.isLoading, name: 'login', className: 'btn btn-primary btn-lg col-md-offset-4-7' },
-						_react2.default.createElement('span', { className: 'glyphicon glyphicon-user' }),
-						' Signup'
+						'div',
+						{ className: (0, _classnames2.default)("form-group", { 'has-error': errors.password }) },
+						_react2.default.createElement(
+							'label',
+							{ className: 'control-label' },
+							'Password'
+						),
+						_react2.default.createElement('input', { value: this.state.password, onChange: this.onChange, type: 'password', name: 'password', className: 'form-control', placeholder: 'At least 6 Characters' }),
+						errors.password && _react2.default.createElement(
+							'span',
+							{ className: 'help-block' },
+							errors.password
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'form-group' },
+						_react2.default.createElement(
+							'button',
+							{ disabled: this.state.isLoading, name: 'login', className: 'btn btn-primary btn-lg lgbotton col-md-offset-4-7' },
+							_react2.default.createElement('span', { className: 'glyphicon glyphicon-user' }),
+							' Signup'
+						)
 					)
 				)
 			);
@@ -78968,6 +78831,103 @@ var valueEqual = function valueEqual(a, b) {
 };
 
 exports.default = valueEqual;
+
+/***/ }),
+/* 590 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _actiontypes = __webpack_require__(146);
+
+var _lodash = __webpack_require__(455);
+
+var initialState = {
+    isAuthenticated: false,
+    user: {}
+};
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    switch (action.type) {
+        case _actiontypes.USER_SIGN_IN:
+            return {
+                isAuthenticated: !(0, _lodash.isEmpty)(action.user),
+                user: action.userData
+            };
+        case _actiontypes.USER_SIGN_OUT:
+            return {
+                isAuthenticated: false,
+                user: {}
+            };
+        default:
+            return state;
+    }
+};
+
+/***/ }),
+/* 591 */,
+/* 592 */,
+/* 593 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Header = function (_React$Component) {
+  _inherits(Header, _React$Component);
+
+  function Header() {
+    _classCallCheck(this, Header);
+
+    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+  }
+
+  _createClass(Header, [{
+    key: "render",
+    value: function render() {
+
+      return _react2.default.createElement(
+        "header",
+        { className: "header" },
+        _react2.default.createElement(
+          "h1",
+          null,
+          "Post IT"
+        )
+      );
+    }
+  }]);
+
+  return Header;
+}(_react2.default.Component);
+
+exports.default = Header;
 
 /***/ })
 /******/ ]);

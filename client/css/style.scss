@@ -1,3 +1,76 @@
-body{
-    background-color: #DE7A22;
+html, body, body div, span, object, iframe,   blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+  body{
+      background-color: #f2f3f9;
+  }
+
+.header {
+  background-color: navy;
+  padding: 5px 0 0px 50px;
+  margin-bottom: 5px; 
+  color:#FFF;
+ 
+}
+.header > h1{
+    font-size: 3em;
+
+}
+.side{
+text-transform: uppercase;
+text-align: center;
+color: navy;
+margin-top: 5%;
+font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+.botton{
+  min-height: 80px;
+    background-color:#1127c6; 
+    min-width: 180px;
+    color: #FFF;
+    
+}
+.lgbotton{
+  min-height: 50px;
+    background-color:#1127c6; 
+    min-width: 100px;
+    color: #FFF;
+    
+}
+
+input {
+text-align: center;
+background-color: #FFF;
+border: 2px solid transparent;
+border-radius: 3px;
+font-size: 16px;
+font-weight: 200;
+padding: 10px 0;
+width: 250px;
+transition: border .5s;
+}
+
+input:focus {
+border: 2px solid #3498DB;
+box-shadow: none;
+}
+
+.avater{
+width: 5%;
+}
+.addgroup{
+    margin-bottom: 2%;
+    margin-top: 2%;
+
+}
+
+.scroll{
+    max-height: 300px;
+    overflow-x: scroll;
 }

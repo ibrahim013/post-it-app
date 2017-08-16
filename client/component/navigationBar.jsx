@@ -12,31 +12,11 @@ class NavigationBar extends React.Component {
 
   }
   render() {
-    let user 
-    if (!user) {
-      <div>
-        <ul>
-          <li><a href="#"><span className="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li><a href="#"><span className="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>
-      </div>
-
-    }
-    else {
-
-      <div>
-        <ul>
-          <li><a href="#"><span className="glyphicon glyphicon-user"></span> Sign out</a></li>
-        </ul>
-      </div>
-
-
-    }
     return (
       <nav id="post" className="navbar navbar-default">
         <div className="container-fluid">
           <div className=" ">
-            <a className="navbar-brand" href="#">Post It</a>
+            <a className="navbar-brand" href="#"></a>
           </div>
           <ul className="nav navbar-nav navbar-right">
            

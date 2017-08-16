@@ -31,7 +31,8 @@ onChange(e){
 onSubmit(e){
 	e.preventDefault();
 	this.setState({errors:{}, isLoading: true});
-	this.props.userSigninRequest(this.state).then(
+	this.props.userSigninRequest(this.state)
+	.then(
 		() => {history.pushState(null,null,'/dashboard'); window.location.reload() },
 	(err)=> this.setState({errors: err.response.data, isLoading:false, isLogIn:true}))
 	
@@ -44,7 +45,7 @@ return(
 <div className="row">
 
 <form onSubmit={this.onSubmit}>
-<h2>Login to POST IT</h2>
+<h3>Login </h3>
 <div className="form-group">
 <label className="control-label">Email</label>
 <input value={this.state.email} onChange={this.onChange} type="email" name="email" className="form-control" placeholder="eg ibrahim@gmail.com"/>
@@ -55,11 +56,9 @@ return(
 <input value={this.state.password} onChange={this.onChange}  type="password" name="password" className="form-control" placeholder="must be at least 6 character long"/>
 
 </div>
+
 <div className="form-group">
-<input  type="checkbox" value={this.state.checkbox} onChange={this.onChange}  name="checkbox"/><span>Remember Me</span>
-</div>
-<div className="form-group">
-<button disabled ={this.state.isLoading} name="login" onSubmit={this.onSubmit} className="btn btn-primary btn-lg">
+<button disabled ={this.state.isLoading} name="login" onSubmit={this.onSubmit} className="btn btn-primary btn-lg lgbotton">
 <span className="glyphicon glyphicon-log-in"></span> Login
 </button>
 </div>
@@ -70,12 +69,12 @@ return(
     onClick={() => {googleLogin() }}
   />
 </div>
-
+<br/>
 <div>
   <span>Dont have an Account? </span><Link to="/signup">Sign up</Link>
 </div>
-
-<div className= "col-sm-4 col-sm-offset-6" >
+<br/>
+<div className= "col-sm-6 " >
   <Link to="/passwordreset" >Password Reset</Link>
 </div>
 </div>
@@ -87,4 +86,4 @@ return(
 Signin.PropTypes= {
 	userSigninRequest: PropTypes.func.isRequired
 }
-export default connect(null, {userSigninRequest}) (Signin);
+export default connect(null, {userSigninRequest})(Signin);

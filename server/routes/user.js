@@ -30,7 +30,7 @@ if (Validator.isEmpty(data.password)){
 	}
 }
 
-
+// GET GROUP ROUTE=========================================================
 apiRouter.route('/group/getgroups')
 	.get((req, res) => {
 	const groupRef = firebase.database().ref('group');
@@ -76,12 +76,11 @@ apiRouter.route('/user/signup')
 //SIGNIN ROUTE=================================================================
 	apiRouter.route('/user/signin')
 	.post((req, res) => {
-
 		let email = req.body.email,
 		password = req.body.password;
 	firebase.auth().signInWithEmailAndPassword(email, password)
 	.then (user => {
-		res.send("Signin Sucessful");
+		res.send(user);
 	})
 	.catch(function(error) {
   // Handle Errors here.=======================================================
@@ -163,7 +162,34 @@ apiRouter.route('/group/groupid/user')
 			
 	});
 
+//ADD MESSAGE TO GROUP=================================================================
+apiRouter.route('/group/message')
+	.post((req, res) => {
+		let message = req.body.message;
+		let piority = req.body.piority;	
+		let groupname = req.body
+		firebase.auth().onAuthStateChanged(User => {
+			
+			let userC = firebase.auth().currentUser;
+			let userId = firebase.auth().currentUser.email;
+    	
+    	if(userC !== null){
+      	 firebase.database().ref ("/message").child(message).push({
+							SentBy: userId,
+							GroupName:groupName,
+							MessagePiority: piority,
+							Message: massage
 
+						})
+      	 	res.send(
+				   {message:"message sent successfuly "}
+					)
+ 		   }else{
+ 	      console.log({message:"you must be logged in to create a group"})
+   		 }
+		});
+			
+	});	
 
 
 module.exports = apiRouter;

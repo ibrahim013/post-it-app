@@ -26,22 +26,7 @@ class AddGroup extends React.Component {
     e.preventDefault();
     axios.post('/group', { groupname: this.state.groupname });;
   }
-  componentDidMount() {
-    // const groupRef = firebase.database().ref('group');
-    // groupRef.on('value', (snapshot) => {
-    //   let groups = snapshot.val();
-    //   let newState = [];
-      // for (let group in groups) {
-      //   newState.push({
-      //     id: group,
-      //     name: group.name
-      //   });
-      // }
-    //   this.setState({
-    //     groups: newState
-    //   });
-    // });
-  }
+
 
   componentWillReceiveProps(nextProps) {
     let newState = [];
@@ -60,14 +45,16 @@ class AddGroup extends React.Component {
     return (
 
       <div>
+        <div className="row addgroup">
         <form onSubmit={this.onSubmit}>
           <input type="text" name="groupname" placeholder="Group Name" value={this.state.groupname}
             onChange={this.onChange} />
           <button name="group" className="btn btn-primary btn-small"
             onSubmit={this.onSubmit}>
-            Create Group
+          +
   </button>
         </form>
+        </div>
         <div className="row">
           <ul className="list-group">
             {this.state.groups.map((group) => {

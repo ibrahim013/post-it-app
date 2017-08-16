@@ -8,6 +8,8 @@ import PasswordReset from './component/passwordreset';
 import DashBoard from './component/Dashboard';
 
 
+
+
 export default (
 <div>
 	
@@ -17,7 +19,7 @@ export default (
        <Route exact path="/messageboard" component={MessageBoard} />
        <Route exact path="/dashboard" component={DashBoard} />
        <Route exact path="/passwordreset" component={PasswordReset} />
-       
+
     </div>
 )
 

@@ -1,6 +1,6 @@
-// export default {
-//   SIGNED_IN:'SIGNED_IN',
-//   SIGNED_OUT:'SIGNED_OUT',
-// }
-
 export const GET_ALL_GROUPS = 'GET_ALL_GROUPS';
+export const USER_SIGN_IN = 'USER_SIGN_IN';
+export const USER_SIGN_OUT = 'USER_SIGN_OUT';
+export const ADD_GROUP_MESSAGES ='ADD_GROUP_MESSAGES';
+export const DELETE_GROUP_MESSAGES='DELETE_GROUP_MESSAGES';
+export const GET_ALL_GROUP_MESSAGES ='GET_ALL_GROUP_MESSAGES';
