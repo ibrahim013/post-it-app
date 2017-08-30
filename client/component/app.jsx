@@ -1,28 +1,19 @@
 import React from 'react';
-import NavigationBar from '../component/navigationBar';
-import Header from '../component/header';
+import PropTypes from 'prop-types';
+import Header from '../component/Header';
 
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Header/>
+        {this.props.childeren}
+      </div>
+    );
+  }
+}
 
-class App extends React.Component{
-	constructor(){
-		super();
-		
-	}
-	
-	render(){
-	return(
-		<div>
-		<Header/>
-	
-			
-		</div>
-		);
-	}}
-
-
-
-
-
-
-
+App.PropTypes = {
+  childeren: PropTypes.object.isRequired,
+};
 export default App;

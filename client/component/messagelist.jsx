@@ -1,28 +1,19 @@
 import React from 'react';
-import MessageBoard from '../component/messageboard';
+import { Media } from 'react-bootstrap';
 
-
-class MessageList extends React.Component{
-    constructor(props){
-    super(props);
-    this.state ={
-        messages:[
-            'Hello this is just an hard coded message',
-            'just trying this out'
-        ]
-    };   
-    }
-   render(){
-       let messageNodes = this.state.messages.map((message)=>{
-           return (
-               <MessageBoard key={message} message= {message}/>
-           );
-       });
-        return(
-         
-            <div>{messageNodes}</div>
-           
-        );
-   }
+class MessageList extends React.Component {
+  render() {
+    return (
+      <Media>
+        <Media.Left>
+          <img width={64} height={64} src="/assets/thumbnail.png" alt="Image" />
+        </Media.Left>
+        <Media.Body>
+          <Media.Heading>Media Heading</Media.Heading>
+          <p> this is just a message </p>
+        </Media.Body>
+ </Media>
+    );
+  }
 }
 export default MessageList;

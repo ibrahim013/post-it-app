@@ -1,12 +1,9 @@
 import { combineReducers } from 'redux';
-import groups from './groups';
-import authreducer from './authreducer'
-
-
+// import groupReducer from '../reducer/AddGroupsReducer';
+import FlashMessages from './FlashMessages';
 
 const rootReducer = combineReducers({
-    groups,
-   
+  FlashMessages
 });
 
 export default rootReducer;

@@ -16960,6 +16960,7 @@ var USER_SIGN_OUT = exports.USER_SIGN_OUT = 'USER_SIGN_OUT';
 var ADD_GROUP_MESSAGES = exports.ADD_GROUP_MESSAGES = 'ADD_GROUP_MESSAGES';
 var DELETE_GROUP_MESSAGES = exports.DELETE_GROUP_MESSAGES = 'DELETE_GROUP_MESSAGES';
 var GET_ALL_GROUP_MESSAGES = exports.GET_ALL_GROUP_MESSAGES = 'GET_ALL_GROUP_MESSAGES';
+var ADD_FLASH_MESSAGES = exports.ADD_FLASH_MESSAGES = 'ADD_FLASH_MESSAGES';
 
 /***/ }),
 /* 147 */
@@ -29407,9 +29408,14 @@ var _authreducer = __webpack_require__(590);
 
 var _authreducer2 = _interopRequireDefault(_authreducer);
 
+var _flashmessagereducer = __webpack_require__(602);
+
+var _flashmessagereducer2 = _interopRequireDefault(_flashmessagereducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
+    flashmessagereducer: _flashmessagereducer2.default,
     groups: _groups2.default
 
 });
@@ -30607,7 +30613,13 @@ var AddGroup = function (_React$Component) {
     key: 'onSubmit',
     value: function onSubmit(e) {
       e.preventDefault();
-      _axios2.default.post('/group', { groupname: this.state.groupname });;
+      _axios2.default.post('/group', { groupname: this.state.groupname }).then(function (response) {
+        console.log(response.data);
+      }).catch(function (_ref) {
+        var response = _ref.response;
+
+        console.log(response.data);
+      });
     }
   }, {
     key: 'componentWillReceiveProps',
@@ -31057,6 +31069,10 @@ var Signup = function (_React$Component) {
 			e.preventDefault();
 			this.setState({ errors: {}, isLoading: true });
 			this.props.userSignupRequest(this.state).then(function () {
+				_this2.props.addFlashMessges({
+					type: 'sucess',
+					Message: 'You have Signed up Successfuly'
+				});
 				history.pushState(null, null, '/dashboard');window.location.reload();
 			}, function (err) {
 				return _this2.setState({ errors: err.response.data, isLoading: false, isLogedIn: true });
@@ -31142,7 +31158,8 @@ var Signup = function (_React$Component) {
 }(_react2.default.Component);
 
 Signup.PropTypes = {
-	userSignupRequest: _propTypes2.default.func.isRequired
+	userSignupRequest: _propTypes2.default.func.isRequired,
+	addFlashMessges: _propTypes2.default.func.isRequired
 };
 
 exports.default = Signup;
@@ -31176,6 +31193,8 @@ var _reactRedux = __webpack_require__(31);
 
 var _usersignupAction = __webpack_require__(61);
 
+var _addflashmessage = __webpack_require__(603);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31196,7 +31215,9 @@ var SignupPage = function (_React$Component) {
 	_createClass(SignupPage, [{
 		key: 'render',
 		value: function render() {
-			var userSignupRequest = this.props.userSignupRequest;
+			var _props = this.props,
+			    userSignupRequest = _props.userSignupRequest,
+			    addFlashMessage = _props.addFlashMessage;
 
 			return _react2.default.createElement(
 				'div',
@@ -31204,7 +31225,7 @@ var SignupPage = function (_React$Component) {
 				_react2.default.createElement(
 					'div',
 					{ className: 'col-md-4 col-md-offset-4' },
-					_react2.default.createElement(_signup2.default, { userSignupRequest: userSignupRequest })
+					_react2.default.createElement(_signup2.default, { userSignupRequest: userSignupRequest, addFlashMessage: addFlashMessage })
 				)
 			);
 		}
@@ -31214,9 +31235,10 @@ var SignupPage = function (_React$Component) {
 }(_react2.default.Component);
 
 SignupPage.PropTypes = {
-	userSignupRequest: _propTypes2.default.func.isRequired
+	userSignupRequest: _propTypes2.default.func.isRequired,
+	addFlashMessage: _propTypes2.default.func.isRequired
 };
-exports.default = (0, _reactRedux.connect)(null, { userSignupRequest: _usersignupAction.userSignupRequest })(SignupPage);
+exports.default = (0, _reactRedux.connect)(null, { userSignupRequest: _usersignupAction.userSignupRequest, addFlashMessage: _addflashmessage.addFlashMessage })(SignupPage);
 
 /***/ }),
 /* 279 */
@@ -78928,6 +78950,71 @@ var Header = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Header;
+
+/***/ }),
+/* 594 */,
+/* 595 */,
+/* 596 */,
+/* 597 */,
+/* 598 */,
+/* 599 */,
+/* 600 */,
+/* 601 */,
+/* 602 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _addflashmessage = __webpack_require__(603);
+
+var _shortid = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"shortid\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _shortid2 = _interopRequireDefault(_shortid);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    switch (action.type) {
+        case _addflashmessage.ADD_FLASH_MESSAGES:
+            return [].concat(_toConsumableArray(state), [{
+                id: _shortid2.default.generate(),
+                type: action.type.message,
+                texxt: action.message.text
+            }]);
+
+        default:
+            return state;
+    }
+    return state;
+};
+
+/***/ }),
+/* 603 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = addFlashMessages;
+
+var _actiontypes = __webpack_require__(146);
+
+function addFlashMessages(messeges) {
+    type: _actiontypes.ADD_FLASH_MESSAGE, message;
+}
 
 /***/ })
 /******/ ]);
