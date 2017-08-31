@@ -40,6 +40,7 @@
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.1.1",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-watch": "^2.0.6",
@@ -52,12 +53,16 @@
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
     "firebase": "^4.0.0",
+    "history": "^4.6.3",
+    "jsonwebtoken": "^7.4.3",
     "lodash": "^4.17.4",
     "material-design-lite": "^1.3.0",
     "morgan": "^1.8.2",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.2",
     "react-dom": "^15.6.1",
     "react-google-button": "^0.3.0",
     "react-hot-loader": "^1.3.1",
@@ -75,8 +80,8 @@
     "url-loader": "^0.5.8",
     "validator": "^7.1.0",
     "webpack": "^2.5.1",
-    "webpack-dev-server": "^2.4.5",
-    "webpack-hot-middleware": "^2.18.0"
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-dev-server": "^2.4.5"
   },
   "nyc": {
     "require": [
@@ -90,8 +95,17 @@
     "instrument": false
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.1",
     "css-loader": "^0.28.4",
-    "inline-manifest-webpack-plugin": "^3.0.1"
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.2.1",
+    "inline-manifest-webpack-plugin": "^3.0.1",
+    "mocha": "^3.5.0",
+    "shortid": "^2.2.8",
+    "should": "^11.2.1",
+    "supertest": "^3.0.0"
   }
 }

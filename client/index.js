@@ -1,27 +1,26 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import {render} from 'react-dom';
+import createHistory from 'history/createBrowserHistory';
+import { BrowserRouter } from 'react-router-dom';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import {BrowserRouter}  from 'react-router-dom';
-import {createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from './reducer/rootreducer';
-import App from './component/app';
-import routes from './routes';
-import createHistory from 'history/createBrowserHistory'
-import './css/style.scss'
-const history = createHistory()
+import rootReducer from './reducer/RootReducer';
+import routes from './routes/routes';
+import './css/style.scss';
+
+const history = createHistory();
 
 const store = createStore(
-	rootReducer,
-	compose(
-		applyMiddleware(thunk),
-		window.devToolsExtension ? window.devToolsExtension() : f => f
-	)
-	);
+  rootReducer,
+  compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  )
+);
 ReactDom.render(
-<Provider store={store}>
-	<BrowserRouter history={history}>
-	{routes}
-	</BrowserRouter>
-	</Provider>,document.getElementById('app'));
+  <Provider store={store}>
+    <BrowserRouter history={history}>
+      {routes}
+    </BrowserRouter>
+  </Provider>, document.getElementById('app'));

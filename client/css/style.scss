@@ -1,27 +1,35 @@
-html, body, body div, span, object, iframe,   blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-  background: transparent; }
+// html, body, body div, span, object, iframe,   blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
+//   margin: 0;
+//   padding: 0;
+//   border: 0;
+//   outline: 0;
+//   font-size: 100%;
+//   vertical-align: baseline;
+//   background: transparent; }
 
   body{
       background-color: #f2f3f9;
+
+    
   }
 
 .header {
   background-color: navy;
-  padding: 5px 0 0px 50px;
+  padding: 5px 0 10px 50px;
   margin-bottom: 5px; 
   color:#FFF;
  
 }
-.header > h1{
-    font-size: 3em;
+.home > h1, h2, p{
+text-align: center;
+color: #1127c6;
 
 }
+
+.btn-toolbar .btn, .btn-toolbar .btn-group, .btn-toolbar .input-group {
+    float: none;
+}
+
 .side{
 text-transform: uppercase;
 text-align: center;

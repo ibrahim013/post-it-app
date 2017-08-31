@@ -56,23 +56,17 @@ apiRouter.route('/user/signin')
   .post((req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((user) => {
-        const token = user.getIdToken();
-        res.status(200).send(token);
-      })
-      .catch(() => {
-        res.status(400).send('An Error Occoured');
-      });
+    firebase.auth().signInWithEmailAndPassword(email, password);
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        user.getIdToken().then((token) => {
+          res.status(200).send({ message: 'Sign In Successful', token });
+        });
+      }
+    }, () => {
+      res.status(400).send('An Error Occoured');
+    });
   });
-// // Realtime Listener
-// firebase.auth().onAuthStateChanged((firebaseUser) => {
-//   if (firebaseUser) {
-//     console.nplog(firebaseUser);
-//   } else {
-//     console.log('No one is logged in');
-//   }
-// });
 
 // Password Reset=================================================================
 apiRouter.route('/user/passwordreset')
