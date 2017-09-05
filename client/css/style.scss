@@ -16,7 +16,6 @@
 .header {
   background-color: navy;
   padding: 5px 0 10px 50px;
-  margin-bottom: 5px; 
   color:#FFF;
  
 }
@@ -49,6 +48,7 @@ font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans 
     background-color:#1127c6; 
     min-width: 100px;
     color: #FFF;
+   
     
 }
 
@@ -81,4 +81,17 @@ width: 5%;
 .scroll{
     max-height: 300px;
     overflow-x: scroll;
+}
+.aside{
+    // background-color:lightskyblue;
+   min-height: 640px;
+   background-color: lavender;
+}
+.container {
+    margin:0px;
+}
+@media (min-width: 1200px){
+.container {
+    width: 100%;
+}
 }

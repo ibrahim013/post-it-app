@@ -33,10 +33,10 @@ class LogIn extends React.Component {
       .then(
         () => {
           history.pushState(null, null, '/dashboard'); window.location.reload();
-        },
-        err => this.setState({ errors: err.response.data,
-          isLoading: false }));
-  }
+        }
+        // (err) => this.setState({ errors: err.response.data,
+        //   isLoading: false }));
+      )}
   render() {
     const { errors } = this.state;
 

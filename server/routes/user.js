@@ -1,11 +1,9 @@
 import * as firebase from 'firebase';
 import express from 'express';
 import validateInput from '../../client/util/validation';
-import database from '../database';
+
 
 const apiRouter = express.Router();
-
-// Data  Validation=====================================================
 
 
 // GET GROUP ROUTE=========================================================
@@ -15,8 +13,6 @@ apiRouter.route('/group/getgroups')
     groupRef.once('value')
       .then(snapshot => res.send(snapshot.val()))
       .catch((err) => {
-        const errorCode = err.code;
-        const errorMessage = err.message;
         console.log(err);
       });
   });
@@ -85,13 +81,15 @@ apiRouter.route('/user/passwordreset')
 apiRouter.route('/group')
   .post((req, res) => {
     const groupname = req.body.groupname;
+    const discription = req.body.discription;
 
-    firebase.auth().onAuthStateChanged((User) => {
+    firebase.auth().onAuthStateChanged(() => {
       const currentUser = firebase.auth().currentUser;
       const userEmail = firebase.auth().currentUser.email;
       if (currentUser !== null) {
         firebase.database().ref('/group').child(groupname).set({
           GroupAdmin: userEmail,
+          Discription: discription
         });
         res.status(201).send({ message: 'group created Sucessfuly' });
       } else {
@@ -102,7 +100,7 @@ apiRouter.route('/group')
 
 
 // ADD MEMBER TO GROUP ROUTE=================================================================
-apiRouter.route('/group/groupid/user')
+apiRouter.route('/group/addmember')
   .post((req, res) => {
     const email = req.body.email;
     const password = req.body.password;
