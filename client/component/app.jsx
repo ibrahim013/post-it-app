@@ -8,7 +8,6 @@ class App extends React.Component {
     return (
       <div>
         <Header/>
-        {/* <FlashMessageList/> */}
         {this.props.childeren}
       </div>
     );
