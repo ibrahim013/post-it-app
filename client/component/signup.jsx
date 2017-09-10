@@ -4,12 +4,13 @@ import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import validateInput from '../util/validation';
+import FlashMessageList from './FlashMessageList';
 
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      displayName: '',
       password: '',
       email: '',
       errors: {},
@@ -31,16 +32,14 @@ class SignUp extends React.Component {
   }
   onSubmit(e) {
     e.preventDefault();
-
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.SignUpAction(this.state).then(
         () => {
           this.props.addFlashMessage({
             type: 'success',
-            text: 'You have Signed Up succesfuly'
-          });
-          history.pushState(null, null, '/dashboard'); window.location.reload();
+            text: 'You have Signed Up succesfuly Proceed to Login'
+          })
         },
         err => this.setState({ errors: err.response.data,
           isLoading: false,
@@ -56,20 +55,20 @@ class SignUp extends React.Component {
           <Modal.Header>
             <Modal.Title>Create Account</Modal.Title>
           </Modal.Header>
-
+          <FlashMessageList/> 
           <Modal.Body>
             <div>
 
               <form onSubmit={this.onSubmit}>
                 <h2>CREATE ACCOUNT </h2>
                 <div className={classnames('form-group',
-                  { 'has-error': errors.username })}>
+                  { 'has-error': errors.displayName })}>
                   <label className="control-label">User Name</label>
-                  <input value={this.state.username} onChange={this.onChange}
-                    type="text" name="username" className="form-control"
+                  <input value={this.state.displayName} onChange={this.onChange}
+                    type="text" name="displayName" className="form-control"
                     placeholder="eg:ibrahim" />
-                  {errors.username && <span className="help-block">
-                    {errors.username}
+                  {errors.displayName && <span className="help-block">
+                    {errors.displayName}
                   </span>}
                 </div>
                 <div className={classnames('form-group',

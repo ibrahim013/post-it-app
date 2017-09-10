@@ -6,10 +6,11 @@ import classnames from 'classnames';
 
 class FlashMessage extends React.Component {
   render() {
-    const {id, type, item}= this.props.message;
+    const {id, type, text}= this.props.message;
+    console.log(this.props.message)
     return (
       <div className ={classnames('alert',{
-        'alert-type': type === 'success', 
+        'alert-success': type === 'success', 
       'alert-danger': type ==='error'
       })}> 
         {text}
@@ -20,6 +21,6 @@ class FlashMessage extends React.Component {
 }
 
 FlashMessage.PropTypes   = {
-    message: PropTypes.object.isRequired
+    messages: PropTypes.object.isRequired
 }
 export default FlashMessage;
