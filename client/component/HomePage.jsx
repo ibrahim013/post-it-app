@@ -1,50 +1,39 @@
 import React from 'react';
-import { Jumbotron, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 import LogIn from '../component/LogIn';
 
-const HomePage = React.createClass({
-  getInitialState() {
-    return { show: false };
-  },
-
-  showModal() {
-    this.setState({ show: true });
-  },
-
-  hideModal() {
-    this.setState({ show: false });
-  },
-
+class HomePage extends React.Component{
   render() {
     return (
-      <ButtonToolbar>
-        <Jumbotron className="home">
+      <div>
+        < div className=" row home jumbotron">
           <h1>When it Comes to Messaging...</h1>
           <h2>We Got You Covered</h2>
-          <p><Button bsStyle="primary" onClick={this.showModal} bsSize="large">
+          <p><button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
           Get Started
-          </Button>
+          </button>
           </p>
-        </Jumbotron>
-        <Modal
-          {...this.props}
-          show={this.state.show}
-          onHide={this.hideModal}
-          dialogClassName="custom-modal"
-          bsSize="small"
-        >
-          <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-lg">Login</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div className="row">
-              <LogIn />
-            </div>
-          </Modal.Body>
-        </Modal>
-      </ButtonToolbar>
+        </div>
+       <div className="container">
+  <div className="modal fade" id="myModal" role="dialog" data-keyboard ="true">
+    <div className="modal-dialog">
+      <div className="modal-content">
+        <div className="modal-header">
+          <button type="button" className="close" data-dismiss="modal">&times;</button>
+            <h4><span className="glyphicon glyphicon-lock"></span> Login</h4>
+        </div>
+        <div className="modal-body">
+          <LogIn/>
+        </div>
+       
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+</div>
 
     );
-  },
-});
+  }
+};
 export default HomePage;

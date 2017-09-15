@@ -34,19 +34,10 @@ const webpackConfig = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
-      // {
-      // test: /\.css$/,
-      // loader: 'css-loader',
-      // query: {
-      //   modules: true,
-      //   localIdentName: '[name]__[local]___[hash:base64:5]'
-      // }
-      //  },
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          // resolve-url-loader may be chained before sass-loader if necessary
           use: ['css-loader', 'sass-loader'],
         }),
       },

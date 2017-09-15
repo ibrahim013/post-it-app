@@ -28,9 +28,18 @@ body {
 
 .lgbotton {
   min-height: 50px;
-  background-color: #1127c6;
+  background-color: #5cb85c;
   min-width: 100px;
   color: #FFF; }
+
+.modal-footer {
+  background-color: #f9f9f9; }
+
+.modal-header, h4, .close {
+  background-color: #5cb85c;
+  color: white !important;
+  text-align: center;
+  font-size: 30px; }
 
 input {
   text-align: center;
@@ -54,6 +63,9 @@ input:focus {
   margin-bottom: 2%;
   margin-top: 2%; }
 
+.newrow {
+  height: 80px; }
+
 .scroll {
   max-height: 300px;
   overflow-x: scroll; }
@@ -61,6 +73,10 @@ input:focus {
 .aside {
   min-height: 640px;
   background-color: lavender; }
+
+.asidelist {
+  background: #5cb85c;
+  min-height: 640px; }
 
 .container {
   margin: 0px; }

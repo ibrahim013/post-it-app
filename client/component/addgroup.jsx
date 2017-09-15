@@ -1,11 +1,11 @@
 import React from 'react';
-// import addGroupAction from '../actions/AddGroupAction';
-import validateInput from '../util/validation';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import Link from 'react-router-dom';
 import {Well, Button, Collapse} from 'react-bootstrap';
 import Search from '../component/Search';
+import  { addGroups }  from '../actions/GetGroupsAction'
 
 class AddGroup extends React.Component {
   constructor() {
@@ -23,44 +23,35 @@ class AddGroup extends React.Component {
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-  isValid() {
-    const { errors, isValid } = validateInput(this.state);
-    if (!isValid) {
-      this.setState({ errors });
-    }
-    return isValid;
-  }
   onSubmit(e) {
     e.preventDefault()
-     if(this.isValid()){
-       this.setState({errors})
-    axios.post('/group', { groupname: this.state.groupname, discription:this.state.discription })
-  }
+    this.props.addGroups(this.state)
+
   }
   render() {
     const { errors } = this.state;
     return (
       <div>
-        <div className="row addgroup">
+        
           <form onSubmit={this.onSubmit}>
-            <div className={classnames('form-group',
-                  { 'has-error': errors.groupname })}>
+            <div className="form-group">
             <input type="text" name="groupname" placeholder="Group Name"
               value={this.state.groupname}
-              onChange={this.onChange} 
+              onChange={this.onChange} required
               />
                   </div>
               <input type="text" name="discription" placeholder="Group Discription"
               value={this.state.discription}
-              onChange={this.onChange} />
-            <button name="group" className="btn btn-primary btn-small"
+              onChange={this.onChange} required />
+            <button name="group" className="btn btn-primary btn-small" 
               onSubmit={this.onSubmit}>
               Create Group
             </button>
+            
           </form>
           <button name="group" className="btn btn-primary btn-small"
               onClick={ ()=> this.setState({ open: !this.state.open })}>
-              AddGroup Members
+               Members
             </button>
         <Collapse in={this.state.open}>
           <div>
@@ -71,11 +62,14 @@ class AddGroup extends React.Component {
         </Collapse>
         
         </div>
-      </div>
+    
 
 
     );
   }
 }
+AddGroup.PropTypes ={
+  addGroups: PropTypes.func.isRequired
+}
 
-export default AddGroup;
+export default connect(null, {addGroups})(AddGroup);

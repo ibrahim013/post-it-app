@@ -1,16 +1,5 @@
-// html, body, body div, span, object, iframe,   blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
-//   margin: 0;
-//   padding: 0;
-//   border: 0;
-//   outline: 0;
-//   font-size: 100%;
-//   vertical-align: baseline;
-//   background: transparent; }
-
   body{
       background-color: #f2f3f9;
-
-    
   }
 
 .header {
@@ -45,13 +34,35 @@ font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans 
 }
 .lgbotton{
   min-height: 50px;
-    background-color:#1127c6; 
+    background-color:#5cb85c; 
     min-width: 100px;
     color: #FFF;
    
     
 }
-
+.grouplist > li{
+list-style: none;
+padding-right: 15px;
+text-decoration: none;
+}
+.grouplist >li > a{
+text-decoration: none;
+// padding: 40px;
+// padding-top: 60px;
+color: #000;
+}
+.groupdisplay{
+    margin:20px 50px;
+}
+ .modal-footer {
+      background-color: #f9f9f9;
+  }
+.modal-header, h4, .close {
+      background-color: #5cb85c;
+      color:white !important;
+      text-align: center;
+      font-size: 30px;
+  }
 input {
 text-align: center;
 background-color: #FFF;
@@ -77,7 +88,10 @@ width: 5%;
     margin-top: 2%;
 
 }
+.newrow{
+   height: 80px;
 
+}
 .scroll{
     max-height: 300px;
     overflow-x: scroll;
@@ -87,6 +101,17 @@ width: 5%;
    min-height: 640px;
    background-color: lavender;
 }
+.create{
+    margin-top: 100px
+}
+.asidelist{
+    background: #5cb85c;
+     min-height: 640px;
+}
+    .bot{
+        padding-top: 20px;
+        padding-left: 40px;
+    }
 .container {
     margin:0px;
 }

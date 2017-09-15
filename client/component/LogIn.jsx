@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SignIn from '../actions/LogInAction';
-
-
-// import{ userSigninRequest } from '../actions/usersignupAction';
-// import PasswordReset from '../component/passwordreset'
-// import { browserHistory } from 'react-router-dom';
+import PasswordReset from '../component/PasswordReset';
 import GoogleButton from 'react-google-button';
 // import { googleLogin } from '../actions/googlelogin';
 
@@ -33,26 +29,26 @@ class LogIn extends React.Component {
       .then(
         () => {
           history.pushState(null, null, '/dashboard'); window.location.reload();
-        }
-        // (err) => this.setState({ errors: err.response.data,
-        //   isLoading: false }));
+        },
+        (err) => this.setState({ errors: err.response.data,
+          isLoading: false })
       )}
   render() {
     const { errors } = this.state;
 
 
     return (
-      <div className="row col-md-10 col-md-offset-1">
+      <div>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
-            <label className="control-label">Email</label>
+            <label className="control-label"><span className="glyphicon glyphicon-envelope"></span> Email</label>
             <input value={this.state.email} onChange={this.onChange}
               type="email" name="email" className="form-control"
               placeholder="eg ibrahim@gmail.com" />
 
           </div>
           <div className="form-group">
-            <label className="control-label">Password</label>
+            <label ><span className=" control-label glyphicon glyphicon-eye-open"></span> Password</label>
             <input value={this.state.password} onChange={this.onChange}
               type="password" name="password" className="form-control"
               placeholder="must be at least 6 character long" />
@@ -62,7 +58,7 @@ class LogIn extends React.Component {
           <div className="form-group">
             <button disabled={this.state.isLoading} name="login"
               onSubmit={this.onSubmit}
-              className="btn btn-primary btn-lg lgbotton">
+              className="btn btn-primary  lgbotton btn-block">
               <span className="glyphicon glyphicon-log-in" /> Login
             </button>
           </div>
@@ -78,8 +74,11 @@ class LogIn extends React.Component {
           <span>Dont have an Account? </span><Link to="/signup">Sign up</Link>
         </div>
         <br />
-        <div className=" " >
+         <div className="modal-footer">
           <Link to="/passwordreset" >Password Reset</Link>
+        </div>
+        <div className=" " >
+          
         </div>
       </div>
     );

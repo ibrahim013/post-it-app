@@ -1,19 +1,52 @@
 import React from 'react';
-import { Media } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Message from './Message';
+import { getMessges } from '../actions/GetGroupsAction';
+import map from 'lodash/map'
+
 
 class MessageList extends React.Component {
-  render() {
-    return (
-      <Media>
-        <Media.Left>
-          <img width={64} height={64} src="/assets/thumbnail.png" alt="Image" />
-        </Media.Left>
-        <Media.Body>
-          <Media.Heading>Media Heading</Media.Heading>
-          <p> this is just a message </p>
-        </Media.Body>
- </Media>
-    );
+  constructor(props) {
+    super(props);
+    this.state = {
+      Messages: this.props.Messages
+    }
   }
+  componentWillMount(){
+    this.props.getMessges();
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      Messages: nextProps.Messages
+    })
+  }
+  render() {
+  const { Messages } = this.state;
+  const messageList = Messages.map((message, i) =>
+    {
+     return <Message key={i} message={message}/>
+     
+    })
+       return (
+        <div> 
+            { messageList } 
+            {console.log({ messageList })} 
+            
+        </div>
+      );
+   
+  }
+
 }
-export default MessageList;
+MessageList.PropTypes = {
+   Messages: PropTypes.array.isRequired
+  }
+  function mapStateToProps(state){
+    return{
+      Messages: state.Messages
+    }
+  }
+export default connect(mapStateToProps, { getMessges }) (MessageList);

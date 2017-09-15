@@ -60,7 +60,6 @@ class SignUp extends React.Component {
             <div>
 
               <form onSubmit={this.onSubmit}>
-                <h2>CREATE ACCOUNT </h2>
                 <div className={classnames('form-group',
                   { 'has-error': errors.displayName })}>
                   <label className="control-label">User Name</label>

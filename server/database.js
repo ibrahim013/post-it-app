@@ -1,13 +1,14 @@
 import firebase from 'firebase';
 
+require('dotenv').config(); // eslint-disable-line
 
 const config = {
-  apiKey: 'AIzaSyDKmzJrL64aEqNezKJ-dPcvPo74F_IAdn4',
-  authDomain: 'postit-ace3a.firebaseapp.com',
-  databaseURL: 'https://postit-ace3a.firebaseio.com',
-  projectId: 'postit-ace3a',
-  storageBucket: 'postit-ace3a.appspot.com',
-  messagingSenderId: '211164425105'
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGEBUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID
 };
 firebase.initializeApp(config);
 const database = firebase.database();
