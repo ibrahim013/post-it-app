@@ -2,4 +2,4 @@ node_modules
 serviceAccountKey.json
 modules
 .env
-public
+/public
