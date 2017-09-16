@@ -1,6 +1,9 @@
 const path = require('path');
 
+require('dotenv').config();
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const Dotenv = require('dotenv-webpack');
 
 const webpackConfig = {
   entry:
@@ -15,6 +18,9 @@ const webpackConfig = {
     inline: true,
     hot: true,
     port: 3000,
+  },
+  node: {
+    fs: 'empty',
   },
 
   module: {
@@ -50,6 +56,10 @@ const webpackConfig = {
     new ExtractTextPlugin({
       filename: 'style.css',
       allChunks: true,
+    }),
+    new Dotenv({
+      path: './.env', // Path to .env file (this is the default) 
+      safe: false, // load .env.example (defaults to "false" which does not use dotenv-safe) 
     }),
   ],
 };

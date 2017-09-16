@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+// import firebase from 'firebase';
 
 require('dotenv').config(); // eslint-disable-line
 
@@ -8,9 +8,8 @@ const config = {
   databaseURL: process.env.DATABASE_URL,
   projectId: process.env.PROJECT_ID,
   storageBucket: process.env.STORAGEBUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
 };
-firebase.initializeApp(config);
-const database = firebase.database();
 
-export default database;
+
+export default config;

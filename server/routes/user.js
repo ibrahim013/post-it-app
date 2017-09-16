@@ -1,9 +1,11 @@
 import * as firebase from 'firebase';
 import express from 'express';
-import database from '../../server/database';
+import config from '../../server/database';
 
 
 const apiRouter = express.Router();
+firebase.initializeApp(config);
+
 
 /**
  * Route for Geting all groups a user belongs.
@@ -114,15 +116,12 @@ apiRouter.route('/user/passwordreset')
   .post((req, res) => {
     const auth = firebase.auth();
     const emailAddress = req.body.email;
-    auth.sendPasswordResetEmail(emailAddress).then(() => {
-      res.status(201).send({
-        message: `Password Reset Mail Sent 
-      to${emailAddress}`,
-      });
-    })
+    auth.sendPasswordResetEmail(emailAddress)
+      .then(() => res.status(200).send({
+        message: `Password Reset Mail Sent to${emailAddress}` }))
       .catch((error) => {
-        const errorCode = error.code;
-        res.status(401).json({ message: 'Somthing went wrong', errorCode });
+        const errorCode = error.message;
+        res.status(401).json({ errorCode });
       });
   });
 

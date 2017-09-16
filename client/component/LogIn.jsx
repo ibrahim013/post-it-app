@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import SignIn from '../actions/LogInAction';
 import PasswordReset from '../component/PasswordReset';
 import GoogleButton from 'react-google-button';
-// import { googleLogin } from '../actions/googlelogin';
+import googlelogin from '../actions/GoogleLogin.js';
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -35,8 +35,6 @@ class LogIn extends React.Component {
       )}
   render() {
     const { errors } = this.state;
-
-
     return (
       <div>
         <form onSubmit={this.onSubmit}>
@@ -62,11 +60,11 @@ class LogIn extends React.Component {
               <span className="glyphicon glyphicon-log-in" /> Login
             </button>
           </div>
-
+      
         </form>
         <div>
           <GoogleButton
-            onClick={() => { googleLogin(); }}
+            onClick={() => { this.props.googlelogin() }}
           />
         </div>
         <br />
@@ -88,4 +86,4 @@ class LogIn extends React.Component {
 LogIn.PropTypes = {
   SignIn: PropTypes.func.isRequired
 };
-export default connect(null, { SignIn })(LogIn);
+export default connect(null, { SignIn, googlelogin })(LogIn);

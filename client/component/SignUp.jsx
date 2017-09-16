@@ -6,6 +6,7 @@ import { Modal } from 'react-bootstrap';
 import validateInput from '../util/validation';
 import FlashMessageList from './FlashMessageList';
 
+
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
