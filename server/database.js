@@ -1,5 +1,3 @@
-// import firebase from 'firebase';
-
 require('dotenv').config(); // eslint-disable-line
 
 const config = {
