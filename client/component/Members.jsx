@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import Link from 'react-router-dom';
 import {Well, Button, Collapse} from 'react-bootstrap';
-import Search from '../component/Search';
-import  { addGroups }  from '../actions/GetGroupsAction'
 
-class AddGroup extends React.Component {
+
+
+class Members extends React.Component {
   constructor() {
     super();
     this.state = {
-      groupname: '',
-      discription:'',
+      member: '',
+      
       errors: {}
     };
 
@@ -25,7 +25,7 @@ class AddGroup extends React.Component {
   }
   onSubmit(e) {
     e.preventDefault()
-    this.props.addGroups(this.state)
+    
 
   }
   render() {
@@ -35,20 +35,18 @@ class AddGroup extends React.Component {
         
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
-            <input type="text" name="groupname" placeholder="Group Name"
+            <input type="text" name="membername" placeholder="Name"
               value={this.state.groupname}
               onChange={this.onChange} required
               />
                   </div>
-              <input type="text" name="discription" placeholder="Group Discription"
-              value={this.state.discription}
-              onChange={this.onChange} required />
-               <button name="group" className="btn btn-primary btn-small" 
+            <button name="members" className="btn btn-primary btn-small" 
               onSubmit={this.onSubmit}>
-              Create Group
+              Add Members
             </button>
+            
           </form>
-        
+          
         </div>
     
 
@@ -56,8 +54,6 @@ class AddGroup extends React.Component {
     );
   }
 }
-AddGroup.PropTypes ={
-  addGroups: PropTypes.func.isRequired
-}
 
-export default connect(null, {addGroups})(AddGroup);
+
+export default Members;

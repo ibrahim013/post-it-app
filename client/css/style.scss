@@ -40,6 +40,15 @@ font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans 
    
     
 }
+.text > textarea{
+    width: 100%;
+    resize: auto;
+    outline: none;
+    overflow: hidden;
+    border-radius: 3px;
+    border: 2px solid;
+    resize: none;
+}
 .grouplist > li{
 list-style: none;
 padding-right: 15px;
@@ -97,15 +106,13 @@ width: 5%;
     overflow-x: scroll;
 }
 .aside{
-    // background-color:lightskyblue;
-   min-height: 640px;
-   background-color: lavender;
+    border-bottom: 5px solid;
 }
 .create{
     margin-top: 100px
 }
 .asidelist{
-    background: #5cb85c;
+    background-color: lavender;
      min-height: 640px;
 }
     .bot{
@@ -117,6 +124,9 @@ width: 5%;
 }
 .ps-style{
     margin-top: 30%;
+}
+.piority{
+    margin-left: 15px;
 }
 @media (min-width: 1200px){
 .container {
