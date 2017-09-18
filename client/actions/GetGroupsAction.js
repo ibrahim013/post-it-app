@@ -19,6 +19,17 @@ function GetMessageAction(groupMessage) {
     groupMessage,
   };
 }
+/**
+ * 
+ * @param {string} groupname 
+ * 
+ * @return {promise} groups
+ */
+
+export function addGroups(groupData) {
+  return () => axios.post('/groups', groupData);
+}
+
 export function getGroups() {
   return dispatch => axios.get('/groups/group')
     .then(
@@ -35,4 +46,7 @@ export function getMessges() {
       },
 
     ).catch();
+}
+export function addMembers() {
+  return () => axios.post('/group/addmember');
 }

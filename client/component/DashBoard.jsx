@@ -31,7 +31,7 @@ class DashBoard extends React.Component {
         </div>
 
       </Col>
-      <Col xs={12} md={6}>
+      {/* <Col xs={12} md={6}>
         <Row className=" aside">
           <Col xs={12} md={9}  >
             <h1>Messages</h1>
@@ -50,8 +50,8 @@ class DashBoard extends React.Component {
         <div>
           <AddMessage/>
         </div>
-      </Col>
-      <Col xs={12} md={3} >
+      </Col> */}
+      {/* <Col xs={12} md={3} >
         <Row className="show-grid create">
           <Col xs={12} md={7} >
             <h3>Members</h3>
@@ -63,7 +63,7 @@ class DashBoard extends React.Component {
         <div id="members" className="collapse">
           <Members />
         </div>
-      </Col>
+      </Col> */}
     </Row>
   </Grid>
 )

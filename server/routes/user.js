@@ -24,32 +24,32 @@ apiRouter.route('/groups/group')
         .orderByKey().once('value', (snapshot) => {
           snapshot.forEach((child) => {
             const group = {
+              groupid: child.key,
               groupname: child.val().groupname,
-              groupId: child.key,
+              Discription: child.val().Discription,
+              GroupAdmin: child.val().GroupAdmin,
 
+              // groupId: child.keys,
+              // members: child.val().members.keys,
             };
             groups.push(group);
           });
         })
-        .then(() => {
-          res.send(
-            { groups },
-          );
-        })
-        .catch((error) => {
-          res.status(500).send({
-            message: `Error occurred ${error.message}`,
-          });
-        });
+        .then(() => res.send(
+          { groups },
+        ))
+        .catch(error => res.status(500).send({
+          message: `Error occurred ${error.message}`,
+        }));
     } else {
-      res.status(403).send({
+      return res.status(403).send({
         message: 'You are not signed in right now!',
       });
     }
   });
 
 /**
- * Route for Geting all groups a user belongs.
+ * Route for signing up  a user.
  * @param {object} req; request 
  * @param {object} res; response
  *
@@ -73,9 +73,7 @@ apiRouter.route('/user/signup')
           time,
         });
       })
-      .then(() => {
-        res.status(200).json({ message: 'signup sucessful' });
-      })
+      .then(() => res.status(200).json({ message: 'signup sucessful' }))
       .catch((error) => {
         const errorCode = error.code;
         res.status(401).json({ message: 'Somthing went wrong', errorCode });
@@ -95,15 +93,25 @@ apiRouter.route('/user/signin')
     firebase.auth().signInWithEmailAndPassword(email, password).then(
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          user.getIdToken().then((token) => {
-            res.status(200).json({ message: 'Sign In Successful', token });
-          });
+          user.getIdToken().then(token => res.status(200).json({ message: 'Sign In Successful', token }));
         }
       }),
     ).catch((error) => {
       const errorCode = error.code;
-      res.status(401).json({ message: 'Somthing went wrong', errorCode });
+      return res.status(401).json({ message: 'Somthing went wrong', errorCode });
     });
+  });
+/**
+ * Signout Route.
+ * @param {string} email; 
+ *
+ * @returns {Promise}
+ */
+apiRouter.route('/signout')
+  .get((req, res) => {
+    firebase.auth().signOut()
+      .then(() => res.status(200).send({ message: 'signed-out successfully.' }))
+      .catch(() => res.status(404).send({ message: 'Network Error' }));
   });
 
 /**
@@ -121,7 +129,7 @@ apiRouter.route('/user/passwordreset')
         message: `Password Reset Mail Sent to${emailAddress}` }))
       .catch((error) => {
         const errorCode = error.message;
-        res.status(401).json({ errorCode });
+        return res.status(401).json({ errorCode });
       });
   });
 
@@ -129,7 +137,7 @@ apiRouter.route('/user/passwordreset')
  * Route to create user groups.
  * @param {string} groupname; 
  * @param {string} discription; 
- * @returns {Promise} 
+ * @returns {Object} 
  */
 apiRouter.route('/groups')
   .post((req, res) => {
@@ -140,19 +148,14 @@ apiRouter.route('/groups')
     const createdBy = currentUser.uid;
     const displayName = currentUser.displayName;
     if (currentUser !== null) {
-      const groupKey = firebase.database().ref('group/').push({
+      firebase.database().ref('group/').push({
         groupname,
         dateCreated,
         GroupAdmin: userEmail,
+        createdBy,
+        displayName,
         Discription: discription,
-      }).key;
-      firebase.database().ref(`group/${groupKey}/members`)
-        .child(createdBy).set({
-          displayName,
-        })
-        .then(() => {
-          res.status(201).send({ message: 'group created Sucessfuly' });
-        })
+      }).then(() => res.status(201).send({ message: 'group created Sucessfuly' }))
         .catch((error) => {
           const errorCode = error.code;
           res.status(401).json({ message: 'Somthing went wrong', errorCode });
@@ -167,47 +170,42 @@ apiRouter.route('/groups')
  * @param {string} groupmember; 
  * @returns {Promise} 
  */
-// apiRouter.route('/group/addmember')
-//   .post((req, res) => {
-//     const { groupname, groupmember } = req.body;
-//     const users = [];
-//     const queryUser = firebase.database().ref('user').orderByKey();
-//     const queryGroup = firebase.database().ref('group').orderByValue();
-//     queryUser.once('value')
+apiRouter.route('/group/addmember')
+  .post((req, res) => {
+    const { groupname, displayName } = req.body;
+    const users = [];
+    const groups = [];
+    const queryUser = firebase.database().ref('user').orderByKey();
+    const queryGroup = firebase.database().ref('group').orderByValue();
 
-//       .then((snapshot) => {
-//         snapshot.forEach((childSnapshot) => {
-//           const childData = childSnapshot.val();
-//           const displayName = childData.displayName;
+    queryUser.once('value', (snapshot) => {
+      snapshot.forEach((childSnapShot) => {
+        const user = childSnapShot.val().displayName;
+        users.push(user);
+      });
+    });
+    queryGroup.once('value', (snapshot) => {
+      snapshot.forEach((childSnapShot) => {
+        const group = childSnapShot.val().groupname;
+        groups.push(group);
+      });
+      const inGroup = groups.includes(`${groupname}`);
+      const inUser = users.includes(`${displayName}`);
+      if (!inUser) {
+        return res.status(404).json('user not found');
+      }
+      if (!inGroup) {
+        return res.status(404).json('Group not found');
+      }
+      firebase.database().ref(`group/${groupname}/`).child('members').push({
+        displayname: displayName,
 
-//           queryGroup.once('value').then(
-//             (snapshot) => {
-//               snapshot.forEach((childSnapshot) => {
-//                 const groups = childSnapshot.val();
-
-//                 console.log(displayName);
-//               });
-//             });
-//         });
-//       });
-//   });
-// // const key = childSnapshot.key;
-// const createdGroup = childData.groupname;
-
-// if (groupmember === displayName && groupname === createdGroup) {
-//   // firebase.database().ref(`group/${groupname}`).child('members').set({
-//   //   groupmember
-//   // }
-// );
-//     })
-//     // res.status(201).json({ Success: true });
-//   });
-//   console.log('i got here ');
-// });
-
-
-//   res.status(201).json({ Success: true });
-
+      });
+    }).then(() => res.status(200).json('user added sucessfully')).catch((error) => {
+      const errorCode = error.code;
+      return res.status(401).json({ message: 'Somthing went wrong', errorCode });
+    });
+  });
 
 /**
  * Route for sending messages.
@@ -231,12 +229,10 @@ apiRouter.route('/group/postmessage')
         DateCreated: dateCreated,
         Author: author,
       })
-        .then(() => {
-          res.status(201).json({ message: 'group created Sucessfuly' });
-        })
+        .then(() => res.status(200).json({ message: 'group created Sucessfuly' }))
         .catch((error) => {
           const errorCode = error.code;
-          res.status(401).json({ message: 'Somthing went wrong', errorCode });
+          return res.status(401).json({ message: 'Somthing went wrong', errorCode });
         });
     }
   });
@@ -248,42 +244,6 @@ apiRouter.route('/group/postmessage')
  *
  * @returns {object} group list
  */
-
-// apiRouter.route('/group/messages')
-//   .get((req, res) => {
-//     const user = firebase.auth().currentUser;
-//     // const groupid = req.body;
-//     if (user) {
-//       const message = [];
-//       firebase.database().ref('/group/')
-//         .once('value', (snapshot) => {
-//           snapshot.forEach((child) => {
-//             console.log(child.val());
-//             const messages = {
-//               groupname: child.val().message
-//             };
-//             if (messages.groupname !== undefined) {
-//               message.push(messages);
-//             }
-//           });
-//         })
-//         .then(() => {
-//           res.send(
-//             { message }
-
-//           );
-//         })
-//         .catch((error) => {
-//           res.status(500).send({
-//             message: `Error occurred ${error.message}`,
-//           });
-//         });
-//     } else {
-//       res.status(403).send({
-//         message: 'You are not signed in right now!'
-//       });
-//     }
-//   });
 apiRouter.route('/group/:groupid/messages/')
   .get((req, res) => {
     const user = firebase.auth().currentUser;
@@ -312,17 +272,12 @@ apiRouter.route('/group/:groupid/messages/')
             //     });
           });
         })
-
-        .then(() => {
-          res.send({
-            messages,
-          });
-        })
-        .catch((error) => {
-          res.status(500).send({
-            message: `Error occurred ${error.message}`,
-          });
-        });
+        .then(() => res.send({
+          messages,
+        }))
+        .catch(error => res.status(500).send({
+          message: `Error occurred ${error.message}`,
+        }));
     }
   });
 

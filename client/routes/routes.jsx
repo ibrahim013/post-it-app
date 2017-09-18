@@ -9,6 +9,8 @@ import AddGroup from '../component/AddGroup';
 import PasswordReset from '../component/PasswordReset';
 import GetGroupList from '../component/GetGroupList'
 import MessageList from '../component/MessageList'
+import GroupMessage from '../component/GroupMessage'
+
 export default (
   <div>
 
@@ -19,8 +21,8 @@ export default (
     <Route exact path="/signup" component={SignUpPage} />
     <Route exact path="/dashboard" component={DashBoard} />
     <Route exact path="/passwordreset" component={PasswordReset} /> 
-     <Route exact path="/getgroup" component={GetGroupList} /> 
-
+    <Route exact path="/getgroup" component={GetGroupList} /> 
+    <Route path="/group/:groupid" component={GroupMessage} /> 
 
       <Route exact path="/message" component={MessageList} /> 
   

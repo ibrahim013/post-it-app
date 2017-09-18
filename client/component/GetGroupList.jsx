@@ -23,6 +23,7 @@ class GetGroupList extends React.Component {
       Groups: nextProps.Groups
     })
   }
+
   render() {
     const { Groups } = this.state;
     const groupArray = Groups.map((group, key) =>
