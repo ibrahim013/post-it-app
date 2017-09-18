@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import Link from 'react-router-dom';
 import {Well, Button, Collapse} from 'react-bootstrap';
+import {addMembers} from '../actions/GetGroupsAction'
 
 
 
@@ -24,8 +25,8 @@ class Members extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
   onSubmit(e) {
-    e.preventDefault()
-    
+    e.preventDefault();
+    this.props.addMembers(this.state)
 
   }
   render() {
@@ -56,4 +57,4 @@ class Members extends React.Component {
 }
 
 
-export default Members;
+export default connect(null,{addMembers}) (Members);

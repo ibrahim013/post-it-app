@@ -9,10 +9,9 @@ class Group extends React.Component {
   }
   render() {
      const{ group } = this.props;
-     
     return (
     <div className="grouplist">
-       <li > <Link to="/">{group.groupname}</Link></li>
+      <li > <Link to={'/group/'+group.groupid}>{group.groupname}</Link></li>
      </div>
     );
   }

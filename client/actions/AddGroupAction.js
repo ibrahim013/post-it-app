@@ -7,6 +7,6 @@ import axios from 'axios';
  * @return {promise} groups
  */
 
-export default function addGroupAction(groupname) {
-  return dispatch => axios.post('/group', groupname);
+export default function addGroups(groupData) {
+  return () => axios.post('/groups', groupData);
 }
