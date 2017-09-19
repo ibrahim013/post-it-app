@@ -24,6 +24,7 @@ class MessageList extends React.Component {
     })
   }
   render() {
+    console.log(this.props.params)
   const { Messages } = this.state;
   
   const messageList = Messages.map((message, i) =>

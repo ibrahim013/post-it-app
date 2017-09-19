@@ -1,6 +1,7 @@
 import React from 'react';
 import addMessage from '../actions/AddMessage';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 // import Post from '../component/post';
 
 class AddMessage extends React.Component{
@@ -27,7 +28,7 @@ class AddMessage extends React.Component{
 render(){
 return(
 	<div>
-	<div className="panel panel-default ">
+	{/* <div className="panel panel-default ">
 	 <div className="panel-heading">Messages
 	 </div>
 	 </div>
@@ -37,7 +38,7 @@ return(
 	 			<Post Key={id} postBody = {postBody}/>
 	 			)
 	 	})
-	 } */}
+	 } */} 
 
 	<div className="panel-body text">
 	<textarea placeholder='Messages'name="message" onChange ={this.onChange} value={this.state.message}
@@ -64,5 +65,14 @@ return(
 );
 }
 }
+AddMessage.PropTypes = {
+    Messages: PropTypes.array.isRequired
+  }
+  function mapStateToProps(state){
+    return{
+      Mesages: state.mesageText
+    }
+  }
 
-export default connect(null, {addMessage}) (AddMessage);
+
+export default connect(mapStateToProps, {addMessage}) (AddMessage);

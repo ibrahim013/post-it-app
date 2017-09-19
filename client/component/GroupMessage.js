@@ -7,6 +7,7 @@ import AddGroup from '../component/AddGroup';
 import GetGroupList from '../component/GetGroupList';
 import AddMessage from '../component/AddMessage';
 import { getGroups, addMembers } from '../actions/GetGroupsAction';
+import { getMessges } from '../actions/GetGroupsAction';
 import PropTypes from 'prop-types';
 
 class GroupMessage extends React.Component {
@@ -41,8 +42,28 @@ constructor(props){
         return groupName;
       })
 
+      this.props.getMessges(groupid);
+
   }
   render() {
+    const { Messages } = this.props;
+    let MessageContainer = '';
+    if(Messages){
+      MessageContainer = Messages.map((message) => {
+        return (
+        <div key={message.messageId}>
+          <div className="messageRow">
+            <p>
+              <span className="left-align">Sent By: {message.author}</span>
+              <span className="left-align">Priority: {message.priorityLevel}</span>
+              <span className="right-align">: {message.date}</span>
+            </p>
+            <p className="">{ message.messageText }</p>
+
+          </div>
+        </div>)
+      });
+    }
     return (
   <Grid data-spy="scroll">
     <Row className="show-grid ">
@@ -68,11 +89,15 @@ constructor(props){
           </Col>
         </Row>
         <div>
-
-          <h3>Message Board is Empty</h3>
+        <div className="panel panel-default ">
+	      <div className="panel-heading">  
+          {MessageContainer}
+          </div>
+          </div>
         </div>
         <div>
-          <AddMessage groupid={this.state.groupId} />
+         
+            <AddMessage groupid={this.state.groupId} /> 
         </div>
       </Col>
       <Col xs={12} md={3} >
@@ -111,11 +136,13 @@ constructor(props){
 }
 
 GroupMessage.PropTypes = {
-    Groups: PropTypes.array.isRequired
+    Groups: PropTypes.array.isRequired,
+    Messages: PropTypes.array.isRequired
   }
   function mapStateToProps(state){
     return{
-      Groups: state.Groups
+      Groups: state.Groups,
+      Messages: state.Messages
     }
   }
-export default connect(mapStateToProps, { getGroups, addMembers }) (GroupMessage);
+export default connect(mapStateToProps, { getGroups, addMembers, getMessges }) (GroupMessage);

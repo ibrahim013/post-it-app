@@ -38,11 +38,11 @@ export function getGroups() {
       },
     ).catch();
 }
-export function getMessges() {
-  return dispatch => axios.get('/group/:groupid/messages/')
+export function getMessges(groupid) {
+  return dispatch => axios.get(`/group/${groupid}/messages/`)
     .then(
       (response) => {
-        dispatch(GetMessageAction(response.data.Messages));
+        dispatch(GetMessageAction(response.data.messages));
       },
 
     ).catch();
