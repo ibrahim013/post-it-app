@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 require('dotenv').config();
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -58,9 +59,16 @@ const webpackConfig = {
       allChunks: true,
     }),
     new Dotenv({
-      path: './.env', // Path to .env file (this is the default) 
-      safe: false, // load .env.example (defaults to "false" which does not use dotenv-safe) 
+      path: './.env',
+      safe: false,
     }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
   ],
 };
 

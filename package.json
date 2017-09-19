@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch server --exec babel-node -- server/index.js",
-    "start1": "webpack-dev-server --hot",
+    "start": "NODE_ENV=production webpack",
+    "start1": "nodemon --watch server --exec babel-node -- server/index.js",
+    "start2": "webpack-dev-server --hot",
+    "build": "NODE_ENV=production webpack",
     "test": "mocha --compilers js:babel-core/register",
     "cover": "cross-env NODE_ENV=test nyc mocha test/index_test.js"
   },
