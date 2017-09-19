@@ -25,6 +25,7 @@ class MessageList extends React.Component {
   }
   render() {
   const { Messages } = this.state;
+  
   const messageList = Messages.map((message, i) =>
     {
      return <Message key={i} message={message}/>
@@ -32,6 +33,7 @@ class MessageList extends React.Component {
     })
        return (
         <div> 
+          i got here
             { messageList } 
             {console.log({ messageList })} 
             

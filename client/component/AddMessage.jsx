@@ -1,63 +1,62 @@
 import React from 'react';
+import addMessage from '../actions/AddMessage';
+import { connect } from 'react-redux';
 // import Post from '../component/post';
 
 class AddMessage extends React.Component{
 	constructor(props) {
 		super(props);
-		this.addPost = this.addPost.bind(this);
-		this.handlePostEditorInputChange = this.handlePostEditorInputChange.bind(this);
-		this.onSubmit = this.onSubmit.bind(this);
+		
 		this.state = {
-			posts: [],
-			newPostBody: '',
+			message:'',
+			piority:'',
+			groupname: this.props.groupid,
+			
+
 		}
+		this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
 	}
-	addPost(){
-		const newState = Object.assign({}, this.state);
-		newState.posts.push(this.state.newPostBody);
-		newState.newPostBody = '';
-		this.setState(newState);
-	}
-	handlePostEditorInputChange(ev){
-		this.setState({
-			newPostBody: ev.target.value
-		})
-	}
+	onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 	onSubmit(e){
 	e.preventDefault();
-	axios.post('http://localhost:3000/api/group', 
-		{
-		message:this.state.newPostBody});
+	this.props.addMessage(this.state)
 }
 render(){
-
 return(
 	<div>
 	<div className="panel panel-default ">
 	 <div className="panel-heading">Messages
 	 </div>
 	 </div>
-	 {
+	 {/* {
 	 	this.state.posts.map((postBody, id) => {
 	 		return(
 	 			<Post Key={id} postBody = {postBody}/>
 	 			)
 	 	})
-	 }
+	 } */}
 
 	<div className="panel-body text">
-	<textarea placeholder='Messages' onChange ={this.handlePostEditorInputChange} value={this.state.newPostBody}
+	<textarea placeholder='Messages'name="message" onChange ={this.onChange} value={this.state.message}
     />
- <form>
+ <form onSubmit={this.onSubmit}>
     <label className="radio-inline">
-      <input type="radio" name="optradio"/>Normal
+      <input type="radio" name="piority" value="normal" onChange ={this.onChange}/>Normal
     </label>
     <label className="radio-inline">
-      <input type="radio" name="optradio"/>High
+      <input type="radio" name="piority" value="high" onChange ={this.onChange}/>Critical
     </label>
     <label className="radio-inline">
-      <input type="radio" name="optradio"/>Urgent
+      <input type="radio" name="piority" value="critical" onChange ={this.onChange}/>Urgent
     </label>
+		<br/>
+		<button name="group" className="btn btn-primary btn-small" 
+			onSubmit={this.onSubmit}>
+			send
+		</button>
   </form>
 	</div>
 	
@@ -66,4 +65,4 @@ return(
 }
 }
 
-export default AddMessage;
+export default connect(null, {addMessage}) (AddMessage);

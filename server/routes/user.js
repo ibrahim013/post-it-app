@@ -158,7 +158,7 @@ apiRouter.route('/groups')
       }).then(() => res.status(201).send({ message: 'group created Sucessfuly' }))
         .catch((error) => {
           const errorCode = error.code;
-          res.status(401).json({ message: 'Somthing went wrong', errorCode });
+          res.status(401).send({ message: 'Somthing went wrong', errorCode });
         });
     }
   });
@@ -168,7 +168,7 @@ apiRouter.route('/groups')
  * Route for adding members to group.
  * @param {string} groupname; 
  * @param {string} groupmember; 
- * @returns {Promise} 
+ * 
  */
 apiRouter.route('/group/addmember')
   .post((req, res) => {
@@ -192,18 +192,18 @@ apiRouter.route('/group/addmember')
       const inGroup = groups.includes(`${groupname}`);
       const inUser = users.includes(`${displayName}`);
       if (!inUser) {
-        return res.status(404).json('user not found');
+        return res.status(404).send('user not found');
       }
       if (!inGroup) {
-        return res.status(404).json('Group not found');
+        return res.status(404).send('Group not found');
       }
       firebase.database().ref(`group/${groupname}/`).child('members').push({
         displayname: displayName,
 
       });
-    }).then(() => res.status(200).json('user added sucessfully')).catch((error) => {
+    }).then(() => res.status(200).send('user added sucessfully')).catch((error) => {
       const errorCode = error.code;
-      return res.status(401).json({ message: 'Somthing went wrong', errorCode });
+      return res.status(401).send({ message: 'Somthing went wrong', errorCode });
     });
   });
 
@@ -218,21 +218,17 @@ apiRouter.route('/group/postmessage')
   .post((req, res) => {
     const { message, piority, groupname } = req.body;
     const currentUser = firebase.auth().currentUser;
-    const author = firebase.auth().currentUser.displayName;
     const dateCreated = new Date().toString();
-    // const userId = firebase.auth().currentUser.uid;
     if (currentUser !== null) {
       firebase.database().ref(`group/${groupname}/`).child('message').push({
-        GroupName: groupname,
         MessagePiority: piority,
         Message: message,
         DateCreated: dateCreated,
-        Author: author,
       })
-        .then(() => res.status(200).json({ message: 'group created Sucessfuly' }))
+        .then(() => res.status(200).send({ message: 'group created Sucessfuly' }))
         .catch((error) => {
           const errorCode = error.code;
-          return res.status(401).json({ message: 'Somthing went wrong', errorCode });
+          return res.status(401).send({ message: 'Somthing went wrong', errorCode });
         });
     }
   });
@@ -258,18 +254,8 @@ apiRouter.route('/group/:groupid/messages/')
               author: childSnapShot.val().Author,
               priorityLevel: childSnapShot.val().MessagePiority,
               date: childSnapShot.val().DateCreated,
-              // status: childSnapShot.val().status
             };
             messages.push(message);
-            //   firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/${childSnapShot.key}/`)
-            //     .update({
-            //       status: 'Read'
-            //     });
-            //   firebase.database().ref(`readUsers/${childSnapShot.key}/${user.uid}`)
-            //     .set({
-            //       userId: user.uid,
-            //       userName: user.displayName
-            //     });
           });
         })
         .then(() => res.send({

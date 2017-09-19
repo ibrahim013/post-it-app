@@ -5,7 +5,6 @@ import MessageList from '../component/MessageList';
 import { Jumbotron, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 import AddGroup from '../component/AddGroup';
 import GetGroupList from '../component/GetGroupList';
-import Members from '../component/Members';
 import AddMessage from '../component/AddMessage';
 import { getGroups, addMembers } from '../actions/GetGroupsAction';
 import PropTypes from 'prop-types';
@@ -55,13 +54,6 @@ constructor(props){
           </Col>
 
         </Row>
-
-        <div>
-          <li>Ibrahim</li>
-          <li>Jimoh</li>
-          <li>Kene</li>
-          <li>Mike</li>
-        </div>
       </Col>
       <Col xs={12} md={6}>
         <Row className=" aside">
@@ -80,7 +72,7 @@ constructor(props){
           <h3>Message Board is Empty</h3>
         </div>
         <div>
-          <AddMessage/>
+          <AddMessage groupid={this.state.groupId} />
         </div>
       </Col>
       <Col xs={12} md={3} >

@@ -23,8 +23,7 @@ export default (
     <Route exact path="/passwordreset" component={PasswordReset} /> 
     <Route exact path="/getgroup" component={GetGroupList} /> 
     <Route path="/group/:groupid" component={GroupMessage} /> 
-
-      <Route exact path="/message" component={MessageList} /> 
+    <Route exact path="/message/:groupid" component={MessageList} /> 
   
   </div>
 );

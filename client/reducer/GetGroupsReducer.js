@@ -5,7 +5,6 @@ export default (state = [], action = {}) => {
   switch (action.type) {
   case GET_ALL_GROUPS: {
     return [
-      ...state,
       ...action.groupData
     ];
   }

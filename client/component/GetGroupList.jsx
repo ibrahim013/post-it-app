@@ -26,10 +26,9 @@ class GetGroupList extends React.Component {
 
   render() {
     const { Groups } = this.state;
-    const groupArray = Groups.map((group, key) =>
+    const groupArray = Groups.map((group, groupid) =>
     {
-     return <div className = 'groupdisplay'><Group key={group.key} group={group}/></div>
-     
+     return <div key={groupid} className = 'groupdisplay'><Group key={groupid} group={group}/></div>
     })
        return (
         <div> 
