@@ -3,3 +3,5 @@ serviceAccountKey.json
 modules
 .env
 /public
+.vscode
+.nyc_output
