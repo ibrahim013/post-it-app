@@ -28,9 +28,6 @@ apiRouter.route('/groups/group')
               groupname: child.val().groupname,
               Discription: child.val().Discription,
               GroupAdmin: child.val().GroupAdmin,
-
-              // groupId: child.keys,
-              // members: child.val().members.keys,
             };
             groups.push(group);
           });
