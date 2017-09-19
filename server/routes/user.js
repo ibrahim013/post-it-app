@@ -225,10 +225,10 @@ apiRouter.route('/group/postmessage')
         Message: message,
         DateCreated: dateCreated,
       })
-        .then(() => res.status(200).send({ message: 'group created Sucessfuly' }))
+        .then(() => res.status(200).json({ message: 'group created Sucessfuly' }))
         .catch((error) => {
           const errorCode = error.code;
-          return res.status(401).send({ message: 'Somthing went wrong', errorCode });
+          return res.status(401).json({ message: 'Somthing went wrong', errorCode });
         });
     }
   });
