@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import GoogleButton from 'react-google-button';
+import firebase from 'firebase';
 import SignIn from '../actions/LogInAction';
 import PasswordReset from '../component/PasswordReset';
-import GoogleButton from 'react-google-button';
-import googlelogin from '../actions/GoogleLogin.js';
+import GoogleLogin from '../actions/GoogleLogin.js'
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -18,41 +19,54 @@ class LogIn extends React.Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    // this.onHandleSubmit = this.onHandleSubmit.bind(this);
   }
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
-  onSubmit(e) {
-    e.preventDefault();
-    this.setState({ errors: {}, isLoading: true });
+  onHandleSubmit(event){
+    this.props.GoogleLogin().then(
+      (response) => {
+        firebase.database().ref('user').push({
+          displayName: response.user.displayName,
+          email: response.user.email,
+          time: (new Date()).toString(),
+        }),
+        this.props.history.push('/dashboard');
+      }
+    )
+  }
+  onSubmit(event) {
+    event.preventDefault();
+    this.setState({ errors: {}, isLoading: true,  });
     this.props.SignIn(this.state)
       .then(
         () => {
-          history.pushState(null, null, '/dashboard'); window.location.reload();
+         this.props.history.push('/dashboard');
         },
         (err) => this.setState({ errors: err.response.data,
-          isLoading: false })
+          isLoading: false, email: '', password: '', })
       )}
+
   render() {
     const { errors } = this.state;
     return (
       <div>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label className="control-label"><span className="glyphicon glyphicon-envelope"></span> Email</label>
-            <input value={this.state.email} onChange={this.onChange}
-              type="email" name="email" className="form-control"
-              placeholder="eg ibrahim@gmail.com" />
-
-          </div>
-          <div className="form-group">
-            <label ><span className=" control-label glyphicon glyphicon-eye-open"></span> Password</label>
-            <input value={this.state.password} onChange={this.onChange}
-              type="password" name="password" className="form-control"
-              placeholder="must be at least 6 character long" />
-
-          </div>
-
+    <form onSubmit={this.onSubmit}>
+      <div className="form-group">
+        <label className="control-label">
+        <span className="glyphicon glyphicon-envelope"></span> Email</label>
+        <input value={this.state.email} onChange={this.onChange}
+          type="email" name="email" className="form-control"
+          placeholder="eg ibrahim@gmail.com" />
+      </div>
+      <div className="form-group">
+        <label ><span className=" control-label glyphicon glyphicon-eye-open">
+        </span> Password</label>
+        <input value={this.state.password} onChange={this.onChange}
+          type="password" name="password" className="form-control"
+          placeholder="must be at least 6 character long" />
+        </div>
           <div className="form-group">
             <button disabled={this.state.isLoading} name="login"
               onSubmit={this.onSubmit}
@@ -60,23 +74,20 @@ class LogIn extends React.Component {
               <span className="glyphicon glyphicon-log-in" /> Login
             </button>
           </div>
-      
         </form>
         <div>
-          <GoogleButton
-            onClick={() => { this.props.googlelogin() }}
-          />
+          <GoogleButton onClick={() => {this.onHandleSubmit()}} name="goolelogin"/>
         </div>
         <br />
         <div>
           <span>Dont have an Account? </span><Link to="/signup">Sign up</Link>
         </div>
         <br />
-         <div className="modal-footer">
+         <div className="modal-footer" >
           <Link to="/passwordreset" >Password Reset</Link>
+          
         </div>
         <div className=" " >
-          
         </div>
       </div>
     );
@@ -84,6 +95,7 @@ class LogIn extends React.Component {
 }
 
 LogIn.PropTypes = {
-  SignIn: PropTypes.func.isRequired
+  SignIn: PropTypes.func.isRequired,
+  GoogleLogin: PropTypes.func.isRequired,
 };
-export default connect(null, { SignIn, googlelogin })(LogIn);
+export default connect(null, { SignIn, GoogleLogin})(withRouter(LogIn));

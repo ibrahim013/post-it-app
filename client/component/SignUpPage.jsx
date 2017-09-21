@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Signup from '../component/SignUp';
 import SignUpAction from '../actions/SignUpAction';
 import addFlashMessage from '../actions/AddFlashMessage';
+import { withRouter } from 'react-router-dom';
+
 
 
 class SignUpPage extends React.Component {
@@ -22,4 +24,4 @@ SignUpPage.PropTypes = {
   SignUpAction: PropTypes.func.isRequired,
   addFlashMessage: PropTypes.func.isRequired
 };
-export default connect(null, { SignUpAction, addFlashMessage })(SignUpPage);
+export default withRouter(connect(null, { SignUpAction, addFlashMessage })(SignUpPage));

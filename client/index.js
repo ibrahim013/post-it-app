@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import createHistory from 'history/createBrowserHistory';
-import { Router } from 'react-router-dom';
+import { BrowserRouter as Router, browserHistory, Route } from
+  'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -23,7 +25,7 @@ setAuthorizationToken(localStorage.jwtToken);
 
 ReactDom.render(
   <Provider store={store}>
-    <Router history={history}>
+     <Router history={browserHistory}>
       {routes}
     </Router>
   </Provider>, document.getElementById('app'));

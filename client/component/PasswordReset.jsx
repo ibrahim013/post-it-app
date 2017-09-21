@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import FlashMessageList from './FlashMessageList';
 import addFlashMessage from '../actions/AddFlashMessage';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 
 class PasswordReset extends React.Component {
 	constructor(props) {
@@ -45,10 +47,12 @@ class PasswordReset extends React.Component {
 	<FlashMessageList/>
 <div className="form-group ps-style">
 	<label className="control-label">Password Reset</label>
-	<input value={this.state.email} onChange={this.onChange} type="email" name="email" className="form-control" placeholder="enter email" required />
+	<input value={this.state.email} onChange={this.onChange} type="email" 
+	name="email" className="form-control" placeholder="enter email" required />
 </div>
 <div className="form-group">
-	<button name="login" onSubmit={this.onSubmit}  disabled={this.state.isLoading} className="btn btn-primary btn-sm">
+	<button name="login" onSubmit={this.onSubmit}  
+	disabled={this.state.isLoading} className="btn btn-primary btn-sm">
 		Reset Password
 </button>
 		</div>
@@ -62,4 +66,4 @@ PasswordReset.PropTypes = {
   addFlashMessage: PropTypes.func.isRequired
 };
 
-export default connect(null, {addFlashMessage })(PasswordReset);
+export default withRouter(connect(null, {addFlashMessage })(PasswordReset));

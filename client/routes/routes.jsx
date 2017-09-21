@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import App from '../component/app';
 import HomePage from '../component/HomePage';
 import LogIn from '../component/LogIn';
@@ -24,7 +25,7 @@ export default (
     <Route exact path="/getgroup" component={GetGroupList} /> 
     <Route path="/group/:groupid" component={GroupMessage} /> 
     <Route exact path="/message/:groupid" component={MessageList} /> 
-  
+
   </div>
 );
 
