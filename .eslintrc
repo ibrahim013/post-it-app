@@ -1,6 +1,6 @@
  {
   "root": true,
-  "extends": ["airbnb-base", "JSX-ally", "react" ],
+  "extends":"airbnb-base",
   "env": {
     "node": true,
     "es6": true,

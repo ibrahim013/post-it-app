@@ -1,14 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Grid, Row, Col, Image } from 'react-bootstrap';
+import { Jumbotron, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import MessageList from '../component/MessageList';
-import { Jumbotron, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 import AddGroup from '../component/AddGroup';
 import GetGroupList from '../component/GetGroupList';
 import AddMessage from '../component/AddMessage';
-import { getGroups, addMembers } from '../actions/GetGroupsAction';
-import { getMessges } from '../actions/GetGroupsAction';
-import PropTypes from 'prop-types';
+import { getGroups, addMembers, getMessges } from '../actions/GroupAction';
 
 class GroupMessage extends React.Component {
 constructor(props){
@@ -65,72 +64,72 @@ constructor(props){
       });
     }
     return (
-  <Grid data-spy="scroll">
-    <Row className="show-grid ">
-      <Col xs={12} md={3} className="asidelist">
+<Grid data-spy="scroll">
+<Row className="show-grid ">
+  <Col xs={12} md={3} className="asidelist">
 
-        <Row className="show-grid create">
-          <Col xs={12} md={7} >
-            <h3>{this.state.groupName}</h3>
-          </Col>
-
-        </Row>
+    <Row className="show-grid create">
+      <Col xs={12} md={7} >
+        <h3>{this.state.groupName}</h3>
       </Col>
-      <Col xs={12} md={6}>
-        <Row className=" aside">
-          <Col xs={12} md={9}  >
-            <h1>Messages</h1>
-          </Col>
-          <Col xs={12} md={3} >
-            <button name="signout" className="btn btn-primary btn-small"
-              onSubmit={this.onSubmit}>
-              Sign out
-        </button>
-          </Col>
-        </Row>
-        <div>
-        <div className="panel panel-default ">
-	      <div className="panel-heading">  
-          {MessageContainer}
-          </div>
-          </div>
-        </div>
-        <div>
-         
-            <AddMessage groupid={this.state.groupId} /> 
-        </div>
+
+    </Row>
+  </Col>
+  <Col xs={12} md={6}>
+    <Row className=" aside">
+      <Col xs={12} md={9}  >
+        <h1>Messages</h1>
       </Col>
       <Col xs={12} md={3} >
-        <Row className="show-grid create">
-          <Col xs={12} md={7} >
-            <h3>Members</h3>
-          </Col>
-          <Col xs={12} md={5} className="bot">
-            <button type="button" className="btn btn-info" data-toggle="collapse" data-target="#members">+</button>
-          </Col>
-        </Row>
-        <div id="members" className="collapse">
-           <div>
-        
-          <form onSubmit={this.onSubmit}>
-            <div className="form-group">
-            <input type="text" name="membername" placeholder="Name"
-              value={this.state.groupname}
-              onChange={this.onChange} required
-              />
-                  </div>
-            <button name="members" className="btn btn-primary btn-small" 
-              onSubmit={this.onSubmit}>
-              Add Members
-            </button>
-            
-          </form>
-          
-        </div>
-        </div>
+        <button name="signout" className="btn btn-primary btn-small"
+          onSubmit={this.onSubmit}>
+          Sign out
+    </button>
       </Col>
     </Row>
-  </Grid>
+    <div>
+    <div className="panel panel-default ">
+    <div className="panel-heading">  
+      {MessageContainer}
+      </div>
+      </div>
+    </div>
+    <div>
+      
+        <AddMessage groupid={this.state.groupId} /> 
+    </div>
+  </Col>
+  <Col xs={12} md={3} >
+    <Row className="show-grid create">
+      <Col xs={12} md={7} >
+        <h3>Members</h3>
+      </Col>
+      <Col xs={12} md={5} className="bot">
+        <button type="button" className="btn btn-info" data-toggle="collapse"
+         data-target="#members">+</button>
+      </Col>
+    </Row>
+    <div id="members" className="collapse">
+      <div>
+      <form onSubmit={this.onSubmit}>
+        <div className="form-group">
+        <input type="text" name="membername" placeholder="Name"
+          value={this.state.groupname}
+          onChange={this.onChange} required
+          />
+              </div>
+        <button name="members" className="btn btn-primary btn-small" 
+          onSubmit={this.onSubmit}>
+          Add Members
+        </button>
+        
+      </form>
+      
+    </div>
+    </div>
+  </Col>
+</Row>
+</Grid>
 )
 }
 }

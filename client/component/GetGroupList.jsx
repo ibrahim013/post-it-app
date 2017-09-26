@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Group from './Groups';
-import { getGroups } from '../actions/GetGroupsAction';
+import { getGroups } from '../actions/GroupAction';
 
 
 

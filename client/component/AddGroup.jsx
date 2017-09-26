@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import Link from 'react-router-dom';
 import {Well, Button, Collapse} from 'react-bootstrap';
 import Search from '../component/Search';
-import  { addGroups, getGroups } from '../actions/GetGroupsAction'
+import  { addGroups, getGroups } from '../actions/GroupAction'
 
 class AddGroup extends React.Component {
   constructor() {

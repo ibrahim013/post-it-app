@@ -7,7 +7,7 @@ const express = require('express');
 
 const app = express();
 const bodyParser = require('body-parser');
-const index = require('./routes/user');
+const index = require('../server/controllers/routes/user');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const compiler = webpack(webpackConfig);
@@ -33,3 +33,4 @@ app.get('/*', (req, res) => {
 
 app.listen(port);
 
+module.exports = app.listen();

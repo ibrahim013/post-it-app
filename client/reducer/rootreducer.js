@@ -6,7 +6,7 @@ import Messages from '../reducer/GetMessagesReducer';
 const rootReducer = combineReducers({
   FlashMessages,
   Groups,
-  Messages
+  Messages,
 });
 
 export default rootReducer;

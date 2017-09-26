@@ -37,7 +37,7 @@ class SignUp extends React.Component {
       this.setState({ errors: {}, isLoading: true });
       this.props.SignUpAction(this.state).then(
         () => {
-          this.props.addFlashMessage({
+          this.props.addFlashMessageSignup({
             type: 'success',
             text: 'You have Signed Up succesfuly Proceed to Login'
           })

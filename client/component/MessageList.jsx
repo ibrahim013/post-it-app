@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Message from './Message';
-import { getMessges } from '../actions/GetGroupsAction';
+import { getMessges } from '../actions/GroupAction';
 import map from 'lodash/map'
 
 

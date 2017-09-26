@@ -6,7 +6,9 @@ import GoogleButton from 'react-google-button';
 import firebase from 'firebase';
 import SignIn from '../actions/LogInAction';
 import PasswordReset from '../component/PasswordReset';
-import GoogleLogin from '../actions/GoogleLogin.js'
+import GoogleLogin from '../actions/GoogleLogin.js';
+import addFlashMessageSignin from '../actions/AddFlashMessage';
+
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -43,29 +45,40 @@ class LogIn extends React.Component {
       .then(
         () => {
          this.props.history.push('/dashboard');
-        },
-        (err) => this.setState({ errors: err.response.data,
-          isLoading: false, email: '', password: '', })
-      )}
+        })
+      .catch((err)=> {
+      if (err.response) {
+			this.props.addFlashMessageSignin({
+			type: 'error',
+			text: err.response.data.errorCode
+		})
+			this.setState({
+				isLoading: false,
+        email: '',
+        password: '',
+			})
+			}
+    })
+  }
 
   render() {
     const { errors } = this.state;
     return (
-      <div>
+    <div>
     <form onSubmit={this.onSubmit}>
       <div className="form-group">
         <label className="control-label">
         <span className="glyphicon glyphicon-envelope"></span> Email</label>
         <input value={this.state.email} onChange={this.onChange}
           type="email" name="email" className="form-control"
-          placeholder="eg ibrahim@gmail.com" />
+          placeholder="eg ibrahim@gmail.com" required />
       </div>
       <div className="form-group">
         <label ><span className=" control-label glyphicon glyphicon-eye-open">
         </span> Password</label>
         <input value={this.state.password} onChange={this.onChange}
           type="password" name="password" className="form-control"
-          placeholder="must be at least 6 character long" />
+          placeholder="must be at least 6 character long" required/>
         </div>
           <div className="form-group">
             <button disabled={this.state.isLoading} name="login"
@@ -87,7 +100,7 @@ class LogIn extends React.Component {
           <Link to="/passwordreset" >Password Reset</Link>
           
         </div>
-        <div className=" " >
+        <div className=" ">
         </div>
       </div>
     );
@@ -98,4 +111,4 @@ LogIn.PropTypes = {
   SignIn: PropTypes.func.isRequired,
   GoogleLogin: PropTypes.func.isRequired,
 };
-export default connect(null, { SignIn, GoogleLogin})(withRouter(LogIn));
+export default connect(null, { SignIn, GoogleLogin,addFlashMessageSignin })(withRouter(LogIn));
