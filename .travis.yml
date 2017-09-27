@@ -17,4 +17,4 @@ env:
  CODECLIMATE_REPO_TOKEN: 680a1143d7c73e297ea0f844b0ac79e23cfd06b34c9717e813de2523c2d507a3
 
 after_success:
-  - nyc npm run test && nyc report --reporter=text-lcov | coveralls
+  - nyc report --reporter=text-lcov | coveralls
