@@ -1,8 +1,8 @@
 import React from 'react';
-import addMessage from '../actions/AddMessage';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import Post from '../component/post';
+import { connect } from 'react-redux';
+import addMessage from '../actions/AddMessage';
+
 
 class AddMessage extends React.Component{
 	constructor(props) {
@@ -28,39 +28,27 @@ class AddMessage extends React.Component{
 render(){
 return(
 	<div>
-	{/* <div className="panel panel-default ">
-	 <div className="panel-heading">Messages
-	 </div>
-	 </div>
-	 {/* {
-	 	this.state.posts.map((postBody, id) => {
-	 		return(
-	 			<Post Key={id} postBody = {postBody}/>
-	 			)
-	 	})
-	 } */} 
-
 	<div className="panel-body text">
-	<textarea placeholder='Messages'name="message" onChange ={this.onChange} value={this.state.message}
-    />
+	<textarea className="form-control custom-control "
+	placeholder='Messages'name="message" onChange ={this.onChange} 
+	value={this.state.message}
+    /><span className="input-group-addon btn btn-primary" 
+		onClick={this.onSubmit}>Send</span>
  <form onSubmit={this.onSubmit}>
     <label className="radio-inline">
-      <input type="radio" name="piority" value="normal" onChange ={this.onChange}/>Normal
+      <input type="radio" name="piority" value="normal" 
+			onChange ={this.onChange}/>Normal
     </label>
     <label className="radio-inline">
-      <input type="radio" name="piority" value="high" onChange ={this.onChange}/>Critical
+      <input type="radio" name="piority" value="high" 
+			onChange ={this.onChange}/>Critical
     </label>
     <label className="radio-inline">
-      <input type="radio" name="piority" value="critical" onChange ={this.onChange}/>Urgent
+      <input type="radio" name="piority" value="critical" 
+			onChange ={this.onChange}/>Urgent
     </label>
-		<br/>
-		<button name="group" className="btn btn-primary btn-small" 
-			onSubmit={this.onSubmit}>
-			send
-		</button>
   </form>
 	</div>
-	
 	</div>
 );
 }

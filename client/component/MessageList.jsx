@@ -13,7 +13,7 @@ class MessageList extends React.Component {
       Messages: this.props.Messages
     }
   }
-  componentWillMount(){
+  componentDidMount(){
     this.props.getMessges();
 
   }

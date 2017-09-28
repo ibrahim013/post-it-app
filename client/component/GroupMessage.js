@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, Row, Col, Image } from 'react-bootstrap';
 import { Jumbotron, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import MessageList from '../component/MessageList';
 import AddGroup from '../component/AddGroup';
 import GetGroupList from '../component/GetGroupList';
@@ -64,6 +65,10 @@ constructor(props){
       });
     }
     return (
+    <div>
+       <div className='row linkheader'>
+     <h3><Link to="/">Sign out</Link>|<Link to="/dashboard">Dashboard</Link></h3>
+      </div>
 <Grid data-spy="scroll">
 <Row className="show-grid ">
   <Col xs={12} md={3} className="asidelist">
@@ -78,13 +83,10 @@ constructor(props){
   <Col xs={12} md={6}>
     <Row className=" aside">
       <Col xs={12} md={9}  >
-        <h1>Messages</h1>
+        <h3>Message Board</h3>
       </Col>
       <Col xs={12} md={3} >
-        <button name="signout" className="btn btn-primary btn-small"
-          onSubmit={this.onSubmit}>
-          Sign out
-    </button>
+    
       </Col>
     </Row>
     <div>
@@ -94,7 +96,7 @@ constructor(props){
       </div>
       </div>
     </div>
-    <div>
+    <div className=""> 
       
         <AddMessage groupid={this.state.groupId} /> 
     </div>
@@ -130,8 +132,9 @@ constructor(props){
   </Col>
 </Row>
 </Grid>
-)
-}
+</div>
+    )
+  }
 }
 
 GroupMessage.PropTypes = {

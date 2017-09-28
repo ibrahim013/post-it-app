@@ -4,7 +4,6 @@ import server from '../server/index';
 
 const request = require('supertest');
 
-// const should = chai.should;
 const expect = chai.expect;
 
 
@@ -151,23 +150,6 @@ describe('Post It', () => {
         done();
       });
   });
-  // it('should send an error for a wrong password', (done) => {
-  //   const registeredUser = {
-  //     email: 'admin@gmail.com',
-  //     password: '1234',
-  //   };
-  //   request(server)
-  //     .post('/user/signin')
-  //     .send(registeredUser)
-  //     .end((err, res) => {
-  //       // expect(401);
-  //       // expect(res.statusCode).to.be.equal(401);
-  //       expect(res.body).to.be.an('object');
-  //       expect(res.body.errorCode).to.be.equal('auth/wrong-password');
-  //       expect(res.body.message).to.be.equal('Somthing went wrong');
-  //       done();
-  //     });
-  // });
   it('should send an error for a wrong email', (done) => {
     const registeredUser = {
       email: 'user2',
@@ -181,6 +163,45 @@ describe('Post It', () => {
         expect(res.body).to.be.an('object');
         expect(res.body.errorCode).to.be.equal('auth/invalid-email');
         expect(res.body.message).to.be.equal('Somthing went wrong');
+        done();
+      });
+  });
+  // Password Reset
+  it('should allow registered user`s to reset their passwords', (done) => {
+    const userEmail = { email: 'kawthar@gmail.com' };
+    request(server)
+      .post('/user/passwordreset')
+      .send(userEmail)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(401);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+  it('should send an error for a wrongly formatted password', (done) => {
+    const userEmail = { email: 'user.gmail.com' };
+    request(server)
+      .post('/user/passwordreset')
+      .send(userEmail)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(401);
+        expect(res.body).to.have.a.property('errorCode');
+        expect(res.body.errorCode).to.be.equal('The email address is badly formatted.');
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+  it('should throw an error if email is not found', (done) => {
+    const userEmail = { email: 'user@gmail.com' };
+    request(server)
+      .post('/user/passwordreset')
+      .send(userEmail)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(401);
+        expect(res.body.errorCode).to.be.equal('There is no user record corresponding ' +
+          'to this identifier. The user may have been deleted.');
+        expect(res.body.error).to.have.property('errorCode');
+        expect(res.body).to.be.an('object');
         done();
       });
   });

@@ -93,5 +93,65 @@ apiRouter.route('/user/passwordreset')
       });
   });
 
+/**
+ * Route to create user groups.
+ * @param {string} groupname; 
+ * @param {string} discription; 
+ * @returns {Object} 
+ */
+apiRouter.route('/groups')
+  .post((req, res) => {
+    const { groupname, discription } = req.body;
+    const dateCreated = new Date().toString();
+    const currentUser = firebase.auth().currentUser;
+    const userEmail = currentUser.email;
+    const createdBy = currentUser.uid;
+    const displayName = currentUser.displayName;
+    if (currentUser !== null) {
+      firebase.database().ref('group/').push({
+        groupname,
+        dateCreated,
+        GroupAdmin: userEmail,
+        createdBy,
+        displayName,
+        Discription: discription,
+      }).then(() => res.status(201).send({ message: 'group created Sucessfuly',
+      }))
+        .catch((error) => {
+          const errorCode = error.code;
+          res.status(401).send({ message: 'Somthing went wrong', errorCode });
+        });
+    }
+  });
+apiRouter.route('/groups/group')
+  .get((req, res) => {
+    const user = firebase.auth().currentUser;
+    if (user) {
+      const groups = [];
+      firebase.database().ref('/group')
+        .orderByKey().once('value', (snapshot) => {
+          snapshot.forEach((child) => {
+            const group = {
+              groupid: child.key,
+              groupname: child.val().groupname,
+              Discription: child.val().Discription,
+              GroupAdmin: child.val().GroupAdmin,
+            };
+            groups.push(group);
+          });
+        })
+        .then(() => res.send(
+          { groups },
+        ))
+        .catch(error => res.status(500).send({
+          message: `Error occurred ${error.message}`,
+        }));
+    } else {
+      return res.status(403).send({
+        message: 'You are not signed in right now!',
+      });
+    }
+  });
+
 
 module.exports = apiRouter;
