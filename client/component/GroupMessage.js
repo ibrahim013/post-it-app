@@ -4,6 +4,8 @@ import { Grid, Row, Col, Image } from 'react-bootstrap';
 import { Jumbotron, ButtonToolbar, Button, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Alert from 'react-s-alert';
+import toastr from 'toastr';
 import MessageList from '../component/MessageList';
 import AddGroup from '../component/AddGroup';
 import GetGroupList from '../component/GetGroupList';
@@ -16,21 +18,34 @@ constructor(props){
     this.state = {
         groupName: '',
         groupId: '',
-        membername: ''
+        displayName: '',
+        error:{}
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
-  onSubmit(e) {
-    e.preventDefault();
+  onSubmit(event) {
+    event.preventDefault();
     this.props.addMembers(this.state)
-
+    .then(response =>{ 
+      Alert.success(response.data.message , {
+            position: 'top-right',
+            offset: 100
+        });   
+    }).catch(err => {
+      if (err.response) {
+        Alert.error(err.response.data.message , {
+            position: 'top-right',
+            offset: 100
+        });    
+    }
+  })
   }
-  componentWillMount(){
+  componentDidMount(){
       const groupid = this.props.match.params.groupid;
       let groupName = "";
       const { Groups } = this.props;
@@ -46,6 +61,7 @@ constructor(props){
 
   }
   render() {
+    
     const { Messages } = this.props;
     let MessageContainer = '';
     if(Messages){
@@ -66,9 +82,9 @@ constructor(props){
     }
     return (
     <div>
-       <div className='row linkheader'>
+    <div className='row linkheader'>
      <h3><Link to="/">Sign out</Link>|<Link to="/dashboard">Dashboard</Link></h3>
-      </div>
+    </div>
 <Grid data-spy="scroll">
 <Row className="show-grid ">
   <Col xs={12} md={3} className="asidelist">
@@ -115,11 +131,11 @@ constructor(props){
       <div>
       <form onSubmit={this.onSubmit}>
         <div className="form-group">
-        <input type="text" name="membername" placeholder="Name"
-          value={this.state.groupname}
+        <input type="text" name="displayName" placeholder="Name"
+          value={this.state.displayName}
           onChange={this.onChange} required
           />
-              </div>
+        </div>
         <button name="members" className="btn btn-primary btn-small" 
           onSubmit={this.onSubmit}>
           Add Members

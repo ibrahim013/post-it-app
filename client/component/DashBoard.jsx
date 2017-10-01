@@ -1,4 +1,5 @@
 import React from 'react';
+import * as Toastr from 'toastr';
 import { Grid, Row, Col, Image } from 'react-bootstrap';
 import MessageList from '../component/MessageList';
 import { Jumbotron, ButtonToolbar, Button, Modal } from 'react-bootstrap';
@@ -10,7 +11,9 @@ import AddMessage from '../component/AddMessage';
 
 class DashBoard extends React.Component {
   render() {
+   
     return (
+
       <div>
       <div className='row linkheader'>
      <h3><Link to="/">Sign out</Link></h3>

@@ -12,8 +12,6 @@ const apiRouter = express.Router();
  */
 
 
-
-
 /**
  * Route for adding members to group.
  * @param {string} groupname; 

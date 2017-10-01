@@ -1,7 +1,6 @@
 import * as firebase from 'firebase';
 import express from 'express';
 import config from '../../../server/database';
-import '../routes/group';
 
 const apiRouter = express.Router();
 firebase.initializeApp(config);
@@ -35,7 +34,7 @@ apiRouter.route('/user/signup')
       .then(() => res.status(200).json({ message: 'signup sucessful' }))
       .catch((error) => {
         const errorCode = error.code;
-        res.status(401).json({ message: 'Somthing went wrong', errorCode });
+        return res.status(401).json({ message: 'Somthing went wrong', errorCode });
       });
   });
 
@@ -70,8 +69,8 @@ apiRouter.route('/user/signin')
 apiRouter.route('/signout')
   .get((req, res) => {
     firebase.auth().signOut()
-      .then(() => res.status(200).send({ message: 'signed-out successfully.' }))
-      .catch(() => res.status(404).send({ message: 'Network Error' }));
+      .then(() => res.status(200).json({ message: 'signed-out successfully.' }))
+      .catch(() => res.status(404).json({ message: 'Network Error' }));
   });
 
 /**
@@ -85,7 +84,7 @@ apiRouter.route('/user/passwordreset')
     const auth = firebase.auth();
     const emailAddress = req.body.email;
     auth.sendPasswordResetEmail(emailAddress)
-      .then(() => res.status(200).send({
+      .then(() => res.status(200).json({
         message: `Password Reset Mail Sent to${emailAddress}` }))
       .catch((error) => {
         const errorCode = error.message;
@@ -115,11 +114,11 @@ apiRouter.route('/groups')
         createdBy,
         displayName,
         Discription: discription,
-      }).then(() => res.status(201).send({ message: 'group created Sucessfuly',
+      }).then(() => res.status(201).json({ message: 'group created Sucessfuly',
       }))
         .catch((error) => {
           const errorCode = error.code;
-          res.status(401).send({ message: 'Somthing went wrong', errorCode });
+          return res.status(401).json({ message: 'Somthing went wrong', errorCode });
         });
     }
   });
@@ -140,17 +139,72 @@ apiRouter.route('/groups/group')
             groups.push(group);
           });
         })
-        .then(() => res.send(
+        .then(() => res.json(
           { groups },
         ))
-        .catch(error => res.status(500).send({
+        .catch(error => res.status(500).json({
           message: `Error occurred ${error.message}`,
         }));
     } else {
-      return res.status(403).send({
+      return res.status(403).json({
         message: 'You are not signed in right now!',
       });
     }
+  });
+
+/**
+ * Route for adding members to group.
+ * @param {string} groupname; 
+ * @param {string} groupmember; 
+ * 
+ */
+apiRouter.route('/group/addmember')
+  .post((req, res) => {
+    const { groupName, displayName, groupId } = req.body;
+    const users = [];
+    const groups = [];
+    const groupMember = [];
+    const registeredUsers = firebase.database().ref('user').orderByKey();
+    const createdGroups = firebase.database().ref('group').orderByValue();
+    const groupMembers = firebase.database().ref(`group/${groupId}/members`).orderByKey();
+    registeredUsers.once('value', (snapshot) => {
+      snapshot.forEach((childSnapShot) => {
+        const user = childSnapShot.val().displayName;
+        users.push(user);
+      });
+    });
+    groupMembers.once('value', (snapshot) => {
+      snapshot.forEach((childSnapShot) => {
+        const groupmember = childSnapShot.val().displayname;
+        groupMember.push(groupmember);
+      });
+    });
+    createdGroups.once('value', (snapshot) => {
+      snapshot.forEach((childSnapShot) => {
+        const group = childSnapShot.val().groupname;
+        groups.push(group);
+      });
+      const group = groups.includes(`${groupName}`);
+      const user = users.includes(`${displayName}`);
+      const member = groupMember.includes(`${displayName}`);
+      if (!user) {
+        return res.status(400).json({ message: 'user not found' });
+      }
+      if (!group) {
+        return res.status(400).json({ message: 'Group not found' });
+      }
+      if (member) {
+        return res.status(400).json({ message: 'This user is alredy a member of this group' });
+      }
+      firebase.database().ref(`group/${groupId}/`).child('members').push({
+        displayName,
+
+      });
+    }).then(() => res.status(200).json({ message: 'user added sucessfully' }))
+      .catch((error) => {
+        const errorCode = error.code;
+        return res.status(400).json({ message: 'Somthing went wrong', errorCode });
+      });
   });
 
 
