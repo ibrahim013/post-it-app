@@ -19,11 +19,11 @@ function GetMessageAction(groupMessage) {
     groupMessage,
   };
 }
-function MemberAddedAction() {
-  return {
-    type: ADD_NEW_MEMBER,
-  };
-}
+// function MemberAddedAction() {
+//   return {
+//     type: ADD_NEW_MEMBER,
+//   };
+// }
 /**
  * 
  * @param {string} groupname 
@@ -31,29 +31,29 @@ function MemberAddedAction() {
  * @return {promise} groups
  */
 
-export function addGroups(groupData) {
-  return () => axios.post('/groups', groupData);
-}
-
 export function getGroups() {
-  return dispatch => axios.get('/groups/group')
-    .then(
-      (response) => {
+  return dispatch =>
+    axios
+      .get('/v1/group/groups')
+      .then((response) => {
         dispatch(GetGroupAction(response.data.groups));
-      },
-    ).catch();
+      })
+      .catch();
 }
 export function getMessges(groupid) {
-  return dispatch => axios.get(`/group/${groupid}/messages/`)
-    .then(
-      (response) => {
-        dispatch(GetMessageAction(response.data.messages));
-      });
+  return dispatch =>
+    axios.get(`/v1/group/${groupid}/messages/`).then((response) => {
+      dispatch(GetMessageAction(response.data.messages));
+    });
 }
 export function addMembers(userDetails) {
-  return dispatch => axios.post('/group/addmember', userDetails).then(
-    // () => {
-    //   dispatch(MemberAddedAction());
-    // },
-  );
+  return dispatch => axios.post('/v1/group/addmember', userDetails).then();
+}
+
+export function addGroups(groupData) {
+  return dispatch =>
+    axios.post('/v1/groups', groupData).then(({ data }) => {
+      console.log(data.groups);
+      return dispatch(GetGroupAction(data.groups));
+    });
 }

@@ -8,5 +8,5 @@ import axios from 'axios';
  * @return {promise} data
  */
 export default function SignUpAction(userData) {
-  return dispatch => axios.post('/user/signup', userData);
+  return dispatch => axios.post('/v1/user/signup', userData);
 }

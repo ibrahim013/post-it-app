@@ -9,6 +9,6 @@ import axios from 'axios';
 
 export default function addMessage(messageData) {
   return () => (
-    axios.post('/group/postmessage', messageData)
+    axios.post('/v1/group/postmessage', messageData)
   );
 }

@@ -12,17 +12,17 @@ class AddMessage extends React.Component{
 			message:'',
 			piority:'',
 			groupname: this.props.groupid,
-			
 
 		}
+		console.log(this.props.groupid)
 		this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 	}
-	onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+	onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
-	onSubmit(e){
-	e.preventDefault();
+	onSubmit(event){
+	event.preventDefault();
 	this.props.addMessage(this.state)
 }
 render(){
@@ -54,11 +54,12 @@ return(
 }
 }
 AddMessage.PropTypes = {
-    Messages: PropTypes.array.isRequired
+		Messages: PropTypes.array.isRequired,
+		
   }
   function mapStateToProps(state){
     return{
-      Mesages: state.mesageText
+      // Mesages: state.mesageText
     }
   }
 

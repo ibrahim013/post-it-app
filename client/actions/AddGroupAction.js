@@ -8,5 +8,5 @@ import axios from 'axios';
  */
 
 export default function addGroups(groupData) {
-  return () => axios.post('/groups', groupData);
+  return () => axios.post('/v1/groups', groupData);
 }

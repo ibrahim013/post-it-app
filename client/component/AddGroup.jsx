@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import Link from 'react-router-dom';
 import {Well, Button, Collapse} from 'react-bootstrap';
 import Search from '../component/Search';
-import  { addGroups, getGroups } from '../actions/GroupAction'
+import  { addGroups } from '../actions/GroupAction'
 
 class AddGroup extends React.Component {
   constructor() {
@@ -20,14 +20,14 @@ class AddGroup extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
   
-  onSubmit(e) {
-    e.preventDefault()
+  onSubmit(event) {
+    event.preventDefault()
     this.props.addGroups(this.state);
-    this.props.getGroups();
+    // this.props.getGroups();
   }
 
   render() {
@@ -63,4 +63,4 @@ AddGroup.PropTypes ={
   getGroups:  PropTypes.func.isRequired
 }
 
-export default connect(null, {addGroups, getGroups})(AddGroup);
+export default connect(null, {addGroups})(AddGroup);
