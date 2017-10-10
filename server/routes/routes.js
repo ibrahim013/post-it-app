@@ -1,6 +1,7 @@
 import express from 'express';
 import { signUp, signIn, signOut, passwordReset } from '../controllers/user';
-import { userGroups, addMember, postMessage, groupList, group } from '../controllers/group';
+import { userGroups, addMember, postMessage, messageList, group, groupMember }
+  from '../controllers/group';
 
 const router = express.Router();
 
@@ -12,6 +13,6 @@ router.post('/v1/group', group);
 router.get('/v1/group/groups', userGroups);
 router.post('/v1/group/addmember', addMember);
 router.post('/v1/group/postmessage', postMessage);
-router.get('/v1/group/:groupid/messages/', groupList);
-
+router.get('/v1/group/:groupid/messages/', messageList);
+router.get('/v1/group/:groupid/members/', groupMember);
 export default router;

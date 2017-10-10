@@ -31,7 +31,16 @@ export const signUp = (req, res) => {
     .then(() => res.status(200).json({ message: 'signup sucessful' }))
     .catch((error) => {
       const errorCode = error.code;
-      return res.status(401).json({ message: 'Somthing went wrong', errorCode });
+      if (errorCode === 'auth/email-already-in-use') {
+        return res.status(400).json({ message: 'email already in use' });
+      }
+      if (errorCode === 'auth/invalid-email') {
+        return res.status(400).json({ message: 'invalid email' });
+      }
+      if (errorCode === 'auth/weak-password') {
+        return res.status(400).json({ message: 'password strength is too week' });
+      }
+      return res.status(500).json({ message: 'oops! somthing went wrong' });
     });
 };
 
@@ -49,13 +58,22 @@ export const signIn = (req, res) => {
   firebase.auth().signInWithEmailAndPassword(email, password).then(
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        user.getIdToken().then(token => res.status(200).json({
-          message: 'Sign In Successful', token }));
+        res.status(200).json({
+          message: 'Sign In Successful', user });
       }
     }),
   ).catch((error) => {
     const errorCode = error.code;
-    return res.status(401).json({ message: 'Somthing went wrong', errorCode });
+    if (errorCode === 'auth/invalid-email') {
+      return res.status(400).json({ message: 'invalid email' });
+    }
+    if (errorCode === 'auth/user-not-found') {
+      return res.status(400).json({ message: 'user does not exist' });
+    }
+    if (errorCode === 'auth/wrong-password') {
+      return res.status(400).json({ message: 'wrong password' });
+    }
+    return res.status(500).json({ message: 'oops!! Somthing went wrong' });
   });
 };
 
@@ -70,7 +88,7 @@ export const signIn = (req, res) => {
 export const signOut = (req, res) => {
   firebase.auth().signOut()
     .then(() => res.status(200).json({ message: 'signed-out successfully.' }))
-    .catch(() => res.status(404).json({ message: 'Network Error' }));
+    .catch(() => res.status(500).json({ message: 'Network Error' }));
 };
 
 /**
@@ -88,6 +106,12 @@ export const passwordReset = (req, res) => {
       message: `Password Reset Mail Sent to${emailAddress}` }))
     .catch((error) => {
       const errorCode = error.message;
+      if (errorCode === 'auth/invalid-email') {
+        return res.status(400).json({ message: 'invalid email' });
+      }
+      if (errorCode === 'auth/user-not-found') {
+        return res.status(400).json({ message: 'user not found' });
+      }
       return res.status(401).json({ errorCode });
     });
 };

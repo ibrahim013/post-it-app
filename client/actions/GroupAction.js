@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { GET_ALL_GROUPS, GET_ALL_MESSAGE, ADD_NEW_MEMBER } from '../constants/ActionTypes';
+import { GET_ALL_GROUPS, GET_ALL_MESSAGE, ADD_NEW_MEMBER, GET_ALL_GROUP_MEMBERS }
+  from '../constants/ActionTypes';
 
 /**
  * userSignupRequest() returns user data
@@ -17,6 +18,12 @@ function GetMessageAction(groupMessage) {
   return {
     type: GET_ALL_MESSAGE,
     groupMessage,
+  };
+}
+function GetGroupMembers(groupMembers) {
+  return {
+    type: GET_ALL_GROUP_MEMBERS,
+    groupMembers,
   };
 }
 // function MemberAddedAction() {
@@ -52,8 +59,12 @@ export function addMembers(userDetails) {
 
 export function addGroups(groupData) {
   return dispatch =>
-    axios.post('/v1/groups', groupData).then(({ data }) => {
-      console.log(data.groups);
-      return dispatch(GetGroupAction(data.groups));
+    axios.post('/v1/groups', groupData).then(({ data }) => dispatch(GetGroupAction(data.groups)));
+}
+
+export function getMembers(groupid) {
+  return dispatch =>
+    axios.get(`/v1/group/${groupid}/members/`).then((response) => {
+      dispatch(GetGroupMembers(response.data.members));
     });
 }

@@ -4,3 +4,4 @@ export const ADD_NEW_MEMBER = 'ADD_NEW_MEMBER';
 export const ADD_GROUPS = 'ADD_GROUPS';
 export const GET_ALL_GROUPS = 'GET_ALL_GROUPS';
 export const GET_ALL_MESSAGE = 'GET_ALL_MESSAGE';
+export const GET_ALL_GROUP_MEMBERS = 'GET_ALL_GROUP_MEMBERS';

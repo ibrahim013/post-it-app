@@ -11,9 +11,9 @@ import setAuthorizationToken from '../util/setAuthorizationToken';
 export default function SignIn(userData) {
   return dispatch => axios.post('/v1/user/signin', userData)
     .then((res) => {
-      const token = res.data.token;
-      localStorage.setItem('jwtToken', token);
-      setAuthorizationToken(token);
-      console.log(jwtDecode(token));
+      // const token = res.data.token;
+      // localStorage.setItem('jwtToken', token);
+      // setAuthorizationToken(token);
+      // console.log(jwtDecode(token));
     });
 }

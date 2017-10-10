@@ -55,7 +55,8 @@ export const addMember = (req, res) => {
   const groupMember = [];
   const registeredUsers = firebase.database().ref('user').orderByKey();
   const createdGroups = firebase.database().ref('group').orderByValue();
-  const groupMembers = firebase.database().ref(`group/${groupId}/members`).orderByKey();
+  const groupMembers = firebase.database().ref(`group/${groupId}/members`)
+    .orderByKey();
   registeredUsers.once('value', (snapshot) => {
     snapshot.forEach((childSnapShot) => {
       const user = childSnapShot.val().displayName;
@@ -83,7 +84,8 @@ export const addMember = (req, res) => {
       return res.status(400).json({ message: 'Group not found' });
     }
     if (member) {
-      return res.status(400).json({ message: 'This user is alredy a member of this group' });
+      return res.status(400).json({ message: 'This user is alredy a' +
+       'member of this group' });
     }
     firebase.database().ref(`group/${groupId}/`).child('members').push({
       displayName,
@@ -125,14 +127,14 @@ export const postMessage = (req, res) => {
 };
 
 /**
- * @description all user group a user belongs.
+ * @description all group message.
  * @param {object} req; request 
  * @param {object} res; response
  *
  * @returns {object} group list
  */
 
-export const groupList = (req, res) => {
+export const messageList = (req, res) => {
   const user = firebase.auth().currentUser;
   if (user) {
     const messages = [];
@@ -187,5 +189,37 @@ export const group = (req, res) => {
         const errorCode = error.code;
         return res.status(401).json({ message: 'Somthing went wrong', errorCode });
       });
+  }
+};
+/**
+ * @description all group message.
+ * @param {object} req; request 
+ * @param {object} res; response
+ *
+ * @returns {object} group list
+ */
+
+export const groupMember = (req, res) => {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    const members = [];
+    firebase.database().ref(`/group/${req.params.groupid}/members`)
+      .on('value', (snapshot) => {
+        snapshot.forEach((childSnapShot) => {
+          const member = {
+            memberId: childSnapShot.key,
+            displayName: childSnapShot.val().displayName,
+            email: childSnapShot.val().email,
+          };
+          members.push(member);
+          res.send({ members });
+        });
+      });
+    // .then(() => res.send({
+    //   members,
+    // }))
+    // .catch(error => res.status(500).send({
+    //   message: `Error occurred ${error.message}`,
+    // }));
   }
 };
