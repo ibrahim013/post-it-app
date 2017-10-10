@@ -19,13 +19,18 @@ These application provieds a RestApi Endpoint [Api Documentation](https://github
 ```
 1. Clone the repo https://github.com/ibrahim013/post-it-app.git
 
-2. run npm install on terminal
+2. Move into local directory cd post-it-app-2 
 
-3. run npm start to stat up server
+3. run npm install on terminal to Install all project dependencies
 
-4. To run covarage test 
+4. visit [Firebase](https://console.firebase.google.com) Console to add a new project
 
-5. npm run cover
+5. Create a .env file and set the variables in the env-sample to your specified database connection
+
+6. run npm start to stat up server 
+
+7. npm test to run test
+
 ```
 
 <h1>Available Client Routes</h1><br/>
