@@ -112,6 +112,6 @@ export const passwordReset = (req, res) => {
       if (errorCode === 'auth/user-not-found') {
         return res.status(400).json({ message: 'user not found' });
       }
-      return res.status(401).json({ errorCode });
+      return res.status(400).json({ message: 'oops! somthing went wrong' });
     });
 };

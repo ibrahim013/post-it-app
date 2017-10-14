@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ALL_GROUPS, GET_ALL_MESSAGE, ADD_NEW_MEMBER, GET_ALL_GROUP_MEMBERS }
+import { GET_ALL_GROUPS, GET_ALL_MESSAGE, GET_ALL_GROUP_MEMBERS }
   from '../constants/ActionTypes';
 
 /**
@@ -59,7 +59,8 @@ export function addMembers(userDetails) {
 
 export function addGroups(groupData) {
   return dispatch =>
-    axios.post('/v1/groups', groupData).then(({ data }) => dispatch(GetGroupAction(data.groups)));
+    axios.post('/v1/group', groupData)
+      .then(({ data }) => dispatch(GetGroupAction(data.groups)));
 }
 
 export function getMembers(groupid) {

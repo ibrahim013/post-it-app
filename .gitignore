@@ -1,6 +1,7 @@
 node_modules
 serviceAccountKey.json
 modules
+coverage
 .env
 /public
 .vscode

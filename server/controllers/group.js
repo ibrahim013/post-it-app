@@ -1,5 +1,5 @@
 import * as firebase from 'firebase';
-
+import sendEmail from '../utilities/emailTranspoter';
 
 /**
  * @description get user group.
@@ -26,7 +26,7 @@ export const userGroups = (req, res) => {
           groups.push(group);
         });
       })
-      .then(() => res.json(
+      .then(() => res.status(201).json(
         { groups },
       ))
       .catch(error => res.status(500).json({
@@ -38,6 +38,7 @@ export const userGroups = (req, res) => {
     });
   }
 };
+
 
 /**
  * @description adding members to group.
@@ -59,23 +60,27 @@ export const addMember = (req, res) => {
     .orderByKey();
   registeredUsers.once('value', (snapshot) => {
     snapshot.forEach((childSnapShot) => {
-      const user = childSnapShot.val().displayName;
+      const user = {
+        displayName: childSnapShot.val().displayName,
+        email: childSnapShot.val().email,
+      };
       users.push(user);
     });
   });
   groupMembers.once('value', (snapshot) => {
     snapshot.forEach((childSnapShot) => {
-      const groupmember = childSnapShot.val().displayname;
+      const groupmember = childSnapShot.val().displayName;
       groupMember.push(groupmember);
     });
   });
   createdGroups.once('value', (snapshot) => {
     snapshot.forEach((childSnapShot) => {
       const group = childSnapShot.val().groupname;
+
       groups.push(group);
     });
     const group = groups.includes(`${groupName}`);
-    const user = users.includes(`${displayName}`);
+    const user = users.find(o => o.displayName === `${displayName}`);
     const member = groupMember.includes(`${displayName}`);
     if (!user) {
       return res.status(400).json({ message: 'user not found' });
@@ -88,7 +93,8 @@ export const addMember = (req, res) => {
        'member of this group' });
     }
     firebase.database().ref(`group/${groupId}/`).child('members').push({
-      displayName,
+      displayName: user.displayName,
+      email: user.email,
 
     });
   }).then(() => res.status(200).json({ message: 'user added sucessfully' }))
@@ -118,6 +124,22 @@ export const postMessage = (req, res) => {
     })
       .then(() => res.status(200).json({ message: 'group created Sucessfuly',
       }))
+      .then(() => {
+        if (`${piority}` === 'critical') {
+          const userEmail = [];
+          const memberEmail = firebase.database().ref(`group/${groupname}/members`).orderByKey();
+          memberEmail.once('value', (snapshot) => {
+            snapshot.forEach((childSnapShot) => {
+              const email = {
+                email: childSnapShot.val().email,
+              };
+              userEmail.push(email);
+              sendEmail({ userEmail, groupname });
+              console.log(userEmail);
+            });
+          });
+        }
+      })
       .catch((error) => {
         const errorCode = error.code;
         return res.status(401).json({ message: 'Somthing went wrong', errorCode,
@@ -169,13 +191,13 @@ export const messageList = (req, res) => {
  */
 
 export const group = (req, res) => {
-  const { groupname, discription } = req.body;
-  const dateCreated = new Date().toString();
   const currentUser = firebase.auth().currentUser;
-  const userEmail = currentUser.email;
-  const createdBy = currentUser.uid;
-  const displayName = currentUser.displayName;
+  const { groupname, discription } = req.body;
   if (currentUser !== null) {
+    const dateCreated = new Date().toString();
+    const userEmail = currentUser.email;
+    const createdBy = currentUser.uid;
+    const displayName = currentUser.displayName;
     firebase.database().ref('group/').push({
       groupname,
       dateCreated,
@@ -189,6 +211,8 @@ export const group = (req, res) => {
         const errorCode = error.code;
         return res.status(401).json({ message: 'Somthing went wrong', errorCode });
       });
+  } else {
+    res.status(401).json({ message: 'you must  be loged in to do this' });
   }
 };
 /**
@@ -203,8 +227,8 @@ export const groupMember = (req, res) => {
   const user = firebase.auth().currentUser;
   if (user) {
     const members = [];
-    firebase.database().ref(`/group/${req.params.groupid}/members`)
-      .on('value', (snapshot) => {
+    firebase.database().ref(`/group/${req.params.groupid}/members`).orderByKey()
+      .once('value', (snapshot) => {
         snapshot.forEach((childSnapShot) => {
           const member = {
             memberId: childSnapShot.key,
@@ -212,14 +236,13 @@ export const groupMember = (req, res) => {
             email: childSnapShot.val().email,
           };
           members.push(member);
-          res.send({ members });
         });
-      });
-    // .then(() => res.send({
-    //   members,
-    // }))
-    // .catch(error => res.status(500).send({
-    //   message: `Error occurred ${error.message}`,
-    // }));
+      })
+      .then(() => res.send({
+        members,
+      }))
+      .catch(error => res.status(500).send({
+        message: `Error occurred ${error.message}`,
+      }));
   }
 };

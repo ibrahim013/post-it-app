@@ -66,7 +66,7 @@ class GroupMessage extends React.Component {
     const { GroupMembers } = this.props;
     let MessageContainer = '';
     let MemberContainer = '';
-    if (Messages) {
+    if (Messages.length !== 0) {
       MessageContainer = Messages.map(message => {
         return (
           <div key={message.messageId}>
@@ -82,16 +82,15 @@ class GroupMessage extends React.Component {
         );
       });
     } else {
-      return (
-        <div>
-          <h2>you have no message on this board</h2>
-        </div>
-      );
+      MessageContainer = <h2>you have no message on this board</h2>
+      
     }
-    if (GroupMembers) {
+    if (GroupMembers.length !== 0) {
       MemberContainer = GroupMembers.map(member => {
         return <li key={member.memberId}>{member.displayName}</li>;
       });
+    }else{
+       MemberContainer = 'no member added yet'
     }
 
 return (

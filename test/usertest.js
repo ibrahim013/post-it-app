@@ -28,7 +28,7 @@ describe('Post It', () => {
   });
   it('should respond with signin route', (done) => {
     request(server)
-      .post('/user/signin')
+      .post('/v1/user/signin')
       .expect(200);
     done();
   });
@@ -39,7 +39,7 @@ describe('Post It', () => {
       password: '12345678',
     };
     request(server)
-      .post('/user/signup')
+      .post('/v1/user/signup')
       .set('Accept', 'application/x-www-form-urlencoded')
       .send(userTest)
       .expect('Content-Type', /json/)
@@ -60,13 +60,13 @@ describe('Post It', () => {
 
     };
     request(server)
-      .post('/user/signup')
+      .post('/v1/user/signup')
       .set('Accept', 'application/x-www-form-urlencoded')
       .send(userTest)
       .expect('Content-Type', /json/)
       .end((err, res) => {
         expect(401);
-        expect(res.statusCode).to.be.equal(401);
+        expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
         done();
@@ -79,16 +79,16 @@ describe('Post It', () => {
       password: '12345678',
     };
     request(server)
-      .post('/user/signup')
+      .post('/v1/user/signup')
       .set('Accept', 'application/x-www-form-urlencoded')
       .send(userTest)
       .expect('Content-Type', /json/)
       .end((err, res) => {
         expect(401);
-        expect(res.statusCode).to.be.equal(401);
+        expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('Somthing went wrong');
+        expect(res.body.message).to.be.equal('email already in use');
         done();
       });
   });
@@ -99,15 +99,15 @@ describe('Post It', () => {
       password: '12345678',
     };
     request(server)
-      .post('/user/signup')
+      .post('/v1/user/signup')
       .set('Accept', 'application/x-www-form-urlencoded')
       .expect('Content-Type', /json/)
       .send(userTest)
       .end((err, res) => {
-        expect(res.statusCode).to.be.equal(401);
+        expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('Somthing went wrong');
+        expect(res.body.message).to.be.equal('invalid email');
         done();
       });
   });
@@ -118,25 +118,27 @@ describe('Post It', () => {
       password: '1234',
     };
     request(server)
-      .post('/user/signup')
+      .post('/v1/user/signup')
       .set('Accept', 'application/x-www-form-urlencoded')
       .expect('Content-Type', /json/)
       .send(userTest)
       .end((err, res) => {
-        expect(res.body.errorCode).to.be.equal('auth/weak-password');
-        expect(res.statusCode).to.be.equal(401);
+        expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.be.an('object');
+        expect(res.body).to.have.a.property('message');
+        expect(res.body.message).to.be.equal('password strength is too week');
+
         done();
       });
   });
   // Signin route
   it('should allow a registered user sign in successfully', (done) => {
     const registeredUser = {
-      email: 'admin@gmail.com',
-      password: '123456',
+      email: 'lot2come@gmail.com',
+      password: '12345678',
     };
     request(server)
-      .post('/user/signin')
+      .post('/v1/user/signin')
       .set('Accept', 'application/x-www-form-urlencoded')
       .expect('Content-Type', /json/)
       .send(registeredUser)
@@ -156,24 +158,24 @@ describe('Post It', () => {
       password: '123456',
     };
     request(server)
-      .post('/user/signin')
+      .post('/v1/user/signin')
       .send(registeredUser)
       .end((err, res) => {
-        expect(res.statusCode).to.be.equal(401);
+        expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.be.an('object');
-        expect(res.body.errorCode).to.be.equal('auth/invalid-email');
-        expect(res.body.message).to.be.equal('Somthing went wrong');
+        expect(res.body).to.have.a.property('message');
+        expect(res.body.message).to.be.equal('invalid email');
         done();
       });
   });
   // Password Reset
   it('should allow registered user`s to reset their passwords', (done) => {
-    const userEmail = { email: 'kawthar@gmail.com' };
+    const userEmail = { email: 'lot2come@yahoo.com' };
     request(server)
-      .post('/user/passwordreset')
+      .post('/v1/user/passwordreset')
       .send(userEmail)
       .end((err, res) => {
-        expect(res.statusCode).to.be.equal(401);
+        expect(res.statusCode).to.be.equal(200);
         expect(res.body).to.be.an('object');
         done();
       });
@@ -181,12 +183,12 @@ describe('Post It', () => {
   it('should send an error for a wrongly formatted password', (done) => {
     const userEmail = { email: 'user.gmail.com' };
     request(server)
-      .post('/user/passwordreset')
+      .post('/v1/user/passwordreset')
       .send(userEmail)
       .end((err, res) => {
-        expect(res.statusCode).to.be.equal(401);
-        expect(res.body).to.have.a.property('errorCode');
-        expect(res.body.errorCode).to.be.equal('The email address is badly formatted.');
+        expect(res.statusCode).to.be.equal(400);
+        expect(res.body).to.have.a.property('message');
+        expect(res.body.message).to.be.equal('oops! somthing went wrong');
         expect(res.body).to.be.an('object');
         done();
       });
@@ -194,14 +196,12 @@ describe('Post It', () => {
   it('should throw an error if email is not found', (done) => {
     const userEmail = { email: 'user@gmail.com' };
     request(server)
-      .post('/user/passwordreset')
+      .post('/v1/user/passwordreset')
       .send(userEmail)
       .end((err, res) => {
-        expect(res.statusCode).to.be.equal(401);
-        expect(res.body.errorCode).to.be.equal('There is no user record corresponding ' +
-          'to this identifier. The user may have been deleted.');
-        expect(res.body.error).to.have.property('errorCode');
-        expect(res.body).to.be.an('object');
+        expect(res.statusCode).to.be.equal(400);
+        expect(res.body).to.have.a.property('message');
+        expect(res.body.message).to.be.equal('oops! somthing went wrong');        expect(res.body).to.be.an('object');
         done();
       });
   });
