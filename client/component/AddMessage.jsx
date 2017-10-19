@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import addMessage from '../actions/AddMessage';
+import { addMessage } from '../actions/GroupAction';
 
 class AddMessage extends React.Component {
   constructor(props) {
@@ -12,7 +12,6 @@ class AddMessage extends React.Component {
       piority: '',
       groupname: this.props.groupid,
     };
-    console.log('group id', this.props.groupid);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -39,13 +38,24 @@ class AddMessage extends React.Component {
           </span>
           <form onSubmit={this.onSubmit}>
             <label className="radio-inline">
-              <input type="radio" name="piority" value="normal" onChange={this.onChange} />Normal
+              <input
+                type="radio"
+                name="piority"
+                value="normal"
+                onChange={this.onChange}
+                checked
+              />Normal
             </label>
             <label className="radio-inline">
-              <input type="radio" name="piority" value="high" onChange={this.onChange} />Critical
+              <input
+                type="radio"
+                name="piority"
+                value="Critical"
+                onChange={this.onChange}
+              />Critical
             </label>
             <label className="radio-inline">
-              <input type="radio" name="piority" value="critical" onChange={this.onChange} />Urgent
+              <input type="radio" name="piority" value="urgent" onChange={this.onChange} />Urgent
             </label>
           </form>
         </div>
@@ -56,10 +66,4 @@ class AddMessage extends React.Component {
 AddMessage.PropTypes = {
   Messages: PropTypes.array.isRequired,
 };
-function mapStateToProps(state) {
-  return {
-    // Mesages: state.mesageText
-  };
-}
-
-export default connect(mapStateToProps, { addMessage })(AddMessage);
+export default connect(null, { addMessage })(AddMessage);

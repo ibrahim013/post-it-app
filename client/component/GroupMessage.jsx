@@ -20,16 +20,7 @@ class GroupMessage extends React.Component {
       displayName: '',
       error: {},
     };
-    const groupid = this.props.match.params.groupid;
-    let groupName = '';
-    const { Groups } = this.props;
-    Groups.map((group, key) => {
-      if (group.groupid == groupid) {
-        this.setState({ groupName: group.groupname, groupId: group.groupid });
-        groupName = group.groupname;
-      }
-      return groupName;
-    });
+    
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -59,6 +50,17 @@ class GroupMessage extends React.Component {
   componentDidMount() {
     this.props.getMessges(this.state.groupId);
     this.props.getMembers(this.state.groupId);
+    const groupid = this.props.match.params.groupid;
+    let groupName = '';
+    const { Groups } = this.props;
+    Groups.map((group, key) => {
+      if (group.groupid === groupid) {
+       this.setState({ groupName: group.groupname });
+        groupName = group.groupname;
+      }
+      return groupName;
+    });
+
   }
   render() {
     const { Messages } = this.props;
@@ -90,7 +92,6 @@ class GroupMessage extends React.Component {
     } else {
       MemberContainer = 'no member added yet';
     }
-
     return (
       <div>
         <div className="row linkheader">

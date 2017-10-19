@@ -8,7 +8,7 @@ module.exports = (mailObject) => {
     host: 'smtp.mailtrap.io',
     port: 2525,
     auth: {
-      user: process.env.EMAIL_USER, // my mail
+      user: process.env.EMAIL_USER, // my mailtrap
       pass: process.env.EMAIL_PASSWORD,
     },
   });
@@ -16,8 +16,8 @@ module.exports = (mailObject) => {
     from: '"Post It App" <notification@postit.com>',
 
     subject: '!critical Message Posted',
-    text: `You have a new message in ${mailObject.groupname}`,
-    html: `<b>You have a new message in ${mailObject.groupname} group.
+    text: 'You have been sent a message with piority as critical Kindly, login to view Message',
+    html: `<b>You have been sent a message with piority as critical
      Kindly log into the application to view.</b>`,
   };
   mailObject.userEmail.map((email) => {
@@ -27,7 +27,6 @@ module.exports = (mailObject) => {
       if (error) {
         console.log(error);
       }
-      console.log('Message %s sent: %s');
     });
   });
 };

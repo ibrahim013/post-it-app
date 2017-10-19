@@ -1,6 +1,6 @@
+import Alert from 'react-s-alert';
 import axios from 'axios';
-import { GET_ALL_GROUPS, GET_ALL_MESSAGE, GET_ALL_GROUP_MEMBERS }
-  from '../constants/ActionTypes';
+import { GET_ALL_GROUPS, GET_ALL_MESSAGE, GET_ALL_GROUP_MEMBERS } from '../constants/ActionTypes';
 
 /**
  * userSignupRequest() returns user data
@@ -8,29 +8,24 @@ import { GET_ALL_GROUPS, GET_ALL_MESSAGE, GET_ALL_GROUP_MEMBERS }
  * @return {promise}
  */
 
-function GetGroupAction(groupData) {
+export function GetGroupAction(groupData) {
   return {
     type: GET_ALL_GROUPS,
     groupData,
   };
 }
-function GetMessageAction(groupMessage) {
+export function GetMessageAction(groupMessage) {
   return {
     type: GET_ALL_MESSAGE,
     groupMessage,
   };
 }
-function GetGroupMembers(groupMembers) {
+export function GetGroupMembers(groupMembers) {
   return {
     type: GET_ALL_GROUP_MEMBERS,
     groupMembers,
   };
 }
-// function MemberAddedAction() {
-//   return {
-//     type: ADD_NEW_MEMBER,
-//   };
-// }
 /**
  * 
  * @param {string} groupname 
@@ -53,19 +48,73 @@ export function getMessges(groupid) {
       dispatch(GetMessageAction(response.data.messages));
     });
 }
-export function addMembers(userDetails) {
-  return dispatch => axios.post('/v1/group/addmember', userDetails).then();
-}
-
-export function addGroups(groupData) {
-  return dispatch =>
-    axios.post('/v1/group', groupData)
-      .then(({ data }) => dispatch(GetGroupAction(data.groups)));
-}
-
 export function getMembers(groupid) {
   return dispatch =>
     axios.get(`/v1/group/${groupid}/members/`).then((response) => {
       dispatch(GetGroupMembers(response.data.members));
     });
+}
+export function addMembers(userDetails) {
+  return dispatch => axios.post('/v1/group/addmember', userDetails)
+    .then((res) => {
+      dispatch(getMembers(userDetails.groupId));
+      Alert.success(res.data.message, {
+        position: 'top-left',
+        offset: 100,
+      })
+        .catch((err) => {
+          if (err.res) {
+            Alert.error(err.res.data.message, {
+              position: 'top-left',
+              offset: 100,
+            });
+          }
+        });
+    });
+}
+
+export function addGroups(groupData) {
+  return dispatch =>
+    axios.post('/v1/group', groupData)
+      .then((res) => {
+        dispatch(getGroups());
+        Alert.success(res.data.message, {
+          position: 'top-left',
+          offset: 100,
+        });
+      })
+      .catch((err) => {
+        if (err.res) {
+          Alert.error(err.res.data.message, {
+            position: 'top-left',
+            offset: 100,
+          });
+        }
+      });
+}
+
+
+/**
+ * 
+ * @param {string} groupname 
+ * 
+ * @return {promise} groups
+ */
+export function addMessage(messageData) {
+  return dispatch =>
+    axios.post('/v1/group/postmessage', messageData).then((res) => {
+      dispatch(getMessges(messageData.groupname));
+      Alert.success(res.data.message, {
+        position: 'top-right',
+        offset: 100,
+      });
+    })
+      .catch((err) => {
+        if (err.res) {
+          Alert.error(err.res.data.message, {
+            position: 'top-right',
+            offset: 100,
+          });
+        }
+      });
 }
