@@ -4,7 +4,7 @@ import config from '../../server/database';
 
 // Group Added to Firebase
 export default function googleLogin() {
-  return (dispatch) => {
+  return () => {
     firebase.initializeApp(config);
     const provider = new firebase.auth.GoogleAuthProvider();
     return firebase.auth().signInWithPopup(provider);

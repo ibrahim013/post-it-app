@@ -5,3 +5,5 @@ export const ADD_GROUPS = 'ADD_GROUPS';
 export const GET_ALL_GROUPS = 'GET_ALL_GROUPS';
 export const GET_ALL_MESSAGE = 'GET_ALL_MESSAGE';
 export const GET_ALL_GROUP_MEMBERS = 'GET_ALL_GROUP_MEMBERS';
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';

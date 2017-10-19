@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">58.82% </span>
+        <span class="strong">77.78% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>10/17</span>
+        <span class='fraction'>14/18</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">40% </span>
+        <span class="strong">60% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>2/5</span>
+        <span class='fraction'>3/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">58.82% </span>
+        <span class="strong">77.78% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>10/17</span>
+        <span class='fraction'>14/18</span>
       </div>
     </div>
   </div>
@@ -130,17 +130,12 @@
 85
 86
 87
-88
-89
-90
-91
-92
-93
-94
-95
-96</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+88</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -150,37 +145,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -234,64 +218,56 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import chai from 'chai';
+import chaiHttp from 'chai-http';
+import supertest from 'supertest';
 import server from '../server/index';
 &nbsp;
-const request = require('supertest');
+const request = supertest.agent(server);
+chai.use(chaiHttp);
 &nbsp;
 const expect = chai.expect;
 &nbsp;
 describe('PostIt', () =&gt; {
-  const registeredUser = {
-    email: 'lot2come@gmail.com',
-    password: '12345678',
-  };
-  const authenticatedUser = request.agent(server);
-  before((done) =&gt; {
-    authenticatedUser
-      .post('/v1/user/signin')
-      .send(registeredUser)
-      .end(<span class="fstat-no" title="function not covered" >(</span>err, response) =&gt; {
-<span class="cstat-no" title="statement not covered" >        expect(response.statusCode).to.equal(200);</span>
-<span class="cstat-no" title="statement not covered" >        expect('Location', '/dashboard');</span>
-<span class="cstat-no" title="statement not covered" >        done();</span>
-      });
-    });
-&nbsp;
+  const token = {"apiKey": "AIzaSyDKmzJrL64aEqNezKJ-dPcvPo74F_IAdn4",
+  "refreshToken": "APWA_kpVme3C-KuY-R3X3EI_F9prl1hfWU9Wt9bXQfLQuHBx-ieff_wN3DPUhISskuOlHI5XaFM28-3UX8KhRAtW7k2zP1YOFfnSoCD__Q6pBHh48zG8OAwG0wler_CSUXg1chuMfAzMTcI9HdUQVXUw1odg_c8DkvW5shYoYTToNDFSHitz3Fklol1tYsXcdTR9rNit0O8Fi05pBKW1t2elvnuXD_YlsA",
+  "accessToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjcwMjg1ZDBiMzYzZGZlNTdhODJhYjFkNTI0NWM3OTAxZDMwNTM4MmYifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcG9zdGl0LWFjZTNhIiwiYXVkIjoicG9zdGl0LWFjZTNhIiwiYXV0aF90aW1lIjoxNTA4MTU0MTM2LCJ1c2VyX2lkIjoiUEZiSmVFa3NzSk5GR2hVVXNhU2xiY2t2WEM2MyIsInN1YiI6IlBGYkplRWtzc0pORkdoVVVzYVNsYmNrdlhDNjMiLCJpYXQiOjE1MDgxNTQxMzYsImV4cCI6MTUwODE1NzczNiwiZW1haWwiOiJsb3QyY29tZUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibG90MmNvbWVAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.B-PydZNOYjXc9EBgBMMK9hi9hCpU2H1VLsfpMrJRsw8fZtVRNtiWzQBKN3JnkYy3ENfoXEkGyZwstjYCm8g0o0e73WLIipZe8OIKmhv45TZl5zwm2FAXHPj6RNyOZMhR4q6QjjvB-3BMrzcgtQ66YE1mRRNpNTlLx2JsM43zw7pbXWB7SaK-m2f4t2U0o6HJwlzjW4eYtz3YRrjjbEn9eIf5jV0geJDXyYhULn5Gu59f84husF_06oJMVDmaL40lPDqC39y4D4ice8XpNS4WBJSNSFcGppTApY0vfoKd_BcJYSMo92YbMLTZjt3-jZZdbPcAs4gHrzbxMpNx9_mNuw",
+  "expirationTime": 1508157736405 }
   // User's should be able to create grpoup
-  // it('should send an error for un loged in  user`s when trying to create groups',
-  //   (done) =&gt; {
-  //     const group = { groupname: 'andela', discription: 'testing' };
-  //     request(server)
-  //       .post('/v1/group')
-  //       .send(group)
-  //       .end((err, res) =&gt; {
-  //         expect(res.statusCode).to.be.equal(401);
-  //         expect(res.body).to.be.an('object');
-  //         expect(res.body).to.have.property('message');
-  //         expect(res.body.message).to.be.equal('you must  be loged in to do this');
-  //         done();
-  //       });
-  //   });
-      it('should get user groups',
-<span class="fstat-no" title="function not covered" >      (</span>done) =&gt; {
-        const group = <span class="cstat-no" title="statement not covered" >{ groupname: 'andela', discription: 'testing' };</span>
-<span class="cstat-no" title="statement not covered" >       authenticatedUser.get.post('/v1/group')</span>
+  it('should send an error for un loged in  user`s when trying to create groups', (done) =&gt; {
+    const group = { groupname: 'andela', discription: 'testing' };
+    request
+      .post('/v1/group')
+      .set('Authorization', token)
       .send(group)
-      .end(<span class="fstat-no" title="function not covered" >(</span>err, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >        expect(res.statusCode).to.be.equal(200);</span>
+      .end((err, res) =&gt; {
+        expect(res.statusCode).to.be.equal(201);
         // expect(res.body).to.be.an('object');
         // expect(res.body).to.have.property('message');
         // expect(res.body.message).to.be.equal('you must  be loged in to do this');
-          // .get('/v1/group/groups')
-          // .end((err, res) =&gt; {
-          //   expect(res.statusCode).to.be.equal(201);
-          //   //   expect(res.body.message).to.be.equal('Group created succesfully');
-          //   // expect(res.body).to.have.property('message');
-          //   //   expect(res.body).to.have.property('response');
+<span class="cstat-no" title="statement not covered" >        done();</span>
+      });
+    //   });
+    it('should get user groups',
+<span class="fstat-no" title="function not covered" >      (</span>done) =&gt; {
+<span class="cstat-no" title="statement not covered" >        request</span>
+          .get('/v1/group')
+          .set('Authorization', token)
+          .send(group)
+          .end(<span class="fstat-no" title="function not covered" >(</span>err, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >            expect(res.statusCode).to.be.equal(200);</span>
+            // expect(res.body).to.be.an('object');
+            // expect(res.body).to.have.property('message');
+            // expect(res.body.message).to.be.equal('you must  be loged in to do this');
+            // .get('/v1/group/groups')
+            // .end((err, res) =&gt; {
+            //   expect(res.statusCode).to.be.equal(201);
+            //   expect(res.body.message).to.be.equal('Group created succesfully');
+            // expect(res.body).to.have.property('message');
+            //   expect(res.body).to.have.property('response');
 <span class="cstat-no" title="statement not covered" >            done();</span>
           });
       });
-    });
+  });
   // const group = { groupname: 'andela', discription: 'testing' };
   // request(server)
   //   .post('/v1/group')
@@ -326,15 +302,15 @@ describe('PostIt', () =&gt; {
   //         done();
   //       });
   //   });
-// });
-&nbsp;
+  // });
+});
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Oct 14 2017 19:33:37 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Oct 16 2017 14:47:55 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

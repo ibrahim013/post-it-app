@@ -13,7 +13,7 @@ class GetGroupList extends React.Component {
       Groups: this.props.Groups
     }
   }
-  componentWillMount(){
+  componentDidMount(){
     this.props.getGroups();
 
   }

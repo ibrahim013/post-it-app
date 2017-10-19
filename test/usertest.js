@@ -201,7 +201,8 @@ describe('Post It', () => {
       .end((err, res) => {
         expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('oops! somthing went wrong');        expect(res.body).to.be.an('object');
+        expect(res.body.message).to.be.equal('oops! somthing went wrong');
+        expect(res.body).to.be.an('object');
         done();
       });
   });

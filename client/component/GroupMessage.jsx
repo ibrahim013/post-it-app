@@ -16,10 +16,20 @@ class GroupMessage extends React.Component {
     super(props);
     this.state = {
       groupName: '',
-      groupId: '',
+      groupId: this.props.match.params.groupid,
       displayName: '',
       error: {},
     };
+    const groupid = this.props.match.params.groupid;
+    let groupName = '';
+    const { Groups } = this.props;
+    Groups.map((group, key) => {
+      if (group.groupid == groupid) {
+        this.setState({ groupName: group.groupname, groupId: group.groupid });
+        groupName = group.groupname;
+      }
+      return groupName;
+    });
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -47,19 +57,8 @@ class GroupMessage extends React.Component {
       });
   }
   componentDidMount() {
-    const groupid = this.props.match.params.groupid;
-    let groupName = '';
-    const { Groups } = this.props;
-    Groups.map((group, key) => {
-      if (group.groupid == groupid) {
-        this.setState({ groupName: group.groupname, groupId: group.groupid });
-        groupName = group.groupname;
-      }
-      return groupName;
-    });
-
-    this.props.getMessges(groupid);
-    this.props.getMembers(groupid);
+    this.props.getMessges(this.state.groupId);
+    this.props.getMembers(this.state.groupId);
   }
   render() {
     const { Messages } = this.props;
@@ -82,95 +81,94 @@ class GroupMessage extends React.Component {
         );
       });
     } else {
-      MessageContainer = <h2>you have no message on this board</h2>
-      
+      MessageContainer = <h2>you have no message on this board</h2>;
     }
     if (GroupMembers.length !== 0) {
       MemberContainer = GroupMembers.map(member => {
         return <li key={member.memberId}>{member.displayName}</li>;
       });
-    }else{
-       MemberContainer = 'no member added yet'
+    } else {
+      MemberContainer = 'no member added yet';
     }
 
-return (
-<div>
-<div className="row linkheader">
-<h3>
-  <Link to="/">Sign out</Link>|<Link to="/dashboard">Dashboard</Link>
-</h3>
-</div>
-<Grid data-spy="scroll">
-<Row className="show-grid ">
-  <Col xs={12} md={3} className="asidelist">
-    <Row className="show-grid create">
-      <Col xs={12} md={7}>
-        <h3>{this.state.groupName}</h3>
-        <h3>{MemberContainer}</h3>
-      </Col>
-    </Row>
-  </Col>
-  <Col xs={12} md={6}>
-    <Row className=" aside">
-      <Col xs={12} md={9}>
-        <h3>Message Board</h3>
-      </Col>
-      <Col xs={12} md={3} />
-    </Row>
-    <div>
-      <div className="panel panel-default ">
-        <div className="panel-heading">{MessageContainer}</div>
-      </div>
-    </div>
-    <div className="">
-      <AddMessage groupid={this.state.groupId} />
-    </div>
-  </Col>
-  <Col xs={12} md={3}>
-    <Row className="show-grid create">
-      <Col xs={12} md={7}>
-        <h3>Members</h3>
-      </Col>
-      <Col xs={12} md={5} className="bot">
-        <button
-          type="button"
-          className="btn btn-info"
-          data-toggle="collapse"
-          data-target="#members"
-        >
-          +
-        </button>
-      </Col>
-    </Row>
-    <div id="members" className="collapse">
+    return (
       <div>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <input
-              type="text"
-              name="displayName"
-              placeholder="Name"
-              value={this.state.displayName}
-              onChange={this.onChange}
-              required
-            />
-          </div>
-          <button
-            name="members"
-            className="btn btn-primary btn-small"
-            onSubmit={this.onSubmit}
-          >
-            Add Members
-          </button>
-        </form>
+        <div className="row linkheader">
+          <h3>
+            <Link to="/dashboard">Dashboard</Link>
+          </h3>
+        </div>
+        <Grid data-spy="scroll">
+          <Row className="show-grid ">
+            <Col xs={12} md={3} className="asidelist">
+              <Row className="show-grid create">
+                <Col xs={12} md={7}>
+                  <h3>{this.state.groupName}</h3>
+                  <h3>{MemberContainer}</h3>
+                </Col>
+              </Row>
+            </Col>
+            <Col xs={12} md={6}>
+              <Row className=" aside">
+                <Col xs={12} md={9}>
+                  <h3>Message Board</h3>
+                </Col>
+                <Col xs={12} md={3} />
+              </Row>
+              <div>
+                <div className="panel panel-default ">
+                  <div className="panel-heading">{MessageContainer}</div>
+                </div>
+              </div>
+              <div className="">
+                <AddMessage groupid={this.state.groupId} />
+              </div>
+            </Col>
+            <Col xs={12} md={3}>
+              <Row className="show-grid create">
+                <Col xs={12} md={7}>
+                  <h3>Members</h3>
+                </Col>
+                <Col xs={12} md={5} className="bot">
+                  <button
+                    type="button"
+                    className="btn btn-info"
+                    data-toggle="collapse"
+                    data-target="#members"
+                  >
+                    +
+                  </button>
+                </Col>
+              </Row>
+              <div id="members" className="collapse">
+                <div>
+                  <form onSubmit={this.onSubmit}>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        name="displayName"
+                        placeholder="Name"
+                        value={this.state.displayName}
+                        onChange={this.onChange}
+                        required
+                      />
+                    </div>
+                    <button
+                      name="members"
+                      className="btn btn-primary btn-small"
+                      onSubmit={this.onSubmit}
+                    >
+                      Add Members
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
       </div>
-    </div>
-  </Col>
-</Row>
-</Grid>
-</div>
-);
-}
+    );
+  }
 }
 
 GroupMessage.PropTypes = {

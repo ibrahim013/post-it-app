@@ -20,8 +20,8 @@ export const userGroups = (req, res) => {
           const group = {
             groupid: child.key,
             groupname: child.val().groupname,
-            Discription: child.val().Discription,
-            GroupAdmin: child.val().GroupAdmin,
+            discription: child.val().Discription,
+            groupAdmin: child.val().GroupAdmin,
           };
           groups.push(group);
         });

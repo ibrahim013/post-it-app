@@ -4,11 +4,9 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GoogleButton from 'react-google-button';
 import firebase from 'firebase';
-import SignIn from '../actions/LogInAction';
+import { SignIn } from '../actions/LogInAction';
 import PasswordReset from '../component/PasswordReset';
 import GoogleLogin from '../actions/GoogleLogin.js';
-import addFlashMessageSignin from '../actions/AddFlashMessage';
-
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -26,82 +24,90 @@ class LogIn extends React.Component {
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  onHandleSubmit(event){
-    this.props.GoogleLogin().then(
-      (response) => {
-        firebase.database().ref('user').push({
+  onHandleSubmit(event) {
+    this.props.GoogleLogin().then(response => {
+      firebase
+        .database()
+        .ref('user')
+        .push({
           displayName: response.user.displayName,
           email: response.user.email,
-          time: (new Date()).toString(),
+          time: new Date().toString(),
         }),
         this.props.history.push('/dashboard');
-      }
-    )
+    });
   }
   onSubmit(event) {
     event.preventDefault();
-    this.setState({ errors: {}, isLoading: true,  });
-    this.props.SignIn(this.state)
-      .then(
-        () => {
-         this.props.history.push('/dashboard');
-        })
-      .catch((err)=> {
-      if (err.response) {
-			this.props.addFlashMessageSignin({
-			type: 'error',
-			text: err.response.data.errorCode
-		})
-			this.setState({
-				isLoading: false,
-        email: '',
-        password: '',
-			})
-			}
-    })
+    this.setState({ errors: {}, isLoading: true });
+    this.props.SignIn(this.state).then(res => {
+      if (res) {
+        this.props.history.push('/dashboard');
+      }
+    });
   }
-
   render() {
     const { errors } = this.state;
     return (
-    <div>
-    <form onSubmit={this.onSubmit}>
-      <div className="form-group">
-        <label className="control-label">
-        <span className="glyphicon glyphicon-envelope"></span> Email</label>
-        <input value={this.state.email} onChange={this.onChange}
-          type="email" name="email" className="form-control"
-          placeholder="eg ibrahim@gmail.com" required />
-      </div>
-      <div className="form-group">
-        <label ><span className=" control-label glyphicon glyphicon-eye-open">
-        </span> Password</label>
-        <input value={this.state.password} onChange={this.onChange}
-          type="password" name="password" className="form-control"
-          placeholder="must be at least 6 character long" required/>
-        </div>
+      <div>
+        <form onSubmit={this.onSubmit}>
           <div className="form-group">
-            <button disabled={this.state.isLoading} name="login"
+            <label className="control-label">
+              <span className="glyphicon glyphicon-envelope" /> Email
+            </label>
+            <input
+              value={this.state.email}
+              onChange={this.onChange}
+              type="email"
+              name="email"
+              className="form-control"
+              placeholder="eg ibrahim@gmail.com"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>
+              <span className=" control-label glyphicon glyphicon-eye-open" /> Password
+            </label>
+            <input
+              value={this.state.password}
+              onChange={this.onChange}
+              type="password"
+              name="password"
+              className="form-control"
+              placeholder="must be at least 6 character long"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <button
+              disabled={this.state.isLoading}
+              name="login"
               onSubmit={this.onSubmit}
-              className="btn btn-primary  lgbotton btn-block">
+              className="btn btn-primary  lgbotton btn-block"
+            >
               <span className="glyphicon glyphicon-log-in" /> Login
             </button>
           </div>
         </form>
         <div>
-          <GoogleButton onClick={() => {this.onHandleSubmit()}} name="goolelogin"/>
+          <GoogleButton
+            onClick={() => {
+              this.onHandleSubmit();
+            }}
+            name="goolelogin"
+          />
         </div>
         <br />
         <div>
-          <span>Dont have an Account? </span><Link to="/signup">Sign up</Link>
+          <span>Dont have an Account? </span>
+          <Link to="/signup">Sign up</Link>
         </div>
         <br />
-         <div className="modal-footer" >
-          <Link to="/passwordreset" >Password Reset</Link>
-          
+        <div className="modal-footer">
+          <Link to="/passwordreset">Password Reset</Link>
         </div>
-        <div className=" ">
-        </div>
+        <div className=" " />
       </div>
     );
   }
@@ -111,4 +117,4 @@ LogIn.PropTypes = {
   SignIn: PropTypes.func.isRequired,
   GoogleLogin: PropTypes.func.isRequired,
 };
-export default connect(null, { SignIn, GoogleLogin,addFlashMessageSignin })(withRouter(LogIn));
+export default connect(null, { SignIn, GoogleLogin })(withRouter(LogIn));
