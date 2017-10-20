@@ -22,7 +22,7 @@ class Header extends React.Component {
           </Col>
           <Col xs={6} md={4}>
             <div id="user">
-            <Avatar size="50" round name= {this.props.user[0].displayName}/>
+            {/* <Avatar size="50" round name= {this.props.user[0].displayName}/> */}
             {loginUser}
             </div>
           </Col>

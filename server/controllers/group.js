@@ -94,14 +94,14 @@ export const addMember = (req, res) => {
       const user = users.find(o => o.displayName === `${displayName}`);
       const member = groupMember.includes(`${displayName}`);
       if (!user) {
-        return res.status(400).json({ message: 'user not found' });
+        return res.status(400).json({ message: 'User not found' });
       }
       if (!group) {
         return res.status(400).json({ message: 'Group not found' });
       }
       if (member) {
         return res.status(400).json({
-          message: 'This user is alredy a member of this group',
+          message: 'This user is already a member of this group',
         });
       }
       firebase
