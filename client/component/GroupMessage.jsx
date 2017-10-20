@@ -20,7 +20,7 @@ class GroupMessage extends React.Component {
       displayName: '',
       error: {},
     };
-    
+
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -30,22 +30,7 @@ class GroupMessage extends React.Component {
   }
   onSubmit(event) {
     event.preventDefault();
-    this.props
-      .addMembers(this.state)
-      .then(response => {
-        Alert.success(response.data.message, {
-          position: 'top-right',
-          offset: 100,
-        });
-      })
-      .catch(err => {
-        if (err.response) {
-          Alert.error(err.response.data.message, {
-            position: 'top-right',
-            offset: 100,
-          });
-        }
-      });
+    this.props.addMembers(this.state);
   }
   componentDidMount() {
     this.props.getMessges(this.state.groupId);
@@ -55,12 +40,11 @@ class GroupMessage extends React.Component {
     const { Groups } = this.props;
     Groups.map((group, key) => {
       if (group.groupid === groupid) {
-       this.setState({ groupName: group.groupname });
+        this.setState({ groupName: group.groupname });
         groupName = group.groupname;
       }
       return groupName;
     });
-
   }
   render() {
     const { Messages } = this.props;
@@ -71,13 +55,15 @@ class GroupMessage extends React.Component {
       MessageContainer = Messages.map(message => {
         return (
           <div key={message.messageId}>
-            <div className="messageRow">
-              <p>
-                <span className="left-align">Sent By: {message.author}</span>
-                <span className="left-align">Priority: {message.priorityLevel}</span>
-                <span className="right-align">: {message.date}</span>
-              </p>
-              <p className="">{message.messageText}</p>
+            <div className="panel panel-default">
+              <div className="panel-body">
+                <p className="">{message.messageText}</p>
+                <p id="details">
+                  <span className="left-align">Sent By: {message.author}</span>
+                  <span className="left-align">Priority: {message.priorityLevel}</span>
+                  <span className="right-align">: {message.date}</span>
+                </p>
+              </div>
             </div>
           </div>
         );
@@ -94,14 +80,14 @@ class GroupMessage extends React.Component {
     }
     return (
       <div>
-        <div className="row linkheader">
-          <h3>
-            <Link to="/dashboard">Dashboard</Link>
-          </h3>
-        </div>
         <Grid data-spy="scroll">
           <Row className="show-grid ">
             <Col xs={12} md={3} className="asidelist">
+              <div id="signin">
+                <h3>
+                  <Link to="/dashboard">Dashboard</Link>
+                </h3>
+              </div>
               <Row className="show-grid create">
                 <Col xs={12} md={7}>
                   <h3>{this.state.groupName}</h3>
@@ -111,14 +97,12 @@ class GroupMessage extends React.Component {
             </Col>
             <Col xs={12} md={6}>
               <Row className=" aside">
-                <Col xs={12} md={9}>
-                  <h3>Message Board</h3>
-                </Col>
+                <Col xs={12} md={9} />
                 <Col xs={12} md={3} />
               </Row>
               <div>
-                <div className="panel panel-default ">
-                  <div className="panel-heading">{MessageContainer}</div>
+                <div className=" ">
+                  <div className="">{MessageContainer}</div>
                 </div>
               </div>
               <div className="">

@@ -1,22 +1,44 @@
 body {
-  background-color: #f2f3f9;
+  background-color: #c1bdba;
+  color: #f5f5f5;
 }
 
 .header {
-  background-color: navy;
+  background-color:#24333d;
   padding-left: 50px;
   color: #fff;
 }
+.blogin{
+ background-color: #24333d;
+ margin-top: 5%;
+ border-radius: 4px;
+ box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+}
 #user {
   color: #fff;
+  margin-top:2%;
+}
+#user >span {
+  padding-left: 12px;
+  font-size: 1.5em;
+}
+#account {
+  color: black;
+}
+#signout{
+  margin-top: -15%;
+  margin-left: 10%;
+  color:black;
 }
 .linkheader {
-  background: #f4f2fc;
+  background: #24333d;
+  max-height: 15px;
 }
 .linkheader > h3 > a {
   float: right;
   padding-right: 6%;
 }
+
 .home > h1,
 h2,
 p {
@@ -52,12 +74,9 @@ p {
 }
 
 .text > textarea {
-  // width: 100%;
   resize: auto;
   outline: none;
   overflow: hidden;
-  // border-radius: 3px;
-  // border: 2px solid;
   resize: none;
 }
 .grouplist > li {
@@ -67,15 +86,18 @@ p {
 }
 .grouplist > li > a {
   text-decoration: none;
-  // padding: 40px;
-  // padding-top: 60px;
-  color: #000;
+  color: #f5f5f5;
 }
 .groupdisplay {
   margin: 20px 50px;
 }
 .modal-footer {
   background-color: #f9f9f9;
+}
+.modal-body{
+  background-color: #24333d;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
 .modal-header,
 h4,
@@ -95,6 +117,8 @@ input {
   padding: 10px 0;
   width: 250px;
   transition: border 0.5s;
+  text-transform:capitalize;
+  color: #000;
 }
 
 input:focus {
@@ -116,14 +140,14 @@ input:focus {
   max-height: 300px;
   overflow-x: scroll;
 }
-.aside {
-  border-bottom: 2px solid;
-}
+// .aside {
+//   border-bottom: 2px solid;
+// }
 .create {
   margin-top: 100px;
 }
 .asidelist {
-  background-color: lavender;
+  background-color: #24333d;
   min-height: 640px;
   box-shadow: 1px 1px 1px #000; 
 }
@@ -142,15 +166,22 @@ input:focus {
 }
 .one{
     display: inline-block;
-    width: 30%;
-    height: 170px;
-    background: lavender;
+    width: 90%;
+    height: 260px;
+    background: #1bb188;
     border-radius: 5px;
     box-shadow: 3px 3px 2px #000; 
-    margin: 12% 0 0 3%;
+    margin-top: 8%;
+    margin-left: 5%;
 }
 .one > h3{
     text-align: center;
+}
+#details{
+  font-size: 0.8em;
+  padding-left: 2px;
+  text-align: center;
+  color:#000;
 }
 .login {
   margin-top: 8%;
@@ -171,9 +202,9 @@ input:focus {
 .panel-body {
   padding: 0px;
 }
-  .panel{
-    margin-bottom: 2px;
-  }
+  // .panel{
+  //   margin-bottom: 2px;
+  // }
 @media (min-width: 1200px) {
   .container {
     width: 100%;

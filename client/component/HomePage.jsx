@@ -6,8 +6,8 @@ class HomePage extends React.Component{
 render() {
 return (
   <div>
-    <div className="row ">
-      <div className="col-md-4  col-sm-offset-4">
+    <div className="row">
+      <div className="col-md-4 col-sm-offset-4  blogin">
         <FlashMessageList/>
         <div className="login">Login</div>
         <LogIn/>

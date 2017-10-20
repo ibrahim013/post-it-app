@@ -8,6 +8,7 @@ import GetGroupList from '../component/GetGroupList';
 import AddMessage from '../component/AddMessage';
 import { connect } from 'react-redux';
 import { SignOut } from '../actions/LogInAction';
+import dateTime from 'date-time';
 class DashBoard extends React.Component {
   constructor(props) {
     super(props);
@@ -20,23 +21,26 @@ class DashBoard extends React.Component {
   render() {
     return (
       <div>
-        <div className="row linkheader">
-          <h3>
-            <button
-              onClick={() => {
-                this.onSubmit();
-              }}
-            >
-              Sign out
-            </button>
-          </h3>
-        </div>
+        <div className="row linkheader" />
         <Grid data-spy="scroll">
           <Row className="show-grid ">
             <Col xs={12} md={3} className="asidelist">
               <Row className="show-grid create">
+              <div id='signout'>
+                    <h3>
+                      <button
+                        onClick={() => {
+                          this.onSubmit();
+                        }}
+                      >
+                        Sign out
+                      </button>
+                    </h3>
+                  </div>
                 <Col xs={12} md={7}>
+                   <div>    
                   <h3>Groups</h3>
+                  </div> 
                 </Col>
                 <Col xs={12} md={5} className="bot">
                   <button
@@ -62,16 +66,9 @@ class DashBoard extends React.Component {
                 <Col xs={12} md={12}>
                   <div> </div>
                   <div className="one">
-                    <h3>Unread Messages</h3>
-                    <h3>0</h3>
-                  </div>
-                  <div className="one">
-                    <h3>Read</h3>
-                    <h3>0</h3>
-                  </div>
-                  <div className="one">
-                    <h3>Achive</h3>
-                    <h3>0</h3>
+                    <div className="" />
+                    <h3>Today</h3>
+                    <h3>{dateTime()}</h3>
                   </div>
                 </Col>
               </Row>

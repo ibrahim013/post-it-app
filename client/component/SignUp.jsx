@@ -101,7 +101,7 @@ class SignUp extends React.Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <div>
+            <div id='account'>
               <h3>Have an Account <Link to="/">Log In </Link></h3>
             </div>
           </Modal.Footer>

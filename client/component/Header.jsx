@@ -1,14 +1,18 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Grid, Row, Col } from 'react-bootstrap';
+import Avatar from 'react-avatar';
+import PropTypes from 'prop-types';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     const { user } = this.props;
     const loginUser = user.map(user => {
-      return <h3>Welcome @{user.displayName}</h3>;
+      return <span>{user.displayName}</span>;
     });
     return (
       <Grid bsClass="fluid header">
@@ -17,7 +21,10 @@ class Header extends React.Component {
             <h1>POST IT</h1>
           </Col>
           <Col xs={6} md={4}>
-            <h2 id="user">{loginUser}</h2>
+            <div id="user">
+            <Avatar size="50" round name= {this.props.user[0].displayName}/>
+            {loginUser}
+            </div>
           </Col>
         </Row>
       </Grid>
