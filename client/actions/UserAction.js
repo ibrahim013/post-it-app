@@ -32,9 +32,9 @@ export function SignIn(userData) {
         localStorage.setItem('user', JSON.stringify(token));
         return true;
       })
-      .catch((err) => {
-        if (err.res) {
-          Alert.error(err.res.data.errorCode, {
+      .catch((error) => {
+        if (error) {
+          Alert.error(error.response.data.message, {
             position: 'top-right',
             offset: 100,
           });
@@ -55,11 +55,38 @@ export function SignOut() {
         });
         localStorage.removeItem('user');
       })
-      .catch((err) => {
-        if (err.res) {
-          Alert.error(err.res.data.errorCode, {
+      .catch((error) => {
+        if (error) {
+          Alert.error(error.response.data.message, {
             position: 'top-right',
             offset: 100,
+          });
+        }
+      });
+}
+export function SignUpAction(userData) {
+  return () => axios.post('/v1/user/signup', userData);
+}
+
+export function passwordReset(email) {
+  return () =>
+    axios
+      .post('/v1/user/passwordreset', email)
+      .then((res) => {
+        Alert.success(res.data.message, {
+          position: 'top-right',
+          offset: 100,
+        });
+      })
+      .catch((error) => {
+        if (error) {
+          Alert.error(error.response.data.message, {
+            position: 'top-right',
+            offset: 100,
+          });
+          this.setState({
+            isLoading: false,
+            email: '',
           });
         }
       });

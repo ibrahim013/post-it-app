@@ -7,7 +7,7 @@ import AddGroup from '../component/AddGroup';
 import GetGroupList from '../component/GetGroupList';
 import AddMessage from '../component/AddMessage';
 import { connect } from 'react-redux';
-import { SignOut } from '../actions/LogInAction';
+import { SignOut } from '../actions/UserAction';
 import dateTime from 'date-time';
 class DashBoard extends React.Component {
   constructor(props) {

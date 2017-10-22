@@ -59,17 +59,17 @@ export function addMembers(userDetails) {
     .then((res) => {
       dispatch(getMembers(userDetails.groupId));
       Alert.success(res.data.message, {
-        position: 'top-left',
+        position: 'top-right',
         offset: 100,
-      })
-        .catch((err) => {
-          if (err.res) {
-            Alert.error(err.res.data.message, {
-              position: 'top-left',
-              offset: 100,
-            });
-          }
+      });
+    })
+    .catch((error) => {
+      if (error) {
+        Alert.error(error.response.data.message, {
+          position: 'top-right',
+          offset: 100,
         });
+      }
     });
 }
 
@@ -83,9 +83,9 @@ export function addGroups(groupData) {
           offset: 100,
         });
       })
-      .catch((err) => {
-        if (err.res) {
-          Alert.error(err.res.data.message, {
+      .catch((error) => {
+        if (error) {
+          Alert.error(error.response.data.message, {
             position: 'top-left',
             offset: 100,
           });
@@ -109,9 +109,9 @@ export function addMessage(messageData) {
         offset: 100,
       });
     })
-      .catch((err) => {
-        if (err.res) {
-          Alert.error(err.res.data.message, {
+      .catch((error) => {
+        if (error) {
+          Alert.error(error.response.data.message, {
             position: 'top-right',
             offset: 100,
           });

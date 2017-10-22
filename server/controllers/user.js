@@ -6,7 +6,7 @@ firebase.initializeApp(config);
 
 /**
  * @description signing up a new user.
- * POST:/user/signup
+ * POST:/v1/user/signup
  * @param {object} req; request 
  * @param {object} res; response
  *
@@ -43,10 +43,35 @@ export const signUp = (req, res) => {
       return res.status(500).json({ message: 'oops! somthing went wrong' });
     });
 };
+/**
+ * Route to reset user password.
+ * @param {string} email; 
+ *
+ * @returns {Promise}
+ */
+
+export const passwordReset = (req, res) => {
+  const auth = firebase.auth();
+  const emailAddress = req.body.email;
+  auth.sendPasswordResetEmail(emailAddress)
+    .then(() => res.status(200).json({
+      message: `Password Reset Mail Sent to${emailAddress}` }))
+    .catch((error) => {
+      const errorCode = error.message;
+      console.log(errorCode);
+      if (errorCode === 'There is no user record corresponding to this identifier. The user may have been deleted') {
+        return res.status(400).json({ message: 'invalid email' });
+      }
+      if (errorCode === 'auth/user-not-found') {
+        return res.status(400).json({ message: 'user not found' });
+      }
+      return res.status(400).json({ message: 'oops! somthing went wrong' });
+    });
+};
 
 /**
  * @description Sign in users.
- * POST:/user/signin
+ * POST:/v1/user/signin
  * @param {object} req; 
  * @param {object} res;
  *
@@ -79,7 +104,7 @@ export const signIn = (req, res) => {
 
 /**
  * @description Signout Route.
- * GET:/user/signout
+ * GET:/v1/user/signout
  * @param {string} email; 
  *
  * @returns {Promise}
@@ -91,27 +116,3 @@ export const signOut = (req, res) => {
     .catch(() => res.status(500).json({ message: 'Network Error' }));
 };
 
-/**
- * Route to reset user password.
- * @param {string} email; 
- *
- * @returns {Promise}
- */
-
-export const passwordReset = (req, res) => {
-  const auth = firebase.auth();
-  const emailAddress = req.body.email;
-  auth.sendPasswordResetEmail(emailAddress)
-    .then(() => res.status(200).json({
-      message: `Password Reset Mail Sent to${emailAddress}` }))
-    .catch((error) => {
-      const errorCode = error.message;
-      if (errorCode === 'auth/invalid-email') {
-        return res.status(400).json({ message: 'invalid email' });
-      }
-      if (errorCode === 'auth/user-not-found') {
-        return res.status(400).json({ message: 'user not found' });
-      }
-      return res.status(400).json({ message: 'oops! somthing went wrong' });
-    });
-};

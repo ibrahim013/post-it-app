@@ -13,7 +13,6 @@ class Members extends React.Component {
     super();
     this.state = {
       member: '',
-      
       errors: {}
     };
 

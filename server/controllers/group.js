@@ -3,7 +3,7 @@ import sendEmail from '../utilities/emailTranspoter';
 
 /**
  * @description get user group.
- * GET:/group/groups
+ * GET:/v1/group/groups
  * @param {object} req; 
  * @param {object} res; 
  *
@@ -44,7 +44,7 @@ export const userGroups = (req, res) => {
 
 /**
  * @description adding members to group.
- * POST:/group/addmember
+ * POST:/v1/group/addmember
  * @param {object} req; 
  * @param {object} res; 
  * 
@@ -118,7 +118,8 @@ export const addMember = (req, res) => {
 };
 
 /**
- * @description message sending.
+ * @description posting of message.
+ * POST:/v1/group/postmessage
  * @param {object} req; 
  * @param {object} res; 
  *
@@ -167,11 +168,12 @@ export const postMessage = (req, res) => {
 };
 
 /**
- * @description all group message.
+ * @description retuning group message.
+ * GET:/v1/group/:groupid/messages
  * @param {object} req; request 
  * @param {object} res; response
  *
- * @returns {object} group list
+ * @returns {object} mesage list
  */
 
 export const messageList = (req, res) => {
@@ -209,7 +211,7 @@ export const messageList = (req, res) => {
 
 /**
  * @description create user group.
- * POST:/group
+ * POST:/v1/group
  * @param {string} groupname; 
  * @param {string} discription; 
  * @returns {Object} 
@@ -245,7 +247,8 @@ export const group = (req, res) => {
   }
 };
 /**
- * @description all group members.
+ * @description retuning all group members.
+ * GET:/v1/group/:groupid/members
  * @param {object} req; request 
  * @param {object} res; response
  *

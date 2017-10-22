@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GoogleButton from 'react-google-button';
 import firebase from 'firebase';
-import { SignIn } from '../actions/LogInAction';
+import { SignIn } from '../actions/UserAction';
 import PasswordReset from '../component/PasswordReset';
 import GoogleLogin from '../actions/GoogleLogin.js';
 
@@ -44,6 +44,11 @@ class LogIn extends React.Component {
       if (res) {
         this.props.history.push('/dashboard');
       }
+      this.setState({
+      email: '',
+      password: '',
+      isLoading: false, 
+      })
     });
   }
   render() {

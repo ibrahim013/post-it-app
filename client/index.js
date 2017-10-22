@@ -5,9 +5,8 @@ import { BrowserRouter as Router, browserHistory, Route } from 'react-router-dom
 import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import { LoggedInUser } from '../client/actions/LogInAction'
+import { LoggedInUser } from '../client/actions/UserAction'
 import thunk from 'redux-thunk';
-import setAuthorizationToken from './util/setAuthorizationToken';
 import rootReducer from './reducer/rootreducer';
 import routes from './routes/routes';
 import './css/style.scss';

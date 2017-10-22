@@ -1,61 +1,32 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import FlashMessageList from './FlashMessageList';
-import addFlashMessage from '../actions/AddFlashMessage';
-import toastr from 'toastr';
+import { passwordReset } from '../actions/UserAction'
 
 class PasswordReset extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      error: {},
-      isLoading: false,
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
-  onSubmit(e) {
-    e.preventDefault();
-    axios
-      .post('/user/passwordreset', { email: this.state.email })
-      .then(response => {
-        toastr.success('A password reset link have being sent to your mail');
-        this.props.addFlashMessage({
-          type: 'success',
-          text: 'A password reset link have being sent to your mail',
-        });
-        this.setState({
-          isLoading: true,
-          email: '',
-        });
-      })
-      .catch(err => {
-        if (err.response) {
-          toastr.error(err.response.data.errorCode);
-          this.props.addFlashMessage({
-            type: 'error',
-            text: err.response.data.errorCode,
-          });
-          this.setState({
-            isLoading: false,
-            email: '',
-          });
-        }
-      });
+  onSubmit(event) {
+    event.preventDefault();
+    this.props.passwordReset(this.state)
   }
   render() {
     return (
       <div className="col-md-4 col-md-offset-4">
         <form onSubmit={this.onSubmit}>
           <div className="form-group ps-style">
-            <FlashMessageList />
             <label className="control-label">Password Reset</label>
             <input
               value={this.state.email}
@@ -84,7 +55,7 @@ class PasswordReset extends React.Component {
 }
 
 PasswordReset.PropTypes = {
-  addFlashMessage: PropTypes.func.isRequired,
+ passwordReset: PropTypes.func.isRequired,
 };
 
-export default connect(null, { addFlashMessage })(withRouter(PasswordReset));
+export default connect(null, { passwordReset})(withRouter(PasswordReset));
