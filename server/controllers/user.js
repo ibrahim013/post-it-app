@@ -3,7 +3,6 @@ import config from '../../server/database';
 
 firebase.initializeApp(config);
 
-
 /**
  * @description signing up a new user.
  * POST:/v1/user/signup
@@ -16,17 +15,23 @@ firebase.initializeApp(config);
 export const signUp = (req, res) => {
   const { displayName, email, password } = req.body;
   const time = new Date().toString();
-  firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
-    firebase.auth().currentUser.updateProfile({
-      displayName,
-    });
-  })
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
     .then(() => {
-      firebase.database().ref('user').push({
+      firebase.auth().currentUser.updateProfile({
         displayName,
-        email,
-        time,
       });
+    })
+    .then(() => {
+      firebase
+        .database()
+        .ref('user')
+        .push({
+          displayName,
+          email,
+          time,
+        });
     })
     .then(() => res.status(200).json({ message: 'signup sucessful' }))
     .catch((error) => {
@@ -53,13 +58,16 @@ export const signUp = (req, res) => {
 export const passwordReset = (req, res) => {
   const auth = firebase.auth();
   const emailAddress = req.body.email;
-  auth.sendPasswordResetEmail(emailAddress)
-    .then(() => res.status(200).json({
-      message: `Password Reset Mail Sent to${emailAddress}` }))
+  auth
+    .sendPasswordResetEmail(emailAddress)
+    .then(() =>
+      res.status(200).json({
+        message: `Password Reset Mail Sent to ${emailAddress}`,
+      }),
+    )
     .catch((error) => {
-      const errorCode = error.message;
-      console.log(errorCode);
-      if (errorCode === 'There is no user record corresponding to this identifier. The user may have been deleted') {
+      const errorCode = error.code;
+      if (errorCode === 'auth/invalid-email') {
         return res.status(400).json({ message: 'invalid email' });
       }
       if (errorCode === 'auth/user-not-found') {
@@ -80,26 +88,32 @@ export const passwordReset = (req, res) => {
 
 export const signIn = (req, res) => {
   const { email, password } = req.body;
-  firebase.auth().signInWithEmailAndPassword(email, password).then(
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        res.status(200).json({
-          message: 'Sign In Successful', user });
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          res.status(200).json({
+            message: 'Sign In Successful',
+            user,
+          });
+        }
+      }),
+    )
+    .catch((error) => {
+      const errorCode = error.code;
+      if (errorCode === 'auth/invalid-email') {
+        return res.status(400).json({ message: 'invalid email' });
       }
-    }),
-  ).catch((error) => {
-    const errorCode = error.code;
-    if (errorCode === 'auth/invalid-email') {
-      return res.status(400).json({ message: 'invalid email' });
-    }
-    if (errorCode === 'auth/user-not-found') {
-      return res.status(400).json({ message: 'user does not exist' });
-    }
-    if (errorCode === 'auth/wrong-password') {
-      return res.status(400).json({ message: 'wrong password' });
-    }
-    return res.status(500).json({ message: 'oops!! Somthing went wrong' });
-  });
+      if (errorCode === 'auth/user-not-found') {
+        return res.status(400).json({ message: 'user does not exist' });
+      }
+      if (errorCode === 'auth/wrong-password') {
+        return res.status(400).json({ message: 'wrong password' });
+      }
+      return res.status(500).json({ message: 'oops!! Somthing went wrong' });
+    });
 };
 
 /**
@@ -111,8 +125,9 @@ export const signIn = (req, res) => {
  */
 
 export const signOut = (req, res) => {
-  firebase.auth().signOut()
+  firebase
+    .auth()
+    .signOut()
     .then(() => res.status(200).json({ message: 'signed-out successfully.' }))
     .catch(() => res.status(500).json({ message: 'Network Error' }));
 };
-

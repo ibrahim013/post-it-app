@@ -77,6 +77,7 @@ export function passwordReset(email) {
           position: 'top-right',
           offset: 100,
         });
+        return true;
       })
       .catch((error) => {
         if (error) {
@@ -84,10 +85,7 @@ export function passwordReset(email) {
             position: 'top-right',
             offset: 100,
           });
-          this.setState({
-            isLoading: false,
-            email: '',
-          });
+          return false;
         }
       });
 }

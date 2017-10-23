@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Alert from 'react-s-alert';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { passwordReset } from '../actions/UserAction'
+import { passwordReset } from '../actions/UserAction';
 
 class PasswordReset extends React.Component {
   constructor(props) {
@@ -20,7 +20,15 @@ class PasswordReset extends React.Component {
   }
   onSubmit(event) {
     event.preventDefault();
-    this.props.passwordReset(this.state)
+    this.props.passwordReset(this.state).then((res)=>{
+    if (res) {
+      this.props.history.push('/');
+    }
+    this.setState({
+      isLoading: false,
+      email: '',
+    });
+  })
   }
   render() {
     return (
@@ -55,7 +63,7 @@ class PasswordReset extends React.Component {
 }
 
 PasswordReset.PropTypes = {
- passwordReset: PropTypes.func.isRequired,
+  passwordReset: PropTypes.func.isRequired,
 };
 
-export default connect(null, { passwordReset})(withRouter(PasswordReset));
+export default connect(null, { passwordReset })(withRouter(PasswordReset));
