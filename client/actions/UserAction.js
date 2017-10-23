@@ -65,7 +65,25 @@ export function SignOut() {
       });
 }
 export function SignUpAction(userData) {
-  return () => axios.post('/v1/user/signup', userData);
+  return () =>
+    axios
+      .post('/v1/user/signup', userData)
+      .then((res) => {
+        Alert.success(res.data.message, {
+          position: 'top-right',
+          offset: 100,
+        });
+        return true;
+      })
+      .catch((error) => {
+        if (error) {
+          Alert.error(error.response.data.message, {
+            position: 'top-right',
+            offset: 100,
+          });
+          return false;
+        }
+      });
 }
 
 export function passwordReset(email) {

@@ -4,7 +4,6 @@ import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import validateInput from '../util/validation';
-import FlashMessageList from './FlashMessageList';
 
 
 class SignUp extends React.Component {
@@ -21,8 +20,8 @@ class SignUp extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
   isValid() {
     const { errors, isValid } = validateInput(this.state);
@@ -31,21 +30,19 @@ class SignUp extends React.Component {
     }
     return isValid;
   }
-  onSubmit(e) {
-    e.preventDefault();
+  onSubmit(event) {
+    event.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.SignUpAction(this.state).then(
-        () => {
-          this.props.addFlashMessageSignup({
-            type: 'success',
-            text: 'You have Signed Up succesfuly Proceed to Login'
-          })
-        },
-        err => this.setState({ errors: err.response.data,
-          isLoading: false,
-          isLogedIn: true })
-      );
+      this.props.SignUpAction(this.state).then(res => {
+        if (res) {
+          this.props.history.push('/');
+        }
+      },
+      this.setState({
+        isLoading: false,
+        isLogedIn: true,
+      }));
     }
   }
   render() {
@@ -56,43 +53,52 @@ class SignUp extends React.Component {
           <Modal.Header>
             <Modal.Title>Create Account</Modal.Title>
           </Modal.Header>
-          <FlashMessageList/> 
+          <FlashMessageList />
           <Modal.Body>
             <div>
-
               <form onSubmit={this.onSubmit}>
-                <div className={classnames('form-group',
-                  { 'has-error': errors.displayName })}>
+                <div className={classnames('form-group', { 'has-error': errors.displayName })}>
                   <label className="control-label">User Name</label>
-                  <input value={this.state.displayName} onChange={this.onChange}
-                    type="text" name="displayName" className="form-control"
-                    placeholder="eg:ibrahim" />
-                  {errors.displayName && <span className="help-block">
-                    {errors.displayName}
-                  </span>}
+                  <input
+                    value={this.state.displayName}
+                    onChange={this.onChange}
+                    type="text"
+                    name="displayName"
+                    className="form-control"
+                    placeholder="eg:ibrahim"
+                  />
+                  {errors.displayName && <span className="help-block">{errors.displayName}</span>}
                 </div>
-                <div className={classnames('form-group',
-                  { 'has-error': errors.email })}>
+                <div className={classnames('form-group', { 'has-error': errors.email })}>
                   <label className="control-label">Email</label>
-                  <input value={this.state.emaii} onChange={this.onChange}
-                    type="email" name="email" className="form-control"
-                    placeholder="eg:abc@company.com" />
-                  {errors.email && <span className="help-block">
-                    {errors.email}
-                  </span>}
+                  <input
+                    value={this.state.emaii}
+                    onChange={this.onChange}
+                    type="email"
+                    name="email"
+                    className="form-control"
+                    placeholder="eg:abc@company.com"
+                  />
+                  {errors.email && <span className="help-block">{errors.email}</span>}
                 </div>
-                <div className={classnames('form-group',
-                  { 'has-error': errors.password })}>
+                <div className={classnames('form-group', { 'has-error': errors.password })}>
                   <label className="control-label">Password</label>
-                  <input value={this.state.password} onChange={this.onChange}
-                    type="password" name="password" className="form-control"
-                    placeholder="At least 6 Characters" />
-                  {errors.password && <span className="help-block">
-                    {errors.password}</span>}
+                  <input
+                    value={this.state.password}
+                    onChange={this.onChange}
+                    type="password"
+                    name="password"
+                    className="form-control"
+                    placeholder="At least 6 Characters"
+                  />
+                  {errors.password && <span className="help-block">{errors.password}</span>}
                 </div>
-                <div className="form-group" >
-                  <button disabled={this.state.isLoading} name="login"
-                    className="btn btn-primary lgbotton col-md-offset-4-7">
+                <div className="form-group">
+                  <button
+                    disabled={this.state.isLoading}
+                    name="login"
+                    className="btn btn-primary lgbotton col-md-offset-4-7"
+                  >
                     <span className="glyphicon glyphicon-user" /> Signup
                   </button>
                 </div>
@@ -101,11 +107,12 @@ class SignUp extends React.Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <div id='account'>
-              <h3>Have an Account <Link to="/">Log In </Link></h3>
+            <div id="account">
+              <h3>
+                Have an Account <Link to="/">Log In </Link>
+              </h3>
             </div>
           </Modal.Footer>
-
         </Modal.Dialog>
       </div>
     );
@@ -114,9 +121,7 @@ class SignUp extends React.Component {
 
 SignUp.PropTypes = {
   SignUpAction: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired
+  addFlashMessage: PropTypes.func.isRequired,
 };
 
-
 export default SignUp;
-

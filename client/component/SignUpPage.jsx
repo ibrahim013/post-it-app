@@ -3,16 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Signup from '../component/SignUp';
-import SignUpAction from '../actions/SignUpAction';
-import addFlashMessageSignup from '../actions/AddFlashMessage';
+import { SignUpAction } from '../actions/UserAction';
 
 class SignUpPage extends React.Component {
   render() {
-    const { SignUpAction, addFlashMessageSignup } = this.props;
+    const { SignUpAction } = this.props;
     return (
       <div className="row ">
         <div>
-          <Signup SignUpAction = {SignUpAction} addFlashMessageSignup = {addFlashMessageSignup}/>
+          <Signup SignUpAction = {SignUpAction} />
         </div>
       </div>
     );
@@ -20,6 +19,5 @@ class SignUpPage extends React.Component {
 }
 SignUpPage.PropTypes = {
   SignUpAction: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired
 };
-export default withRouter(connect(null, { SignUpAction, addFlashMessageSignup })(SignUpPage));
+export default withRouter(connect(null, { SignUpAction })(SignUpPage));
