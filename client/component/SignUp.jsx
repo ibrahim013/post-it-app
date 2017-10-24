@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import validateInput from '../util/validation';
 
-
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -35,14 +34,13 @@ class SignUp extends React.Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.SignUpAction(this.state).then(res => {
-        if (res) {
-          this.props.history.push('/');
+        if (!res) {
+          this.setState({
+            isLoading: false,
+            isLogedIn: true,
+          });
         }
-      },
-      this.setState({
-        isLoading: false,
-        isLogedIn: true,
-      }));
+      });
     }
   }
   render() {
@@ -53,7 +51,6 @@ class SignUp extends React.Component {
           <Modal.Header>
             <Modal.Title>Create Account</Modal.Title>
           </Modal.Header>
-          <FlashMessageList />
           <Modal.Body>
             <div>
               <form onSubmit={this.onSubmit}>
@@ -105,7 +102,6 @@ class SignUp extends React.Component {
               </form>
             </div>
           </Modal.Body>
-
           <Modal.Footer>
             <div id="account">
               <h3>
@@ -121,7 +117,6 @@ class SignUp extends React.Component {
 
 SignUp.PropTypes = {
   SignUpAction: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired,
 };
 
 export default SignUp;

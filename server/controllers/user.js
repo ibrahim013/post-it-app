@@ -91,16 +91,14 @@ export const signIn = (req, res) => {
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          res.status(200).json({
-            message: 'Sign In Successful',
-            user,
-          });
-        }
-      }),
-    )
+    .then((user) => {
+      if (user) {
+        res.status(200).json({
+          message: 'Sign In Successful',
+          user,
+        });
+      }
+    })
     .catch((error) => {
       const errorCode = error.code;
       if (errorCode === 'auth/invalid-email') {

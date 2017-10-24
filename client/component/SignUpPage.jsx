@@ -20,4 +20,4 @@ class SignUpPage extends React.Component {
 SignUpPage.PropTypes = {
   SignUpAction: PropTypes.func.isRequired,
 };
-export default withRouter(connect(null, { SignUpAction })(SignUpPage));
+export default connect(null, { SignUpAction }) (withRouter(SignUpPage));

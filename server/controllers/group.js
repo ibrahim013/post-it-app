@@ -1,6 +1,5 @@
 import * as firebase from 'firebase';
 import sendEmail from '../utilities/emailTranspoter';
-
 /**
  * @description get user group.
  * GET:/v1/group/groups
@@ -11,35 +10,36 @@ import sendEmail from '../utilities/emailTranspoter';
  */
 
 export const userGroups = (req, res) => {
-  const user = firebase.auth().currentUser;
-  if (user) {
-    const groups = [];
-    firebase
-      .database()
-      .ref('/group')
-      .orderByKey()
-      .once('value', (snapshot) => {
-        snapshot.forEach((child) => {
-          const group = {
-            groupid: child.key,
-            groupname: child.val().groupname,
-            discription: child.val().Discription,
-            groupAdmin: child.val().GroupAdmin,
-          };
-          groups.push(group);
-        });
-      })
-      .then(() => res.status(201).json({ groups }))
-      .catch(error =>
-        res.status(500).json({
-          message: `Error occurred ${error.message}`,
-        }),
-      );
-  } else {
-    return res.status(403).json({
-      message: 'You are not signed in right now!',
-    });
-  }
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      const groups = [];
+      firebase
+        .database()
+        .ref('/group')
+        .orderByKey()
+        .once('value', (snapshot) => {
+          snapshot.forEach((child) => {
+            const group = {
+              groupid: child.key,
+              groupname: child.val().groupname,
+              discription: child.val().Discription,
+              groupAdmin: child.val().GroupAdmin,
+            };
+            groups.push(group);
+          });
+        })
+        .then(() => res.status(201).json({ groups }))
+        .catch(error =>
+          res.status(500).json({
+            message: `Error occurred ${error.message}`,
+          }),
+        );
+    } else {
+      return res.status(403).json({
+        message: 'You are not signed in right now!',
+      });
+    }
+  });
 };
 
 /**
@@ -235,6 +235,12 @@ export const group = (req, res) => {
         createdBy,
         displayName,
         Discription: discription,
+      });
+    firebase
+      .database()
+      .ref(`user/${currentUser}`)
+      .push({
+        groupname,
       })
       .then(() =>
         res.status(201).json({

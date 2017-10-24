@@ -25,16 +25,8 @@ class LogIn extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   }
   onHandleSubmit(event) {
-    this.props.GoogleLogin().then(response => {
-      firebase
-        .database()
-        .ref('user')
-        .push({
-          displayName: response.user.displayName,
-          email: response.user.email,
-          time: new Date().toString(),
-        }),
-        this.props.history.push('/dashboard');
+    this.props.GoogleLogin().then(res => {
+      this.props.history.push('/dashboard');
     });
   }
   onSubmit(event) {
