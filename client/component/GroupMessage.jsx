@@ -11,6 +11,8 @@ import GetGroupList from '../component/GetGroupList';
 import AddMessage from '../component/AddMessage';
 import { getGroups, addMembers, getMessges, getMembers } from '../actions/GroupAction';
 
+const socket = io();
+
 class GroupMessage extends React.Component {
   constructor(props) {
     super(props);
@@ -23,6 +25,9 @@ class GroupMessage extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    socket.on('message Sent', data => {
+      console.log(data);
+    });
   }
 
   onChange(event) {

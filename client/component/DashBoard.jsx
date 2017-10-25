@@ -9,11 +9,15 @@ import AddMessage from '../component/AddMessage';
 import { connect } from 'react-redux';
 import { SignOut } from '../actions/UserAction';
 import dateTime from 'date-time';
+
+const socket = io();
+
 class DashBoard extends React.Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
   onSubmit(event) {
     this.props.SignOut();
     this.props.history.push('/');
@@ -26,21 +30,21 @@ class DashBoard extends React.Component {
           <Row className="show-grid ">
             <Col xs={12} md={3} className="asidelist">
               <Row className="show-grid create">
-              <div id='signout'>
-                    <h3>
-                      <button
-                        onClick={() => {
-                          this.onSubmit();
-                        }}
-                      >
-                        Sign out
-                      </button>
-                    </h3>
-                  </div>
+                <div id="signout">
+                  <h3>
+                    <button
+                      onClick={() => {
+                        this.onSubmit();
+                      }}
+                    >
+                      Sign out
+                    </button>
+                  </h3>
+                </div>
                 <Col xs={12} md={7}>
-                   <div>    
-                  <h3>Groups</h3>
-                  </div> 
+                  <div>
+                    <h3>Groups</h3>
+                  </div>
                 </Col>
                 <Col xs={12} md={5} className="bot">
                   <button

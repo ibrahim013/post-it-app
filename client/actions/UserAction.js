@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Alert from 'react-s-alert';
-import { LOGIN_USER, LOGOUT_USER } from '../constants/ActionTypes';
+import { LOGIN_USER, LOGOUT_USER, LOGIN_ERROR } from '../constants/ActionTypes';
 /**
  * sign in action 
  * @param {string} userData
@@ -11,6 +11,11 @@ export function LoggedInUser(user) {
   return {
     type: LOGIN_USER,
     user,
+  };
+}
+export function LoggedInError() {
+  return {
+    type: LOGIN_ERROR,
   };
 }
 export function LogOutUser() {
@@ -33,6 +38,7 @@ export function SignIn(userData) {
         return true;
       })
       .catch((error) => {
+        dispatch(LoggedInError());
         if (error) {
           Alert.error(error.response.data.message, {
             position: 'top-right',

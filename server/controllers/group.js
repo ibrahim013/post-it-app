@@ -146,27 +146,45 @@ export const postMessage = (req, res) => {
         }),
       )
       .then(() => {
-        if (`${piority}` === 'Critical') {
-          const userEmail = [];
-          const memberEmail = firebase
+        // if (`${piority}` === 'Critical') {
+        //   const userEmail = [];
+        //   const memberEmail = firebase
+        //     .database()
+        //     .ref(`group/${groupname}/members`)
+        //     .orderByKey();
+        //   memberEmail.once('value', (snapshot) => {
+        //     snapshot.forEach((childSnapShot) => {
+        //       const email = {
+        //         email: childSnapShot.val().email,
+        //       };
+        //       userEmail.push(email);
+        //       sendEmail({ userEmail, groupname });
+        //     });
+        //   });
+        // }
+        if (`${piority}` === 'Critical' || `${piority}` === 'Urgent') {
+          const user = [];
+          const users = firebase
             .database()
             .ref(`group/${groupname}/members`)
             .orderByKey();
-          memberEmail.once('value', (snapshot) => {
+          users.once('value', (snapshot) => {
             snapshot.forEach((childSnapShot) => {
-              const email = {
-                email: childSnapShot.val().email,
+              const displayName = {
+                displayName: childSnapShot.val().displayName,
               };
-              userEmail.push(email);
-              sendEmail({ userEmail, groupname });
+              user.push(displayName);
             });
+            req.app.io.emit('message Sent', {
+              user,
+            });
+            console.log(user);
           });
         }
       })
       .catch(() => res.status(401).json({ message: 'oops! Somthing went wrong' }));
   }
 };
-
 /**
  * @description retuning group message.
  * GET:/v1/group/:groupid/messages

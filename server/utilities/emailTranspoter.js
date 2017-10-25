@@ -22,6 +22,7 @@ module.exports = (mailObject) => {
   };
   mailObject.userEmail.map((email) => {
     const sendto = email.email;
+    console.log('===send to===', sendto);
     mailOptions.to = sendto;
     transporter.sendMail(mailOptions, (error) => {
       if (error) {

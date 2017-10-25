@@ -55,27 +55,30 @@ export function getMembers(groupid) {
     });
 }
 export function addMembers(userDetails) {
-  return dispatch => axios.post('/v1/group/addmember', userDetails)
-    .then((res) => {
-      dispatch(getMembers(userDetails.groupId));
-      Alert.success(res.data.message, {
-        position: 'top-right',
-        offset: 100,
-      });
-    })
-    .catch((error) => {
-      if (error) {
-        Alert.error(error.response.data.message, {
+  return dispatch =>
+    axios
+      .post('/v1/group/addmember', userDetails)
+      .then((res) => {
+        dispatch(getMembers(userDetails.groupId));
+        Alert.success(res.data.message, {
           position: 'top-right',
           offset: 100,
         });
-      }
-    });
+      })
+      .catch((error) => {
+        if (error) {
+          Alert.error(error.response.data.message, {
+            position: 'top-right',
+            offset: 100,
+          });
+        }
+      });
 }
 
 export function addGroups(groupData) {
   return dispatch =>
-    axios.post('/v1/group', groupData)
+    axios
+      .post('/v1/group', groupData)
       .then((res) => {
         dispatch(getGroups());
         Alert.success(res.data.message, {
@@ -93,7 +96,6 @@ export function addGroups(groupData) {
       });
 }
 
-
 /**
  * 
  * @param {string} groupname 
@@ -102,13 +104,15 @@ export function addGroups(groupData) {
  */
 export function addMessage(messageData) {
   return dispatch =>
-    axios.post('/v1/group/postmessage', messageData).then((res) => {
-      dispatch(getMessges(messageData.groupname));
-      Alert.success(res.data.message, {
-        position: 'top-right',
-        offset: 100,
-      });
-    })
+    axios
+      .post('/v1/group/postmessage', messageData)
+      .then((res) => {
+        dispatch(getMessges(messageData.groupname));
+        Alert.success(res.data.message, {
+          position: 'top-right',
+          offset: 100,
+        });
+      })
       .catch((error) => {
         if (error) {
           Alert.error(error.response.data.message, {

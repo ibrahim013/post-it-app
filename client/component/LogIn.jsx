@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GoogleButton from 'react-google-button';
-import firebase from 'firebase';
 import { SignIn } from '../actions/UserAction';
-import PasswordReset from '../component/PasswordReset';
-import GoogleLogin from '../actions/GoogleLogin.js';
+import GoogleLogin from '../actions/GoogleLogin';
 
-class LogIn extends React.Component {
+export class LogIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,27 +22,26 @@ class LogIn extends React.Component {
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  onHandleSubmit(event) {
-    this.props.GoogleLogin().then(res => {
+  onHandleSubmit() {
+    this.props.GoogleLogin().then((res) => {
       this.props.history.push('/dashboard');
     });
   }
   onSubmit(event) {
     event.preventDefault();
     this.setState({ errors: {}, isLoading: true });
-    this.props.SignIn(this.state).then(res => {
+    this.props.SignIn(this.state).then((res) => {
       if (res) {
         this.props.history.push('/dashboard');
       }
       this.setState({
-      email: '',
-      password: '',
-      isLoading: false, 
-      })
+        email: '',
+        password: '',
+        isLoading: false,
+      });
     });
   }
   render() {
-    const { errors } = this.state;
     return (
       <div>
         <form onSubmit={this.onSubmit}>
