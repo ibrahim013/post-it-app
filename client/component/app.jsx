@@ -1,20 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Header from '../component/Header';
 import Alert from 'react-s-alert';
-
-import 'react-s-alert/dist/s-alert-default.css';
+import PropTypes from 'prop-types';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
-
-import FlashMessageList from './FlashMessageList';
+import 'react-s-alert/dist/s-alert-default.css';
+import Header from '../component/Header';
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <Header/>
+        <Header />
         {this.props.childeren}
-        <Alert stack={{limit: 3}} />
+        <Alert stack={{ limit: 3 }} />
       </div>
     );
   }

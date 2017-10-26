@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { addMessage } from '../actions/GroupAction';
 
 class AddMessage extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       message: '',
       piority: '',
@@ -66,4 +66,4 @@ class AddMessage extends React.Component {
 AddMessage.PropTypes = {
   Messages: PropTypes.array.isRequired,
 };
-export default connect(null, { addMessage })(AddMessage);
+export default withRouter(connect(null, { addMessage })(AddMessage));

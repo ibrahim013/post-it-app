@@ -1,18 +1,15 @@
 import React from 'react';
+import io from 'socket.io-client';
+import thunk from 'redux-thunk';
 import ReactDom from 'react-dom';
-import createHistory from 'history/createBrowserHistory';
-import { BrowserRouter as Router, browserHistory, Route } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, browserHistory } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { LoggedInUser } from '../client/actions/UserAction';
-import thunk from 'redux-thunk';
 import rootReducer from './reducer/rootreducer';
-import routes from './routes/routes';
+import AppRoute from './routes/routes';
 import './css/style.scss';
-import io from 'socket.io-client';
 
-const history = createHistory();
 const socket = io();
 
 socket.on('connection', data => {
@@ -28,7 +25,7 @@ if (localStorage.user) {
 }
 ReactDom.render(
   <Provider store={store}>
-    <Router history={browserHistory}>{routes}</Router>
+    <Router history={browserHistory}>{AppRoute}</Router>
   </Provider>,
   document.getElementById('app'),
 );

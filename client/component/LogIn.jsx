@@ -111,4 +111,4 @@ LogIn.PropTypes = {
   SignIn: PropTypes.func.isRequired,
   GoogleLogin: PropTypes.func.isRequired,
 };
-export default connect(null, { SignIn, GoogleLogin })(withRouter(LogIn));
+export default withRouter(connect(null, { SignIn, GoogleLogin })(LogIn));

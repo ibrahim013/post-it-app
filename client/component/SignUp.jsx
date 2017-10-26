@@ -33,7 +33,7 @@ class SignUp extends React.Component {
     event.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.SignUpAction(this.state).then(res => {
+      this.props.SignUpAction(this.state).then((res) => {
         if (!res) {
           this.setState({
             isLoading: false,

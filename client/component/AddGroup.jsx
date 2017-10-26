@@ -1,9 +1,7 @@
 import React from 'react';
-import Link from 'react-router-dom';
-import classnames from 'classnames';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Well, Button, Collapse } from 'react-bootstrap';
 import { addGroups } from '../actions/GroupAction';
 
 class AddGroup extends React.Component {
@@ -60,4 +58,4 @@ AddGroup.PropTypes = {
   addGroups: PropTypes.func.isRequired,
 };
 
-export default connect(null, { addGroups })(AddGroup);
+export default withRouter(connect(null, { addGroups })(AddGroup));

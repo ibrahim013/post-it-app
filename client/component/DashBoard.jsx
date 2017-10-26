@@ -1,14 +1,11 @@
 import React from 'react';
-import { Grid, Row, Col, Image } from 'react-bootstrap';
-import MessageList from '../component/MessageList';
-import { Jumbotron, ButtonToolbar, Button, Modal } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Grid, Row, Col } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import dateTime from 'date-time';
+import { withRouter } from 'react-router-dom';
 import AddGroup from '../component/AddGroup';
 import GetGroupList from '../component/GetGroupList';
-import AddMessage from '../component/AddMessage';
-import { connect } from 'react-redux';
 import { SignOut } from '../actions/UserAction';
-import dateTime from 'date-time';
 
 const socket = io();
 
@@ -18,7 +15,7 @@ class DashBoard extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit(event) {
+  onSubmit() {
     this.props.SignOut();
     this.props.history.push('/');
   }
@@ -85,4 +82,4 @@ class DashBoard extends React.Component {
   }
 }
 
-export default connect(null, { SignOut })(DashBoard);
+export default withRouter(connect(null, { SignOut })(DashBoard));

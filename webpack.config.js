@@ -8,7 +8,10 @@ const Dotenv = require('dotenv-webpack');
 
 const webpackConfig = {
   entry:
-      './client/index.js',
+      [
+        'babel-polyfill',
+        './client/index.js',
+      ],
   output: {
     path: path.join(__dirname, 'public'),
     publicPath: '/',
@@ -37,7 +40,7 @@ const webpackConfig = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react'],
+          presets: ['es2015', 'react', 'stage-0'],
         },
 
       },

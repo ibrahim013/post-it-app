@@ -1,22 +1,15 @@
 import React from 'react';
-import LogIn from '../component/LogIn';
-import FlashMessageList from './FlashMessageList';
+import Login from '../component/LogIn';
 
-class HomePage extends React.Component{
-render() {
-return (
+const HomePage = () => (
   <div>
     <div className="row">
       <div className="col-md-4 col-sm-offset-4  blogin">
-        <FlashMessageList/>
         <div className="login">Login</div>
-        <LogIn/>
-        </div>
+        <Login />
       </div>
+    </div>
+  </div>
+);
 
-</div>
-
-    );
-  }
-};
 export default HomePage;

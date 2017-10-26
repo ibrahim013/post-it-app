@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Row, Col, Image } from 'react-bootstrap';
-import { Jumbotron, ButtonToolbar, Button, Modal } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Alert from 'react-s-alert';
-import MessageList from '../component/MessageList';
-import AddGroup from '../component/AddGroup';
-import GetGroupList from '../component/GetGroupList';
+import { Link, withRouter } from 'react-router-dom';
 import AddMessage from '../component/AddMessage';
 import { getGroups, addMembers, getMessges, getMembers } from '../actions/GroupAction';
 
@@ -25,7 +20,7 @@ class GroupMessage extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    socket.on('message Sent', data => {
+    socket.on('message Sent', (data) => {
       console.log(data);
     });
   }
@@ -57,29 +52,27 @@ class GroupMessage extends React.Component {
     let MessageContainer = '';
     let MemberContainer = '';
     if (Messages.length !== 0) {
-      MessageContainer = Messages.map(message => {
-        return (
-          <div key={message.messageId}>
-            <div className="panel panel-default">
-              <div className="panel-body">
-                <p className="">{message.messageText}</p>
-                <p id="details">
-                  <span className="left-align">Sent By: {message.author}</span>
-                  <span className="left-align">Priority: {message.priorityLevel}</span>
-                  <span className="right-align">: {message.date}</span>
-                </p>
-              </div>
+      MessageContainer = Messages.map(message => (
+        <div key={message.messageId}>
+          <div className="panel panel-default">
+            <div className="panel-body">
+              <p className="">{message.messageText}</p>
+              <p id="details">
+                <span className="left-align">Sent By: {message.author}</span>
+                <span className="left-align">Priority: {message.priorityLevel}</span>
+                <span className="right-align">: {message.date}</span>
+              </p>
             </div>
           </div>
-        );
-      });
+        </div>
+      ));
     } else {
       MessageContainer = <h2>you have no message on this board</h2>;
     }
     if (GroupMembers.length !== 0) {
-      MemberContainer = GroupMembers.map(member => {
-        return <li key={member.memberId}>{member.displayName}</li>;
-      });
+      MemberContainer = GroupMembers.map(member => (
+        <li key={member.memberId}>{member.displayName}</li>
+      ));
     } else {
       MemberContainer = 'no member added yet';
     }
@@ -173,6 +166,6 @@ function mapStateToProps(state) {
     GroupMembers: state.groupMembers,
   };
 }
-export default connect(mapStateToProps, { getGroups, addMembers, getMessges, getMembers })(
-  GroupMessage,
+export default withRouter(
+  connect(mapStateToProps, { getGroups, addMembers, getMessges, getMembers })(GroupMessage),
 );
