@@ -100,7 +100,7 @@ describe('Add group route', () => {
       .post('/v1/group/addmember')
       .send({
         groupName: 'final',
-        displayName: 'master',
+        displayName: 'admin',
         groupId: '-KwZbPxdoMHH71nB1F0S',
       })
       .end((err, res) => {
@@ -153,7 +153,7 @@ describe('Add group route', () => {
         done();
       });
   });
-  it('should return 400 for group not find', (done) => {
+  it('should return 400 for user not found', (done) => {
     chai.request(server)
       .post('/v1/group/addmember')
       .send({
@@ -165,7 +165,7 @@ describe('Add group route', () => {
         res.status.should.equal(400);
         res.body.should.be.a('object');
         res.body.should.have.property('message');
-        res.body.message.should.equal('Group not found');
+        res.body.message.should.equal('User not found');
         done();
       });
   });

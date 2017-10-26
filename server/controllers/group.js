@@ -146,22 +146,22 @@ export const postMessage = (req, res) => {
         }),
       )
       .then(() => {
-        // if (`${piority}` === 'Critical') {
-        //   const userEmail = [];
-        //   const memberEmail = firebase
-        //     .database()
-        //     .ref(`group/${groupname}/members`)
-        //     .orderByKey();
-        //   memberEmail.once('value', (snapshot) => {
-        //     snapshot.forEach((childSnapShot) => {
-        //       const email = {
-        //         email: childSnapShot.val().email,
-        //       };
-        //       userEmail.push(email);
-        //       sendEmail({ userEmail, groupname });
-        //     });
-        //   });
-        // }
+        if (`${piority}` === 'Critical') {
+          const userEmail = [];
+          const memberEmail = firebase
+            .database()
+            .ref(`group/${groupname}/members`)
+            .orderByKey();
+          memberEmail.once('value', (snapshot) => {
+            snapshot.forEach((childSnapShot) => {
+              const email = {
+                email: childSnapShot.val().email,
+              };
+              userEmail.push(email);
+              sendEmail({ userEmail, groupname });
+            });
+          });
+        }
         if (`${piority}` === 'Critical' || `${piority}` === 'Urgent') {
           const user = [];
           const users = firebase
@@ -253,12 +253,6 @@ export const group = (req, res) => {
         createdBy,
         displayName,
         Discription: discription,
-      });
-    firebase
-      .database()
-      .ref(`user/${currentUser}`)
-      .push({
-        groupname,
       })
       .then(() =>
         res.status(201).json({

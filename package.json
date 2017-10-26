@@ -10,8 +10,8 @@
     "testserver": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./test --timeout 1500000 && npm run coveralls",
     "cover": "cat ./coverage/lcov.info",
     "coveralls": "nyc report --reporter=lcov --reporter=text-lcov npm run test",
-    "testClient": "NODE_ENV=test jest ./client/__tests__/ --coverage && npm run coverage",
-    "test": "npm run testClient"
+    "testclient": "NODE_ENV=test jest ./client/__tests__/ --coverage && npm run coverage",
+    "test": "npm run testserver"
   },
   "author": "Ibrahim Abdulazzez",
   "license": "ISC",

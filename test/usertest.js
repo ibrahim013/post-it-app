@@ -188,7 +188,7 @@ describe('Post It', () => {
       .end((err, res) => {
         expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('oops! somthing went wrong');
+        expect(res.body.message).to.be.equal('invalid email');
         expect(res.body).to.be.an('object');
         done();
       });
@@ -201,7 +201,7 @@ describe('Post It', () => {
       .end((err, res) => {
         expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('oops! somthing went wrong');
+        expect(res.body.message).to.be.equal('user not found');
         expect(res.body).to.be.an('object');
         done();
       });
