@@ -10,8 +10,9 @@ import sendEmail from '../utilities/emailTranspoter';
  */
 
 export const userGroups = (req, res) => {
+  const googleLogin = firebase.auth().getRedirectResult();
   firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
+    if (user || googleLogin) {
       const groups = [];
       firebase
         .database()
