@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 require('dotenv').config();
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 const webpackConfig = {
@@ -66,6 +66,9 @@ const webpackConfig = {
       filename: 'style.css',
       allChunks: true,
     }),
+    new UglifyJSPlugin({
+      sourceMap: true,
+    }),
     new Dotenv({
       path: './.env',
       safe: false,
@@ -75,8 +78,6 @@ const webpackConfig = {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-    // new webpack.optimize.UglifyJsPlugin(),
-    // new webpack.optimize.AggressiveMergingPlugin(),
   ],
 };
 
