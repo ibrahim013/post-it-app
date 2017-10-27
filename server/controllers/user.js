@@ -76,6 +76,28 @@ export const passwordReset = (req, res) => {
       return res.status(400).json({ message: 'oops! somthing went wrong' });
     });
 };
+export const googleLogin = (req, res) => {
+  const userData = req.body;
+  const credential = firebase.auth.GoogleAuthProvider.credential(userData.credential.idToken);
+  firebase
+    .auth()
+    .signInWithCredential(credential)
+    .then((user) => {
+      firebase
+        .database()
+        .ref('user')
+        .push({
+          displayName: user.displayName,
+          email: user.email,
+          time: new Date().toString(),
+        });
+      return res.status(200).json({
+        message: 'sign in sucessful',
+        user,
+      });
+    })
+    .catch(() => res.status(500).json({ message: 'oops! somthing went wrong' }));
+};
 
 /**
  * @description Sign in users.

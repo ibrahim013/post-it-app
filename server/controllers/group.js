@@ -91,7 +91,7 @@ export const addMember = (req, res) => {
         groups.push(group);
       });
       const group = groups.includes(`${groupName}`);
-      const user = users.find(o => o.displayName === `${displayName}`);
+      const user = users.find(userdetails => userdetails.displayName === `${displayName}`);
       const member = groupMember.includes(`${displayName}`);
       if (!user) {
         return res.status(400).json({ message: 'User not found' });
