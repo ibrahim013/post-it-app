@@ -83,18 +83,35 @@ export const googleLogin = (req, res) => {
     .auth()
     .signInWithCredential(credential)
     .then((user) => {
-      firebase
+      const users = [];
+      const alreadyRegistered = user.email;
+      const registeredUsers = firebase
         .database()
         .ref('user')
-        .push({
-          displayName: user.displayName,
-          email: user.email,
-          time: new Date().toString(),
+        .orderByKey();
+      registeredUsers.once('value', (snapshot) => {
+        snapshot.forEach((childSnapShot) => {
+          const addedUser = {
+            email: childSnapShot.val().email,
+          };
+          users.push(addedUser);
         });
-      return res.status(200).json({
-        message: 'sign in sucessful',
-        user,
       });
+      const userCheck = users.find(useremail => useremail.email === `${alreadyRegistered}`);
+      if (typeof userCheck === 'undefined') {
+        firebase
+          .database()
+          .ref('user')
+          .push({
+            displayName: user.displayName,
+            email: user.email,
+            time: new Date().toString(),
+          });
+        return res.status(200).json({
+          message: 'sign in sucessful',
+          user,
+        });
+      }
     })
     .catch(() => res.status(500).json({ message: 'oops! somthing went wrong' }));
 };
