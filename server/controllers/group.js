@@ -87,7 +87,6 @@ export const addMember = (req, res) => {
     .once('value', (snapshot) => {
       snapshot.forEach((childSnapShot) => {
         const group = childSnapShot.val().groupname;
-
         groups.push(group);
       });
       const group = groups.includes(`${groupName}`);

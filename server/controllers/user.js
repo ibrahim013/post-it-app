@@ -13,7 +13,7 @@ firebase.initializeApp(config);
  */
 
 export const signUp = (req, res) => {
-  const { displayName, email, password } = req.body;
+  const { displayName, email, password, phoneNumber } = req.body;
   const time = new Date().toString();
   firebase
     .auth()
@@ -21,6 +21,7 @@ export const signUp = (req, res) => {
     .then(() => {
       firebase.auth().currentUser.updateProfile({
         displayName,
+        phoneNumber,
       });
     })
     .then(() => {
@@ -30,14 +31,15 @@ export const signUp = (req, res) => {
         .push({
           displayName,
           email,
+          phoneNumber,
           time,
         });
     })
-    .then(() => res.status(200).json({ message: 'signup sucessful' }))
+    .then(() => res.status(200).json({ message: 'signup sucessful proceed to login' }))
     .catch((error) => {
       const errorCode = error.code;
       if (errorCode === 'auth/email-already-in-use') {
-        return res.status(400).json({ message: 'email already in use' });
+        return res.status(409).json({ message: 'email already in use' });
       }
       if (errorCode === 'auth/invalid-email') {
         return res.status(400).json({ message: 'invalid email' });
@@ -91,27 +93,23 @@ export const googleLogin = (req, res) => {
         .orderByKey();
       registeredUsers.once('value', (snapshot) => {
         snapshot.forEach((childSnapShot) => {
-          const addedUser = {
-            email: childSnapShot.val().email,
-          };
+          const addedUser = childSnapShot.val().email;
           users.push(addedUser);
         });
-      });
-      const userCheck = users.find(useremail => useremail.email === `${alreadyRegistered}`);
-      if (typeof userCheck === 'undefined') {
-        firebase
-          .database()
-          .ref('user')
-          .push({
-            displayName: user.displayName,
-            email: user.email,
-            time: new Date().toString(),
+        const member = users.includes(`${alreadyRegistered}`);
+        if (member) {
+          return res.status(200).json({
+            message: 'sign in sucessful',
+            user,
+            isConfirmed: true,
           });
+        }
         return res.status(200).json({
           message: 'sign in sucessful',
           user,
+          isConfirmed: false,
         });
-      }
+      });
     })
     .catch(() => res.status(500).json({ message: 'oops! somthing went wrong' }));
 };
@@ -167,4 +165,32 @@ export const signOut = (req, res) => {
     .signOut()
     .then(() => res.status(200).json({ message: 'signed-out successfully.' }))
     .catch(() => res.status(500).json({ message: 'Network Error' }));
+};
+
+export const googleUpdate = (req, res) => {
+  const { phoneNumber } = req.body;
+  const displayName = firebase.auth().currentUser.displayName;
+  const email = firebase.auth().currentUser.email;
+  const time = new Date().toString();
+  firebase
+    .auth()
+    .currentUser.updateProfile({
+      phoneNumber,
+    })
+    .then(() => {
+      firebase
+        .database()
+        .ref('user')
+        .push({
+          displayName,
+          email,
+          phoneNumber,
+          time,
+        });
+      res.status(201).json({
+        message: 'update sucessful',
+        isConfirmed: true,
+      });
+    })
+    .catch(() => res.status(500).json({ message: 'oops! somthing went wrong' }));
 };

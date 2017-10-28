@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import dateTime from 'date-time';
@@ -6,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import AddGroup from '../component/AddGroup';
 import GetGroupList from '../component/GetGroupList';
 import { SignOut } from '../actions/UserAction';
+import GoogleUser from './GoogleUser';
 
 const socket = io();
 
@@ -20,6 +22,10 @@ class DashBoard extends React.Component {
     this.props.history.push('/');
   }
   render() {
+    const { isConfirmed } = this.props;
+    if (!isConfirmed) {
+      return <GoogleUser />;
+    }
     return (
       <div>
         <div className="row linkheader" />
@@ -81,5 +87,13 @@ class DashBoard extends React.Component {
     );
   }
 }
+DashBoard.PropType = {
+  isConfirmed: PropTypes.bool.isRequired,
+};
+function mapStateToProps(state) {
+  return {
+    isConfirmed: !!state.GoogleLogin,
+  };
+}
 
-export default withRouter(connect(null, { SignOut })(DashBoard));
+export default withRouter(connect(mapStateToProps, { SignOut })(DashBoard));

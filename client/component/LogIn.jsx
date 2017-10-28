@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GoogleButton from 'react-google-button';
 import { SignIn } from '../actions/UserAction';
-import GoogleLogin from '../actions/GoogleLogin';
+import { GoogleLogin } from '../actions/GoogleLogin';
 
 export class LogIn extends React.Component {
   constructor(props) {
@@ -111,4 +111,5 @@ LogIn.PropTypes = {
   SignIn: PropTypes.func.isRequired,
   GoogleLogin: PropTypes.func.isRequired,
 };
+
 export default withRouter(connect(null, { SignIn, GoogleLogin })(LogIn));

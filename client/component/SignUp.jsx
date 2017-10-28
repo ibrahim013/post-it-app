@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import validateInput from '../util/validation';
 
@@ -13,6 +13,7 @@ class SignUp extends React.Component {
       password: '',
       email: '',
       errors: {},
+      phoneNumber: '',
       isLoading: false,
       isLogedIn: false,
     };
@@ -34,6 +35,7 @@ class SignUp extends React.Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.SignUpAction(this.state).then((res) => {
+        this.props.history.push('/');
         if (!res) {
           this.setState({
             isLoading: false,
@@ -78,6 +80,19 @@ class SignUp extends React.Component {
                   />
                   {errors.email && <span className="help-block">{errors.email}</span>}
                 </div>
+                <div className={classnames('form-group', { 'has-error': errors.phoneno })}>
+                  <label className="control-label">Phone Number</label>
+                  <input
+                    value={this.state.phoneNumber}
+                    onChange={this.onChange}
+                    type="tel"
+                    pattern="[\+]\d{3}[\(]\d{2}[\)]\d{4}[\-]\d{4}"
+                    name="phoneNumber"
+                    className="form-control"
+                    placeholder=" Format: +234(99)9999-9999"
+                  />
+                  {errors.password && <span className="help-block">{errors.phoneno}</span>}
+                </div>
                 <div className={classnames('form-group', { 'has-error': errors.password })}>
                   <label className="control-label">Password</label>
                   <input
@@ -119,4 +134,4 @@ SignUp.PropTypes = {
   SignUpAction: PropTypes.func.isRequired,
 };
 
-export default SignUp;
+export default withRouter(SignUp);

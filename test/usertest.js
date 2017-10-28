@@ -84,8 +84,8 @@ describe('Post It', () => {
       .send(userTest)
       .expect('Content-Type', /json/)
       .end((err, res) => {
-        expect(401);
-        expect(res.statusCode).to.be.equal(400);
+        expect(409);
+        expect(res.statusCode).to.be.equal(409);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
         expect(res.body.message).to.be.equal('email already in use');

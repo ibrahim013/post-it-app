@@ -60,6 +60,7 @@ export function SignOut() {
           offset: 100,
         });
         localStorage.removeItem('user');
+        localStorage.removeItem('GoogleLogin');
       })
       .catch((error) => {
         if (error) {
