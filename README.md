@@ -48,10 +48,6 @@ http://localhost:3000/dashboard
 
 ```Not available at the moment```
 
-<h1>License</h1>
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/ibrahim013/post-it-app/blob/feedback/LICENSE) file for details
-
-
 <h1>Authors</h1>
 
 Ibrahim Abdulazeez - Initial work
