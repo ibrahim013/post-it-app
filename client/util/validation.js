@@ -13,7 +13,6 @@ export default function validateInput(data) {
   if (!Validator.isEmail(data.email)) {
     errors.email = 'Email is required';
   }
-
   if (Validator.isEmpty(data.password)) {
     errors.password = 'Password is required';
   }

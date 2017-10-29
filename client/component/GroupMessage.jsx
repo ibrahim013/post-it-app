@@ -67,11 +67,14 @@ class GroupMessage extends React.Component {
         </div>
       ));
     } else {
-      MessageContainer = <h2>you have no message on this board</h2>;
+      MessageContainer = <h2>You have no message on this board<br/> be the first to say something</h2>;
     }
     if (GroupMembers.length !== 0) {
       MemberContainer = GroupMembers.map(member => (
-        <li key={member.memberId}>{member.displayName}</li>
+        <li key={member.memberId}>
+          <span className="glyphicon glyphicon-user" /> &nbsp;&nbsp;
+          {member.displayName}
+        </li>
       ));
     } else {
       MemberContainer = 'no member added yet';
@@ -87,64 +90,61 @@ class GroupMessage extends React.Component {
                 </h3>
               </div>
               <Row className="show-grid create">
-                <Col xs={12} md={7}>
+                <Col xs={12} md={12}>
                   <h3>{this.state.groupName}</h3>
-                  <h3>{MemberContainer}</h3>
+                  <li>{MemberContainer}</li>
                 </Col>
-              </Row>
-            </Col>
-            <Col xs={12} md={6}>
-              <Row className=" aside">
-                <Col xs={12} md={9} />
-                <Col xs={12} md={3} />
               </Row>
               <div>
-                <div className=" ">
-                  <div className="">{MessageContainer}</div>
-                </div>
-              </div>
-              <div className="">
-                <AddMessage groupid={this.state.groupId} />
+                <Col xs={12} md={12} bsClass="member'">
+                  <Row className="show-grid  ">
+                    <Col xs={12} md={6}>
+                      <h3>Members</h3>
+                    </Col>
+                    <Col xs={12} md={4} className="bot">
+                      <button
+                        type="button"
+                        className="btn btn-info"
+                        data-toggle="collapse"
+                        data-target="#members"
+                      >
+                        +
+                      </button>
+                    </Col>
+                  </Row>
+                  <div id="members" className="collapse">
+                    <div>
+                      <form onSubmit={this.onSubmit}>
+                        <div className="form-group">
+                          <input
+                            type="text"
+                            name="displayName"
+                            placeholder="Name"
+                            value={this.state.displayName}
+                            onChange={this.onChange}
+                            required
+                          />
+                        </div>
+                        <button
+                          name="members"
+                          className="btn btn-primary btn-small"
+                          onSubmit={this.onSubmit}
+                        >
+                          Add Members
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </Col>
               </div>
             </Col>
-            <Col xs={12} md={3}>
-              <Row className="show-grid create">
-                <Col xs={12} md={7}>
-                  <h3>Members</h3>
-                </Col>
-                <Col xs={12} md={5} className="bot">
-                  <button
-                    type="button"
-                    className="btn btn-info"
-                    data-toggle="collapse"
-                    data-target="#members"
-                  >
-                    +
-                  </button>
-                </Col>
-              </Row>
-              <div id="members" className="collapse">
-                <div>
-                  <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        name="displayName"
-                        placeholder="Name"
-                        value={this.state.displayName}
-                        onChange={this.onChange}
-                        required
-                      />
-                    </div>
-                    <button
-                      name="members"
-                      className="btn btn-primary btn-small"
-                      onSubmit={this.onSubmit}
-                    >
-                      Add Members
-                    </button>
-                  </form>
-                </div>
+            <Col xs={12} md={9} className="messagelist">
+              <div className="messageboard ">
+                <div className="">{MessageContainer}</div>
+              </div>
+
+              <div className="post">
+                <AddMessage groupid={this.state.groupId} />
               </div>
             </Col>
           </Row>

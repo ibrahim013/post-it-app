@@ -10,7 +10,7 @@ class Header extends React.Component {
     const { user } = this.props;
     const loginUser = user.map(user => (
       <span>
-        <Avatar size="50" round name={this.props.user[0].displayName} />
+        <Avatar size="50" round name={this.props.user[0].displayName} /> &nbsp;&nbsp;
         {user.displayName}
       </span>
     ));
@@ -20,7 +20,7 @@ class Header extends React.Component {
           <Col xs={12} md={8}>
             <h1>POST IT</h1>
           </Col>
-          <Col xs={6} md={4}>
+          <Col xs={6} md={3} mdOffset={1}>
             <div id="user">{loginUser}</div>
           </Col>
         </Row>

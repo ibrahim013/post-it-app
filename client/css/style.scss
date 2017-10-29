@@ -1,5 +1,5 @@
 body {
-  background-color: #c1bdba;
+  // background-color: #c1bdba;
   color: #f5f5f5;
 }
 
@@ -144,18 +144,49 @@ input:focus {
 // }
 .create {
   margin-top: 100px;
+  min-height: 50vh;
+  list-style: none;
+  margin-left: 30px;
+}
+.create > h3,
+li {
+  color: #f5f5f5;
+  text-align: left;
+  font-size: 1.2em;
+  line-height: 30px;
+}
+.create-group {
+  margin-top: 100px;
 }
 .asidelist {
-  background-color: #24333d;
-  min-height: 640px;
+  background-color: #234358;
+  min-height: 100vh;
   box-shadow: 1px 1px 1px #000;
 }
+.messagelist {
+  min-height: 100vh;
+}
+.messageboard {
+  min-height: 75vh;
+  overflow-y: visible;
+}
+.btn-space {
+  margin-top: 6px;
+  margin-bottom: 6px;
+  color: #000;
+}
+// .post {
+//   min-height: 40vh;
+// }
 .bot {
   padding-top: 20px;
   padding-left: 40px;
 }
 .container {
   margin: 0px;
+}
+.member {
+  margin-top: 60%;
 }
 .ps-style {
   margin-top: 30%;

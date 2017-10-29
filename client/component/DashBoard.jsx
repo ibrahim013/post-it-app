@@ -32,7 +32,7 @@ class DashBoard extends React.Component {
         <Grid data-spy="scroll">
           <Row className="show-grid ">
             <Col xs={12} md={3} className="asidelist">
-              <Row className="show-grid create">
+              <Row className="show-grid create-group">
                 <div id="signout">
                   <h3>
                     <button

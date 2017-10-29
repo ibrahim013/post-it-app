@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { addMessage } from '../actions/GroupAction';
@@ -11,6 +12,7 @@ class AddMessage extends React.Component {
       message: '',
       piority: '',
       groupname: this.props.groupid,
+      errors: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -24,41 +26,29 @@ class AddMessage extends React.Component {
   }
   render() {
     return (
-      <div>
-        <div className="panel-body text">
+      <div className="panel-body text">
+        <form onSubmit={this.onSubmit}>
           <textarea
-            className="form-control custom-control "
+            className="form-control custom-control"
             placeholder="Messages"
             name="message"
             onChange={this.onChange}
             value={this.state.message}
+            required
           />
-          <span className="input-group-addon btn btn-primary" onClick={this.onSubmit}>
-            Send
+          <label className="radio-inline btn-space">
+            <input type="radio" name="piority" value="Normal" onChange={this.onChange} />Normal
+          </label>
+          <label className="radio-inline btn-space">
+            <input type="radio" name="piority" value="Critical" onChange={this.onChange} />Critical
+          </label>
+          <label className="radio-inline btn-space">
+            <input type="radio" name="piority" value="Urgent" onChange={this.onChange} />Urgent
+          </label>
+          <span className="input-group-addon btn btn-primary " onClick={this.onSubmit}>
+            Send <span className=" glyphicon glyphicon-send" />
           </span>
-          <form onSubmit={this.onSubmit}>
-            <label className="radio-inline">
-              <input
-                type="radio"
-                name="piority"
-                value="normal"
-                onChange={this.onChange}
-                checked
-              />Normal
-            </label>
-            <label className="radio-inline">
-              <input
-                type="radio"
-                name="piority"
-                value="Critical"
-                onChange={this.onChange}
-              />Critical
-            </label>
-            <label className="radio-inline">
-              <input type="radio" name="piority" value="urgent" onChange={this.onChange} />Urgent
-            </label>
-          </form>
-        </div>
+        </form>
       </div>
     );
   }
