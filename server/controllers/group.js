@@ -13,18 +13,17 @@ import sendSms from '../utilities/smsTranspoter';
 export const userGroups = (req, res) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
+      const uid = firebase.auth().currentUser.uid;
       const groups = [];
       firebase
         .database()
-        .ref('/group')
+        .ref(`user/${uid}/group`)
         .orderByKey()
         .once('value', (snapshot) => {
           snapshot.forEach((child) => {
             const group = {
               groupid: child.key,
               groupname: child.val().groupname,
-              discription: child.val().Discription,
-              groupAdmin: child.val().GroupAdmin,
             };
             groups.push(group);
           });
@@ -54,6 +53,7 @@ export const userGroups = (req, res) => {
 
 export const addMember = (req, res) => {
   const { groupName, displayName, groupId } = req.body;
+  const dateCreated = new Date().toString();
   const users = [];
   const groups = [];
   const groupMember = [];
@@ -75,6 +75,7 @@ export const addMember = (req, res) => {
         displayName: childSnapShot.val().displayName,
         email: childSnapShot.val().email,
         phoneNumber: childSnapShot.val().phoneNumber,
+        uid: childSnapShot.val().uid,
       };
       users.push(user);
     });
@@ -105,6 +106,22 @@ export const addMember = (req, res) => {
           message: 'This user is already a member of this group',
         });
       }
+      const addedUser = user.uid;
+      firebase
+        .database()
+        .ref(`user/${addedUser}/group`)
+        .push({
+          groupname: groupName,
+          dateCreated,
+        });
+      const currentUser = firebase.auth().currentUser.uid;
+      firebase
+        .database()
+        .ref(`user/${currentUser}/group`)
+        .push({
+          groupname: groupName,
+          dateCreated,
+        });
       firebase
         .database()
         .ref(`group/${groupId}/`)
@@ -272,16 +289,24 @@ export const messageList = (req, res) => {
  */
 
 export const group = (req, res) => {
-  const currentUser = firebase.auth().currentUser;
   const { groupname, discription } = req.body;
+  const currentUser = firebase.auth().currentUser;
+  const uid = currentUser.uid;
   if (currentUser !== null) {
     const dateCreated = new Date().toString();
     const userEmail = currentUser.email;
     const displayName = currentUser.displayName;
+    const groupKey = firebase
+      .database()
+      .ref(`user/${uid}/group`)
+      .push({
+        groupname,
+        dateCreated,
+      }).key;
     firebase
       .database()
-      .ref('group/')
-      .push({
+      .ref(`group/${groupKey}`)
+      .set({
         groupname,
         dateCreated,
         GroupAdmin: userEmail,

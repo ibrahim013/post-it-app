@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import dateTime from 'date-time';
+import isEmpty from 'lodash/isEmpty';
 import { withRouter } from 'react-router-dom';
 import AddGroup from '../component/AddGroup';
 import GetGroupList from '../component/GetGroupList';
@@ -23,7 +24,7 @@ class DashBoard extends React.Component {
   }
   render() {
     const { isConfirmed } = this.props;
-    if (!isConfirmed) {
+    if (isConfirmed === false) {
       return <GoogleUser />;
     }
     return (
@@ -92,7 +93,7 @@ DashBoard.PropType = {
 };
 function mapStateToProps(state) {
   return {
-    isConfirmed: !!state.GoogleLogin,
+    isConfirmed: state.GoogleLogin,
   };
 }
 

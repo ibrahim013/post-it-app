@@ -4,13 +4,15 @@ import axios from 'axios';
 import config from '../../server/database';
 import { LoggedInUser, LoggedInError } from './UserAction';
 import { GOOGLE_LOGIN } from '../constants/ActionTypes';
+
 // Group Added to Firebase
-export function googleLogin(GoogleLogin) {
+export function googleLogin(GLogin) {
   return {
     type: GOOGLE_LOGIN,
-    GoogleLogin,
+    GLogin,
   };
 }
+
 export function GoogleLogin() {
   firebase.initializeApp(config);
   return (dispatch) => {
@@ -33,17 +35,16 @@ export function GoogleLogin() {
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('GoogleLogin', JSON.stringify(isConfirmed));
             return true;
-          })
-          .catch((error) => {
-            dispatch(LoggedInError());
-            if (error) {
-              Alert.error(error.response.data.message, {
-                position: 'top-right',
-                offset: 100,
-              });
-            }
-            return false;
           });
+      }).catch((error) => {
+        dispatch(LoggedInError());
+        if (error) {
+          Alert.error(error.res.data.message, {
+            position: 'top-right',
+            offset: 100,
+          });
+        }
+        return false;
       });
   };
 }

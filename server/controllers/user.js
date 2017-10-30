@@ -25,13 +25,15 @@ export const signUp = (req, res) => {
       });
     })
     .then(() => {
+      const uid = firebase.auth().currentUser.uid;
       firebase
         .database()
-        .ref('user')
-        .push({
+        .ref(`user/${uid}`)
+        .set({
           displayName,
           email,
           phoneNumber,
+          uid,
           time,
         });
     })
@@ -178,9 +180,10 @@ export const googleUpdate = (req, res) => {
       phoneNumber,
     })
     .then(() => {
+      const uid = firebase.auth().currentUser.uid;
       firebase
         .database()
-        .ref('user')
+        .ref(`user/${uid}`)
         .push({
           displayName,
           email,

@@ -34,13 +34,12 @@ class GooglePhoneVerification extends React.Component {
                 value={this.state.phoneNumber}
                 onChange={this.onChange}
                 type="tel"
-                pattern="[\+]\d{3}[\(]\d{2}[\)]\d{4}[\-]\d{4}"
+                pattern="\d{3}\d{2}\d{4}\d{4}"
                 name="phoneNumber"
                 className="form-control"
-                placeholder=" Format: +234(99)9999-9999"
+                placeholder=" Format: 2349999999999"
               />
             </div>
-
             <div className="form-group">
               <button
                 disabled={this.state.isLoading}
