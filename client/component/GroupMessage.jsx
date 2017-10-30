@@ -31,6 +31,10 @@ class GroupMessage extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     this.props.addMembers(this.state);
+    this.setState({
+      displayName: '',
+      errors: {},
+    });
   }
   componentDidMount() {
     this.props.getMessges(this.state.groupId);
@@ -38,7 +42,7 @@ class GroupMessage extends React.Component {
     const groupid = this.props.match.params.groupid;
     let groupName = '';
     const { Groups } = this.props;
-    Groups.map((group, key) => {
+    Groups.map((group) => {
       if (group.groupid === groupid) {
         this.setState({ groupName: group.groupname });
         groupName = group.groupname;
@@ -47,10 +51,10 @@ class GroupMessage extends React.Component {
     });
   }
   render() {
-    const { Messages } = this.props;
-    const { GroupMembers } = this.props;
+    const { Messages, GroupMembers, Read } = this.props;
     let MessageContainer = '';
     let MemberContainer = '';
+    let readContainer = '';
     if (Messages.length !== 0) {
       MessageContainer = Messages.map(message => (
         <div key={message.messageId}>
@@ -58,16 +62,21 @@ class GroupMessage extends React.Component {
             <div className="panel-body">
               <p className="">{message.messageText}</p>
               <p id="details">
-                <span className="left-align">Sent By: {message.author}</span>
-                <span className="left-align">Priority: {message.priorityLevel}</span>
-                <span className="right-align">: {message.date}</span>
+                <span className="left-align">Sent By: {message.author}</span>&nbsp;
+                <span className="left-align">Priority: {message.priorityLevel}</span>&nbsp;
+                <span className="right-align">Sent On: {message.date}</span>
               </p>
             </div>
+            {readContainer}
           </div>
         </div>
       ));
     } else {
-      MessageContainer = <h2>You have no message on this board<br/> be the first to say something</h2>;
+      MessageContainer = (
+        <h2>
+          You have no message on this board<br /> be the first to say something
+        </h2>
+      );
     }
     if (GroupMembers.length !== 0) {
       MemberContainer = GroupMembers.map(member => (
@@ -78,6 +87,16 @@ class GroupMessage extends React.Component {
       ));
     } else {
       MemberContainer = 'no member added yet';
+    }
+    if (Read.length !== 0) {
+      readContainer = Read.map(seen => (
+        <div>
+          <li>
+            <span className="glyphicon glyphicon-user" /> &nbsp;&nbsp;
+            {seen.displayName}
+          </li>
+        </div>
+      ));
     }
     return (
       <div>
@@ -90,8 +109,8 @@ class GroupMessage extends React.Component {
                 </h3>
               </div>
               <Row className="show-grid create">
-                <Col xs={12} md={12}>
-                  <h3>{this.state.groupName}</h3>
+                <Col xs={12}>
+                  <h3> {this.state.groupName}</h3>
                   <li>{MemberContainer}</li>
                 </Col>
               </Row>
@@ -138,13 +157,19 @@ class GroupMessage extends React.Component {
                 </Col>
               </div>
             </Col>
-            <Col xs={12} md={9} className="messagelist">
+            <Col xs={7} md={7} className="messagelist">
               <div className="messageboard ">
                 <div className="">{MessageContainer}</div>
               </div>
 
               <div className="post">
                 <AddMessage groupid={this.state.groupId} />
+              </div>
+            </Col>
+            <Col xs={4} md={2}>
+              <div className="seenboard ">
+                <p>Seen By</p>
+                <div className="">{readContainer}</div>
               </div>
             </Col>
           </Row>
@@ -156,12 +181,14 @@ class GroupMessage extends React.Component {
 
 GroupMessage.PropTypes = {
   Groups: PropTypes.array.isRequired,
+  Read: PropTypes.array.isRequired,
   Messages: PropTypes.array.isRequired,
   GroupMembers: PropTypes.array.isRequired,
 };
 function mapStateToProps(state) {
   return {
     Groups: state.Groups,
+    Read: state.read,
     Messages: state.Messages,
     GroupMembers: state.groupMembers,
   };

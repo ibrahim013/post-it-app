@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 import sendEmail from '../utilities/emailTranspoter';
+import sendSms from '../utilities/smsTranspoter';
 /**
  * @description get user group.
  * GET:/v1/group/groups
@@ -73,6 +74,7 @@ export const addMember = (req, res) => {
       const user = {
         displayName: childSnapShot.val().displayName,
         email: childSnapShot.val().email,
+        phoneNumber: childSnapShot.val().phoneNumber,
       };
       users.push(user);
     });
@@ -110,6 +112,7 @@ export const addMember = (req, res) => {
         .push({
           displayName: user.displayName,
           email: user.email,
+          phoneNumber: user.phoneNumber,
         });
     })
     .then(() => res.status(201).json({ message: 'user added sucessfully' }))
@@ -128,6 +131,7 @@ export const addMember = (req, res) => {
 export const postMessage = (req, res) => {
   const { message, piority, groupname } = req.body;
   const currentUser = firebase.auth().currentUser;
+  const displayName = currentUser.displayName;
   const dateCreated = new Date().toString();
   if (currentUser !== null) {
     firebase
@@ -138,6 +142,7 @@ export const postMessage = (req, res) => {
         MessagePiority: piority,
         Message: message,
         DateCreated: dateCreated,
+        Author: displayName,
       })
       .then(() =>
         res.status(201).json({
@@ -163,6 +168,7 @@ export const postMessage = (req, res) => {
         }
         if (`${piority}` === 'Critical' || `${piority}` === 'Urgent') {
           const user = [];
+          const phoneNumber = [];
           const users = firebase
             .database()
             .ref(`group/${groupname}/members`)
@@ -173,6 +179,9 @@ export const postMessage = (req, res) => {
                 displayName: childSnapShot.val().displayName,
               };
               user.push(displayName);
+              const number = childSnapShot.val().phoneNumber;
+              phoneNumber.push(number);
+              sendSms({ phoneNumber, groupname });
             });
             req.app.io.emit('message Sent', {
               user,
@@ -195,7 +204,34 @@ export const postMessage = (req, res) => {
 
 export const messageList = (req, res) => {
   const user = firebase.auth().currentUser;
+  const displayName = user.displayName;
+  const readTime = new Date().toString();
   if (user) {
+    const usersRead = [];
+    const memberdisplayName = firebase
+      .database()
+      .ref(`/group/${req.params.groupid}/views`)
+      .orderByKey();
+    memberdisplayName.once('value', (snapshot) => {
+      snapshot.forEach((childSnapShot) => {
+        const userName = {
+          displayName: childSnapShot.val().displayName,
+        };
+        usersRead.push(userName);
+      });
+      const readMessage = usersRead.find(seen => seen.displayName === `${displayName}`);
+      if (!readMessage) {
+        firebase
+          .database()
+          .ref(`/group/${req.params.groupid}`)
+          .child('views')
+          .push({
+            displayName,
+            readTime,
+            read: true,
+          });
+      }
+    });
     const messages = [];
     firebase
       .database()
@@ -216,6 +252,7 @@ export const messageList = (req, res) => {
       .then(() =>
         res.send({
           messages,
+          usersRead,
         }),
       )
       .catch(() =>
@@ -240,7 +277,6 @@ export const group = (req, res) => {
   if (currentUser !== null) {
     const dateCreated = new Date().toString();
     const userEmail = currentUser.email;
-    const createdBy = currentUser.uid;
     const displayName = currentUser.displayName;
     firebase
       .database()
@@ -249,7 +285,7 @@ export const group = (req, res) => {
         groupname,
         dateCreated,
         GroupAdmin: userEmail,
-        createdBy,
+        userEmail,
         displayName,
         Discription: discription,
       })

@@ -9,7 +9,7 @@
     "build": "NODE_ENV=production webpack",
     "testserver": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./test --timeout 1500000 && npm run coveralls",
     "cover": "cat ./coverage/lcov.info",
-    "coveralls": "nyc report --reporter=lcov --reporter=text-lcov npm run test",
+    "coveralls": "nyc report --reporter=lcov --reporter=text-lcov",
     "testclient": "NODE_ENV=test jest ./client/__tests__/ --coverage && npm run coverage",
     "test": "npm run testserver"
   },
@@ -74,6 +74,7 @@
     "lodash": "^4.17.4",
     "morgan": "^1.8.2",
     "moxios": "^0.4.0",
+    "nexmo": "^2.0.2",
     "node-sass": "^4.5.3",
     "nodemailer": "^4.1.1",
     "nodemailer-smtp-transport": "^2.7.4",

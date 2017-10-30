@@ -36,7 +36,7 @@ describe('Create group route', () => {
     chai.request(server)
       .post('/v1/user/signin')
       .send({
-        email: 'lot2come@yahoo.com',
+        email: 'lot2come@gmail.com',
         password: '12345678',
       })
       .end(() => {
@@ -64,7 +64,7 @@ describe('Get group route', () => {
     chai.request(server)
       .post('/v1/user/signin')
       .send({
-        email: 'lot2come@yahoo.com',
+        email: 'lot2come@gmail.com',
         password: '12345678',
       })
       .end(() => {
@@ -88,7 +88,7 @@ describe('Add group route', () => {
     chai.request(server)
       .post('/v1/user/signin')
       .send({
-        email: 'lot2come@yahoo.com',
+        email: 'lot2come@gmail.com',
         password: '12345678',
       })
       .end(() => {
@@ -117,7 +117,7 @@ describe('Add group route', () => {
     chai.request(server)
       .post('/v1/user/signin')
       .send({
-        email: 'lot2come@yahoo.com',
+        email: 'lot2come@gmail.com',
         password: '12345678',
       })
       .end(() => {
@@ -146,7 +146,7 @@ describe('Add group route', () => {
     chai.request(server)
       .post('/v1/user/signin')
       .send({
-        email: 'lot2come@yahoo.com',
+        email: 'lot2come@gmail.com',
         password: '12345678',
       })
       .end(() => {

@@ -1,6 +1,11 @@
 import Alert from 'react-s-alert';
 import axios from 'axios';
-import { GET_ALL_GROUPS, GET_ALL_MESSAGE, GET_ALL_GROUP_MEMBERS } from '../constants/ActionTypes';
+import {
+  GET_ALL_GROUPS,
+  GET_ALL_MESSAGE,
+  GET_ALL_GROUP_MEMBERS,
+  GET_ALL_READ,
+} from '../constants/ActionTypes';
 
 /**
  * userSignupRequest() returns user data
@@ -26,6 +31,12 @@ export function GetGroupMembers(groupMembers) {
     groupMembers,
   };
 }
+export function ReadAction(read) {
+  return {
+    type: GET_ALL_READ,
+    read,
+  };
+}
 /**
  * 
  * @param {string} groupname 
@@ -46,6 +57,7 @@ export function getMessges(groupid) {
   return dispatch =>
     axios.get(`/v1/group/${groupid}/messages/`).then((response) => {
       dispatch(GetMessageAction(response.data.messages));
+      dispatch(ReadAction(response.data.usersRead));
     });
 }
 export function getMembers(groupid) {

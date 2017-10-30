@@ -15,12 +15,16 @@ class Members extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
-  onSubmit(e) {
-    e.preventDefault();
+  onSubmit(event) {
+    event.preventDefault();
     this.props.addMembers(this.state);
+    this.setState({
+      member: '',
+      errors: {},
+    });
   }
   render() {
     return (

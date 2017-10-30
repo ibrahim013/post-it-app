@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { addMessage } from '../actions/GroupAction';
@@ -23,6 +22,10 @@ class AddMessage extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     this.props.addMessage(this.state);
+    this.setState({
+      message: '',
+      piority: '',
+    });
   }
   render() {
     return (

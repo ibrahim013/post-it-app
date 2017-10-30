@@ -1,5 +1,4 @@
 body {
-  // background-color: #c1bdba;
   color: #f5f5f5;
 }
 
@@ -139,14 +138,10 @@ input:focus {
   max-height: 300px;
   overflow-x: scroll;
 }
-// .aside {
-//   border-bottom: 2px solid;
-// }
 .create {
   margin-top: 100px;
   min-height: 50vh;
   list-style: none;
-  margin-left: 30px;
 }
 .create > h3,
 li {
@@ -170,14 +165,27 @@ li {
   min-height: 75vh;
   overflow-y: visible;
 }
+.seenboard {
+  min-height: 100vh;
+  overflow-y: visible;
+  background-color: #234358;
+  list-style: none;
+  padding: 10px 20px;
+}
+.seenboard > p {
+  font-weight: 500;
+  font-size: 20px;
+  color: #337ab7;
+}
+.col-md-2 {
+  padding-right: 0px;
+}
 .btn-space {
   margin-top: 6px;
   margin-bottom: 6px;
   color: #000;
 }
-// .post {
-//   min-height: 40vh;
-// }
+
 .bot {
   padding-top: 20px;
   padding-left: 40px;
@@ -241,9 +249,7 @@ li {
 .panel-body {
   padding: 0px;
 }
-// .panel{
-//   margin-bottom: 2px;
-// }
+
 @media (min-width: 1200px) {
   .container {
     width: 100%;

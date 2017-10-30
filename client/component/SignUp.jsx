@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Link, withRouter } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
-import validateInput from '../util/validation';
+import validateInput from '../utilities/validation';
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -86,10 +86,10 @@ class SignUp extends React.Component {
                     value={this.state.phoneNumber}
                     onChange={this.onChange}
                     type="tel"
-                    pattern="[\+]\d{3}[\(]\d{2}[\)]\d{4}[\-]\d{4}"
+                    pattern="\d{3}\d{2}\d{4}\d{4}"
                     name="phoneNumber"
                     className="form-control"
-                    placeholder=" Format: +234(99)9999-9999"
+                    placeholder=" Format: 2349999999999"
                   />
                   {errors.password && <span className="help-block">{errors.phoneno}</span>}
                 </div>

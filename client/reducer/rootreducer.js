@@ -3,6 +3,7 @@ import Groups from '../reducer/GetGroupsReducer';
 import GoogleLogin from './GoogleLogin';
 import Messages from '../reducer/GetMessagesReducer';
 import groupMembers from '../reducer/GetMembersReducer';
+import read from '../reducer/GetRead';
 import user from '../reducer/user';
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   Messages,
   user,
   groupMembers,
+  read,
 });
 
 export default rootReducer;

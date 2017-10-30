@@ -17,7 +17,6 @@ export class LogIn extends React.Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    // this.onHandleSubmit = this.onHandleSubmit.bind(this);
   }
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });

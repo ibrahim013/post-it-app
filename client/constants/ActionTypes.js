@@ -9,3 +9,4 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOGIN_ERROR = 'LOGOUT_ERROR';
 export const GOOGLE_LOGIN = 'GOOGLE_LOGIN';
+export const GET_ALL_READ = 'GET_ALL_READ';
