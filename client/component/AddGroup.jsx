@@ -4,6 +4,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addGroups } from '../actions/GroupAction';
 
+/**
+ * 
+ * @description add groups
+ * @export
+ * @param {object} props
+ * @class AddGroup
+ * @extends {Component}
+ */
+
 class AddGroup extends React.Component {
   constructor() {
     super();
@@ -15,15 +24,43 @@ class AddGroup extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-
+  /**
+    * @method onChange
+    * @description Listens for changes in form fileds 
+    * @memberof AddGroup
+    * @param {object} event
+    *
+    * @returns {void}
+    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-
+  /**
+     * @description Makes an action call to add group
+     * route with user parameters
+     * @param {object} event
+     *
+     * @memberof AddGroup
+     * 
+     * @returns {void}
+  */
   onSubmit(event) {
     event.preventDefault();
     this.props.addGroups(this.state);
+    this.setState({
+      groupname: '',
+      discription: '',
+    });
   }
+  /**
+   * @method render
+   * Render react component
+   * 
+   * @memberof AddGroup
+   * 
+   * @returns {String} HTML markup for the Adding groups
+   */
+
   render() {
     return (
       <div>

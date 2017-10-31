@@ -8,10 +8,9 @@ import {
 } from '../constants/ActionTypes';
 
 /**
- * userSignupRequest() returns user data
- * @param {string} groupData
- * @return {promise}
- */
+   * dispatches an action to get all groups
+   * @param {any} groupdata
+   */
 
 export function GetGroupAction(groupData) {
   return {
@@ -19,18 +18,30 @@ export function GetGroupAction(groupData) {
     groupData,
   };
 }
+/**
+   * dispatches an action to get all groups message
+   * @param {any} groupdata
+   */
 export function GetMessageAction(groupMessage) {
   return {
     type: GET_ALL_MESSAGE,
     groupMessage,
   };
 }
+/**
+   * dispatches an action to get all group members
+   * @param {any} groupdata
+   */
 export function GetGroupMembers(groupMembers) {
   return {
     type: GET_ALL_GROUP_MEMBERS,
     groupMembers,
   };
 }
+/**
+   * dispatches an action to show who saw messages
+   * @param {any} read
+   */
 export function ReadAction(read) {
   return {
     type: GET_ALL_READ,
@@ -53,6 +64,12 @@ export function getGroups() {
       })
       .catch();
 }
+/**
+ * 
+ * @param {object} groupid
+ * 
+ * @return {promise} messages
+ */
 export function getMessges(groupid) {
   return dispatch =>
     axios.get(`/v1/group/${groupid}/messages/`).then((response) => {
@@ -60,12 +77,24 @@ export function getMessges(groupid) {
       dispatch(ReadAction(response.data.usersRead));
     });
 }
+/**
+ * 
+ * @param {object} groupid
+ * 
+ * @return {promise} members
+ */
 export function getMembers(groupid) {
   return dispatch =>
     axios.get(`/v1/group/${groupid}/members/`).then((response) => {
       dispatch(GetGroupMembers(response.data.members));
     });
 }
+/**
+ * 
+ * @param {object} userdetails
+ * 
+ * @return {promise} 
+ */
 export function addMembers(userDetails) {
   return dispatch =>
     axios
@@ -86,7 +115,12 @@ export function addMembers(userDetails) {
         }
       });
 }
-
+/**
+ * 
+ * @param {object} groupdata
+ * 
+ * @return {promise} messages
+ */
 export function addGroups(groupData) {
   return dispatch =>
     axios
@@ -110,9 +144,9 @@ export function addGroups(groupData) {
 
 /**
  * 
- * @param {string} groupname 
+ * @param {object} groupname 
  * 
- * @return {promise} groups
+ * @return {promise}
  */
 export function addMessage(messageData) {
   return dispatch =>

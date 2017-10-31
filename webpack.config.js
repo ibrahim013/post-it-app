@@ -7,11 +7,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 const webpackConfig = {
-  entry:
-      [
-        'babel-polyfill',
-        './client/index.js',
-      ],
+  entry: ['babel-polyfill', './client/index.js'],
   output: {
     path: path.join(__dirname, 'public'),
     publicPath: '/',
@@ -33,7 +29,6 @@ const webpackConfig = {
   },
 
   module: {
-
     loaders: [
       {
         test: /\.jsx?$/,
@@ -42,7 +37,6 @@ const webpackConfig = {
         query: {
           presets: ['es2015', 'react', 'stage-0'],
         },
-
       },
 
       {
@@ -66,9 +60,9 @@ const webpackConfig = {
       filename: 'style.css',
       allChunks: true,
     }),
-    // new UglifyJSPlugin({
-    //   sourceMap: true,
-    // }),
+    new UglifyJSPlugin({
+      sourceMap: true,
+    }),
     new Dotenv({
       path: './.env',
       safe: false,

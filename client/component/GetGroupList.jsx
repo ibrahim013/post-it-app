@@ -5,6 +5,14 @@ import PropTypes from 'prop-types';
 import Group from './Groups';
 import { getGroups } from '../actions/GroupAction';
 
+/**
+ * 
+ * @description display group list
+ * @export
+ * @param {object} props
+ * @class GetGroupList
+ * @extends {Component}
+ */
 class GetGroupList extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +29,14 @@ class GetGroupList extends React.Component {
       Groups: nextProps.Groups,
     });
   }
-
+  /**
+   * @method render
+   * Render react component
+   * 
+   * @memberof AddGroup
+   * 
+   * @returns {String} HTML markup for group list
+   */
   render() {
     const { Groups } = this.state;
     const groupArray = Groups.map((group, groupid) => (
@@ -35,6 +50,10 @@ class GetGroupList extends React.Component {
 GetGroupList.PropTypes = {
   Groups: PropTypes.array.isRequired,
 };
+/**
+   * connect to redux store 
+   * @param {any} groups
+   */
 function mapStateToProps(state) {
   return {
     Groups: state.Groups,

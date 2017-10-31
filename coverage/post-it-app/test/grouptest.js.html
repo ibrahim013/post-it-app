@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>72/72</span>
+        <span class='fraction'>61/61</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>30/30</span>
+        <span class='fraction'>25/25</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>72/72</span>
+        <span class='fraction'>61/61</span>
       </div>
     </div>
   </div>
@@ -185,38 +185,7 @@
 140
 141
 142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159
-160
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+143</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -296,37 +265,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -385,7 +324,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -427,7 +365,7 @@ describe('Create group route', () =&gt; {
     chai.request(server)
       .post('/v1/user/signin')
       .send({
-        email: 'lot2come@yahoo.com',
+        email: 'master@master.com',
         password: '12345678',
       })
       .end(() =&gt; {
@@ -455,7 +393,7 @@ describe('Get group route', () =&gt; {
     chai.request(server)
       .post('/v1/user/signin')
       .send({
-        email: 'lot2come@yahoo.com',
+        email: 'master@master.com',
         password: '12345678',
       })
       .end(() =&gt; {
@@ -469,7 +407,6 @@ describe('Get group route', () =&gt; {
         res.status.should.equal(201);
         res.body.should.be.a('object');
         res.body.should.have.property('groups');
-        // res.body.message.should.equal('group created Sucessfuly');
         done();
       });
   });
@@ -479,7 +416,7 @@ describe('Add group route', () =&gt; {
     chai.request(server)
       .post('/v1/user/signin')
       .send({
-        email: 'lot2come@yahoo.com',
+        email: 'master@master.com',
         password: '12345678',
       })
       .end(() =&gt; {
@@ -490,9 +427,9 @@ describe('Add group route', () =&gt; {
     chai.request(server)
       .post('/v1/group/addmember')
       .send({
-        groupName: 'final',
+        groupName: 'Andela Females',
         displayName: 'admin',
-        groupId: '-KwZbPxdoMHH71nB1F0S',
+        groupId: '-Kxj_WvDGOWx58m9VsYh',
       })
       .end((err, res) =&gt; {
         res.status.should.equal(400);
@@ -508,7 +445,7 @@ describe('Add group route', () =&gt; {
     chai.request(server)
       .post('/v1/user/signin')
       .send({
-        email: 'lot2come@yahoo.com',
+        email: 'master@master.com',
         password: '12345678',
       })
       .end(() =&gt; {
@@ -519,9 +456,9 @@ describe('Add group route', () =&gt; {
     chai.request(server)
       .post('/v1/group/addmember')
       .send({
-        groupName: 'final',
+        groupName: 'Andela Females',
         displayName: 'master 2',
-        groupId: '-KwZbPxdoMHH71nB1F0S',
+        groupId: '-Kxj_WvDGOWx58m9VsYh',
       })
       .end((err, res) =&gt; {
         res.status.should.equal(400);
@@ -532,43 +469,13 @@ describe('Add group route', () =&gt; {
       });
   });
 });
-describe('Add group route', () =&gt; {
-  before((done) =&gt; {
-    chai.request(server)
-      .post('/v1/user/signin')
-      .send({
-        email: 'lot2come@yahoo.com',
-        password: '12345678',
-      })
-      .end(() =&gt; {
-        done();
-      });
-  });
-  it('should return 400 for user not found', (done) =&gt; {
-    chai.request(server)
-      .post('/v1/group/addmember')
-      .send({
-        groupName: 'final2',
-        displayName: 'master',
-        groupId: '-KwZbPxdoMHH71nB1F0S',
-      })
-      .end((err, res) =&gt; {
-        res.status.should.equal(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message');
-        res.body.message.should.equal('User not found');
-        done();
-      });
-  });
-});
-&nbsp;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Oct 29 2017 14:19:19 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 31 2017 08:52:20 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

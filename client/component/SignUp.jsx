@@ -5,6 +5,14 @@ import { Link, withRouter } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import validateInput from '../utilities/validation';
 
+/**
+ * 
+ * @description user signup
+ * @export
+ * @param {object} props
+ * @class SignUp
+ * @extends {Component}
+ */
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +28,14 @@ class SignUp extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+  /**
+    * @method onChange
+    * @description Listens for changes in form fileds 
+    * @memberof SignUp
+    * @param {object} event
+    *
+    * @returns {void}
+    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
@@ -30,6 +46,14 @@ class SignUp extends React.Component {
     }
     return isValid;
   }
+  /**
+     * @description Makes an action call to signup
+     * route with user parameters
+     * @param {object} event
+     * @memberof SignUp
+     * 
+     * @returns {Promise}
+  */
   onSubmit(event) {
     event.preventDefault();
     if (this.isValid()) {
@@ -45,6 +69,13 @@ class SignUp extends React.Component {
       });
     }
   }
+  /**
+   * @method render
+   * Render react component
+   * @memberof AddGroup
+   * 
+   * @returns {String} HTML markup for the signup page
+   */
   render() {
     const { errors } = this.state;
     return (
@@ -90,6 +121,7 @@ class SignUp extends React.Component {
                     name="phoneNumber"
                     className="form-control"
                     placeholder=" Format: 2349999999999"
+                    required
                   />
                   {errors.password && <span className="help-block">{errors.phoneno}</span>}
                 </div>

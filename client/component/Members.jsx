@@ -3,6 +3,15 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addMembers } from '../actions/GroupAction';
 
+/**
+ * 
+ * @description add user to groups
+ * @export
+ * @param {object} props
+ * @class Members
+ * @extends {Component}
+ */
+
 class Members extends React.Component {
   constructor() {
     super();
@@ -14,10 +23,26 @@ class Members extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-
+  /**
+    * @method onChange
+    * @description Listens for changes in form fileds 
+    * @memberof Members
+    * @param {object} event
+    *
+    * @returns {void}
+    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+  /**
+     * @description Makes an action call to add members
+     * route with user parameters
+     * @param {object} event
+     *
+     * @memberof Member
+     * 
+     * @returns {void}
+  */
   onSubmit(event) {
     event.preventDefault();
     this.props.addMembers(this.state);
@@ -26,6 +51,14 @@ class Members extends React.Component {
       errors: {},
     });
   }
+  /**
+   * @method render
+   * Render react component
+   * 
+   * @memberof Member
+   * 
+   * @returns {String} HTML markup for the Adding group members
+   */
   render() {
     return (
       <div>

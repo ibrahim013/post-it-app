@@ -36,7 +36,7 @@ describe('Create group route', () => {
     chai.request(server)
       .post('/v1/user/signin')
       .send({
-        email: 'lot2come@gmail.com',
+        email: 'master@master.com',
         password: '12345678',
       })
       .end(() => {
@@ -64,7 +64,7 @@ describe('Get group route', () => {
     chai.request(server)
       .post('/v1/user/signin')
       .send({
-        email: 'lot2come@gmail.com',
+        email: 'master@master.com',
         password: '12345678',
       })
       .end(() => {
@@ -78,7 +78,6 @@ describe('Get group route', () => {
         res.status.should.equal(201);
         res.body.should.be.a('object');
         res.body.should.have.property('groups');
-        // res.body.message.should.equal('group created Sucessfuly');
         done();
       });
   });
@@ -88,7 +87,7 @@ describe('Add group route', () => {
     chai.request(server)
       .post('/v1/user/signin')
       .send({
-        email: 'lot2come@gmail.com',
+        email: 'master@master.com',
         password: '12345678',
       })
       .end(() => {
@@ -99,9 +98,9 @@ describe('Add group route', () => {
     chai.request(server)
       .post('/v1/group/addmember')
       .send({
-        groupName: 'final',
+        groupName: 'Andela Females',
         displayName: 'admin',
-        groupId: '-KwZbPxdoMHH71nB1F0S',
+        groupId: '-Kxj_WvDGOWx58m9VsYh',
       })
       .end((err, res) => {
         res.status.should.equal(400);
@@ -117,7 +116,7 @@ describe('Add group route', () => {
     chai.request(server)
       .post('/v1/user/signin')
       .send({
-        email: 'lot2come@gmail.com',
+        email: 'master@master.com',
         password: '12345678',
       })
       .end(() => {
@@ -128,9 +127,9 @@ describe('Add group route', () => {
     chai.request(server)
       .post('/v1/group/addmember')
       .send({
-        groupName: 'final',
+        groupName: 'Andela Females',
         displayName: 'master 2',
-        groupId: '-KwZbPxdoMHH71nB1F0S',
+        groupId: '-Kxj_WvDGOWx58m9VsYh',
       })
       .end((err, res) => {
         res.status.should.equal(400);
@@ -141,33 +140,3 @@ describe('Add group route', () => {
       });
   });
 });
-describe('Add group route', () => {
-  before((done) => {
-    chai.request(server)
-      .post('/v1/user/signin')
-      .send({
-        email: 'lot2come@gmail.com',
-        password: '12345678',
-      })
-      .end(() => {
-        done();
-      });
-  });
-  it('should return 400 for user not found', (done) => {
-    chai.request(server)
-      .post('/v1/group/addmember')
-      .send({
-        groupName: 'final2',
-        displayName: 'master',
-        groupId: '-KwZbPxdoMHH71nB1F0S',
-      })
-      .end((err, res) => {
-        res.status.should.equal(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('message');
-        res.body.message.should.equal('User not found');
-        done();
-      });
-  });
-});
-

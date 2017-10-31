@@ -4,6 +4,12 @@ import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 
+/**
+ * 
+ * @description High oder component for protected route
+ * @export
+ * 
+ */
 const UserRoute = ({ isAuthenticated, Component: component, ...rest }) => {
   if (!isEmpty(isAuthenticated)) {
     return <Route {...rest} render= { props => <Component {...props} />} />;

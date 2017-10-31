@@ -285,16 +285,17 @@ export const messageList = (req, res) => {
  * POST:/v1/group
  * @param {string} groupname; 
  * @param {string} discription; 
+ * 
  * @returns {Object} 
  */
 
 export const group = (req, res) => {
   const { groupname, discription } = req.body;
   const currentUser = firebase.auth().currentUser;
-  const uid = currentUser.uid;
   if (currentUser !== null) {
     const dateCreated = new Date().toString();
     const userEmail = currentUser.email;
+    const uid = currentUser.uid;
     const displayName = currentUser.displayName;
     const groupKey = firebase
       .database()

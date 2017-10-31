@@ -7,7 +7,14 @@ import AddMessage from '../component/AddMessage';
 import { getGroups, addMembers, getMessges, getMembers } from '../actions/GroupAction';
 
 const socket = io();
-
+/**
+ * 
+ * @description add user and post group message
+ * @export
+ * @param {object} props
+ * @class GroupMessage
+ * @extends {Component}
+ */
 class GroupMessage extends React.Component {
   constructor(props) {
     super(props);
@@ -20,14 +27,20 @@ class GroupMessage extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    socket.on('message Sent', (data) => {
-      console.log(data);
-    });
+    socket.on('message Sent', (data) => {});
   }
 
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+  /**
+     * @description Makes an action call to add  members to group
+     * route with state parameters
+     * @param {object} event
+     * @memberof AddGroup
+     * 
+     * @returns {void}
+  */
   onSubmit(event) {
     event.preventDefault();
     this.props.addMembers(this.state);
@@ -50,6 +63,13 @@ class GroupMessage extends React.Component {
       return groupName;
     });
   }
+  /**
+   * @method render
+   * Render react component
+   * @memberof AddGroup
+   * 
+   * @returns {String} HTML markup for displaying board message
+   */
   render() {
     const { Messages, GroupMembers, Read } = this.props;
     let MessageContainer = '';
@@ -185,6 +205,10 @@ GroupMessage.PropTypes = {
   Messages: PropTypes.array.isRequired,
   GroupMembers: PropTypes.array.isRequired,
 };
+/**
+   * connect to redux store 
+   * @param {any} user
+   */
 function mapStateToProps(state) {
   return {
     Groups: state.Groups,

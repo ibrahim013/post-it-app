@@ -1,6 +1,12 @@
 import React from 'react';
 import Login from '../component/LogIn';
 
+/**
+ * 
+ * @description Display Home page
+ * @export
+ *
+ */
 const HomePage = () => (
   <div>
     <div className="row">

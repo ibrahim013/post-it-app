@@ -6,6 +6,14 @@ import GoogleButton from 'react-google-button';
 import { SignIn } from '../actions/UserAction';
 import { GoogleLogin } from '../actions/GoogleLogin';
 
+/**
+ * 
+ * @description Login user with valid parameters
+ * @export
+ * @param {object} props
+ * @class LogIn
+ * @extends {Component}
+ */
 export class LogIn extends React.Component {
   constructor(props) {
     super(props);
@@ -18,14 +26,38 @@ export class LogIn extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+  /**
+    * @method onChange
+    * @description Listens for changes in form fileds 
+    * @memberof AddGroup
+    * @param {object} event
+    *
+    * @returns {void}
+    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+  /**
+     * @description Makes an action call to Google Login
+     * route with user parameters
+     * @memberof Login
+     * 
+     * @returns {void}
+  */
   onHandleSubmit() {
-    this.props.GoogleLogin().then((res) => {
-      this.props.history.push('/dashboard');
+    this.props.GoogleLogin().then(() => {
+      this.props.history.push('/user/update');
     });
   }
+  /**
+     * @description Makes an action call to Google Login
+     * route with user parameters
+     * @param {object} event
+     *
+     * @memberof Login
+     * 
+     * @returns {void}
+  */
   onSubmit(event) {
     event.preventDefault();
     this.setState({ errors: {}, isLoading: true });
@@ -40,6 +72,13 @@ export class LogIn extends React.Component {
       });
     });
   }
+  /**
+   * @method render
+   * Render react component
+   * @memberof Login
+   * 
+   * @returns {String} HTML markup for the Adding user to group
+   */
   render() {
     return (
       <div>

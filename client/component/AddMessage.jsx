@@ -4,6 +4,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { addMessage } from '../actions/GroupAction';
 
+/**
+ * 
+ * @description add message
+ * @export
+ * @param {object} props
+ * @class AddMessage
+ * @extends {Component}
+ */
 class AddMessage extends React.Component {
   constructor(props) {
     super(props);
@@ -16,9 +24,26 @@ class AddMessage extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+  /**
+    * @method onChange
+    * @description Listens for changes in form fileds 
+    * @memberof  AddMessage
+    * @param {object} event
+    *
+    * @returns {void}
+    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+  /**
+     * @description Makes an action call to add message
+     * route with message parameters
+     * @param {object} event
+     *
+     * @memberof AddMessage
+     * 
+     * @returns {void}
+  */
   onSubmit(event) {
     event.preventDefault();
     this.props.addMessage(this.state);
@@ -27,6 +52,14 @@ class AddMessage extends React.Component {
       piority: '',
     });
   }
+  /**
+   * @method render
+   * Render react component
+   * 
+   * @memberof AddMessage
+   * 
+   * @returns {String} HTML markup for the Adding message to group
+   */
   render() {
     return (
       <div className="panel-body text">

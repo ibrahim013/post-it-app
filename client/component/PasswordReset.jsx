@@ -4,6 +4,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { passwordReset } from '../actions/UserAction';
 
+/**
+ * 
+ * @description Password Reset
+ * @export
+ * @param {object} props
+ * @class PasswordReset
+ * @extends {Component}
+ */
 class PasswordReset extends React.Component {
   constructor(props) {
     super(props);
@@ -13,9 +21,26 @@ class PasswordReset extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+  /**
+    * @method onChange
+    * @description Listens for changes in form fileds 
+    * @memberof AddGroup
+    * @param {object} event
+    *
+    * @returns {void}
+    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+  /**
+     * @description Makes an action call to add group
+     * route with user parameters
+     * @param {object} event
+     *
+     * @memberof AddGroup
+     * 
+     * @returns {Promise}
+  */
   onSubmit(event) {
     event.preventDefault();
     this.props.passwordReset(this.state).then((res) => {
@@ -28,6 +53,14 @@ class PasswordReset extends React.Component {
       });
     });
   }
+  /**
+   * @method render
+   * Render react component
+   * 
+   * @memberof AddGroup
+   * 
+   * @returns {String} HTML markup for password reset
+   */
   render() {
     return (
       <div className="col-md-4 col-md-offset-4">

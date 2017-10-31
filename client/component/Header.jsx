@@ -5,7 +5,22 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import Avatar from 'react-avatar';
 import PropTypes from 'prop-types';
 
+/**
+ * 
+ * @description display app header with login user
+ * @export
+ * @class Header
+ * @extends {Component}
+ */
 class Header extends React.Component {
+  /**
+   * @method render
+   * Render react component
+   * 
+   * @memberof render
+   * 
+   * @returns {String} HTML markup for the header
+   */
   render() {
     const { user } = this.props;
     const loginUser = user.map(user => (
@@ -31,6 +46,10 @@ class Header extends React.Component {
 Header.PropTypes = {
   user: PropTypes.object.isRequired,
 };
+/**
+   * connect to redux store
+   * @param {any} user
+   */
 function mapStateToProps(state) {
   return {
     user: state.user,

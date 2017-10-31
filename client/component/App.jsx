@@ -5,6 +5,13 @@ import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import 'react-s-alert/dist/s-alert-default.css';
 import Header from '../component/Header';
 
+/**
+ * 
+ * @description entry componnet
+ * @export
+ * @class App
+ * @extends {Component}
+ */
 class App extends React.Component {
   render() {
     return (

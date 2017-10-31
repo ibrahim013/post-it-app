@@ -5,6 +5,15 @@ import PropTypes from 'prop-types';
 import Message from './Message';
 import { getMessges } from '../actions/GroupAction';
 
+/**
+ * 
+ * @description display message list
+ * @export
+ * @param {object} props
+ * @class MessageList
+ * @extends {Component}
+ */
+
 class MessageList extends React.Component {
   constructor(props) {
     super(props);
@@ -21,6 +30,14 @@ class MessageList extends React.Component {
       Messages: nextProps.Messages,
     });
   }
+  /**
+   * @method render
+   * Render react component
+   * @memberof MessageList
+   * 
+   * @returns {String} HTML markup for looping throug the group
+   */
+
   render() {
     const { Messages } = this.state;
     const messageList = Messages.map((message, i) => <Message key={i} message={message} />);
@@ -30,6 +47,10 @@ class MessageList extends React.Component {
 MessageList.PropTypes = {
   Messages: PropTypes.array.isRequired,
 };
+/**
+   * connect to redux store 
+   * @param {any} message
+   */
 function mapStateToProps(state) {
   return {
     Messages: state.Messages,

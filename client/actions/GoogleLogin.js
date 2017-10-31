@@ -5,14 +5,20 @@ import config from '../../server/database';
 import { LoggedInUser, LoggedInError } from './UserAction';
 import { GOOGLE_LOGIN } from '../constants/ActionTypes';
 
-// Group Added to Firebase
+/**
+   * dispatches google action
+   * @param {any} google login user
+   */
 export function googleLogin(GLogin) {
   return {
     type: GOOGLE_LOGIN,
     GLogin,
   };
 }
-
+/**
+   * dispatches google login action
+   * @param {any} user
+   */
 export function GoogleLogin() {
   firebase.initializeApp(config);
   return (dispatch) => {
@@ -39,7 +45,7 @@ export function GoogleLogin() {
       }).catch((error) => {
         dispatch(LoggedInError());
         if (error) {
-          Alert.error(error.res.data.message, {
+          Alert.error('oops somthing went wrong!!', {
             position: 'top-right',
             offset: 100,
           });
@@ -48,7 +54,10 @@ export function GoogleLogin() {
       });
   };
 }
-
+/**
+   * dispatches an action for google update
+   * @param {any} user
+   */
 export function GoogleUpdate(number) {
   return (dispatch) => {
     axios

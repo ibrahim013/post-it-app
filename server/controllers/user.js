@@ -184,7 +184,7 @@ export const googleUpdate = (req, res) => {
       firebase
         .database()
         .ref(`user/${uid}`)
-        .push({
+        .set({
           displayName,
           email,
           phoneNumber,

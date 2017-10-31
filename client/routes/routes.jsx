@@ -11,6 +11,7 @@ import GetGroupList from '../component/GetGroupList';
 import MessageList from '../component/MessageList';
 import GroupMessage from '../component/GroupMessage';
 import UserRoute from '../component/UserRoute';
+import GoogleUser from '../component/GoogleUser';
 
 export default (
   <div>
@@ -24,5 +25,6 @@ export default (
     <Route exact path="/getgroup" component={GetGroupList} />
     <Route path="/group/:groupid" component={GroupMessage} />
     <Route exact path="/message/:groupid" component={MessageList} />
+    <Route exact path="/user/update" component={GoogleUser} />
   </div>
 );
