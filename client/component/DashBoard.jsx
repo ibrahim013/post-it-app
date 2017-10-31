@@ -15,83 +15,56 @@ const socket = io();
  * @class Dashboard
  * @extends {Component}
  */
-class DashBoard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  /**
-     * @description Makes an action call to signout route 
-     * @memberof AddGroup
-     * 
-     * @returns {void}
-  */
-  onSubmit() {
-    this.props.SignOut();
-    this.props.history.push('/');
-  }
-  render() {
-    return (
-      <div>
-        <div className="row linkheader" />
-        <Grid data-spy="scroll">
-          <Row className="show-grid ">
-            <Col xs={12} md={3} className="asidelist">
-              <Row className="show-grid create-group">
-                <div id="signout">
-                  <h3>
-                    <button
-                      onClick={() => {
-                        this.onSubmit();
-                      }}
-                    >
-                      Sign out
-                    </button>
-                  </h3>
+const DashBoard = () => (
+  <div>
+    <div>
+      <div className="row linkheader" />
+      <Grid data-spy="scroll">
+        <Row className="show-grid ">
+          <Col xs={12} md={3} className="asidelist">
+            <Row className="show-grid create-group">
+              <Col xs={7} md={7}>
+                <div>
+                  <h3>Groups</h3>
                 </div>
-                <Col xs={12} md={7}>
-                  <div>
-                    <h3>Groups</h3>
-                  </div>
-                </Col>
-                <Col xs={12} md={5} className="bot">
-                  <button
-                    type="button"
-                    className="btn btn-info"
-                    data-toggle="collapse"
-                    data-target="#addgroup"
-                  >
-                    +
-                  </button>
-                </Col>
-              </Row>
+              </Col>
+              <Col xs={5} md={5} className="bot">
+                <button
+                  type="button"
+                  className="btn btn-info"
+                  data-toggle="collapse"
+                  data-target="#addgroup"
+                >
+                  +
+                </button>
+              </Col>
+            </Row>
 
-              <div id="addgroup" className="collapse">
-                <AddGroup />
-              </div>
-              <div>
-                <GetGroupList />
-              </div>
-            </Col>
-            <Col xs={12} md={9}>
-              <Row className=" ">
-                <Col xs={12} md={12}>
-                  <div> </div>
-                  <div className="one">
-                    <div className="" />
-                    <h3>Today</h3>
-                    <h3>{dateTime()}</h3>
-                  </div>
-                </Col>
-              </Row>
-              <div />
-            </Col>
-          </Row>
-        </Grid>
-      </div>
-    );
-  }
-}
+            <div id="addgroup" className="collapse">
+              <AddGroup />
+            </div>
+            <div>
+              <GetGroupList />
+            </div>
+          </Col>
+          <Col xs={12} md={9}>
+            <Row className=" ">
+              <Col xs={12} md={12}>
+                <div> </div>
+                <div className="one">
+                  <div className="" />
+                  <h3>Today</h3>
+                  <h3>{dateTime()}</h3>
+                </div>
+              </Col>
+            </Row>
+            <div />
+          </Col>
+        </Row>
+      </Grid>
+    </div>
+    ); }
+  </div>
+);
 
 export default withRouter(connect(null, { SignOut })(DashBoard));

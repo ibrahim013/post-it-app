@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Avatar from 'react-avatar';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import isEmpty from 'lodash/isEmpty';
 import { Grid, Row, Col } from 'react-bootstrap';
-import Avatar from 'react-avatar';
-import PropTypes from 'prop-types';
+import { SignOut } from '../actions/UserAction';
 
 /**
  * 
@@ -13,6 +15,21 @@ import PropTypes from 'prop-types';
  * @extends {Component}
  */
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  /**
+     * @description Makes an action call to signout route 
+     * @memberof AddGroup
+     * 
+     * @returns {void}
+  */
+  onSubmit() {
+    this.props.SignOut();
+    this.props.history.push('/');
+  }
   /**
    * @method render
    * Render react component
@@ -22,21 +39,35 @@ class Header extends React.Component {
    * @returns {String} HTML markup for the header
    */
   render() {
-    const { user } = this.props;
+    const { user, isAuthenticated } = this.props;
     const loginUser = user.map(user => (
       <span>
-        <Avatar size="50" round name={this.props.user[0].displayName} /> &nbsp;&nbsp;
+        <Avatar size="35" round name={this.props.user[0].displayName} /> &nbsp;&nbsp;
         {user.displayName}
       </span>
     ));
     return (
       <Grid bsClass="fluid header">
         <Row className="show-grid">
-          <Col xs={12} md={8}>
-            <h1>POST IT</h1>
+          <Col xs={10} md={8}>
+            <h3>POST IT</h3>
           </Col>
-          <Col xs={6} md={3} mdOffset={1}>
-            <div id="user">{loginUser}</div>
+          <Col xs={12} md={4}>
+            <div id="user" />
+            <ul class="nav navbar-nav navbar-right">
+              <li>{loginUser}</li>
+              <li>
+                <div>
+                  {isEmpty(isAuthenticated) ? (
+                    <div />
+                  ) : (
+                    <button onClick={() => {
+                      this.onSubmit();
+                    }} className="signout">Signout</button>
+                  )}
+                </div>
+              </li>
+            </ul>
           </Col>
         </Row>
       </Grid>
@@ -45,6 +76,7 @@ class Header extends React.Component {
 }
 Header.PropTypes = {
   user: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 /**
    * connect to redux store
@@ -53,7 +85,8 @@ Header.PropTypes = {
 function mapStateToProps(state) {
   return {
     user: state.user,
+    isAuthenticated: state.user,
   };
 }
 
-export default withRouter(connect(mapStateToProps)(Header));
+export default withRouter(connect(mapStateToProps, { SignOut })(Header));

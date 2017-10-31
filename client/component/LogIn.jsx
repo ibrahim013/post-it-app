@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GoogleButton from 'react-google-button';
+import { HashLoader } from 'react-spinners';
 import { SignIn } from '../actions/UserAction';
 import { GoogleLogin } from '../actions/GoogleLogin';
 
@@ -82,64 +83,69 @@ export class LogIn extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label className="control-label">
-              <span className="glyphicon glyphicon-envelope" /> Email
-            </label>
-            <input
-              value={this.state.email}
-              onChange={this.onChange}
-              type="email"
-              name="email"
-              className="form-control"
-              placeholder="eg ibrahim@gmail.com"
-              required
+        <div className="sweet-loading">
+          <HashLoader color={'#ffffff'} loading={this.state.isLoading} />
+        </div>
+        <div>
+          <form onSubmit={this.onSubmit}>
+            <div className="form-group">
+              <label className="control-label">
+                <span className="glyphicon glyphicon-envelope" /> Email
+              </label>
+              <input
+                value={this.state.email}
+                onChange={this.onChange}
+                type="email"
+                name="email"
+                className="form-control"
+                placeholder="eg ibrahim@gmail.com"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>
+                <span className=" control-label glyphicon glyphicon-eye-open" /> Password
+              </label>
+              <input
+                value={this.state.password}
+                onChange={this.onChange}
+                type="password"
+                name="password"
+                className="form-control"
+                placeholder="must be at least 6 character long"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <button
+                disabled={this.state.isLoading}
+                name="login"
+                onSubmit={this.onSubmit}
+                className="btn btn-primary  lgbotton btn-block"
+              >
+                <span className="glyphicon glyphicon-log-in" /> Login
+              </button>
+            </div>
+          </form>
+          <div>
+            <GoogleButton
+              onClick={() => {
+                this.onHandleSubmit();
+              }}
+              name="goolelogin"
             />
           </div>
-          <div className="form-group">
-            <label>
-              <span className=" control-label glyphicon glyphicon-eye-open" /> Password
-            </label>
-            <input
-              value={this.state.password}
-              onChange={this.onChange}
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="must be at least 6 character long"
-              required
-            />
+          <br />
+          <div>
+            <span>Dont have an Account? </span>
+            <Link to="/signup">Sign up</Link>
           </div>
-          <div className="form-group">
-            <button
-              disabled={this.state.isLoading}
-              name="login"
-              onSubmit={this.onSubmit}
-              className="btn btn-primary  lgbotton btn-block"
-            >
-              <span className="glyphicon glyphicon-log-in" /> Login
-            </button>
+          <br />
+          <div className="modal-footer">
+            <Link to="/passwordreset">Password Reset</Link>
           </div>
-        </form>
-        <div>
-          <GoogleButton
-            onClick={() => {
-              this.onHandleSubmit();
-            }}
-            name="goolelogin"
-          />
+          <div className=" " />
         </div>
-        <br />
-        <div>
-          <span>Dont have an Account? </span>
-          <Link to="/signup">Sign up</Link>
-        </div>
-        <br />
-        <div className="modal-footer">
-          <Link to="/passwordreset">Password Reset</Link>
-        </div>
-        <div className=" " />
       </div>
     );
   }

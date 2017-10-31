@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { HashLoader } from 'react-spinners';
 import { withRouter } from 'react-router-dom';
 import { passwordReset } from '../actions/UserAction';
 
@@ -17,6 +18,7 @@ class PasswordReset extends React.Component {
     super(props);
     this.state = {
       email: '',
+      isLoading: false,
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -43,6 +45,7 @@ class PasswordReset extends React.Component {
   */
   onSubmit(event) {
     event.preventDefault();
+    this.setState({ isLoading: true });
     this.props.passwordReset(this.state).then((res) => {
       if (res) {
         this.props.history.push('/');
@@ -63,31 +66,37 @@ class PasswordReset extends React.Component {
    */
   render() {
     return (
-      <div className="col-md-4 col-md-offset-4">
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group ps-style">
-            <label className="control-label">Password Reset</label>
-            <input
-              value={this.state.email}
-              onChange={this.onChange}
-              type="email"
-              name="email"
-              className="form-control"
-              placeholder="enter email"
-              required
-            />
+      <div className="row">
+        <div className="col-md-4 col-sm-offset-4  blogin">
+          <div className="ubdate">Password Reset</div>
+          <div className="sweet-loading">
+            <HashLoader color={'#ffffff'} loading={this.state.isLoading} />
           </div>
-          <div className="form-group">
-            <button
-              name="login"
-              onSubmit={this.onSubmit}
-              disabled={this.state.isLoading}
-              className="btn btn-primary btn-sm"
-            >
-              Reset Password
-            </button>
-          </div>
-        </form>
+          <form onSubmit={this.onSubmit}>
+            <div className="form-group ps-style">
+              Enter a valid emaill
+              <input
+                value={this.state.email}
+                onChange={this.onChange}
+                type="email"
+                name="email"
+                className="form-control"
+                placeholder="enter email"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <button
+                name="login"
+                onSubmit={this.onSubmit}
+                disabled={this.state.isLoading}
+                className="btn btn-primary btn-sm"
+              >
+                Reset Password
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }

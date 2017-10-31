@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Link, withRouter } from 'react-router-dom';
+import { HashLoader } from 'react-spinners';
 import { Modal } from 'react-bootstrap';
 import validateInput from '../utilities/validation';
 
@@ -23,7 +24,6 @@ class SignUp extends React.Component {
       errors: {},
       phoneNumber: '',
       isLoading: false,
-      isLogedIn: false,
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -56,6 +56,7 @@ class SignUp extends React.Component {
   */
   onSubmit(event) {
     event.preventDefault();
+    this.setState({ isLoading: true });
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.SignUpAction(this.state).then((res) => {
@@ -63,7 +64,6 @@ class SignUp extends React.Component {
         if (!res) {
           this.setState({
             isLoading: false,
-            isLogedIn: true,
           });
         }
       });
@@ -86,6 +86,9 @@ class SignUp extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <div>
+              <div className="sweet-loading">
+                <HashLoader color={'#ffffff'} loading={this.state.isLoading} />
+              </div>
               <form onSubmit={this.onSubmit}>
                 <div className={classnames('form-group', { 'has-error': errors.displayName })}>
                   <label className="control-label">User Name</label>

@@ -6,7 +6,7 @@ import { BrowserRouter as Router, browserHistory } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { LoggedInUser } from '../client/actions/UserAction';
-import rootReducer from './reducer/rootreducer';
+import rootReducer from './reducer/RootReducer';
 import AppRoute from './routes/routes';
 import './css/style.scss';
 
