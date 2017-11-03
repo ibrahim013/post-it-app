@@ -60,9 +60,9 @@ const webpackConfig = {
       filename: 'style.css',
       allChunks: true,
     }),
-    new UglifyJSPlugin({
-      sourceMap: true,
-    }),
+    // new UglifyJSPlugin({
+    //   sourceMap: true,
+    // }),
     new Dotenv({
       path: './.env',
       safe: false,

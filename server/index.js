@@ -35,9 +35,9 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, './index.html'));
 });
 io.on('connection', (socket) => {
-  console.log('Connected');
+  console.log('a system is Connected');
   socket.on('disconnect', () => {
-    console.log('Disconnected');
+    console.log('sytem Disconnected');
   });
 });
 

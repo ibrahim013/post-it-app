@@ -40,7 +40,7 @@ export function SignIn(userData) {
       .catch((error) => {
         dispatch(LoggedInError());
         if (error) {
-          Alert.error(error.response.data.message, {
+          Alert.error('oops! something went wrong', {
             position: 'top-right',
             offset: 100,
           });
