@@ -1,15 +1,11 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 require('dotenv').config();
-
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-
-const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: 'client/index.html',
-  filename: 'index.html',
-  inject: 'body',
-});
 
 const webpackConfig = {
   entry: ['babel-polyfill', './client/index.js'],
@@ -18,21 +14,9 @@ const webpackConfig = {
     publicPath: '/',
     filename: 'bundle.js',
   },
-  externals: {
-    cheerio: 'window',
-    'react/lib/ExecutionEnvironment': true,
-    'react/lib/ReactContext': true,
-  },
-  devServer: {
-    contentBase: './client',
-    inline: true,
-    hot: true,
-    port: 3000,
-  },
   node: {
     fs: 'empty',
   },
-
   module: {
     loaders: [
       {
@@ -43,7 +27,6 @@ const webpackConfig = {
           presets: ['es2015', 'react', 'stage-0'],
         },
       },
-
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
@@ -61,14 +44,24 @@ const webpackConfig = {
     extensions: ['*', '.js', '.jsx'],
   },
   plugins: [
-    HtmlWebpackPluginConfig,
     new ExtractTextPlugin({
       filename: 'style.css',
       allChunks: true,
     }),
+    new HtmlWebpackPlugin({
+      template: './client/index.html',
+      filename: 'index.html',
+      inject: 'body',
+    }),
+    new UglifyJSPlugin(),
     new Dotenv({
       path: './.env',
       safe: false,
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
     }),
   ],
 };

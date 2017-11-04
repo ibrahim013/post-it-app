@@ -15,6 +15,9 @@ const socket = io();
 socket.on('connection', (data) => {
   console.log(data);
 });
+socket.on('message Sent', (data) => {
+  console.log(data);
+});
 const store = createStore(
   rootReducer,
   compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f),

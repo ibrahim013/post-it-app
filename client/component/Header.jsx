@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import io from 'socket.io-client';
 import Avatar from 'react-avatar';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -7,6 +8,7 @@ import isEmpty from 'lodash/isEmpty';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { SignOut } from '../actions/UserAction';
 
+const socket = io();
 /**
  * 
  * @description display app header with login user
@@ -17,6 +19,9 @@ import { SignOut } from '../actions/UserAction';
 class Header extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      notification: {},
+    };
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -29,6 +34,9 @@ class Header extends React.Component {
   onSubmit() {
     this.props.SignOut();
     this.props.history.push('/');
+  }
+  componentDidMount() {
+    socket.on('message Sent', data => this.setState({ notification: data }));
   }
   /**
    * @method render

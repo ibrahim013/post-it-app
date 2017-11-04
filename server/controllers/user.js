@@ -14,43 +14,57 @@ firebase.initializeApp(config);
 
 export const signUp = (req, res) => {
   const { displayName, email, password, phoneNumber } = req.body;
+  req.check('email', 'Email is required').notEmpty();
+  req.check('displayName', 'Username is required').notEmpty();
+  req.check('email', 'Bad email format').isEmail();
+  req.check('password', 'Password is required').notEmpty();
+  req.check('password',
+    'Password must be at least 6 character and contain number')
+    .isLength({ min: 5 })
+    .matches(/\d/);
   const time = new Date().toString();
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      firebase.auth().currentUser.updateProfile({
-        displayName,
-        phoneNumber,
-      });
-    })
-    .then(() => {
-      const uid = firebase.auth().currentUser.uid;
-      firebase
-        .database()
-        .ref(`user/${uid}`)
-        .set({
+  const errors = req.validationErrors();
+  if (errors) {
+    const message = errors[0].msg;
+    res.status(400).json({ message });
+  } else {
+    return firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        firebase.auth().currentUser.updateProfile({
           displayName,
-          email,
           phoneNumber,
-          uid,
-          time,
         });
-    })
-    .then(() => res.status(200).json({ message: 'signup sucessful proceed to login' }))
-    .catch((error) => {
-      const errorCode = error.code;
-      if (errorCode === 'auth/email-already-in-use') {
-        return res.status(409).json({ message: 'email already in use' });
-      }
-      if (errorCode === 'auth/invalid-email') {
-        return res.status(400).json({ message: 'invalid email' });
-      }
-      if (errorCode === 'auth/weak-password') {
-        return res.status(400).json({ message: 'password strength is too week' });
-      }
-      return res.status(500).json({ message: 'oops! somthing went wrong' });
-    });
+      })
+      .then(() => {
+        const uid = firebase.auth().currentUser.uid;
+        firebase
+          .database()
+          .ref(`user/${uid}`)
+          .set({
+            displayName,
+            email,
+            phoneNumber,
+            uid,
+            time,
+          });
+      })
+      .then(() => res.status(200).json({ message: 'signup sucessful proceed to login' }))
+      .catch((error) => {
+        const errorCode = error.code;
+        if (errorCode === 'auth/email-already-in-use') {
+          return res.status(409).json({ message: 'email already in use' });
+        }
+        if (errorCode === 'auth/invalid-email') {
+          return res.status(400).json({ message: 'invalid email' });
+        }
+        if (errorCode === 'auth/weak-password') {
+          return res.status(400).json({ message: 'password strength is too week' });
+        }
+        return res.status(500).json({ message: 'oops! somthing went wrong' });
+      });
+  }
 };
 /**
  * Route to reset user password.
@@ -130,13 +144,15 @@ export const signIn = (req, res) => {
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then((user) => {
-      if (user) {
-        res.status(200).json({
-          message: 'Sign In Successful',
-          user,
-        });
-      }
+    .then(() => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          res.status(200).json({
+            message: 'Sign In Successful',
+            user,
+          });
+        }
+      });
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -189,6 +205,7 @@ export const googleUpdate = (req, res) => {
           email,
           phoneNumber,
           time,
+          uid,
         });
       res.status(201).json({
         message: 'update sucessful',
