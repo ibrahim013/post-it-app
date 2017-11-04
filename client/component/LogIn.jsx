@@ -105,7 +105,6 @@ export class LogIn extends React.Component {
               label="Password"
               field="password"
               name="password"
-              className="form-control"
               glyphicon="glyphicon  glyphicon-eye-open"
               placeholder="must be at least 6 character long"
             />
