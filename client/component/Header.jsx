@@ -62,7 +62,7 @@ class Header extends React.Component {
           </Col>
           <Col xs={12} md={4}>
             <div id="user" />
-            <ul class="nav navbar-nav navbar-right">
+            <ul className="nav navbar-nav navbar-right">
               <li>{loginUser}</li>
               <li>
                 <div>

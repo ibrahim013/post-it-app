@@ -11,13 +11,13 @@ class SignUpPage extends React.Component {
     return (
       <div className="row ">
         <div>
-          <Signup SignUpAction = {signUpAction} />
+          <Signup signUpAction={signUpAction} />
         </div>
       </div>
     );
   }
 }
 SignUpPage.PropTypes = {
-  SignUpAction: PropTypes.func.isRequired,
+  signUpAction: PropTypes.func.isRequired,
 };
 export default withRouter(connect(null, { signUpAction })(SignUpPage));

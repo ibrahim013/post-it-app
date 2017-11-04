@@ -72,7 +72,7 @@ export function googleUpdate(number) {
         return true;
       })
       .catch((error) => {
-        dispatch(LoggedInError());
+        dispatch(loggedInError());
         if (error) {
           Alert.error(error.response.data.message, {
             position: 'top-right',
