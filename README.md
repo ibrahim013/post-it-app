@@ -68,8 +68,10 @@ users who already viewed message can be seen
 
 ```
 Testing using Postman
+
 Here is the various endpoint 
-| Endpoint | Functions | Payload |Request Mode
+
+| Endpoint | Functions | Payload | Request Mode 
 | --- | --- | --- | --- |
 | `api/v1/signup` | it allows user create an account | username, phonenumber, email, password | POST 
 | `api/v1/signin` | it allow user sign into the account | email, password | POST 
