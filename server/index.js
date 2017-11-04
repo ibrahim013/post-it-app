@@ -16,7 +16,12 @@ app.io = io;
 const port = parseInt(process.env.PORT, 10) || 3000;
 const compiler = webpack(webpackConfig);
 
-app.use(webpackmiddleware(compiler));
+if (process.env.NODE_ENV !== 'production') {
+  app.use(webpackmiddleware(compiler));
+} else {
+  app.use(express.static(path.join(__dirname, '../public')));
+}
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -27,17 +32,19 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', express.static(path.join(__dirname, 'public')));
-
 app.use(routes);
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, './index.html'));
-});
+if (process.env.NODE_ENV === 'production') {
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+  });
+} else {
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/index.html'));
+  });
+}
 io.on('connection', (socket) => {
-  console.log('a system is Connected');
   socket.on('disconnect', () => {
-    console.log('sytem Disconnected');
   });
 });
 
