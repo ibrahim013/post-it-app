@@ -255,6 +255,11 @@ li {
 .panel-body {
   padding: 0px;
 }
+input[type=number]::-webkit-inner-spin-button { 
+  -webkit-appearance: none;
+  cursor:pointer;
+
+}
 
 @media (min-width: 1200px) {
   .container {
