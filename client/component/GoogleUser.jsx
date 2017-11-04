@@ -105,7 +105,7 @@ GooglePhoneVerification.PropType = {
    */
 function mapStateToProps(state) {
   return {
-    isConfirmed: state.GoogleLogin[0],
+    isConfirmed: state.googleLogin[0],
   };
 }
 export default withRouter(connect(mapStateToProps, { googleUpdate })(GooglePhoneVerification));

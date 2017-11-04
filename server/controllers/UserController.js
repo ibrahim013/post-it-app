@@ -5,7 +5,7 @@ firebase.initializeApp(config);
 
 /**
  * @description signing up a new user.
- * POST:/v1/user/signup
+ * POST:/api/v1/user/signup
  * @param {object} req; request
  * @param {object} res; response
  *
@@ -68,6 +68,7 @@ export const signUp = (req, res) => {
 };
 /**
  * Route to reset user password.
+ * POST:/api/v1/user/signout
  * @param {string} email;
  *
  * @returns {Promise}
@@ -132,7 +133,7 @@ export const googleLogin = (req, res) => {
 
 /**
  * @description Sign in users.
- * POST:/v1/user/signin
+ * POST: /api/v1/user/signin
  * @param {object} req;
  * @param {object} res;
  *
@@ -171,7 +172,7 @@ export const signIn = (req, res) => {
 
 /**
  * @description Signout Route.
- * GET:/v1/user/signout
+ * GET:/api/v1/user/signout
  * @param {string} email;
  *
  * @returns {Promise}

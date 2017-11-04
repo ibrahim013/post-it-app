@@ -23,10 +23,6 @@ module.exports = (mailObject) => {
   mailObject.userEmail.map((email) => {
     const sendto = email.email;
     mailOptions.to = sendto;
-    transporter.sendMail(mailOptions, (error) => {
-      if (error) {
-        console.log(error);
-      }
-    });
+    transporter.sendMail(mailOptions);
   });
 };

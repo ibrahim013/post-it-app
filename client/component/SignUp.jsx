@@ -90,7 +90,8 @@ class SignUp extends React.Component {
                 <HashLoader color={'#ffffff'} loading={this.state.isLoading} />
               </div>
               <form onSubmit={this.onSubmit}>
-                <div className={classnames('form-group', { 'has-error': errors.displayName })}>
+                <div className={classnames('form-group',
+                { 'has-error': errors.displayName })}>
                   <label className="control-label">User Name</label>
                   <input
                     value={this.state.displayName}
@@ -100,9 +101,11 @@ class SignUp extends React.Component {
                     className="form-control"
                     placeholder="eg:ibrahim"
                   />
-                  {errors.displayName && <span className="help-block">{errors.displayName}</span>}
+                  {errors.displayName && <span className="help-block">
+                  {errors.displayName}</span>}
                 </div>
-                <div className={classnames('form-group', { 'has-error': errors.email })}>
+                <div className={classnames('form-group',
+                { 'has-error': errors.email })}>
                   <label className="control-label">Email</label>
                   <input
                     value={this.state.emaii}
@@ -112,9 +115,11 @@ class SignUp extends React.Component {
                     className="form-control"
                     placeholder="eg:abc@company.com"
                   />
-                  {errors.email && <span className="help-block">{errors.email}</span>}
+                  {errors.email && <span className="help-block">
+                  {errors.email}</span>}
                 </div>
-                <div className={classnames('form-group', { 'has-error': errors.phoneno })}>
+                <div className={classnames('form-group',
+                { 'has-error': errors.phoneno })}>
                   <label className="control-label">Phone Number</label>
                   <input
                     value={this.state.phoneNumber}
@@ -126,9 +131,11 @@ class SignUp extends React.Component {
                     placeholder=" Format: 2349999999999"
                     required
                   />
-                  {errors.password && <span className="help-block">{errors.phoneno}</span>}
+                  {errors.password && <span className="help-block">
+                  {errors.phoneno}</span>}
                 </div>
-                <div className={classnames('form-group', { 'has-error': errors.password })}>
+                <div className={classnames('form-group',
+                { 'has-error': errors.password })}>
                   <label className="control-label">Password</label>
                   <input
                     value={this.state.password}
@@ -138,7 +145,8 @@ class SignUp extends React.Component {
                     className="form-control"
                     placeholder="At least 6 Characters"
                   />
-                  {errors.password && <span className="help-block">{errors.password}</span>}
+                  {errors.password && <span className="help-block">
+                  {errors.password}</span>}
                 </div>
                 <div className="form-group">
                   <button

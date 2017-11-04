@@ -58,7 +58,7 @@ export function readAction(read) {
 export function getGroups() {
   return dispatch =>
     axios
-      .get('/v1/group/groups')
+      .get('/api/v1/group/groups')
       .then((response) => {
         dispatch(getGroupAction(response.data.groups));
       })
@@ -72,7 +72,7 @@ export function getGroups() {
  */
 export function getMessges(groupid) {
   return dispatch =>
-    axios.get(`/v1/group/${groupid}/messages/`).then((response) => {
+    axios.get(`/api/v1/group/${groupid}/messages/`).then((response) => {
       dispatch(getMessageAction(response.data.messages));
       dispatch(readAction(response.data.usersRead));
     });
@@ -98,7 +98,7 @@ export function getMembers(groupid) {
 export function addMembers(userDetails) {
   return dispatch =>
     axios
-      .post('/v1/group/addmember', userDetails)
+      .post('/api/v1/group/addmember', userDetails)
       .then((res) => {
         dispatch(getMembers(userDetails.groupId));
         Alert.success(res.data.message, {
@@ -124,7 +124,7 @@ export function addMembers(userDetails) {
 export function addGroups(groupData) {
   return dispatch =>
     axios
-      .post('/v1/group', groupData)
+      .post('/api/v1/group', groupData)
       .then((res) => {
         dispatch(getGroups());
         Alert.success(res.data.message, {
@@ -151,7 +151,7 @@ export function addGroups(groupData) {
 export function addMessage(messageData) {
   return dispatch =>
     axios
-      .post('/v1/group/postmessage', messageData)
+      .post('/api/v1/group/postmessage', messageData)
       .then((res) => {
         dispatch(getMessges(messageData.groupname));
         Alert.success(res.data.message, {

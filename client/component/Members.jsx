@@ -73,7 +73,8 @@ class Members extends React.Component {
               required
             />
           </div>
-          <button name="members" className="btn btn-primary btn-small" onSubmit={this.onSubmit}>
+          <button name="members" className="btn btn-primary btn-small"
+           onSubmit={this.onSubmit}>
             Add Members
           </button>
         </form>

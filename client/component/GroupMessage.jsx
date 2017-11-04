@@ -27,7 +27,6 @@ class GroupMessage extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    socket.on('message Sent', (data) => {});
   }
 
   onChange(event) {
@@ -82,8 +81,10 @@ class GroupMessage extends React.Component {
             <div className="panel-body">
               <p className="">{message.messageText}</p>
               <p id="details">
-                <span className="left-align">Sent By: {message.author}</span>&nbsp;
-                <span className="left-align">Priority: {message.priorityLevel}</span>&nbsp;
+                <span className="left-align">Sent By: {message.author}
+                </span>&nbsp;
+                <span className="left-align">Priority: {message.priorityLevel}
+                </span>&nbsp;
                 <span className="right-align">Sent On: {message.date}</span>
               </p>
             </div>
@@ -181,7 +182,6 @@ class GroupMessage extends React.Component {
               <div className="messageboard ">
                 <div className="">{MessageContainer}</div>
               </div>
-
               <div className="post">
                 <AddMessage groupid={this.state.groupId} />
               </div>
@@ -211,12 +211,17 @@ GroupMessage.PropTypes = {
    */
 function mapStateToProps(state) {
   return {
-    Groups: state.Groups,
+    Groups: state.groups,
     Read: state.read,
-    Messages: state.Messages,
+    Messages: state.messages,
     GroupMembers: state.groupMembers,
   };
 }
 export default withRouter(
-  connect(mapStateToProps, { getGroups, addMembers, getMessges, getMembers })(GroupMessage),
+  connect(mapStateToProps, {
+    getGroups,
+    addMembers,
+    getMessges,
+    getMembers,
+  })(GroupMessage),
 );

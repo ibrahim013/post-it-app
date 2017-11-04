@@ -83,7 +83,8 @@ class AddGroup extends React.Component {
             onChange={this.onChange}
             required
           />
-          <button name="group" className="btn btn-primary btn-small" onSubmit={this.onSubmit}>
+          <button name="group" className="btn btn-primary btn-small"
+          onSubmit={this.onSubmit}>
             Create Group
           </button>
         </form>

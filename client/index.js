@@ -11,12 +11,10 @@ import AppRoute from './routes/routes';
 import './scss/style.scss';
 
 const socket = io();
-
-socket.on('connection', (data) => {
-  console.log(data);
+// TODO  send notification using socket
+socket.on('connection', () => {
 });
-socket.on('message Sent', (data) => {
-  console.log(data);
+socket.on('message Sent', () => {
 });
 const store = createStore(
   rootReducer,
