@@ -3,7 +3,7 @@ import sendEmail from '../utilities/emailTranspoter';
 import sendSms from '../utilities/smsTranspoter';
 /**
  * @description get user group.
- * GET:/v1/group/groups
+ * GET: /api/v1/group/groups
  * @param {object} req;
  * @param {object} res;
  *
@@ -44,7 +44,7 @@ export const userGroups = (req, res) => {
 
 /**
  * @description adding members to group.
- * POST:/v1/group/addmember
+ * POST:/api/v1/group/addmember
  * @param {object} req;
  * @param {object} res;
  *
@@ -138,7 +138,7 @@ export const addMember = (req, res) => {
 
 /**
  * @description posting of message.
- * POST:/v1/group/postmessage
+ * POST:/api/v1/group/postmessage
  * @param {object} req;
  * @param {object} res;
  *
@@ -216,7 +216,7 @@ export const postMessage = (req, res) => {
 };
 /**
  * @description retuning group message.
- * GET:/v1/group/:groupid/messages
+ * GET:/api/v1/group/:groupid/messages
  * @param {object} req; request
  * @param {object} res; response
  *
@@ -286,7 +286,7 @@ export const messageList = (req, res) => {
 
 /**
  * @description create user group.
- * POST:/v1/group
+ * POST:/api/v1/group
  * @param {string} groupname;
  * @param {string} discription;
  *
@@ -344,7 +344,7 @@ export const group = (req, res) => {
 
 /**
  * @description retuning all group members.
- * GET:/v1/group/:groupid/members
+ * GET:/api/v1/group/:groupid/members
  * @param {object} req; request
  * @param {object} res; response
  *

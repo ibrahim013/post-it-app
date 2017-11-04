@@ -40,8 +40,8 @@ class GetGroupList extends React.Component {
   render() {
     const { Groups } = this.state;
     const groupArray = Groups.map((group, groupid) => (
-      <div key={groupid} className="groupdisplay">
-        <Group key={groupid} group={group} />
+      <div key={ groupid } className="groupdisplay">
+        <Group key={ groupid } group={ group } />
       </div>
     ));
     return <div>{groupArray}</div>;
@@ -56,7 +56,7 @@ GetGroupList.PropTypes = {
    */
 function mapStateToProps(state) {
   return {
-    Groups: state.Groups,
+    Groups: state.groups,
   };
 }
 export default withRouter(connect(mapStateToProps, { getGroups })(GetGroupList));

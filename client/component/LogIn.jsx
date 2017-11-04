@@ -104,7 +104,8 @@ export class LogIn extends React.Component {
             </div>
             <div className="form-group">
               <label>
-                <span className=" control-label glyphicon glyphicon-eye-open" /> Password
+                <span className=" control-label glyphicon glyphicon-eye-open" />
+                 Password
               </label>
               <input
                 value={this.state.password}

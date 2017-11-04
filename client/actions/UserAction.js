@@ -26,7 +26,7 @@ export function logOutUser() {
 export function signIn(userData) {
   return dispatch =>
     axios
-      .post('/v1/user/signin', userData)
+      .post('/api/v1/user/signin', userData)
       .then((res) => {
         dispatch(loggedInUser(res.data.user));
         Alert.success(res.data.message, {
@@ -52,7 +52,7 @@ export function signIn(userData) {
 export function signOut() {
   return dispatch =>
     axios
-      .get('/v1/user/signout')
+      .get('/api/v1/user/signout')
       .then((res) => {
         dispatch(logOutUser());
         Alert.success(res.data.message, {
@@ -74,7 +74,7 @@ export function signOut() {
 export function signUpAction(userData) {
   return () =>
     axios
-      .post('/v1/user/signup', userData)
+      .post('/api/v1/user/signup', userData)
       .then((res) => {
         Alert.success(res.data.message, {
           position: 'top-right',
@@ -96,7 +96,7 @@ export function signUpAction(userData) {
 export function passwordReset(email) {
   return () =>
     axios
-      .post('/v1/user/passwordreset', email)
+      .post('/api/v1/user/passwordreset', email)
       .then((res) => {
         Alert.success(res.data.message, {
           position: 'top-right',

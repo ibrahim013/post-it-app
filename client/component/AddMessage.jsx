@@ -73,15 +73,19 @@ class AddMessage extends React.Component {
             required
           />
           <label className="radio-inline btn-space">
-            <input type="radio" name="piority" value="Normal" onChange={this.onChange} />Normal
+            <input type="radio" name="piority" value="Normal"
+            onChange={this.onChange} />Normal
           </label>
           <label className="radio-inline btn-space">
-            <input type="radio" name="piority" value="Critical" onChange={this.onChange} />Critical
+            <input type="radio" name="piority" value="Critical"
+            onChange={this.onChange} />Critical
           </label>
           <label className="radio-inline btn-space">
-            <input type="radio" name="piority" value="Urgent" onChange={this.onChange} />Urgent
+            <input type="radio" name="piority" value="Urgent"
+            onChange={this.onChange} />Urgent
           </label>
-          <span className="input-group-addon btn btn-primary " onClick={this.onSubmit}>
+          <span className="input-group-addon btn btn-primary "
+           onClick={this.onSubmit}>
             Send <span className=" glyphicon glyphicon-send" />
           </span>
         </form>

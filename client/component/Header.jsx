@@ -49,8 +49,9 @@ class Header extends React.Component {
   render() {
     const { user, isAuthenticated } = this.props;
     const loginUser = user.map(user => (
-      <span>
-        <Avatar size="35" round name={this.props.user[0].displayName} /> &nbsp;&nbsp;
+      <span key={0}>
+        <Avatar size={35} round name={this.props.user[0].displayName} />
+        &nbsp;&nbsp;
         {user.displayName}
       </span>
     ));
