@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router-dom';
-import { GoogleUpdate } from '../actions/GoogleLogin';
+import { googleUpdate } from '../actions/GoogleLogin';
 
 /**
- * 
+ *
  * @description verifying if user signing wit google has phone number verified
  * @export
  * @param {object} props
@@ -24,7 +24,7 @@ class GooglePhoneVerification extends React.Component {
   }
   /**
     * @method onChange
-    * @description Listens for changes in form fileds 
+    * @description Listens for changes in form fileds
     * @memberof GooglePhoneVerification
     * @param {object} event
     *
@@ -39,20 +39,20 @@ class GooglePhoneVerification extends React.Component {
      * @param {object} event
      *
      * @memberof GooglePhoneVerification
-     * 
+     *
      * @returns {void}
   */
   onSubmit(event) {
     event.preventDefault();
     this.setState({ isLoading: true });
-    this.props.GoogleUpdate(this.state);
+    this.props.googleUpdate(this.state);
   }
   /**
    * @method render
    * Render react component
-   * 
+   *
    * @memberof GooglePhoneVerification
-   * 
+   *
    * @returns {String} HTML markup for the Adding user to group
    */
   render() {
@@ -108,4 +108,4 @@ function mapStateToProps(state) {
     isConfirmed: state.GoogleLogin[0],
   };
 }
-export default withRouter(connect(mapStateToProps, { GoogleUpdate })(GooglePhoneVerification));
+export default withRouter(connect(mapStateToProps, { googleUpdate })(GooglePhoneVerification));

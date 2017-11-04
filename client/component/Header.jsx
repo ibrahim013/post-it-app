@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 import io from 'socket.io-client';
 import Avatar from 'react-avatar';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import isEmpty from 'lodash/isEmpty';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { SignOut } from '../actions/UserAction';
+import { signOut } from '../actions/UserAction';
 
 const socket = io();
 /**
- * 
+ *
  * @description display app header with login user
  * @export
  * @class Header
@@ -26,13 +26,13 @@ class Header extends React.Component {
   }
 
   /**
-     * @description Makes an action call to signout route 
+     * @description Makes an action call to signout route
      * @memberof AddGroup
-     * 
+     *
      * @returns {void}
   */
   onSubmit() {
-    this.props.SignOut();
+    this.props.signOut();
     this.props.history.push('/');
   }
   componentDidMount() {
@@ -41,9 +41,9 @@ class Header extends React.Component {
   /**
    * @method render
    * Render react component
-   * 
+   *
    * @memberof render
-   * 
+   *
    * @returns {String} HTML markup for the header
    */
   render() {
@@ -69,9 +69,14 @@ class Header extends React.Component {
                   {isEmpty(isAuthenticated) ? (
                     <div />
                   ) : (
-                    <button onClick={() => {
-                      this.onSubmit();
-                    }} className="signout">Signout</button>
+                    <button
+                      onClick={() => {
+                        this.onSubmit();
+                      }}
+                      className="signout"
+                    >
+                      Signout
+                    </button>
                   )}
                 </div>
               </li>
@@ -97,4 +102,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps, { SignOut })(Header));
+export default withRouter(connect(mapStateToProps, { signOut })(Header));

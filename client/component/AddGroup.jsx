@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { addGroups } from '../actions/GroupAction';
 
 /**
- * 
+ *
  * @description add groups
  * @export
  * @param {object} props
@@ -26,7 +26,7 @@ class AddGroup extends React.Component {
   }
   /**
     * @method onChange
-    * @description Listens for changes in form fileds 
+    * @description Listens for changes in form filed
     * @memberof AddGroup
     * @param {object} event
     *
@@ -41,7 +41,7 @@ class AddGroup extends React.Component {
      * @param {object} event
      *
      * @memberof AddGroup
-     * 
+     *
      * @returns {void}
   */
   onSubmit(event) {
@@ -55,9 +55,9 @@ class AddGroup extends React.Component {
   /**
    * @method render
    * Render react component
-   * 
+   *
    * @memberof AddGroup
-   * 
+   *
    * @returns {String} HTML markup for the Adding groups
    */
 

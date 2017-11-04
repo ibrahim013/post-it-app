@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { LoggedInUser } from '../client/actions/UserAction';
 import rootReducer from './reducer/RootReducer';
 import AppRoute from './routes/routes';
-import './css/style.scss';
+import './scss/style.scss';
 
 const socket = io();
 

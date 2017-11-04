@@ -6,7 +6,7 @@ import Message from './Message';
 import { getMessges } from '../actions/GroupAction';
 
 /**
- * 
+ *
  * @description display message list
  * @export
  * @param {object} props
@@ -34,7 +34,7 @@ class MessageList extends React.Component {
    * @method render
    * Render react component
    * @memberof MessageList
-   * 
+   *
    * @returns {String} HTML markup for looping throug the group
    */
 
@@ -48,7 +48,7 @@ MessageList.PropTypes = {
   Messages: PropTypes.array.isRequired,
 };
 /**
-   * connect to redux store 
+   * connect to redux store
    * @param {any} message
    */
 function mapStateToProps(state) {
