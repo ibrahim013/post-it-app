@@ -1,5 +1,12 @@
 import express from 'express';
-import { signUp, signIn, signOut, passwordReset, googleLogin, googleUpdate } from '../controllers/user';
+import {
+  signUp,
+  signIn,
+  signOut,
+  passwordReset,
+  googleLogin,
+  googleUpdate,
+} from '../controllers/UserController';
 import {
   userGroups,
   addMember,
@@ -7,7 +14,7 @@ import {
   messageList,
   group,
   groupMember,
-} from '../controllers/group';
+} from '../controllers/GroupController';
 
 const router = express.Router();
 

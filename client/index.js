@@ -5,10 +5,10 @@ import ReactDom from 'react-dom';
 import { BrowserRouter as Router, browserHistory } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import { LoggedInUser } from '../client/actions/UserAction';
+import { loggedInUser } from '../client/actions/UserAction';
 import rootReducer from './reducer/RootReducer';
 import AppRoute from './routes/routes';
-import './css/style.scss';
+import './scss/style.scss';
 
 const socket = io();
 
@@ -24,7 +24,7 @@ const store = createStore(
 );
 if (localStorage.user) {
   const user = JSON.parse(localStorage.user);
-  store.dispatch(LoggedInUser(user));
+  store.dispatch(loggedInUser(user));
 }
 ReactDom.render(
   <Provider store={store}>

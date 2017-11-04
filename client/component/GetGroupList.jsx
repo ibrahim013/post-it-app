@@ -6,7 +6,7 @@ import Group from './Groups';
 import { getGroups } from '../actions/GroupAction';
 
 /**
- * 
+ *
  * @description display group list
  * @export
  * @param {object} props
@@ -32,9 +32,9 @@ class GetGroupList extends React.Component {
   /**
    * @method render
    * Render react component
-   * 
+   *
    * @memberof AddGroup
-   * 
+   *
    * @returns {String} HTML markup for group list
    */
   render() {
@@ -51,7 +51,7 @@ GetGroupList.PropTypes = {
   Groups: PropTypes.array.isRequired,
 };
 /**
-   * connect to redux store 
+   * connect to redux store
    * @param {any} groups
    */
 function mapStateToProps(state) {

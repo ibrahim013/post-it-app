@@ -6,7 +6,7 @@ firebase.initializeApp(config);
 /**
  * @description signing up a new user.
  * POST:/v1/user/signup
- * @param {object} req; request 
+ * @param {object} req; request
  * @param {object} res; response
  *
  * @returns {promise} signed user
@@ -18,8 +18,8 @@ export const signUp = (req, res) => {
   req.check('displayName', 'Username is required').notEmpty();
   req.check('email', 'Bad email format').isEmail();
   req.check('password', 'Password is required').notEmpty();
-  req.check('password',
-    'Password must be at least 6 character and contain number')
+  req
+    .check('password', 'Password must be at least 6 character and contain number')
     .isLength({ min: 5 })
     .matches(/\d/);
   const time = new Date().toString();
@@ -68,7 +68,7 @@ export const signUp = (req, res) => {
 };
 /**
  * Route to reset user password.
- * @param {string} email; 
+ * @param {string} email;
  *
  * @returns {Promise}
  */
@@ -133,7 +133,7 @@ export const googleLogin = (req, res) => {
 /**
  * @description Sign in users.
  * POST:/v1/user/signin
- * @param {object} req; 
+ * @param {object} req;
  * @param {object} res;
  *
  * @returns {object} user token
@@ -172,7 +172,7 @@ export const signIn = (req, res) => {
 /**
  * @description Signout Route.
  * GET:/v1/user/signout
- * @param {string} email; 
+ * @param {string} email;
  *
  * @returns {Promise}
  */

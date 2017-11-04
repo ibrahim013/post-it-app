@@ -4,7 +4,7 @@ import GoogleLogin from './GoogleLogin';
 import Messages from '../reducer/GetMessagesReducer';
 import groupMembers from '../reducer/GetMembersReducer';
 import read from '../reducer/GetRead';
-import user from '../reducer/user';
+import user from '../reducer/User';
 
 const rootReducer = combineReducers({
   GoogleLogin,

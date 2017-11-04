@@ -12,7 +12,7 @@ import {
    * @param {any} groupdata
    */
 
-export function GetGroupAction(groupData) {
+export function getGroupAction(groupData) {
   return {
     type: GET_ALL_GROUPS,
     groupData,
@@ -22,7 +22,7 @@ export function GetGroupAction(groupData) {
    * dispatches an action to get all groups message
    * @param {any} groupdata
    */
-export function GetMessageAction(groupMessage) {
+export function getMessageAction(groupMessage) {
   return {
     type: GET_ALL_MESSAGE,
     groupMessage,
@@ -32,7 +32,7 @@ export function GetMessageAction(groupMessage) {
    * dispatches an action to get all group members
    * @param {any} groupdata
    */
-export function GetGroupMembers(groupMembers) {
+export function getGroupMembers(groupMembers) {
   return {
     type: GET_ALL_GROUP_MEMBERS,
     groupMembers,
@@ -42,16 +42,16 @@ export function GetGroupMembers(groupMembers) {
    * dispatches an action to show who saw messages
    * @param {any} read
    */
-export function ReadAction(read) {
+export function readAction(read) {
   return {
     type: GET_ALL_READ,
     read,
   };
 }
 /**
- * 
- * @param {string} groupname 
- * 
+ *
+ * @param {string} groupname
+ *
  * @return {promise} groups
  */
 
@@ -60,40 +60,40 @@ export function getGroups() {
     axios
       .get('/v1/group/groups')
       .then((response) => {
-        dispatch(GetGroupAction(response.data.groups));
+        dispatch(getGroupAction(response.data.groups));
       })
       .catch();
 }
 /**
- * 
+ *
  * @param {object} groupid
- * 
+ *
  * @return {promise} messages
  */
 export function getMessges(groupid) {
   return dispatch =>
     axios.get(`/v1/group/${groupid}/messages/`).then((response) => {
-      dispatch(GetMessageAction(response.data.messages));
-      dispatch(ReadAction(response.data.usersRead));
+      dispatch(getMessageAction(response.data.messages));
+      dispatch(readAction(response.data.usersRead));
     });
 }
 /**
- * 
+ *
  * @param {object} groupid
- * 
+ *
  * @return {promise} members
  */
 export function getMembers(groupid) {
   return dispatch =>
     axios.get(`/v1/group/${groupid}/members/`).then((response) => {
-      dispatch(GetGroupMembers(response.data.members));
+      dispatch(getGroupMembers(response.data.members));
     });
 }
 /**
- * 
+ *
  * @param {object} userdetails
- * 
- * @return {promise} 
+ *
+ * @return {promise}
  */
 export function addMembers(userDetails) {
   return dispatch =>
@@ -116,9 +116,9 @@ export function addMembers(userDetails) {
       });
 }
 /**
- * 
+ *
  * @param {object} groupdata
- * 
+ *
  * @return {promise} messages
  */
 export function addGroups(groupData) {
@@ -143,9 +143,9 @@ export function addGroups(groupData) {
 }
 
 /**
- * 
- * @param {object} groupname 
- * 
+ *
+ * @param {object} groupname
+ *
  * @return {promise}
  */
 export function addMessage(messageData) {

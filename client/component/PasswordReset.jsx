@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { passwordReset } from '../actions/UserAction';
 
 /**
- * 
+ *
  * @description Password Reset
  * @export
  * @param {object} props
@@ -25,7 +25,7 @@ class PasswordReset extends React.Component {
   }
   /**
     * @method onChange
-    * @description Listens for changes in form fileds 
+    * @description Listens for changes in form fileds
     * @memberof AddGroup
     * @param {object} event
     *
@@ -40,7 +40,7 @@ class PasswordReset extends React.Component {
      * @param {object} event
      *
      * @memberof AddGroup
-     * 
+     *
      * @returns {Promise}
   */
   onSubmit(event) {
@@ -59,9 +59,9 @@ class PasswordReset extends React.Component {
   /**
    * @method render
    * Render react component
-   * 
+   *
    * @memberof AddGroup
-   * 
+   *
    * @returns {String} HTML markup for password reset
    */
   render() {

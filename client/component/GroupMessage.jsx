@@ -8,7 +8,7 @@ import { getGroups, addMembers, getMessges, getMembers } from '../actions/GroupA
 
 const socket = io();
 /**
- * 
+ *
  * @description add user and post group message
  * @export
  * @param {object} props
@@ -38,7 +38,7 @@ class GroupMessage extends React.Component {
      * route with state parameters
      * @param {object} event
      * @memberof AddGroup
-     * 
+     *
      * @returns {void}
   */
   onSubmit(event) {
@@ -67,7 +67,7 @@ class GroupMessage extends React.Component {
    * @method render
    * Render react component
    * @memberof AddGroup
-   * 
+   *
    * @returns {String} HTML markup for displaying board message
    */
   render() {
@@ -206,7 +206,7 @@ GroupMessage.PropTypes = {
   GroupMembers: PropTypes.array.isRequired,
 };
 /**
-   * connect to redux store 
+   * connect to redux store
    * @param {any} user
    */
 function mapStateToProps(state) {

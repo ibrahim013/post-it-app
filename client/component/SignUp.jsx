@@ -7,7 +7,7 @@ import { Modal } from 'react-bootstrap';
 import validateInput from '../utilities/validation';
 
 /**
- * 
+ *
  * @description user signup
  * @export
  * @param {object} props
@@ -30,7 +30,7 @@ class SignUp extends React.Component {
   }
   /**
     * @method onChange
-    * @description Listens for changes in form fileds 
+    * @description Listens for changes in form fileds
     * @memberof SignUp
     * @param {object} event
     *
@@ -51,7 +51,7 @@ class SignUp extends React.Component {
      * route with user parameters
      * @param {object} event
      * @memberof SignUp
-     * 
+     *
      * @returns {Promise}
   */
   onSubmit(event) {
@@ -59,7 +59,7 @@ class SignUp extends React.Component {
     this.setState({ isLoading: true });
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.SignUpAction(this.state).then((res) => {
+      this.props.signUpAction(this.state).then((res) => {
         this.props.history.push('/');
         if (!res) {
           this.setState({
@@ -73,7 +73,7 @@ class SignUp extends React.Component {
    * @method render
    * Render react component
    * @memberof AddGroup
-   * 
+   *
    * @returns {String} HTML markup for the signup page
    */
   render() {

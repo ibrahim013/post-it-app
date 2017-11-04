@@ -5,7 +5,7 @@ import dateTime from 'date-time';
 import { withRouter } from 'react-router-dom';
 import AddGroup from '../component/AddGroup';
 import GetGroupList from '../component/GetGroupList';
-import { SignOut } from '../actions/UserAction';
+import { signOut } from '../actions/UserAction';
 
 const socket = io();
 /**
@@ -67,4 +67,4 @@ const DashBoard = () => (
   </div>
 );
 
-export default withRouter(connect(null, { SignOut })(DashBoard));
+export default withRouter(connect(null, { signOut })(DashBoard));

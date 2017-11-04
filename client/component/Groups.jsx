@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 /**
- * 
+ *
  * @description link to diffrent group
  * @export
  *

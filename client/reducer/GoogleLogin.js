@@ -5,7 +5,6 @@ export default (state = [], action = {}) => {
     case GOOGLE_LOGIN: {
       return [action.GLogin];
     }
-
     default:
       return state;
   }

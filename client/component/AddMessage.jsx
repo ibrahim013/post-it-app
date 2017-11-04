@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { addMessage } from '../actions/GroupAction';
 
 /**
- * 
+ *
  * @description add message
  * @export
  * @param {object} props
@@ -26,7 +26,7 @@ class AddMessage extends React.Component {
   }
   /**
     * @method onChange
-    * @description Listens for changes in form fileds 
+    * @description Listens for changes in form fileds
     * @memberof  AddMessage
     * @param {object} event
     *
@@ -41,7 +41,7 @@ class AddMessage extends React.Component {
      * @param {object} event
      *
      * @memberof AddMessage
-     * 
+     *
      * @returns {void}
   */
   onSubmit(event) {
@@ -55,9 +55,9 @@ class AddMessage extends React.Component {
   /**
    * @method render
    * Render react component
-   * 
+   *
    * @memberof AddMessage
-   * 
+   *
    * @returns {String} HTML markup for the Adding message to group
    */
   render() {
