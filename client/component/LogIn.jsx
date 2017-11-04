@@ -6,6 +6,7 @@ import GoogleButton from 'react-google-button';
 import { HashLoader } from 'react-spinners';
 import { signIn } from '../actions/UserAction';
 import { googleLogin } from '../actions/GoogleLogin';
+import TextFieldGroup from '../component/common/TextFieldGroup';
 
 /**
  *
@@ -70,6 +71,7 @@ export class LogIn extends React.Component {
         email: '',
         password: '',
         isLoading: false,
+        error: {},
       });
     });
   }
@@ -88,35 +90,25 @@ export class LogIn extends React.Component {
         </div>
         <div>
           <form onSubmit={this.onSubmit}>
-            <div className="form-group">
-              <label className="control-label">
-                <span className="glyphicon glyphicon-envelope" /> Email
-              </label>
-              <input
-                value={this.state.email}
-                onChange={this.onChange}
-                type="email"
-                name="email"
-                className="form-control"
-                placeholder="eg ibrahim@gmail.com"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>
-                <span className=" control-label glyphicon glyphicon-eye-open" />
-                 Password
-              </label>
-              <input
-                value={this.state.password}
-                onChange={this.onChange}
-                type="password"
-                name="password"
-                className="form-control"
-                placeholder="must be at least 6 character long"
-                required
-              />
-            </div>
+            <TextFieldGroup
+              value={this.state.email}
+              onChange={this.onChange}
+              label="Email"
+              field="email"
+              name="email"
+              glyphicon="glyphicon glyphicon-envelope"
+              placeholder="eg ibrahim@gmail.com"
+            />
+            <TextFieldGroup
+              value={this.state.password}
+              onChange={this.onChange}
+              label="Password"
+              field="password"
+              name="password"
+              className="form-control"
+              glyphicon="glyphicon  glyphicon-eye-open"
+              placeholder="must be at least 6 character long"
+            />
             <div className="form-group">
               <button
                 disabled={this.state.isLoading}
