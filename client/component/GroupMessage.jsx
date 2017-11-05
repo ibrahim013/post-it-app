@@ -123,12 +123,7 @@ class GroupMessage extends React.Component {
       <div>
         <Grid data-spy="scroll">
           <Row className="show-grid ">
-            <Col xs={12} md={3} className="asidelist">
-              <div id="signin">
-                <h3>
-                  <Link to="/dashboard">Dashboard</Link>
-                </h3>
-              </div>
+            <Col xs={12} md={2} className="asidelist">
               <Row className="show-grid create">
                 <Col xs={12}>
                   <h3> {this.state.groupName}</h3>
@@ -178,7 +173,7 @@ class GroupMessage extends React.Component {
                 </Col>
               </div>
             </Col>
-            <Col xs={7} md={7} className="messagelist">
+            <Col xs={7} md={8} className="messagelist">
               <div className="messageboard ">
                 <div className="">{MessageContainer}</div>
               </div>

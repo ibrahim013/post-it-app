@@ -70,14 +70,32 @@ class Header extends React.Component {
                   {isEmpty(isAuthenticated) ? (
                     <div />
                   ) : (
-                    <button
-                      onClick={() => {
-                        this.onSubmit();
-                      }}
-                      className="signout"
-                    >
-                      Signout
-                    </button>
+                    <div>
+                      <button
+                        onClick={() => {
+                          this.onSubmit();
+                        }}
+                        className="signout"
+                      >
+                        Signout
+                      </button>
+                      <button
+                        onClick={() => {
+                          this.props.history.push('/dashboard');
+                        }}
+                        className="signout"
+                      >
+                        Dashboard
+                      </button>
+                      <button
+                        onClick={() => {
+                          this.onSubmit();
+                        }}
+                        className="signout"
+                      >
+                        Notification
+                      </button>
+                    </div>
                   )}
                 </div>
               </li>
