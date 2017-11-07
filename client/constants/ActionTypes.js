@@ -1,4 +1,10 @@
-export const ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
+export const ADD_NEW_MEMBER = 'ADD_NEW_MEMBER';
 export const ADD_GROUPS = 'ADD_GROUPS';
 export const GET_ALL_GROUPS = 'GET_ALL_GROUPS';
 export const GET_ALL_MESSAGE = 'GET_ALL_MESSAGE';
+export const GET_ALL_GROUP_MEMBERS = 'GET_ALL_GROUP_MEMBERS';
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
+export const LOGIN_ERROR = 'LOGOUT_ERROR';
+export const GOOGLE_LOGIN = 'GOOGLE_LOGIN';
+export const GET_ALL_READ = 'GET_ALL_READ';

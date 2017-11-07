@@ -1,60 +1,86 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
-import Link from 'react-router-dom';
-import {Well, Button, Collapse} from 'react-bootstrap';
-import {addMembers} from '../actions/GetGroupsAction'
+import { addMembers } from '../actions/GroupAction';
 
-
+/**
+ *
+ * @description add user to groups
+ * @export
+ * @param {object} props
+ * @class Members
+ * @extends {Component}
+ */
 
 class Members extends React.Component {
   constructor() {
     super();
     this.state = {
       member: '',
-      
-      errors: {}
+      errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  /**
+    * @method onChange
+    * @description Listens for changes in form filed
+    * @memberof Members
+    * @param {object} event
+    *
+    * @returns {void}
+    */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
-  onSubmit(e) {
-    e.preventDefault();
-    this.props.addMembers(this.state)
-
+  /**
+     * @description Makes an action call to add members
+     * route with user parameters
+     * @param {object} event
+     *
+     * @memberof Member
+     *
+     * @returns {void}
+  */
+  onSubmit(event) {
+    event.preventDefault();
+    this.props.addMembers(this.state);
+    this.setState({
+      member: '',
+      errors: {},
+    });
   }
+  /**
+   * @method render
+   * Render react component
+   *
+   * @memberof Member
+   *
+   * @returns {String} HTML markup for the Adding group members
+   */
   render() {
-    const { errors } = this.state;
     return (
       <div>
-        
-          <form onSubmit={this.onSubmit}>
-            <div className="form-group">
-            <input type="text" name="membername" placeholder="Name"
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <input
+              type="text"
+              name="membername"
+              placeholder="Name"
               value={this.state.groupname}
-              onChange={this.onChange} required
-              />
-                  </div>
-            <button name="members" className="btn btn-primary btn-small" 
-              onSubmit={this.onSubmit}>
-              Add Members
-            </button>
-            
-          </form>
-          
-        </div>
-    
-
-
+              onChange={this.onChange}
+              required
+            />
+          </div>
+          <button name="members" className="btn btn-primary btn-small"
+           onSubmit={this.onSubmit}>
+            Add Members
+          </button>
+        </form>
+      </div>
     );
   }
 }
 
-
-export default connect(null,{addMembers}) (Members);
+export default withRouter(connect(null, { addMembers })(Members));
