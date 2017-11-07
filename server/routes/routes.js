@@ -21,7 +21,7 @@ router.post('/api/v1/user/passwordreset', Validator.validatePasswordReset, User.
 router.post('/api/v1/group', group);
 router.get('/api/v1/group/groups', userGroups);
 router.post('/api/v1/group/addmember', addMember);
-router.post('/api/v1/group/postmessage', postMessage);
+router.post('/api/v1/group/postmessage', Validator.postMessage, postMessage);
 router.get('/api/v1/group/:groupid/messages', messageList);
 router.get('/api/v1/group/:groupid/members', groupMember);
 

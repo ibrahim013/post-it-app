@@ -1,4 +1,6 @@
 import firebase from 'firebase';
+import sendEmail from '../utilities/emailTranspoter';
+import sendSms from '../utilities/smsTranspoter';
 /**
 * class userObject: controls all user function
 * @class
@@ -26,7 +28,7 @@ export default class userObject {
         });
       })
       .then(() => {
-        const user = users.find(userdetails => 
+        const user = users.find(userdetails =>
           userdetails.displayName === `${displayName}`);
         if (user !== undefined) {
           return user;
@@ -67,7 +69,7 @@ export default class userObject {
 *
 * @param {string} displayName
 * @param {string} groupId
-
+*
 * @return {Boolen}
 */
   static groupMember(groupId, displayName) {
@@ -96,7 +98,7 @@ export default class userObject {
 * @param {string} groupId
 * @param {string} diaplayName
 * @param {string} groupName
-
+*
 * @return {Boolen}
 */
   static addToGroup(groupId, displayName, groupName) {
@@ -119,5 +121,60 @@ export default class userObject {
         phoneNumber: user.phoneNumber,
       });
     }).then(() => true);
+  }
+/**
+* @description: This method gets all group member in a group
+*
+* @param {string} groupId
+*
+* @return {Boolen}
+*/
+  static getGroupMembersEmail(groupId) {
+    const userEmail = [];
+    const memberEmail = firebase
+      .database()
+      .ref(`group/${groupId}/members`)
+      .orderByKey();
+    return memberEmail.once('value', (snapshot) => {
+      snapshot.forEach((childSnapShot) => {
+        const email = childSnapShot.val().email;
+        userEmail.push(email);
+      });
+    }).then(() => userEmail);
+  }
+  static getGroupMembersPhoneNumber(groupId) {
+    const phoneNumber = [];
+    const memberPhone = firebase
+      .database()
+      .ref(`group/${groupId}/members`)
+      .orderByKey();
+    return memberPhone.once('value', (snapshot) => {
+      snapshot.forEach((childSnapShot) => {
+        const number = childSnapShot.val().phoneNumber;
+        phoneNumber.push(number);
+      });
+    }).then(() => phoneNumber);
+  }
+
+/**
+* @description: This method send email notification to members in a group
+*
+* @param {string} groupId
+* @param {string} piority
+* @param {string} groupName
+*
+* @return {Void} any
+*/
+  static sendNotification(groupId, piority, groupName) {
+    userObject.getGroupMembersEmail(groupId).then((userEmail) => {
+      if (`${piority}` === 'Critical') {
+        sendEmail({ userEmail, groupName });
+      }
+    });
+    userObject.getGroupMembersPhoneNumber(groupId).then((userNumber) => {
+      if (`${piority}` === 'Critical' || `${piority}` === 'Urgent') {
+        sendSms({ userNumber, groupName });
+      }
+    });
   }
 }
