@@ -41,6 +41,7 @@
     "enzyme": "^3.1.0",
     "expect": "^21.2.1",
     "express": "~4.15.2",
+    "express-validator": "^4.3.0",
     "extract-text-webpack-plugin": "^2.1.2",
     "faker": "^4.1.0",
     "fetch-mock": "^5.13.1",

@@ -17,7 +17,7 @@ class AddMessage extends React.Component {
     super(props);
     this.state = {
       message: '',
-      piority: '',
+      piority: 'Normal',
       groupname: this.props.groupid,
       errors: {},
     };
@@ -71,23 +71,20 @@ class AddMessage extends React.Component {
             onChange={this.onChange}
             value={this.state.message}
             required
+            maxLength={300}
           />
-          <label className="radio-inline btn-space">
-            <input type="radio" name="piority" value="Normal"
-            onChange={this.onChange} />Normal
-          </label>
-          <label className="radio-inline btn-space">
-            <input type="radio" name="piority" value="Critical"
-            onChange={this.onChange} />Critical
-          </label>
-          <label className="radio-inline btn-space">
-            <input type="radio" name="piority" value="Urgent"
-            onChange={this.onChange} />Urgent
-          </label>
-          <span className="input-group-addon btn btn-primary "
-           onClick={this.onSubmit}>
+          <div className="piority">
+          <select className="form-control" id="sel1" onChange={this.onChange} name="piority">
+            <option value="Normal">Normal</option>
+            <option value="Critical">Urgent</option>
+            <option value="Urgent">Critical</option>
+          </select>
+          </div>
+          <div className="piority-s">
+          <span className="input-group-addon btn btn-primary " onClick={this.onSubmit}>
             Send <span className=" glyphicon glyphicon-send" />
           </span>
+          </div>
         </form>
       </div>
     );

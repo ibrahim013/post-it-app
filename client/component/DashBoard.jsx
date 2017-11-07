@@ -21,9 +21,9 @@ const DashBoard = () => (
       <div className="row linkheader" />
       <Grid data-spy="scroll">
         <Row className="show-grid ">
-          <Col xs={12} md={3} className="asidelist">
+          <Col xs={12} md={2} className="asidelist">
             <Row className="show-grid create-group">
-              <Col xs={7} md={7}>
+              <Col xs={7} md={6}>
                 <div>
                   <h3>Groups</h3>
                 </div>
