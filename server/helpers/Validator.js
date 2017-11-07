@@ -61,10 +61,21 @@ export default class Validate {
       next();
     }
   }
-  static postMessage(req, res, next) {
+  static validatePostMessage(req, res, next) {
     req.check('message', 'message cant be empty').notEmpty();
     req.check('piority', 'piority cant be empty.').notEmpty();
     req.check('groupName', 'group Name cant be empty.').notEmpty();
+    const errors = req.validationErrors();
+    if (errors) {
+      const message = errors[0].msg;
+      res.status(400).json({ message });
+    } else {
+      next();
+    }
+  }
+  static validateAddGroup(req, res, next) {
+    req.check('groupName', 'group name cant be empty').notEmpty();
+    req.check('description', 'discription cant be empty.').notEmpty();
     const errors = req.validationErrors();
     if (errors) {
       const message = errors[0].msg;

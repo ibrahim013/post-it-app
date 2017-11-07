@@ -218,6 +218,7 @@ export const messageList = (req, res) => {
 /**
  * @description create user group.
  * POST:/api/v1/group
+ *
  * @param {string} groupname;
  * @param {string} discription;
  *
@@ -225,48 +226,23 @@ export const messageList = (req, res) => {
  */
 
 export const group = (req, res) => {
-  const { groupname, discription } = req.body;
+  const { groupName, description } = req.body;
   firebase.auth().onAuthStateChanged((user) => {
     if (user !== null) {
-      const currentUser = firebase.auth().currentUser;
-      const dateCreated = new Date().toString();
-      const userEmail = currentUser.email;
-      const uid = currentUser.uid;
-      const displayName = currentUser.displayName;
-      const phoneNumber = currentUser.phoneNumber;
-      const groupKey = firebase
-        .database()
-        .ref(`user/${uid}/group`)
-        .push({
-          groupname,
-          dateCreated,
-        }).key;
-      firebase
-        .database()
-        .ref(`group/${groupKey}`)
-        .set({
-          groupname,
-          dateCreated,
-          GroupAdmin: userEmail,
-          userEmail,
-          displayName,
-          Discription: discription,
-        });
-      firebase
-        .database()
-        .ref(`group/${groupKey}/`)
-        .child('members')
-        .push({
-          displayName,
-          userEmail,
-          phoneNumber,
-        })
-        .then(() =>
-          res.status(201).json({
-            message: 'group created Sucessfuly',
-          }),
-        )
-        .catch(() => res.status(401).json({ message: 'oops! Somthing went wrong' }));
+      userObject.userGroupName(groupName).then((result) => {
+        if (result) {
+          res.status(409).json({ message: 'group name already exist' });
+        } else {
+          userObject.createGroup(`${groupName}`, `${description}`)
+          .then((response) => {
+            if (response) {
+              res.status(201).json({
+                message: 'group created Sucessfuly',
+              });
+            }
+          });
+        }
+      }).catch(() => res.status(500).json({ message: 'oops! Somthing went wrong' }));
     } else {
       res.status(401).json({ message: 'you must  be loged in to do this' });
     }

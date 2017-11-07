@@ -21,7 +21,7 @@ export default class User {
   static signUp(req, res) {
     const { displayName, email, password, phoneNumber } = req.body;
     const time = new Date().toLocaleString();
-    firebase
+    return firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
@@ -56,7 +56,6 @@ export default class User {
           return res.status(400).json({ message: 'password strength is too week' });
         }
       });
-    return res.status(500).json({ message: 'oops! somthing went wrong' });
   }
 
   /**

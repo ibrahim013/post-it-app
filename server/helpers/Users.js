@@ -65,6 +65,34 @@ export default class userObject {
       });
   }
 /**
+* @description: This method check for the avaliability of a group
+*
+* @param {String} groupId
+*
+* @return {Boolen}
+*/
+  static userGroupName(groupName) {
+    const groups = [];
+    const createdGroups = firebase
+    .database()
+    .ref('group')
+    .orderByValue();
+    return createdGroups
+    .once('value', (snapshot) => {
+      snapshot.forEach((childSnapShot) => {
+        const groupN = childSnapShot.val().groupName;
+        groups.push(groupN);
+      });
+    })
+    .then(() => {
+      const group = groups.includes(`${groupName}`);
+      if (group) {
+        return true;
+      }
+      return false;
+    });
+  }
+/**
 * @description: This method check for user existance in a perticuler group
 *
 * @param {string} displayName
@@ -92,6 +120,7 @@ export default class userObject {
         return false;
       });
   }
+
 /**
 * @description: This method add user to a perticuler group
 *
@@ -103,7 +132,7 @@ export default class userObject {
 */
   static addToGroup(groupId, displayName, groupName) {
     return userObject.userDetail(displayName).then((user) => {
-      const addedUser = user.uid;
+      const addedUser = user.userId;
       const currentUser = firebase.auth().currentUser.uid;
       firebase.database().ref(`user/${addedUser}/group`)
       .push({
@@ -122,8 +151,9 @@ export default class userObject {
       });
     }).then(() => true);
   }
+
 /**
-* @description: This method gets all group member in a group
+* @description: This method gets all group member  email in a group
 *
 * @param {string} groupId
 *
@@ -176,5 +206,35 @@ export default class userObject {
         sendSms({ userNumber, groupName });
       }
     });
+  }
+  static createGroup(groupName, description) {
+    const currentUser = firebase.auth().currentUser;
+    const dateCreated = new Date().toLocaleString();
+    const userEmail = currentUser.email;
+    const uid = currentUser.uid;
+    const displayName = currentUser.displayName;
+    const groupKey = firebase.database().ref(`user/${uid}/group`)
+    .push({
+      groupName,
+      dateCreated,
+    }).key;
+    return firebase.database().ref(`group/${groupKey}`)
+    .set({
+      groupName,
+      dateCreated,
+      GroupAdmin: userEmail,
+      userEmail,
+      displayName,
+      Discription: description,
+    }).then(() => {
+      firebase
+      .database()
+      .ref(`group/${groupKey}/members`)
+      .push({
+        userEmail,
+        displayName,
+      });
+    })
+    .then(() => true);
   }
 }

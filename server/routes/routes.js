@@ -18,10 +18,10 @@ router.post('/api/v1/user/google', User.googleLogin);
 router.post('/api/v1/user/googleupdate', Validator.validateGoogleUpdate, User.googleUpdate);
 router.get('/api/v1/user/signout', User.signOut);
 router.post('/api/v1/user/passwordreset', Validator.validatePasswordReset, User.passwordReset);
-router.post('/api/v1/group', group);
+router.post('/api/v1/group', Validator.validateAddGroup, group);
 router.get('/api/v1/group/groups', userGroups);
 router.post('/api/v1/group/addmember', addMember);
-router.post('/api/v1/group/postmessage', Validator.postMessage, postMessage);
+router.post('/api/v1/group/postmessage', Validator.validatePostMessage, postMessage);
 router.get('/api/v1/group/:groupid/messages', messageList);
 router.get('/api/v1/group/:groupid/members', groupMember);
 
