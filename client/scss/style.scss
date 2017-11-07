@@ -239,6 +239,9 @@ li {
 .member {
   margin-top: 60%;
 }
+.piority {
+  margin-left: 15px;
+}
 .one {
   display: inline-block;
   width: 90%;
@@ -289,6 +292,7 @@ li {
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   cursor: pointer;
+
 }
 
 @media (min-width: 1200px) {
