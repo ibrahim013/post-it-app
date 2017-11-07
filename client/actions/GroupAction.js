@@ -60,7 +60,6 @@ export function getGroups() {
     axios
       .get('/api/v1/group/groups')
       .then((response) => {
-        console.log("some changes", response);
         dispatch(getGroupAction(response.data.groups));
       })
       .catch();
