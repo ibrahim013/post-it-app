@@ -24,7 +24,7 @@ export const userGroups = (req, res) => {
           snapshot.forEach((child) => {
             const group = {
               groupid: child.key,
-              groupname: child.val().groupname,
+              groupname: child.val().groupName,
             };
             groups.push(group);
           });
@@ -129,7 +129,8 @@ export const postMessage = (req, res) => {
                 Author: displayName,
               })
               .then(() => {
-                userObject.sendNotification(`${groupId}`, `${piority}`, `${groupName}`);
+                userObject.sendNotification(`${groupId}`, `${piority}`,
+                 `${groupName}`);
                 return res.status(201).json({
                   message: 'Message Posted Sucessfuly',
                 });
@@ -171,7 +172,8 @@ export const messageList = (req, res) => {
         };
         usersRead.push(userName);
       });
-      const readMessage = usersRead.find(seen => seen.displayName === `${displayName}`);
+      const readMessage = usersRead.find(seen =>
+        seen.displayName === `${displayName}`);
       if (!readMessage) {
         firebase
           .database()
