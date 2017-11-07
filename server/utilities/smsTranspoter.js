@@ -9,13 +9,8 @@ const nexmo = new Nexmo({
 });
 module.exports = (smsObject) => {
   nexmo.message.sendSms(
-    'Post-It App', smsObject.phoneNumber,
-    'A critical message has been posted to a group you belong login in to view message',
-    (error, responseData) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(responseData);
-      }
-    });
+    'Post-It App', smsObject.userNumber,
+    `A critical message has been posted to ${smsObject.groupName}
+     group you belong login in to view message`,
+  );
 };
