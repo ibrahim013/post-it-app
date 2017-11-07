@@ -1,6 +1,7 @@
 import * as firebase from 'firebase';
 import sendEmail from '../utilities/emailTranspoter';
 import sendSms from '../utilities/smsTranspoter';
+import userObject from '../helpers/Users';
 /**
  * @description get user group.
  * GET: /api/v1/group/groups
@@ -53,87 +54,41 @@ export const userGroups = (req, res) => {
 
 export const addMember = (req, res) => {
   const { groupName, displayName, groupId } = req.body;
-  const dateCreated = new Date().toString();
-  const users = [];
-  const groups = [];
-  const groupMember = [];
-  const registeredUsers = firebase
-    .database()
-    .ref('user')
-    .orderByKey();
-  const createdGroups = firebase
-    .database()
-    .ref('group')
-    .orderByValue();
-  const groupMembers = firebase
-    .database()
-    .ref(`group/${groupId}/members`)
-    .orderByKey();
-  registeredUsers.once('value', (snapshot) => {
-    snapshot.forEach((childSnapShot) => {
-      const user = {
-        displayName: childSnapShot.val().displayName,
-        email: childSnapShot.val().email,
-        phoneNumber: childSnapShot.val().phoneNumber,
-        uid: childSnapShot.val().uid,
-      };
-      users.push(user);
-    });
-  });
-  groupMembers.once('value', (snapshot) => {
-    snapshot.forEach((childSnapShot) => {
-      const groupmember = childSnapShot.val().displayName;
-      groupMember.push(groupmember);
-    });
-  });
-  createdGroups
-    .once('value', (snapshot) => {
-      snapshot.forEach((childSnapShot) => {
-        const group = childSnapShot.val().groupname;
-        groups.push(group);
-      });
-      const group = groups.includes(`${groupName}`);
-      const user = users.find(userdetails => userdetails.displayName === `${displayName}`);
-      const member = groupMember.includes(`${displayName}`);
-      if (!user) {
-        return res.status(400).json({ message: 'User not found' });
-      }
-      if (!group) {
-        return res.status(400).json({ message: 'Group not found' });
-      }
-      if (member) {
-        return res.status(400).json({
-          message: 'This user is already a member of this group',
+  const currentUser = firebase.auth().currentUser;
+  if (currentUser) {
+    userObject
+      .userDetail(`${displayName}`)
+      .then((registeredUser) => {
+        if (!registeredUser) {
+          return res.status(400).json({ message: 'User not found' });
+        }
+        userObject.userGroup(`${groupId}`).then((registeredGroups) => {
+          if (!registeredGroups) {
+            return res.status(400).json({ message: 'group not found' });
+          }
         });
-      }
-      const addedUser = user.uid;
-      firebase
-        .database()
-        .ref(`user/${addedUser}/group`)
-        .push({
-          groupname: groupName,
-          dateCreated,
+        userObject.groupMember(`${groupId}`, `${displayName}`)
+        .then((groupMember) => {
+          if (groupMember) {
+            return res.status(400).json({
+              message: 'This user is already a member of this group',
+            });
+          }
         });
-      const currentUser = firebase.auth().currentUser.uid;
-      firebase
-        .database()
-        .ref(`user/${currentUser}/group`)
-        .push({
-          groupname: groupName,
-          dateCreated,
+        userObject.addToGroup(`${groupId}`, `${displayName}`, `${groupName}`)
+        .then((response) => {
+          if (response) {
+            return res.status(201).json({
+              message: 'user added sucessfully',
+            });
+          }
         });
-      firebase
-        .database()
-        .ref(`group/${groupId}/`)
-        .child('members')
-        .push({
-          displayName: user.displayName,
-          email: user.email,
-          phoneNumber: user.phoneNumber,
-        });
-    })
-    .then(() => res.status(201).json({ message: 'user added sucessfully' }))
-    .catch(() => res.status(400).json({ message: 'oops! Somthing went wrong' }));
+      })
+      .catch(() => res.status(500).json({ message: 'oops! Somthing went wrong',
+      }));
+  } else {
+    res.status(401).json({ message: 'you need to be loged in to perform this action' });
+  }
 };
 
 /**

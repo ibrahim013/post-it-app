@@ -4,6 +4,7 @@ import path from 'path';
 import http from 'http';
 import socketio from 'socket.io';
 import webpack from 'webpack';
+import expressValidator from 'express-validator';
 import webpackmiddleware from 'webpack-dev-middleware';
 import webpackConfig from '../webpack.config';
 import routes from '../server/routes/routes';
@@ -24,11 +25,13 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(expressValidator());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POSTS');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,' +
+  'content-type, Authorization');
   next();
 });
 
