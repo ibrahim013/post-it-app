@@ -28,18 +28,6 @@ class AddMessage extends React.Component{
 render(){
 return(
 	<div>
-	{/* <div className="panel panel-default ">
-	 <div className="panel-heading">Messages
-	 </div>
-	 </div>
-	 {/* {
-	 	this.state.posts.map((postBody, id) => {
-	 		return(
-	 			<Post Key={id} postBody = {postBody}/>
-	 			)
-	 	})
-	 } */} 
-
 	<div className="panel-body text">
 	<textarea placeholder='Messages'name="message" onChange ={this.onChange} value={this.state.message}
     />
