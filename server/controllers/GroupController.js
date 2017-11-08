@@ -157,9 +157,9 @@ export const postMessage = (req, res) => {
 
 export const messageList = (req, res) => {
   const user = firebase.auth().currentUser;
-  const displayName = user.displayName;
-  const readTime = new Date().toString();
   if (user) {
+    const displayName = user.displayName;
+    const readTime = new Date().toString();
     const usersRead = [];
     const memberdisplayName = firebase
       .database()

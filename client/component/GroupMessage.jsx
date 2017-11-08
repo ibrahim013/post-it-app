@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import AddMessage from '../component/AddMessage';
 import { getGroups, addMembers, getMessges, getMembers } from '../actions/GroupAction';
 
@@ -81,10 +81,8 @@ class GroupMessage extends React.Component {
             <div className="panel-body">
               <p className="">{message.messageText}</p>
               <p id="details">
-                <span className="left-align">Sent By: {message.author}
-                </span>&nbsp;
-                <span className="left-align">Priority: {message.priorityLevel}
-                </span>&nbsp;
+                <span className="left-align">Sent By: {message.author}</span>&nbsp;
+                <span className="left-align">Priority: {message.priorityLevel}</span>&nbsp;
                 <span className="right-align">Sent On: {message.date}</span>
               </p>
             </div>
@@ -111,12 +109,10 @@ class GroupMessage extends React.Component {
     }
     if (Read.length !== 0) {
       readContainer = Read.map(seen => (
-        <div>
-          <li>
+          <li key={1}>
             <span className="glyphicon glyphicon-user" /> &nbsp;&nbsp;
             {seen.displayName}
           </li>
-        </div>
       ));
     }
     return (
@@ -127,7 +123,7 @@ class GroupMessage extends React.Component {
               <Row className="show-grid create">
                 <Col xs={12}>
                   <h3> {this.state.groupName}</h3>
-                  <li>{MemberContainer}</li>
+                  {MemberContainer}
                 </Col>
               </Row>
               <div>
@@ -178,7 +174,7 @@ class GroupMessage extends React.Component {
                 <div className="">{MessageContainer}</div>
               </div>
               <div className="post">
-                <AddMessage groupid={this.state.groupId} />
+                <AddMessage groupId={this.state.groupId} groupName={this.state.groupName} />
               </div>
             </Col>
             <Col xs={4} md={2}>
