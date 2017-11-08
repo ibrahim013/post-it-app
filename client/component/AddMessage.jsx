@@ -1,78 +1,104 @@
 import React from 'react';
-import addMessage from '../actions/AddMessage';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import Post from '../component/post';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { addMessage } from '../actions/GroupAction';
 
-class AddMessage extends React.Component{
-	constructor(props) {
-		super(props);
-		
-		this.state = {
-			message:'',
-			piority:'',
-			groupname: this.props.groupid,
-			
-
-		}
-		this.onChange = this.onChange.bind(this);
+/**
+ *
+ * @description add message
+ * @export
+ * @param {object} props
+ * @class AddMessage
+ * @extends {Component}
+ */
+class AddMessage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: '',
+      piority: 'Normal',
+      groupId: this.props.groupId,
+      groupName: this.props.groupName,
+      errors: {},
+    };
+    this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-	}
-	onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
   }
-	onSubmit(e){
-	e.preventDefault();
-	this.props.addMessage(this.state)
-}
-render(){
-return(
-	<div>
-	{/* <div className="panel panel-default ">
-	 <div className="panel-heading">Messages
-	 </div>
-	 </div>
-	 {/* {
-	 	this.state.posts.map((postBody, id) => {
-	 		return(
-	 			<Post Key={id} postBody = {postBody}/>
-	 			)
-	 	})
-	 } */} 
+  /**
+    * @method onChange
+    * @description Listens for changes in form fileds
+    * @memberof  AddMessage
+    * @param {object} event
+    *
+    * @returns {void}
+    */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+  /**
+     * @description Makes an action call to add message
+     * route with message parameters
+     * @param {object} event
+     *
+     * @memberof AddMessage
+     *
+     * @returns {void}
+  */
+  onSubmit(event) {
+    event.preventDefault();
+    this.props.addMessage(this.state);
+    this.setState({
+      message: '',
+    });
+  }
 
-	<div className="panel-body text">
-	<textarea placeholder='Messages'name="message" onChange ={this.onChange} value={this.state.message}
-    />
- <form onSubmit={this.onSubmit}>
-    <label className="radio-inline">
-      <input type="radio" name="piority" value="normal" onChange ={this.onChange}/>Normal
-    </label>
-    <label className="radio-inline">
-      <input type="radio" name="piority" value="high" onChange ={this.onChange}/>Critical
-    </label>
-    <label className="radio-inline">
-      <input type="radio" name="piority" value="critical" onChange ={this.onChange}/>Urgent
-    </label>
-		<br/>
-		<button name="group" className="btn btn-primary btn-small" 
-			onSubmit={this.onSubmit}>
-			send
-		</button>
-  </form>
-	</div>
-	
-	</div>
-);
-}
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      groupName: nextProps.groupName,
+    });
+  }
+  /**
+   * @method render
+   * Render react component
+   *
+   * @memberof AddMessage
+   *
+   * @returns {String} HTML markup for the Adding message to group
+   */
+  render() {
+    return (
+      <div className="panel-body text">
+        <form onSubmit={this.onSubmit}>
+          <textarea
+            className="form-control custom-control"
+            placeholder="Messages"
+            name="message"
+            onChange={this.onChange}
+            value={this.state.message}
+            required
+            maxLength={300}
+          />
+          <div className="piority">
+          <select className="form-control" id="sel1" onChange={this.onChange}
+          name="piority">
+            <option value="Normal">Normal</option>
+            <option value="Critical">Urgent</option>
+            <option value="Urgent">Critical</option>
+          </select>
+          </div>
+          <div className="piority-s">
+          <span className="input-group-addon btn btn-primary "
+          onClick={this.onSubmit}>
+            Send <span className=" glyphicon glyphicon-send" />
+          </span>
+          </div>
+        </form>
+      </div>
+    );
+  }
 }
 AddMessage.PropTypes = {
-    Messages: PropTypes.array.isRequired
-  }
-  function mapStateToProps(state){
-    return{
-      Mesages: state.mesageText
-    }
-  }
-
-
-export default connect(mapStateToProps, {addMessage}) (AddMessage);
+  Messages: PropTypes.array.isRequired,
+};
+export default withRouter(connect(null, { addMessage })(AddMessage));

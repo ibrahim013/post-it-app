@@ -1,7 +1,10 @@
 node_modules
 serviceAccountKey.json
 modules
+coverage
 .env
 /public
 .vscode
 .nyc_output
+.DS_Store
+npm-debug.log.2565220324
