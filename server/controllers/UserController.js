@@ -58,7 +58,7 @@ export default class User {
       });
   }
 
-/**
+  /**
  * @description Sign in users.
  * POST: /api/v1/user/signin
  * @param {object} req;

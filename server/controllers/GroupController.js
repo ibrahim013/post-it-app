@@ -5,9 +5,13 @@ import userObject from '../helpers/Users';
  * @description get user group.
  * GET: /api/v1/group/groups
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
  *
 >>>>>>> 29aaf09b9e7854e426fd84f18e914076ffd42628
+=======
+ *
+>>>>>>> 2a1bf2d52baea277c13e95d926aa8e2adc41f0b9
  * @param {object} req;
  * @param {object} res;
  *
@@ -27,7 +31,7 @@ export const userGroups = (req, res) => {
           snapshot.forEach((child) => {
             const group = {
               groupid: child.key,
-              groupname: child.val().groupname,
+              groupname: child.val().groupName,
             };
             groups.push(group);
           });
@@ -50,9 +54,13 @@ export const userGroups = (req, res) => {
  * @description adding members to group.
  * POST:/api/v1/group/addmember
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
  *
 >>>>>>> 29aaf09b9e7854e426fd84f18e914076ffd42628
+=======
+ *
+>>>>>>> 2a1bf2d52baea277c13e95d926aa8e2adc41f0b9
  * @param {object} req;
  * @param {object} res;
  *
@@ -135,7 +143,8 @@ export const postMessage = (req, res) => {
                 Author: displayName,
               })
               .then(() => {
-                userObject.sendNotification(`${groupId}`, `${piority}`, `${groupName}`);
+                userObject.sendNotification(`${groupId}`, `${piority}`,
+                 `${groupName}`);
                 return res.status(201).json({
                   message: 'Message Posted Sucessfuly',
                 });
@@ -162,9 +171,9 @@ export const postMessage = (req, res) => {
 
 export const messageList = (req, res) => {
   const user = firebase.auth().currentUser;
-  const displayName = user.displayName;
-  const readTime = new Date().toString();
   if (user) {
+    const displayName = user.displayName;
+    const readTime = new Date().toString();
     const usersRead = [];
     const memberdisplayName = firebase
       .database()
@@ -177,7 +186,8 @@ export const messageList = (req, res) => {
         };
         usersRead.push(userName);
       });
-      const readMessage = usersRead.find(seen => seen.displayName === `${displayName}`);
+      const readMessage = usersRead.find(seen =>
+        seen.displayName === `${displayName}`);
       if (!readMessage) {
         firebase
           .database()
