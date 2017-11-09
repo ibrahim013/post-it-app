@@ -95,6 +95,7 @@ export default class User {
         }
         return res.status(500).json({ message: 'oops!! Somthing went wrong' });
       });
+  }
   /**
  *@description Route to reset user password.
  *

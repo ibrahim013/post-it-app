@@ -18,7 +18,8 @@ class AddMessage extends React.Component {
     this.state = {
       message: '',
       piority: 'Normal',
-      groupname: this.props.groupid,
+      groupId: this.props.groupId,
+      groupName: this.props.groupName,
       errors: {},
     };
     this.onChange = this.onChange.bind(this);
@@ -49,7 +50,12 @@ class AddMessage extends React.Component {
     this.props.addMessage(this.state);
     this.setState({
       message: '',
-      piority: '',
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      groupName: nextProps.groupName,
     });
   }
   /**
@@ -74,14 +80,16 @@ class AddMessage extends React.Component {
             maxLength={300}
           />
           <div className="piority">
-          <select className="form-control" id="sel1" onChange={this.onChange} name="piority">
+          <select className="form-control" id="sel1" onChange={this.onChange}
+          name="piority">
             <option value="Normal">Normal</option>
             <option value="Critical">Urgent</option>
             <option value="Urgent">Critical</option>
           </select>
           </div>
           <div className="piority-s">
-          <span className="input-group-addon btn btn-primary " onClick={this.onSubmit}>
+          <span className="input-group-addon btn btn-primary "
+          onClick={this.onSubmit}>
             Send <span className=" glyphicon glyphicon-send" />
           </span>
           </div>
