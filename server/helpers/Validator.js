@@ -12,8 +12,9 @@ export default class Validate {
   static validateSignUp(req, res, next) {
     req.check('displayName', 'Username is required').notEmpty().matches(/\w/);
     req.check('phoneNumber', 'Phone number is required').notEmpty().matches(/\d/);
+    req.check('phoneNumber', 'Only number is allowed here').isNumeric();
     req.check('email', 'Email is required').notEmpty();
-    req.check('email', 'The email address is badly formatted.').isEmail();
+    req.check('email', 'The email address is badly formatted').isEmail();
     req.check('password', 'Password is required').notEmpty();
     req.check('password', 'Password should be at least 6 characters')
         .isLength(6, 50);
@@ -29,9 +30,7 @@ export default class Validate {
   static validateSignIn(req, res, next) {
     req.check('email', 'Email is required').notEmpty();
     req.check('email', 'The email address is badly formatted.').isEmail();
-    req.check('password', 'Password is required').notEmpty();
-    req.check('password', 'Password should be at least 6 characters')
-        .isLength(6, 50);
+    req.check('password', 'Password is empty').notEmpty();
     const errors = req.validationErrors();
     if (errors) {
       const message = errors[0].msg;
