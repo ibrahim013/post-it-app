@@ -4,14 +4,7 @@ import userObject from '../helpers/Users';
 /**
  * @description get user group.
  * GET: /api/v1/group/groups
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
  *
->>>>>>> 29aaf09b9e7854e426fd84f18e914076ffd42628
-=======
- *
->>>>>>> 2a1bf2d52baea277c13e95d926aa8e2adc41f0b9
  * @param {object} req;
  * @param {object} res;
  *
@@ -53,14 +46,7 @@ export const userGroups = (req, res) => {
 /**
  * @description adding members to group.
  * POST:/api/v1/group/addmember
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
  *
->>>>>>> 29aaf09b9e7854e426fd84f18e914076ffd42628
-=======
- *
->>>>>>> 2a1bf2d52baea277c13e95d926aa8e2adc41f0b9
  * @param {object} req;
  * @param {object} res;
  *
@@ -268,6 +254,7 @@ export const group = (req, res) => {
 /**
  * @description retuning all group members.
  * GET:/api/v1/group/:groupid/members
+ *
  * @param {object} req; request
  * @param {object} res; response
  *
