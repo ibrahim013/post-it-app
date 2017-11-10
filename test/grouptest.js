@@ -85,7 +85,7 @@ describe('PostIt Endpoints', () => {
 describe('PostIt Endpoints', () => {
   before((done) => {
     chai.request(server)
-      .post('/v1/user/signin')
+      .post('/api/v1/user/signin')
       .send({
         email: 'master@master.com',
         password: '12345678',
@@ -99,8 +99,8 @@ describe('PostIt Endpoints', () => {
       .post('/api/v1/group/addmember')
       .send({
         groupName: 'Female',
-        displayName: 'admin',
-        groupId: '-KyNFzcil6R-RNUJSoXS',
+        displayName: 'master',
+        groupId: '-KyZaDwTtu6Ul-Lq4sNZ',
       })
       .end((err, res) => {
         res.status.should.equal(400);
@@ -114,7 +114,7 @@ describe('PostIt Endpoints', () => {
 describe('PostIt Endpoints', () => {
   before((done) => {
     chai.request(server)
-      .post('/v1/user/signin')
+      .post('/api/v1/user/signin')
       .send({
         email: 'master@master.com',
         password: '12345678',
@@ -155,9 +155,9 @@ describe('PostIt Endpoints', () => {
     chai.request(server)
       .post('/api/v1/group/addmember')
       .send({
-        groupName: 'Andela Females',
+        groupName: 'Female',
         displayName: 'master 2',
-        groupId: '-Kxj_WvDGOWx58m9VsYh',
+        groupId: '-KyZaDwTtu6Ul-Lq4sNZ',
       })
       .end((err, res) => {
         res.status.should.equal(400);
@@ -186,7 +186,67 @@ describe('PostIt Endpoints', () => {
       .end((err, res) => {
         res.status.should.equal(200);
         res.body.should.be.a('object');
-        res.body.message.should.equal('members');
+        res.body.should.have.property('members');
+        done();
+      });
+  });
+});
+describe('PostIt Endpoints', () => {
+  before((done) => {
+    chai.request(server)
+      .post('/api/v1/user/signin')
+      .send({
+        email: 'waleibrahim13@gmail.com',
+        password: '12345678',
+      })
+      .end(() => {
+        done();
+      });
+  });
+  it('should respond with an error message if no message is typed', (done) => {
+    chai.request(server)
+      .post('/api/v1/group/postmessage')
+      .send({
+        groupName: 'Female',
+        message: '',
+        piority: 'Normal',
+        groupId: '-KyZaDwTtu6Ul-Lq4sNZ',
+      })
+      .end((err, res) => {
+        res.status.should.equal(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.message.should.equal('message cant be empty');
+        done();
+      });
+  });
+});
+describe('PostIt Endpoints', () => {
+  before((done) => {
+    chai.request(server)
+      .post('/api/v1/user/signin')
+      .send({
+        email: 'waleibrahim13@gmail.com',
+        password: '12345678',
+      })
+      .end(() => {
+        done();
+      });
+  });
+  it('should respond with an error message if no group name is selected', (done) => {
+    chai.request(server)
+      .post('/api/v1/group/postmessage')
+      .send({
+        groupName: '',
+        message: 'hello',
+        piority: 'Normal',
+        groupId: '-KyZaDwTtu6Ul-Lq4sNZ',
+      })
+      .end((err, res) => {
+        res.status.should.equal(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.message.should.equal('group name cant be empty');
         done();
       });
   });

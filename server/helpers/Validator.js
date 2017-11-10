@@ -62,8 +62,9 @@ export default class Validate {
   }
   static validatePostMessage(req, res, next) {
     req.check('message', 'message cant be empty').notEmpty();
-    req.check('piority', 'piority cant be empty.').notEmpty();
-    req.check('groupName', 'group Name cant be empty.').notEmpty();
+    req.check('piority', 'piority cant be empty').notEmpty();
+    req.check('groupName', 'group name cant be empty').notEmpty();
+    req.check('groupId', 'group id cant be empty').notEmpty();
     const errors = req.validationErrors();
     if (errors) {
       const message = errors[0].msg;
