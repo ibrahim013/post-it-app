@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 require('dotenv').config();
@@ -61,6 +62,7 @@ const webpackConfig = {
     extensions: ['*', '.js', '.jsx'],
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     HtmlWebpackPluginConfig,
     new ExtractTextPlugin({
       filename: 'style.css',
