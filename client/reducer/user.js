@@ -9,7 +9,7 @@ export default (state = [], action = {}) => {
       return [];
     }
     case LOGOUT_ERROR: {
-      return [];
+      return {};
     }
     default:
       return state;

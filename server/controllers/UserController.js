@@ -177,7 +177,7 @@ export default class User {
     firebase
       .auth()
       .signOut()
-      .then(() => res.status(200).json({ message: 'signed-out successfully.' }))
+      .then(() => res.status(200).json({ message: 'signed out successfully.' }))
       .catch(() => res.status(500).json({ message: 'Network Error' }));
   }
 
