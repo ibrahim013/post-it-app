@@ -61,7 +61,7 @@ export function googleLogin() {
 export function googleUpdate(number) {
   return (dispatch) => {
     axios
-      .post('/v1/user/googleupdate', number).then((res) => {
+      .post('/api/v1/user/googleupdate', number).then((res) => {
         dispatch(googleLogin(res.data.isConfirmed));
         Alert.success(res.data.message, {
           position: 'top-right',
