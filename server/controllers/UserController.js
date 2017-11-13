@@ -89,7 +89,7 @@ export default class User {
           return res.status(400).json({ message: 'invalid email or password' });
         }
         if (errorCode === 'auth/user-not-found') {
-          return res.status(400).json({ message: 'user does not found' });
+          return res.status(400).json({ message: 'user not found' });
         }
         if (errorCode === 'auth/wrong-password') {
           return res.status(400).json({ message: 'invalid email or password' });
