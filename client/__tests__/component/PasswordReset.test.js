@@ -1,27 +1,30 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import PropTypes from 'prop-types';
-import { PasswordReset } from '../../component/PasswordReset';
+import PasswordReset from '../../component/PasswordReset';
 
 
 describe('<PasswordReset />', () => {
   const wrapper = mount(<PasswordReset />,
     {
-      childContextTypes: { router: PropTypes.func },
+      childContextTypes: { router: PropTypes.object },
       context: { router: {
         history: {
           push: () => null,
           createHref: () => null,
           replace: () => null,
-          exact: true,
-          path: '/passwordreset',
-          component: '[function ]',
-        },
-        computedMatch: {
-          path: '/passwordreset',
-          url: '/passwordreset',
-          isExact: true,
-          params: {},
+          match: {
+            path: '/passwordreset',
+            url: '/passwordreset',
+            isExact: true,
+            params: {},
+          },
+          location: {
+            pathname: '/passwordreset',
+            search: '',
+            hash: '',
+            key: 'bbpg48',
+          },
         },
       } },
     },

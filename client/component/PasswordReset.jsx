@@ -13,7 +13,7 @@ import { passwordReset } from '../actions/UserAction';
  * @class PasswordReset
  * @extends {Component}
  */
-class PasswordReset extends React.Component {
+export class PasswordReset extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
