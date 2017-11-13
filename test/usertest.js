@@ -8,14 +8,15 @@ const expect = chai.expect;
 
 
 describe('PostIt Endpoints', () => {
-  it('should respond with success message if correct details are supplied', (done) => {
-    const userTest = {
-      displayName: 'user2',
-      email: faker.internet.email(),
-      password: '12345678',
-      phoneNumber: '2347098776523',
-    };
-    request(server)
+  it('should respond with success message if correct details are supplied',
+   (done) => {
+     const userTest = {
+       displayName: 'user2',
+       email: faker.internet.email(),
+       password: '12345678',
+       phoneNumber: '2347098776523',
+     };
+     request(server)
       .post('/api/v1/user/signup')
       .set('Accept', 'application/x-www-form-urlencoded')
       .send(userTest)
@@ -28,7 +29,7 @@ describe('PostIt Endpoints', () => {
         expect(res.body.message).to.be.equal('signup sucessful proceed to login');
         done();
       });
-  });
+   });
   it('should respond with error message if email field is empty', (done) => {
     const userTest = {
       displayName: 'user1',
@@ -52,7 +53,8 @@ describe('PostIt Endpoints', () => {
         done();
       });
   });
-  it('should respond with error message if user is already registered', (done) => {
+  it('should respond with error message if user is already registered',
+  (done) => {
     const userTest = {
       displayName: 'user2',
       email: 'waleibrahim13@gmail.com',
@@ -88,11 +90,13 @@ describe('PostIt Endpoints', () => {
         expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('The email address is badly formatted');
+        expect(res.body.message).to.be.equal(
+          'The email address is badly formatted');
         done();
       });
   });
-  it('should respond with error message for bad password input format', (done) => {
+  it('should respond with error message for bad password input format',
+  (done) => {
     const userTest = {
       displayName: 'user2',
       email: faker.internet.email(),
@@ -108,18 +112,20 @@ describe('PostIt Endpoints', () => {
         expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('Password should be at least 6 characters');
+        expect(res.body.message).to.be.equal(
+          'Password should be at least 6 characters');
         done();
       });
   });
-  it('should respond with error message for empty phone number field', (done) => {
-    const userTest = {
-      displayName: 'user2',
-      email: faker.internet.email(),
-      password: ' 12345678',
-      phoneNumber: ' ',
-    };
-    request(server)
+  it('should respond with error message for empty phone number field',
+   (done) => {
+     const userTest = {
+       displayName: 'user2',
+       email: faker.internet.email(),
+       password: ' 12345678',
+       phoneNumber: ' ',
+     };
+     request(server)
       .post('/api/v1/user/signup')
       .set('Accept', 'application/x-www-form-urlencoded')
       .expect('Content-Type', /json/)
@@ -131,7 +137,7 @@ describe('PostIt Endpoints', () => {
         expect(res.body.message).to.be.equal('Phone number is required');
         done();
       });
-  });
+   });
   it('should respond with error message if phoneNumber is invalid', (done) => {
     const userTest = {
       displayName: 'user2',
@@ -153,9 +159,10 @@ describe('PostIt Endpoints', () => {
       });
   });
   // Signin route
-  it('should respond with success message if correct email and password are supplied', (done) => {
+  it('should respond with success message if correct' +
+  'email and password are supplied', (done) => {
     const registeredUser = {
-      email: 'waleibrahim13@gmail.com',
+      email: 'musa@musa.com',
       password: '12345678',
     };
     request(server)
@@ -168,8 +175,6 @@ describe('PostIt Endpoints', () => {
         expect(res.statusCode).to.be.equal(200);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('user');
-        // expect(res.body).users[0].displayName.be.equal('master');
-        // expect(res.body).users[0].email.be.equal('waleibrahim13@gmail.com');
         expect(res.body).to.have.a.property('message');
         expect(res.body.message).to.be.equal('Sign In Successful');
         done();
@@ -190,11 +195,12 @@ describe('PostIt Endpoints', () => {
         expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('user does not exist');
+        expect(res.body.message).to.be.equal('user not found');
         done();
       });
   });
-  it('should respond with error message if incorrect email is supplied', (done) => {
+  it('should respond with error message if incorrect email is supplied',
+  (done) => {
     const registeredUser = {
       email: 'user267@gmail.com',
       password: '123456',
@@ -206,7 +212,7 @@ describe('PostIt Endpoints', () => {
         expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('user does not exist');
+        expect(res.body.message).to.be.equal('user not found');
         done();
       });
   });
@@ -227,33 +233,38 @@ describe('PostIt Endpoints', () => {
       });
   });
   // Password Reset
-  it('should respond with success message if correct email is supplied', (done) => {
-    const userEmail = { email: 'waleibrahim13@gmail.com' };
-    request(server)
+  it('should respond with success message if correct email is supplied',
+   (done) => {
+     const userEmail = { email: 'waleibrahim13@gmail.com' };
+     request(server)
       .post('/api/v1/user/passwordreset')
       .send(userEmail)
       .end((err, res) => {
         expect(res.statusCode).to.be.equal(200);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('Password Reset Mail Sent to waleibrahim13@gmail.com');
+        expect(res.body.message).to.be.equal(
+          'Password Reset Mail Sent to waleibrahim13@gmail.com');
         done();
       });
-  });
-  it('should respond with error message if wrongly formated email is supplied', (done) => {
-    const userEmail = { email: 'user.gmail.com' };
-    request(server)
+   });
+  it('should respond with error message if wrongly formated email is supplied',
+   (done) => {
+     const userEmail = { email: 'user.gmail.com' };
+     request(server)
       .post('/api/v1/user/passwordreset')
       .send(userEmail)
       .end((err, res) => {
         expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('The email address is badly formatted.');
+        expect(res.body.message).to.be.equal(
+          'The email address is badly formatted.');
         expect(res.body).to.be.an('object');
         done();
       });
-  });
-  it('should respond with error message if unregistered email is supplied', (done) => {
+   });
+  it('should respond with error message if unregistered email is supplied',
+  (done) => {
     const userEmail = { email: 'user@gmail.com' };
     request(server)
       .post('/api/v1/user/passwordreset')
