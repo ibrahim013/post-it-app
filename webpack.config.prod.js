@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 
 const webpackConfig = {
   entry: ['babel-polyfill', './client/index.js'],
@@ -42,10 +41,6 @@ const webpackConfig = {
     extensions: ['*', '.js', '.jsx'],
   },
   plugins: [
-    new Dotenv({
-      path: './.env',
-      safe: false,
-    }),
     new ExtractTextPlugin({
       filename: 'style.css',
       allChunks: true,
