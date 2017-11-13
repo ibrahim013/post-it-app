@@ -2,11 +2,11 @@ import configureMockStore from 'redux-mock-store';
 import moxios from 'moxios';
 import expect from 'expect';
 import thunk from 'redux-thunk';
-import mockLocalStorage from '../__tests__/__mock__/MockLocalStorage';
-import * as actions from '../actions/UserAction';
-import * as types from '../constants/ActionTypes';
+import mockLocalStorage from '../../__tests__/__mock__/MockLocalStorage';
+import * as actions from '../../actions/UserAction';
+import * as types from '../../constants/ActionTypes';
 import { userDetails,
-   userSigninData, invalidUserSigninData, signInState, signUpState } from '../__tests__/__mock__/action.mock';
+   userSigninData, invalidUserSigninData, signInState, signUpState } from '../../__tests__/__mock__/action.mock';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -119,7 +119,7 @@ describe('Logout Action', () => {
   //   const expectedAction =
   //     { type: types.LOGOUT_USER };
   //   store.dispatch(actions.logOutUser());
-  //   expect(store.getActions().type).toEqual(expectedAction);
+  //   expect(store.logOutUser().type).toEqual(expectedAction);
   //   done();
   // });
 });
