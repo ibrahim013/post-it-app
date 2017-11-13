@@ -85,7 +85,7 @@ export function getMessges(groupid) {
  */
 export function getMembers(groupid) {
   return dispatch =>
-    axios.get(`/v1/group/${groupid}/members/`).then((response) => {
+    axios.get(`/api/v1/group/${groupid}/members/`).then((response) => {
       dispatch(getGroupMembers(response.data.members));
     });
 }
@@ -144,7 +144,7 @@ export function addGroups(groupData) {
 
 /**
  *
- * @param {object} groupname
+ * @param {object} groupName
  *
  * @return {promise}
  */
@@ -153,11 +153,11 @@ export function addMessage(messageData) {
     axios
       .post('/api/v1/group/postmessage', messageData)
       .then((res) => {
-        dispatch(getMessges(messageData.groupname));
         Alert.success(res.data.message, {
           position: 'top-right',
           offset: 100,
         });
+        return dispatch(getMessges(messageData.groupId));
       })
       .catch((error) => {
         if (error) {

@@ -17,8 +17,9 @@ class AddMessage extends React.Component {
     super(props);
     this.state = {
       message: '',
-      piority: '',
-      groupname: this.props.groupid,
+      piority: 'Normal',
+      groupId: this.props.groupId,
+      groupName: this.props.groupName,
       errors: {},
     };
     this.onChange = this.onChange.bind(this);
@@ -49,7 +50,12 @@ class AddMessage extends React.Component {
     this.props.addMessage(this.state);
     this.setState({
       message: '',
-      piority: '',
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      groupName: nextProps.groupName,
     });
   }
   /**
@@ -71,23 +77,22 @@ class AddMessage extends React.Component {
             onChange={this.onChange}
             value={this.state.message}
             required
+            maxLength={300}
           />
-          <label className="radio-inline btn-space">
-            <input type="radio" name="piority" value="Normal"
-            onChange={this.onChange} />Normal
-          </label>
-          <label className="radio-inline btn-space">
-            <input type="radio" name="piority" value="Critical"
-            onChange={this.onChange} />Critical
-          </label>
-          <label className="radio-inline btn-space">
-            <input type="radio" name="piority" value="Urgent"
-            onChange={this.onChange} />Urgent
-          </label>
+          <div className="piority">
+          <select className="form-control" id="sel1" onChange={this.onChange}
+          name="piority">
+            <option value="Normal">Normal</option>
+            <option value="Critical">Urgent</option>
+            <option value="Urgent">Critical</option>
+          </select>
+          </div>
+          <div className="piority-s">
           <span className="input-group-addon btn btn-primary "
-           onClick={this.onSubmit}>
+          onClick={this.onSubmit}>
             Send <span className=" glyphicon glyphicon-send" />
           </span>
+          </div>
         </form>
       </div>
     );

@@ -17,8 +17,8 @@ class AddGroup extends React.Component {
   constructor() {
     super();
     this.state = {
-      groupname: '',
-      discription: '',
+      groupName: '',
+      description: '',
     };
 
     this.onChange = this.onChange.bind(this);
@@ -48,8 +48,8 @@ class AddGroup extends React.Component {
     event.preventDefault();
     this.props.addGroups(this.state);
     this.setState({
-      groupname: '',
-      discription: '',
+      groupName: '',
+      description: '',
     });
   }
   /**
@@ -68,18 +68,18 @@ class AddGroup extends React.Component {
           <div className="form-group">
             <input
               type="text"
-              name="groupname"
+              name="groupName"
               placeholder="Group Name"
-              value={this.state.groupname}
+              value={this.state.groupName}
               onChange={this.onChange}
               required
             />
           </div>
           <input
             type="text"
-            name="discription"
+            name="description"
             placeholder="Group Discription"
-            value={this.state.discription}
+            value={this.state.description}
             onChange={this.onChange}
             required
           />
