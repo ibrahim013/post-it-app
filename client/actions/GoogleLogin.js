@@ -28,7 +28,7 @@ export function googleLogin() {
       .signInWithPopup(provider)
       .then((userData) => {
         axios
-          .post('/v1/user/google', userData)
+          .post('/api/v1/user/google', userData)
           .then((res) => {
             dispatch(loggedInUser(res.data.user));
             dispatch(googleUser(res.data.isConfirmed));
