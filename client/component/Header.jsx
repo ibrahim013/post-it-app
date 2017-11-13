@@ -21,7 +21,7 @@ const Header = () => (
             </button>
           </div>
           </Col>
-          <Col xs={7} md={7}>
+          <Col xs={7} md={8}>
             <h3>POST IT</h3>
           </Col>
           <Col xs={5} md={4} id="links">

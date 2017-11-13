@@ -40,7 +40,8 @@ class MessageList extends React.Component {
 
   render() {
     const { Messages } = this.state;
-    const messageList = Messages.map((message, i) => <Message key={i} message={message} />);
+    const messageList = Messages.map((message, i) =>
+    <Message key={i} message={message} />);
     return <div>{messageList}</div>;
   }
 }
@@ -56,4 +57,5 @@ function mapStateToProps(state) {
     Messages: state.Messages,
   };
 }
-export default withRouter(connect(mapStateToProps, { getMessges })(MessageList));
+export default withRouter(connect(mapStateToProps,
+  { getMessges })(MessageList));
