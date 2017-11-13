@@ -53,12 +53,13 @@ export default class User {
           return res.status(400).json({ message: 'invalid email' });
         }
         if (errorCode === 'auth/weak-password') {
-          return res.status(400).json({ message: 'password strength is too week' });
+          return res.status(400).json({
+            message: 'password strength is too week' });
         }
       });
   }
 
-  /**
+/**
  * @description Sign in users.
  * POST: /api/v1/user/signin
  * @param {object} req;
@@ -85,19 +86,19 @@ export default class User {
       .catch((error) => {
         const errorCode = error.code;
         if (errorCode === 'auth/invalid-email') {
-          return res.status(400).json({ message: 'invalid email' });
+          return res.status(400).json({ message: 'invalid email or password' });
         }
         if (errorCode === 'auth/user-not-found') {
-          return res.status(400).json({ message: 'user does not exist' });
+          return res.status(400).json({ message: 'user does not found' });
         }
         if (errorCode === 'auth/wrong-password') {
-          return res.status(400).json({ message: 'wrong password' });
+          return res.status(400).json({ message: 'invalid email or password' });
         }
         return res.status(500).json({ message: 'oops!! Somthing went wrong' });
       });
   }
-  /**
- *@description Route to reset user password.
+/**
+ * @description Route to reset user password.
  *
  * POST:/api/v1/user/passwordreset
  *
@@ -124,12 +125,13 @@ export default class User {
         if (errorCode === 'auth/user-not-found') {
           return res.status(400).json({ message: 'user not found' });
         }
-        return res.status(400).json({ message: 'oops! somthing went wrong' });
+        return res.status(500).json({ message: 'oops! somthing went wrong' });
       });
   }
   static googleLogin(req, res) {
     const userData = req.body;
-    const credential = firebase.auth.GoogleAuthProvider.credential(userData.credential.idToken);
+    const credential = firebase.auth.GoogleAuthProvider.credential(
+      userData.credential.idToken);
     firebase
       .auth()
       .signInWithCredential(credential)
@@ -160,7 +162,8 @@ export default class User {
           });
         });
       })
-      .catch(() => res.status(500).json({ message: 'oops! somthing went wrong' }));
+      .catch(() => res.status(500).json({
+        message: 'oops! somthing went wrong' }));
   }
 
 /**
@@ -208,6 +211,7 @@ export default class User {
           isConfirmed: true,
         });
       })
-      .catch(() => res.status(500).json({ message: 'oops! somthing went wrong' }));
+      .catch(() => res.status(500).json({
+        message: 'oops! somthing went wrong' }));
   }
 }

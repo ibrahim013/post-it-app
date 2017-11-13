@@ -108,4 +108,5 @@ function mapStateToProps(state) {
     isConfirmed: state.googleLogin[0],
   };
 }
-export default withRouter(connect(mapStateToProps, { googleUpdate })(GooglePhoneVerification));
+export default withRouter(connect(mapStateToProps,
+  { googleUpdate })(GooglePhoneVerification));
