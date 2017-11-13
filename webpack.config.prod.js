@@ -50,6 +50,7 @@ const webpackConfig = {
       filename: 'index.html',
       inject: 'body',
     }),
+    new webpack.EnvironmentPlugin(Object.keys(process.env)),
     new UglifyJSPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
