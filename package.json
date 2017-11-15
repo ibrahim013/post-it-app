@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.prod.js && babel-node -- server/index.js",
+    "start": "babel-node -- server/index.js",
     "start:dev": "nodemon --watch server --exec babel-node -- server/index.js",
     "start2": "webpack-dev-server --hot",
-    "build": "webpack --config webpack.config.prod.js",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.prod.js",
     "testserver": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register ./test --timeout 1500000 && npm run coveralls",
     "cover": "cat ./coverage/lcov.info",
     "coveralls": "nyc report --reporter=lcov ",
