@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { addMessage } from '../actions/GroupAction';
 
 /**
- * 
+ *
  * @description add message
  * @export
  * @param {object} props
@@ -17,8 +17,9 @@ class AddMessage extends React.Component {
     super(props);
     this.state = {
       message: '',
-      piority: '',
-      groupname: this.props.groupid,
+      piority: 'Normal',
+      groupId: this.props.groupId,
+      groupName: this.props.groupName,
       errors: {},
     };
     this.onChange = this.onChange.bind(this);
@@ -26,7 +27,7 @@ class AddMessage extends React.Component {
   }
   /**
     * @method onChange
-    * @description Listens for changes in form fileds 
+    * @description Listens for changes in form fileds
     * @memberof  AddMessage
     * @param {object} event
     *
@@ -41,7 +42,7 @@ class AddMessage extends React.Component {
      * @param {object} event
      *
      * @memberof AddMessage
-     * 
+     *
      * @returns {void}
   */
   onSubmit(event) {
@@ -49,15 +50,20 @@ class AddMessage extends React.Component {
     this.props.addMessage(this.state);
     this.setState({
       message: '',
-      piority: '',
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      groupName: nextProps.groupName,
     });
   }
   /**
    * @method render
    * Render react component
-   * 
+   *
    * @memberof AddMessage
-   * 
+   *
    * @returns {String} HTML markup for the Adding message to group
    */
   render() {
@@ -71,19 +77,22 @@ class AddMessage extends React.Component {
             onChange={this.onChange}
             value={this.state.message}
             required
+            maxLength={300}
           />
-          <label className="radio-inline btn-space">
-            <input type="radio" name="piority" value="Normal" onChange={this.onChange} />Normal
-          </label>
-          <label className="radio-inline btn-space">
-            <input type="radio" name="piority" value="Critical" onChange={this.onChange} />Critical
-          </label>
-          <label className="radio-inline btn-space">
-            <input type="radio" name="piority" value="Urgent" onChange={this.onChange} />Urgent
-          </label>
-          <span className="input-group-addon btn btn-primary " onClick={this.onSubmit}>
+          <div className="piority">
+          <select className="form-control" id="sel1" onChange={this.onChange}
+          name="piority">
+            <option value="Normal">Normal</option>
+            <option value="Critical">Urgent</option>
+            <option value="Urgent">Critical</option>
+          </select>
+          </div>
+          <div className="piority-s">
+          <span className="input-group-addon btn btn-primary "
+          onClick={this.onSubmit}>
             Send <span className=" glyphicon glyphicon-send" />
           </span>
+          </div>
         </form>
       </div>
     );

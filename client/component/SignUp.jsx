@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { Link, withRouter } from 'react-router-dom';
 import { HashLoader } from 'react-spinners';
 import { Modal } from 'react-bootstrap';
+import TextFieldGroup from '../component/common/TextFieldGroup';
 import validateInput from '../utilities/validation';
 
 /**
- * 
+ *
  * @description user signup
  * @export
  * @param {object} props
@@ -30,7 +30,7 @@ class SignUp extends React.Component {
   }
   /**
     * @method onChange
-    * @description Listens for changes in form fileds 
+    * @description Listens for changes in form fileds
     * @memberof SignUp
     * @param {object} event
     *
@@ -51,7 +51,7 @@ class SignUp extends React.Component {
      * route with user parameters
      * @param {object} event
      * @memberof SignUp
-     * 
+     *
      * @returns {Promise}
   */
   onSubmit(event) {
@@ -59,7 +59,7 @@ class SignUp extends React.Component {
     this.setState({ isLoading: true });
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.SignUpAction(this.state).then((res) => {
+      this.props.signUpAction(this.state).then((res) => {
         this.props.history.push('/');
         if (!res) {
           this.setState({
@@ -73,11 +73,10 @@ class SignUp extends React.Component {
    * @method render
    * Render react component
    * @memberof AddGroup
-   * 
+   *
    * @returns {String} HTML markup for the signup page
    */
   render() {
-    const { errors } = this.state;
     return (
       <div className="static-modal">
         <Modal.Dialog>
@@ -90,56 +89,40 @@ class SignUp extends React.Component {
                 <HashLoader color={'#ffffff'} loading={this.state.isLoading} />
               </div>
               <form onSubmit={this.onSubmit}>
-                <div className={classnames('form-group', { 'has-error': errors.displayName })}>
-                  <label className="control-label">User Name</label>
-                  <input
-                    value={this.state.displayName}
-                    onChange={this.onChange}
-                    type="text"
-                    name="displayName"
-                    className="form-control"
-                    placeholder="eg:ibrahim"
-                  />
-                  {errors.displayName && <span className="help-block">{errors.displayName}</span>}
-                </div>
-                <div className={classnames('form-group', { 'has-error': errors.email })}>
-                  <label className="control-label">Email</label>
-                  <input
-                    value={this.state.emaii}
-                    onChange={this.onChange}
-                    type="email"
-                    name="email"
-                    className="form-control"
-                    placeholder="eg:abc@company.com"
-                  />
-                  {errors.email && <span className="help-block">{errors.email}</span>}
-                </div>
-                <div className={classnames('form-group', { 'has-error': errors.phoneno })}>
-                  <label className="control-label">Phone Number</label>
-                  <input
-                    value={this.state.phoneNumber}
-                    onChange={this.onChange}
-                    type="tel"
-                    pattern="\d{3}\d{2}\d{4}\d{4}"
-                    name="phoneNumber"
-                    className="form-control"
-                    placeholder=" Format: 2349999999999"
-                    required
-                  />
-                  {errors.password && <span className="help-block">{errors.phoneno}</span>}
-                </div>
-                <div className={classnames('form-group', { 'has-error': errors.password })}>
-                  <label className="control-label">Password</label>
-                  <input
-                    value={this.state.password}
-                    onChange={this.onChange}
-                    type="password"
-                    name="password"
-                    className="form-control"
-                    placeholder="At least 6 Characters"
-                  />
-                  {errors.password && <span className="help-block">{errors.password}</span>}
-                </div>
+                <TextFieldGroup
+                  value={this.state.displayName}
+                  onChange={this.onChange}
+                  name="displayName"
+                  field="displayName"
+                  label="Username"
+                  placeholder="eg:ibrahim"
+                />
+                <TextFieldGroup
+                  value={this.state.emaii}
+                  onChange={this.onChange}
+                  name="email"
+                  label="Email"
+                  field="email"
+                  placeholder="eg:abc@company.com"
+                />
+                <TextFieldGroup
+                  value={this.state.phoneNumber}
+                  onChange={this.onChange}
+                  field="phoneNumber"
+                  name="phoneNumber"
+                  type="number"
+                  pattern="\d{3}\d{2}\d{4}\d{4}"
+                  label="Phone Number"
+                  placeholder=" Format: 2349999999999"
+                  
+                />
+                <TextFieldGroup
+                  value={this.state.password}
+                  onChange={this.onChange}
+                  field="password"
+                  label="Password"
+                  placeholder="At least 6 Characters"
+                />
                 <div className="form-group">
                   <button
                     disabled={this.state.isLoading}

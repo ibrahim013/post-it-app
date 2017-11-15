@@ -1,18 +1,16 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { connect } from 'react-redux';
 import dateTime from 'date-time';
 import { withRouter } from 'react-router-dom';
 import AddGroup from '../component/AddGroup';
 import GetGroupList from '../component/GetGroupList';
-import { SignOut } from '../actions/UserAction';
+import Navigation from './Navigation';
 
-const socket = io();
 /**
- * 
- * @description add user to group
+ *@description add user to group
+ *
  * @export
- * @class Dashboard
+ *
  * @extends {Component}
  */
 const DashBoard = () => (
@@ -20,10 +18,15 @@ const DashBoard = () => (
     <div>
       <div className="row linkheader" />
       <Grid data-spy="scroll">
-        <Row className="show-grid ">
-          <Col xs={12} md={3} className="asidelist">
+        <Row className="show-grid wrapper">
+          <Col xs={12} md={2} className="asidelist sidebar">
             <Row className="show-grid create-group">
-              <Col xs={7} md={7}>
+              <Col md={12} className="sidenav">
+                <ul className="sidelist">
+                  <Navigation />
+                </ul>
+              </Col>
+              <Col xs={7} md={6}>
                 <div>
                   <h3>Groups</h3>
                 </div>
@@ -48,11 +51,11 @@ const DashBoard = () => (
             </div>
           </Col>
           <Col xs={12} md={9}>
-            <Row className=" ">
-              <Col xs={12} md={12}>
+            <Row>
+              <Col xs={12} md={12} className="time">
                 <div> </div>
                 <div className="one">
-                  <div className="" />
+                  <div className="time-content" />
                   <h3>Today</h3>
                   <h3>{dateTime()}</h3>
                 </div>
@@ -63,8 +66,7 @@ const DashBoard = () => (
         </Row>
       </Grid>
     </div>
-    ); }
   </div>
 );
 
-export default withRouter(connect(null, { SignOut })(DashBoard));
+export default withRouter(DashBoard);

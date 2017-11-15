@@ -4,11 +4,12 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GoogleButton from 'react-google-button';
 import { HashLoader } from 'react-spinners';
-import { SignIn } from '../actions/UserAction';
-import { GoogleLogin } from '../actions/GoogleLogin';
+import { signIn } from '../actions/UserAction';
+import { googleLogin } from '../actions/GoogleLogin';
+import TextFieldGroup from '../component/common/TextFieldGroup';
 
 /**
- * 
+ *
  * @description Login user with valid parameters
  * @export
  * @param {object} props
@@ -29,7 +30,7 @@ export class LogIn extends React.Component {
   }
   /**
     * @method onChange
-    * @description Listens for changes in form fileds 
+    * @description Listens for changes in form fileds
     * @memberof AddGroup
     * @param {object} event
     *
@@ -42,11 +43,11 @@ export class LogIn extends React.Component {
      * @description Makes an action call to Google Login
      * route with user parameters
      * @memberof Login
-     * 
+     *
      * @returns {void}
   */
   onHandleSubmit() {
-    this.props.GoogleLogin().then(() => {
+    this.props.googleLogin().then(() => {
       this.props.history.push('/user/update');
     });
   }
@@ -56,28 +57,29 @@ export class LogIn extends React.Component {
      * @param {object} event
      *
      * @memberof Login
-     * 
+     *
      * @returns {void}
   */
   onSubmit(event) {
     event.preventDefault();
     this.setState({ errors: {}, isLoading: true });
-    this.props.SignIn(this.state).then((res) => {
+    this.props.signIn(this.state).then((res) => {
       if (res) {
         this.props.history.push('/dashboard');
       }
-      this.setState({
-        email: '',
-        password: '',
-        isLoading: false,
-      });
     });
+  }
+  componentWillUnmount() {
+    this.setState({ email: '',
+      password: '',
+      isLoading: false,
+      error: {} });
   }
   /**
    * @method render
    * Render react component
    * @memberof Login
-   * 
+   *
    * @returns {String} HTML markup for the Adding user to group
    */
   render() {
@@ -88,34 +90,25 @@ export class LogIn extends React.Component {
         </div>
         <div>
           <form onSubmit={this.onSubmit}>
-            <div className="form-group">
-              <label className="control-label">
-                <span className="glyphicon glyphicon-envelope" /> Email
-              </label>
-              <input
-                value={this.state.email}
-                onChange={this.onChange}
-                type="email"
-                name="email"
-                className="form-control"
-                placeholder="eg ibrahim@gmail.com"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>
-                <span className=" control-label glyphicon glyphicon-eye-open" /> Password
-              </label>
-              <input
-                value={this.state.password}
-                onChange={this.onChange}
-                type="password"
-                name="password"
-                className="form-control"
-                placeholder="must be at least 6 character long"
-                required
-              />
-            </div>
+            <TextFieldGroup
+              value={this.state.email}
+              onChange={this.onChange}
+              label="Email"
+              field="email"
+              name="email"
+              glyphicon="glyphicon glyphicon-envelope"
+              placeholder="eg ibrahim@gmail.com"
+            />
+            <TextFieldGroup
+              value={this.state.password}
+              onChange={this.onChange}
+              label="Password"
+              field="password"
+              name="password"
+              type= "password"
+              glyphicon="glyphicon  glyphicon-eye-open"
+              placeholder="must be at least 6 character long"
+            />
             <div className="form-group">
               <button
                 disabled={this.state.isLoading}
@@ -156,4 +149,4 @@ LogIn.PropTypes = {
   GoogleLogin: PropTypes.func.isRequired,
 };
 
-export default withRouter(connect(null, { SignIn, GoogleLogin })(LogIn));
+export default withRouter(connect(null, { signIn, googleLogin })(LogIn));

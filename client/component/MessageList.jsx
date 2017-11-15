@@ -6,7 +6,7 @@ import Message from './Message';
 import { getMessges } from '../actions/GroupAction';
 
 /**
- * 
+ *
  * @description display message list
  * @export
  * @param {object} props
@@ -34,13 +34,14 @@ class MessageList extends React.Component {
    * @method render
    * Render react component
    * @memberof MessageList
-   * 
+   *
    * @returns {String} HTML markup for looping throug the group
    */
 
   render() {
     const { Messages } = this.state;
-    const messageList = Messages.map((message, i) => <Message key={i} message={message} />);
+    const messageList = Messages.map((message, i) =>
+    <Message key={i} message={message} />);
     return <div>{messageList}</div>;
   }
 }
@@ -48,7 +49,7 @@ MessageList.PropTypes = {
   Messages: PropTypes.array.isRequired,
 };
 /**
-   * connect to redux store 
+   * connect to redux store
    * @param {any} message
    */
 function mapStateToProps(state) {
@@ -56,4 +57,5 @@ function mapStateToProps(state) {
     Messages: state.Messages,
   };
 }
-export default withRouter(connect(mapStateToProps, { getMessges })(MessageList));
+export default withRouter(connect(mapStateToProps,
+  { getMessges })(MessageList));

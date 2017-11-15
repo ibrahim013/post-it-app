@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { addGroups } from '../actions/GroupAction';
 
 /**
- * 
+ *
  * @description add groups
  * @export
  * @param {object} props
@@ -17,8 +17,8 @@ class AddGroup extends React.Component {
   constructor() {
     super();
     this.state = {
-      groupname: '',
-      discription: '',
+      groupName: '',
+      description: '',
     };
 
     this.onChange = this.onChange.bind(this);
@@ -26,7 +26,7 @@ class AddGroup extends React.Component {
   }
   /**
     * @method onChange
-    * @description Listens for changes in form fileds 
+    * @description Listens for changes in form filed
     * @memberof AddGroup
     * @param {object} event
     *
@@ -41,23 +41,23 @@ class AddGroup extends React.Component {
      * @param {object} event
      *
      * @memberof AddGroup
-     * 
+     *
      * @returns {void}
   */
   onSubmit(event) {
     event.preventDefault();
     this.props.addGroups(this.state);
     this.setState({
-      groupname: '',
-      discription: '',
+      groupName: '',
+      description: '',
     });
   }
   /**
    * @method render
    * Render react component
-   * 
+   *
    * @memberof AddGroup
-   * 
+   *
    * @returns {String} HTML markup for the Adding groups
    */
 
@@ -68,22 +68,23 @@ class AddGroup extends React.Component {
           <div className="form-group">
             <input
               type="text"
-              name="groupname"
+              name="groupName"
               placeholder="Group Name"
-              value={this.state.groupname}
+              value={this.state.groupName}
               onChange={this.onChange}
               required
             />
           </div>
           <input
             type="text"
-            name="discription"
+            name="description"
             placeholder="Group Discription"
-            value={this.state.discription}
+            value={this.state.description}
             onChange={this.onChange}
             required
           />
-          <button name="group" className="btn btn-primary btn-small" onSubmit={this.onSubmit}>
+          <button name="group" className="btn btn-primary btn-small"
+          onSubmit={this.onSubmit}>
             Create Group
           </button>
         </form>

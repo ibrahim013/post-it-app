@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import App from '../component/App';
 import HomePage from '../component/HomePage';
 import Login from '../component/LogIn';
@@ -15,7 +15,7 @@ import GoogleUser from '../component/GoogleUser';
 
 export default (
   <div>
-    <Route path="/" component={App} />
+    <Route component={App} />
     <Route exact path="/" component={HomePage} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/addgroup" component={AddGroup} />

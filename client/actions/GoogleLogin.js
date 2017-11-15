@@ -2,14 +2,14 @@ import * as firebase from 'firebase';
 import Alert from 'react-s-alert';
 import axios from 'axios';
 import config from '../../server/database';
-import { LoggedInUser, LoggedInError } from './UserAction';
+import { loggedInUser, loggedInError } from './UserAction';
 import { GOOGLE_LOGIN } from '../constants/ActionTypes';
 
 /**
    * dispatches google action
    * @param {any} google login user
    */
-export function googleLogin(GLogin) {
+export function googleUser(GLogin) {
   return {
     type: GOOGLE_LOGIN,
     GLogin,
@@ -19,7 +19,7 @@ export function googleLogin(GLogin) {
    * dispatches google login action
    * @param {any} user
    */
-export function GoogleLogin() {
+export function googleLogin() {
   firebase.initializeApp(config);
   return (dispatch) => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -28,10 +28,10 @@ export function GoogleLogin() {
       .signInWithPopup(provider)
       .then((userData) => {
         axios
-          .post('/v1/user/google', userData)
+          .post('/api/v1/user/google', userData)
           .then((res) => {
-            dispatch(LoggedInUser(res.data.user));
-            dispatch(googleLogin(res.data.isConfirmed));
+            dispatch(loggedInUser(res.data.user));
+            dispatch(googleUser(res.data.isConfirmed));
             Alert.success(res.data.message, {
               position: 'top-right',
               offset: 100,
@@ -43,7 +43,7 @@ export function GoogleLogin() {
             return true;
           });
       }).catch((error) => {
-        dispatch(LoggedInError());
+        dispatch(loggedInError());
         if (error) {
           Alert.error('oops somthing went wrong!!', {
             position: 'top-right',
@@ -58,10 +58,10 @@ export function GoogleLogin() {
    * dispatches an action for google update
    * @param {any} user
    */
-export function GoogleUpdate(number) {
+export function googleUpdate(number) {
   return (dispatch) => {
     axios
-      .post('/v1/user/googleupdate', number).then((res) => {
+      .post('/api/v1/user/googleupdate', number).then((res) => {
         dispatch(googleLogin(res.data.isConfirmed));
         Alert.success(res.data.message, {
           position: 'top-right',
@@ -72,7 +72,7 @@ export function GoogleUpdate(number) {
         return true;
       })
       .catch((error) => {
-        dispatch(LoggedInError());
+        dispatch(loggedInError());
         if (error) {
           Alert.error(error.response.data.message, {
             position: 'top-right',

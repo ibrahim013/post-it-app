@@ -2,33 +2,33 @@ import axios from 'axios';
 import Alert from 'react-s-alert';
 import { LOGIN_USER, LOGOUT_USER, LOGIN_ERROR } from '../constants/ActionTypes';
 /**
- * sign in action 
+ * sign in action
  * @param {string} userData
- * 
- * @return {string} token 
+ *
+ * @return {string} token
  */
-export function LoggedInUser(user) {
+export function loggedInUser(user) {
   return {
     type: LOGIN_USER,
     user,
   };
 }
-export function LoggedInError() {
+export function loggedInError() {
   return {
     type: LOGIN_ERROR,
   };
 }
-export function LogOutUser() {
+export function logOutUser() {
   return {
     type: LOGOUT_USER,
   };
 }
-export function SignIn(userData) {
+export function signIn(userData) {
   return dispatch =>
     axios
-      .post('/v1/user/signin', userData)
+      .post('/api/v1/user/signin', userData)
       .then((res) => {
-        dispatch(LoggedInUser(res.data.user));
+        dispatch(loggedInUser(res.data.user));
         Alert.success(res.data.message, {
           position: 'top-right',
           offset: 100,
@@ -38,7 +38,7 @@ export function SignIn(userData) {
         return true;
       })
       .catch((error) => {
-        dispatch(LoggedInError());
+        dispatch(loggedInError());
         if (error) {
           Alert.error('oops! something went wrong', {
             position: 'top-right',
@@ -49,12 +49,12 @@ export function SignIn(userData) {
       });
 }
 
-export function SignOut() {
+export function signOut() {
   return dispatch =>
     axios
-      .get('/v1/user/signout')
+      .get('/api/v1/user/signout')
       .then((res) => {
-        dispatch(LogOutUser());
+        dispatch(logOutUser());
         Alert.success(res.data.message, {
           position: 'top-right',
           offset: 100,
@@ -71,10 +71,10 @@ export function SignOut() {
         }
       });
 }
-export function SignUpAction(userData) {
+export function signUpAction(userData) {
   return () =>
     axios
-      .post('/v1/user/signup', userData)
+      .post('/api/v1/user/signup', userData)
       .then((res) => {
         Alert.success(res.data.message, {
           position: 'top-right',
@@ -96,7 +96,7 @@ export function SignUpAction(userData) {
 export function passwordReset(email) {
   return () =>
     axios
-      .post('/v1/user/passwordreset', email)
+      .post('/api/v1/user/passwordreset', email)
       .then((res) => {
         Alert.success(res.data.message, {
           position: 'top-right',

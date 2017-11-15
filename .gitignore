@@ -6,3 +6,5 @@ coverage
 /public
 .vscode
 .nyc_output
+.DS_Store
+npm-debug.log.2565220324

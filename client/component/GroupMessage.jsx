@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import AddMessage from '../component/AddMessage';
-import { getGroups, addMembers, getMessges, getMembers } from '../actions/GroupAction';
+import { getGroups, addMembers,
+getMessges, getMembers } from '../actions/GroupAction';
+import Navigation from './Navigation';
 
-const socket = io();
+
 /**
- * 
+ *
  * @description add user and post group message
  * @export
  * @param {object} props
@@ -27,7 +29,6 @@ class GroupMessage extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    socket.on('message Sent', (data) => {});
   }
 
   onChange(event) {
@@ -38,7 +39,7 @@ class GroupMessage extends React.Component {
      * route with state parameters
      * @param {object} event
      * @memberof AddGroup
-     * 
+     *
      * @returns {void}
   */
   onSubmit(event) {
@@ -67,7 +68,7 @@ class GroupMessage extends React.Component {
    * @method render
    * Render react component
    * @memberof AddGroup
-   * 
+   *
    * @returns {String} HTML markup for displaying board message
    */
   render() {
@@ -82,8 +83,10 @@ class GroupMessage extends React.Component {
             <div className="panel-body">
               <p className="">{message.messageText}</p>
               <p id="details">
-                <span className="left-align">Sent By: {message.author}</span>&nbsp;
-                <span className="left-align">Priority: {message.priorityLevel}</span>&nbsp;
+                <span className="left-align">Sent By: {message.author}
+                </span>&nbsp;
+                <span className="left-align">Priority: {message.priorityLevel}
+                </span>&nbsp;
                 <span className="right-align">Sent On: {message.date}</span>
               </p>
             </div>
@@ -100,7 +103,7 @@ class GroupMessage extends React.Component {
     }
     if (GroupMembers.length !== 0) {
       MemberContainer = GroupMembers.map(member => (
-        <li key={member.memberId}>
+        <li key={member.memberId} id="ingroup">
           <span className="glyphicon glyphicon-user" /> &nbsp;&nbsp;
           {member.displayName}
         </li>
@@ -110,37 +113,35 @@ class GroupMessage extends React.Component {
     }
     if (Read.length !== 0) {
       readContainer = Read.map(seen => (
-        <div>
-          <li>
+          <li key={1}>
             <span className="glyphicon glyphicon-user" /> &nbsp;&nbsp;
             {seen.displayName}
           </li>
-        </div>
       ));
     }
     return (
       <div>
         <Grid data-spy="scroll">
-          <Row className="show-grid ">
-            <Col xs={12} md={3} className="asidelist">
-              <div id="signin">
-                <h3>
-                  <Link to="/dashboard">Dashboard</Link>
-                </h3>
-              </div>
+          <Row className="show-grid wrapper">
+            <Col xs={12} md={2} className="asidelist sidebar">
               <Row className="show-grid create">
-                <Col xs={12}>
+                <Col xs={12} className="dnav">
+                <ul className="sidelist">
+                  <Navigation />
+                </ul>
+                </Col>
+                <Col xs={12} className="">
                   <h3> {this.state.groupName}</h3>
-                  <li>{MemberContainer}</li>
+                  {MemberContainer}
                 </Col>
               </Row>
               <div>
                 <Col xs={12} md={12} bsClass="member'">
                   <Row className="show-grid  ">
-                    <Col xs={12} md={6}>
+                    <Col xs={8} md={7} id="member">
                       <h3>Members</h3>
                     </Col>
-                    <Col xs={12} md={4} className="bot">
+                    <Col xs={3} md={4} className="bot">
                       <button
                         type="button"
                         className="btn btn-info"
@@ -177,13 +178,13 @@ class GroupMessage extends React.Component {
                 </Col>
               </div>
             </Col>
-            <Col xs={7} md={7} className="messagelist">
+            <Col xs={10} md={8} className="messagelist">
               <div className="messageboard ">
                 <div className="">{MessageContainer}</div>
               </div>
-
               <div className="post">
-                <AddMessage groupid={this.state.groupId} />
+                <AddMessage groupId={this.state.groupId}
+                groupName={this.state.groupName} />
               </div>
             </Col>
             <Col xs={4} md={2}>
@@ -206,17 +207,22 @@ GroupMessage.PropTypes = {
   GroupMembers: PropTypes.array.isRequired,
 };
 /**
-   * connect to redux store 
+   * connect to redux store
    * @param {any} user
    */
 function mapStateToProps(state) {
   return {
-    Groups: state.Groups,
+    Groups: state.groups,
     Read: state.read,
-    Messages: state.Messages,
+    Messages: state.messages,
     GroupMembers: state.groupMembers,
   };
 }
 export default withRouter(
-  connect(mapStateToProps, { getGroups, addMembers, getMessges, getMembers })(GroupMessage),
+  connect(mapStateToProps, {
+    getGroups,
+    addMembers,
+    getMessges,
+    getMembers,
+  })(GroupMessage),
 );

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { addMembers } from '../actions/GroupAction';
 
 /**
- * 
+ *
  * @description add user to groups
  * @export
  * @param {object} props
@@ -25,7 +25,7 @@ class Members extends React.Component {
   }
   /**
     * @method onChange
-    * @description Listens for changes in form fileds 
+    * @description Listens for changes in form filed
     * @memberof Members
     * @param {object} event
     *
@@ -40,7 +40,7 @@ class Members extends React.Component {
      * @param {object} event
      *
      * @memberof Member
-     * 
+     *
      * @returns {void}
   */
   onSubmit(event) {
@@ -54,9 +54,9 @@ class Members extends React.Component {
   /**
    * @method render
    * Render react component
-   * 
+   *
    * @memberof Member
-   * 
+   *
    * @returns {String} HTML markup for the Adding group members
    */
   render() {
@@ -73,7 +73,8 @@ class Members extends React.Component {
               required
             />
           </div>
-          <button name="members" className="btn btn-primary btn-small" onSubmit={this.onSubmit}>
+          <button name="members" className="btn btn-primary btn-small"
+           onSubmit={this.onSubmit}>
             Add Members
           </button>
         </form>
