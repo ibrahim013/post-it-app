@@ -38,12 +38,6 @@ export const invalidUserSigninData = {
   email: 'wale@gmail.com',
 };
 
-
-export const payLoad = {
-  displayName: 'admin',
-  email: 'waleibrahim13@gmail.com',
-};
-
 export const messageData = {
   message: 'this is new message from test',
   groupId: '-KyZaDwTtu6Ul-Lq4sNZ',
