@@ -41,10 +41,6 @@ const webpackConfig = {
     extensions: ['*', '.js', '.jsx'],
   },
   plugins: [
-    new Dotenv({
-      path: './.env',
-      safe: false,
-    }),
     new ExtractTextPlugin({
       filename: 'style.css',
       allChunks: true,
