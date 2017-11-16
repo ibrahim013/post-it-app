@@ -6,7 +6,8 @@ import mockLocalStorage from '../../__tests__/__mock__/MockLocalStorage';
 import * as actions from '../../actions/UserAction';
 import * as types from '../../constants/ActionTypes';
 import { userDetails,
-   userSigninData, invalidUserSigninData, signInState, signUpState } from '../../__tests__/__mock__/action.mock';
+   userSigninData, invalidUserSigninData,
+   signInState, signUpState } from '../../__tests__/__mock__/action.mock';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -36,20 +37,21 @@ describe('Signin  Actions', () => {
     };
     expect(actions.loggedInUser(userSigninData)).toEqual(expectedAction);
   });
-  it('Should dispatch appropraite action type if there is an unexpected error', () => {
-    moxios.stubRequest('/api/v1/user/signin', {
-      status: 400,
-      response: {
-        message: 'oops! something went wrong',
-      },
-    });
-    const expectedAction = [{
-      type: types.LOGIN_ERROR,
-    }];
-    store.dispatch(actions.signIn(invalidUserSigninData)).then(() => {
-      expect(store.getActions()).toEqual(expectedAction);
-    });
-  });
+  it('Should dispatch appropraite action type if there is an unexpected error',
+   () => {
+     moxios.stubRequest('/api/v1/user/signin', {
+       status: 400,
+       response: {
+         message: 'oops! something went wrong',
+       },
+     });
+     const expectedAction = [{
+       type: types.LOGIN_ERROR,
+     }];
+     store.dispatch(actions.signIn(invalidUserSigninData)).then(() => {
+       expect(store.getActions()).toEqual(expectedAction);
+     });
+   });
 
   it('contains a userLoginRequest function', () => {
     expect(typeof (actions.signIn())).toBe('function');
