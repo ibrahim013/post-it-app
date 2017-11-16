@@ -6,6 +6,7 @@ import * as actions from '../../actions/GroupAction';
 import * as types from '../../constants/ActionTypes';
 
 
+
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 

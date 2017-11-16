@@ -75,14 +75,6 @@ class Navigation extends React.Component {
                   >
                     Dashboard
                   </button>
-                  <button
-                    onClick={() => {
-                      this.onSubmit();
-                    }}
-                    className="signout"
-                  >
-                    Notification
-                  </button>
                 </div>
               )}
             </div>

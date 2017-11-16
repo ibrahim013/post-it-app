@@ -4,7 +4,8 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import AddMessage from '../component/AddMessage';
-import { getGroups, addMembers, getMessges, getMembers } from '../actions/GroupAction';
+import { getGroups, addMembers,
+getMessges, getMembers } from '../actions/GroupAction';
 import Navigation from './Navigation';
 
 
@@ -82,8 +83,10 @@ class GroupMessage extends React.Component {
             <div className="panel-body">
               <p className="">{message.messageText}</p>
               <p id="details">
-                <span className="left-align">Sent By: {message.author}</span>&nbsp;
-                <span className="left-align">Priority: {message.priorityLevel}</span>&nbsp;
+                <span className="left-align">Sent By: {message.author}
+                </span>&nbsp;
+                <span className="left-align">Priority: {message.priorityLevel}
+                </span>&nbsp;
                 <span className="right-align">Sent On: {message.date}</span>
               </p>
             </div>
@@ -180,7 +183,8 @@ class GroupMessage extends React.Component {
                 <div className="">{MessageContainer}</div>
               </div>
               <div className="post">
-                <AddMessage groupId={this.state.groupId} groupName={this.state.groupName} />
+                <AddMessage groupId={this.state.groupId}
+                groupName={this.state.groupName} />
               </div>
             </Col>
             <Col xs={4} md={2}>

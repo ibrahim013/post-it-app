@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 import userObject from '../helpers/Users';
+import capitalizeFirstLetter from '../helpers/Utilities';
 
 /**
  * @description get user group.
@@ -139,7 +140,8 @@ export const postMessage = (req, res) => {
             res.status(400).json({ message: 'this is not a group' });
           }
         })
-        .catch(() => res.status(401).json({ message: 'oops! Somthing went wrong' }));
+        .catch(
+          () => res.status(401).json({ message: 'oops! Somthing went wrong' }));
     }
   } else {
     res.status(401).json({ message: 'you are not signed in' });
@@ -231,7 +233,7 @@ export const group = (req, res) => {
   const { groupName, description } = req.body;
   firebase.auth().onAuthStateChanged((user) => {
     if (user !== null) {
-      userObject.userGroupName(groupName).then((result) => {
+      userObject.userGroupName(capitalizeFirstLetter(groupName)).then((result) => {
         if (result) {
           res.status(409).json({ message: 'group name already exist' });
         } else {
@@ -244,7 +246,8 @@ export const group = (req, res) => {
             }
           });
         }
-      }).catch(() => res.status(500).json({ message: 'oops! Somthing went wrong' }));
+      }).catch(
+        () => res.status(500).json({ message: 'oops! Somthing went wrong' }));
     } else {
       res.status(401).json({ message: 'you must  be loged in to do this' });
     }

@@ -1,4 +1,5 @@
-import { LOGIN_USER, LOGOUT_USER, LOGOUT_ERROR } from '../constants/ActionTypes';
+import { LOGIN_USER, LOGOUT_USER,
+  LOGOUT_ERROR } from '../constants/ActionTypes';
 
 export default (state = [], action = {}) => {
   switch (action.type) {
