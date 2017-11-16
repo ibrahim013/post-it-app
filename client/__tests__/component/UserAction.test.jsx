@@ -108,20 +108,6 @@ describe('Logout Action', () => {
   it('contains a logout function', () => {
     expect(typeof (actions.signOut())).toBe('function');
   });
-
-  // it('should dispatch LOGOUT_USER on successful logout', (done) => {
-  //   moxios.stubRequest('/api/v1/user/signout', {
-  //     status: 200,
-  //     response: {
-  //       message: 'signed out successfully',
-  //     },
-  //   });
-  //   const expectedAction =
-  //     { type: types.LOGOUT_USER };
-  //   store.dispatch(actions.logOutUser());
-  //   expect(store.logOutUser().type).toEqual(expectedAction);
-  //   done();
-  // });
 });
 describe('Forgot password action', () => {
   beforeEach(() => moxios.install());

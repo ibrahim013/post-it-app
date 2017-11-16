@@ -2,7 +2,6 @@ import React from 'react';
 import GoogleButton from 'react-google-button';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// import HashLoader from 'react-spinners';
 import { mount } from 'enzyme';
 import TextFieldGroup from '../../component/common/TextFieldGroup';
 import { LogIn } from '../../component/LogIn';
@@ -30,9 +29,6 @@ describe('<LogIn />', () => {
       } },
     },
 );
-  // it('should contain a <HashLoader /> component', () => {
-  //   expect(wrapper.find(HashLoader).length).toEqual(1);
-  // });
   it('should contain a <TextFieldGroup /> component', () => {
     expect(wrapper.find(TextFieldGroup).length).toEqual(2);
   });
@@ -45,9 +41,6 @@ describe('<LogIn />', () => {
   it('should find a label', () => {
     expect(wrapper.find('label').length).toEqual(2);
   });
-  // it('should redirect to another page on click of a button', () => {
-  //   wrapper.find(Link).at(4).simulate('click');
-  // });
   it('should find a button', () => {
     expect(wrapper.find('button').length).toEqual(1);
   });
@@ -63,8 +56,4 @@ describe('<LogIn />', () => {
     expect(wrapper.nodes[0].onHandleSubmit).toBeDefined();
     expect(wrapper.find(GoogleButton).length).toEqual(1);
   });
-  // it('should call onChange method when an input state is changed', () => {
-  //   wrapper.find('[type="text"]').at(0).simulate('change');
-  //   expect(onChange.calledOnce).toEqual(true);
-  // });
 });
