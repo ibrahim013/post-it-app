@@ -12,7 +12,7 @@ describe('<Header />', () => {
     expect(wrapper.find(Navigation).length).toEqual(1);
   });
   it('should display copyright and Designed by', () => {
-    expect(wrapper.find('h3').at(1).text()).toEqual('POST IT'
+    expect(wrapper.find('h3').at(1).text()).toEqual('POST IT',
     );
   });
 });
