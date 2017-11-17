@@ -4,8 +4,11 @@ import expect from 'expect';
 import thunk from 'redux-thunk';
 import * as actions from '../../actions/GroupAction';
 import * as types from '../../constants/ActionTypes';
+<<<<<<< HEAD:client/__tests__/action/GroupAction.test.js
+=======
 
 
+>>>>>>> 0977beaca520f233e2bd1750fcd67ac515654e6f:client/__tests__/action/GroupAction.test.js
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

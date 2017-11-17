@@ -12,7 +12,7 @@ import { addMessage } from '../actions/GroupAction';
  * @class AddMessage
  * @extends {Component}
  */
-class AddMessage extends React.Component {
+export class AddMessage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

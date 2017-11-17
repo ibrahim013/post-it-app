@@ -13,7 +13,7 @@ import { addGroups } from '../actions/GroupAction';
  * @extends {Component}
  */
 
-class AddGroup extends React.Component {
+export class AddGroup extends React.Component {
   constructor() {
     super();
     this.state = {
