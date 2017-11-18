@@ -187,12 +187,6 @@ class GroupMessage extends React.Component {
                 groupName={this.state.groupName} />
               </div>
             </Col>
-            <Col xs={4} md={2}>
-              <div className="seenboard ">
-                <p>Seen By</p>
-                <div className="">{readContainer}</div>
-              </div>
-            </Col>
           </Row>
         </Grid>
       </div>

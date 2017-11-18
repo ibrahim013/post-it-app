@@ -17,7 +17,7 @@ body {
 }
 .blogin {
   background-color: #24333d;
-  margin-top: 5%;
+  margin: 5% auto;
   border-radius: 4px;
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
@@ -173,6 +173,7 @@ input:focus {
   background-color: #24333d;
   margin-right: 5px;
   font-size: 0.6em;
+  color: white;
 }
 .create > h3,
 li {
