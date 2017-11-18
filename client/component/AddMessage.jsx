@@ -83,8 +83,8 @@ export class AddMessage extends React.Component {
           <select className="form-control" id="sel1" onChange={this.onChange}
           name="piority">
             <option value="Normal">Normal</option>
-            <option value="Critical">Urgent</option>
-            <option value="Urgent">Critical</option>
+            <option value="Urgent">Urgent</option>
+            <option value="Critical">Critical</option>
           </select>
           </div>
           <div className="piority-s">
