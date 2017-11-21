@@ -233,11 +233,13 @@ export const group = (req, res) => {
   const { groupName, description } = req.body;
   firebase.auth().onAuthStateChanged((user) => {
     if (user !== null) {
-      userObject.userGroupName(capitalizeFirstLetter(groupName)).then((result) => {
+      userObject.userGroupName(capitalizeFirstLetter(`${groupName}`))
+      .then((result) => {
         if (result) {
           res.status(409).json({ message: 'group name already exist' });
         } else {
-          userObject.createGroup(`${groupName}`, `${description}`)
+          const groupIdentity = capitalizeFirstLetter(`${groupName}`);
+          userObject.createGroup(`${groupIdentity}`, `${description}`)
           .then((response) => {
             if (response) {
               res.status(201).json({

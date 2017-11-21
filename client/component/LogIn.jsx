@@ -9,8 +9,8 @@ import { googleLogin } from '../actions/GoogleLogin';
 import TextFieldGroup from '../component/common/TextFieldGroup';
 
 /**
- *
  * @description Login user with valid parameters
+ *
  * @export
  * @param {object} props
  * @class LogIn

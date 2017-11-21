@@ -2,9 +2,13 @@ import configureMockStore from 'redux-mock-store';
 import moxios from 'moxios';
 import expect from 'expect';
 import thunk from 'redux-thunk';
-import * as actions from '../actions/GroupAction';
-import * as types from '../constants/ActionTypes';
+import * as actions from '../../actions/GroupAction';
+import * as types from '../../constants/ActionTypes';
+<<<<<<< HEAD:client/__tests__/action/GroupAction.test.js
+=======
 
+
+>>>>>>> 0977beaca520f233e2bd1750fcd67ac515654e6f:client/__tests__/action/GroupAction.test.js
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -90,10 +94,11 @@ describe('get member action', () => {
       },
     });
     const expectedActions = [
-      { type: types.GET_ALL_GROUPS },
-    ];
+      {
+        type: types.GET_ALL_GROUP_MEMBERS,
+      }];
     store.dispatch(actions.getMembers()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
+      expect(store.getGroupMembers()).toEqual(expectedActions);
     });
     done();
   });
@@ -134,7 +139,8 @@ describe('add member action', () => {
 });
 describe('get member action', () => {
   const initialState = {
-    members: 'master',
+    groupName: '',
+    description: '',
   };
   const groupData = {
     groupname: 'just test',
@@ -157,11 +163,12 @@ describe('get member action', () => {
         },
       },
     });
-    const expectedActions = [
-      { type: types.GET_ALL_GROUPS },
-    ];
+    const expectedActions = {
+      type: types.GET_ALL_GROUPS,
+      groupData,
+    };
     store.dispatch(actions.addGroups(groupData)).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
+      expect(store.getGroupAction()).toEqual(expectedActions);
     });
     done();
   });
