@@ -223,7 +223,7 @@ export default class userObject {
       groupName,
       dateCreated,
       GroupAdmin: userEmail,
-      userEmail,
+      email: userEmail,
       displayName,
       Discription: description,
     }).then(() => {
@@ -231,7 +231,7 @@ export default class userObject {
       .database()
       .ref(`group/${groupKey}/members`)
       .push({
-        userEmail,
+        email: userEmail,
         displayName,
       });
     })
