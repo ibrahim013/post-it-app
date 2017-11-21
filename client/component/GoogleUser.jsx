@@ -12,7 +12,7 @@ import { googleUpdate } from '../actions/GoogleLogin';
  * @class GooglePhoneVerification
  * @extends {Component}
  */
-class GooglePhoneVerification extends React.Component {
+export class GooglePhoneVerification extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

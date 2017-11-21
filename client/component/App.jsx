@@ -13,7 +13,7 @@ import Header from '../component/Header';
  */
 const App = () => (
   <div>
-    <Header />
+    <Header/>
     <Alert stack={{ limit: 3 }} />
   </div>
 );

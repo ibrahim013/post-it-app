@@ -13,7 +13,7 @@ import { getGroups } from '../actions/GroupAction';
  * @class GetGroupList
  * @extends {Component}
  */
-class GetGroupList extends React.Component {
+export class GetGroupList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
