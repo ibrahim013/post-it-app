@@ -52,6 +52,7 @@ class GroupMessage extends React.Component {
     });
   }
   componentDidMount() {
+    this.props.getGroups();
     this.props.getMessges(this.state.groupId);
     this.props.getMembers(this.state.groupId);
     const groupid = this.props.match.params.groupid;
@@ -59,7 +60,6 @@ class GroupMessage extends React.Component {
     const { Groups } = this.props;
     Groups.map((group) => {
       if (group.groupid === groupid) {
-        this.setState({ groupName: group.groupname });
         groupName = group.groupname;
       }
       return groupName;
@@ -74,10 +74,20 @@ class GroupMessage extends React.Component {
    * @returns {String} HTML markup for displaying board message
    */
   render() {
-    const { Messages, GroupMembers, Read } = this.props;
+    const { Messages, GroupMembers, Read, Groups } = this.props;
     let MessageContainer = '';
     let MemberContainer = '';
     let readContainer = '';
+    let groupName = '';
+    if (!Groups) {
+      return <h3>Loading...</h3>;
+    }
+    Groups.map((group) => {
+      if (group.groupid === this.props.match.params.groupid) {
+        groupName = group.groupname;
+      }
+      return groupName;
+    });
     if (Messages.length !== 0) {
       MessageContainer = Messages.map(message => (
         <div key={message.messageId}>
@@ -138,7 +148,7 @@ class GroupMessage extends React.Component {
                 </ul>
                 </Col>
                 <Col xs={12} className="">
-                  <h3> {this.state.groupName}</h3>
+                  <h3> {groupName}</h3>
                   {MemberContainer}
                 </Col>
               </Row>
@@ -191,7 +201,7 @@ class GroupMessage extends React.Component {
               </div>
               <div className="post">
                 <AddMessage groupId={this.state.groupId}
-                groupName={this.state.groupName} />
+                groupName={groupName} />
               </div>
             </Col>
             <Col xs={4} md={2}>

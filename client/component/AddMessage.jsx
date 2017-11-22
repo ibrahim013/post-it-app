@@ -21,7 +21,6 @@ export class AddMessage extends React.Component {
       piority: 'Normal',
       groupId: this.props.groupId,
       groupName: this.props.groupName,
-      errors: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -38,6 +37,13 @@ export class AddMessage extends React.Component {
     */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.groupName) {
+      this.setState({
+        groupName: nextProps.groupName,
+      });
+    }
   }
   /**
      * @description Makes an action call to add message
@@ -56,11 +62,6 @@ export class AddMessage extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      groupName: nextProps.groupName,
-    });
-  }
   /**
    * @method render
    * Render react component
