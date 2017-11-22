@@ -54,10 +54,10 @@ export class LogIn extends React.Component {
      * @returns {void}
   */
   onHandleSubmit() {
-    this.props.googleLogin();
-    // .then(
-    //     this.props.history.push('/user/update'),
-    //  );
+    this.props.googleLogin()
+    .then(
+        this.props.history.push('/user/update'),
+     );
   }
   /**
      * @description Makes an action call to Google Login
