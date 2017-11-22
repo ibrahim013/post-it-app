@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 require('dotenv').config();
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
@@ -66,10 +65,6 @@ const webpackConfig = {
     new ExtractTextPlugin({
       filename: 'style.css',
       allChunks: true,
-    }),
-    new Dotenv({
-      path: '.env',
-      safe: false,
     }),
   ],
 };
