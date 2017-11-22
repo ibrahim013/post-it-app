@@ -2,6 +2,15 @@ import nodemailer from 'nodemailer';
 import * as dotenv from 'dotenv';
 
 dotenv.load();
+/**
+ * @description: This module sends email notification message to all users
+ * in a group
+ *
+ * @param {object} mailobject
+ *
+ * @return {void}
+ *
+ */
 
 module.exports = (mailObject) => {
   const transporter = nodemailer.createTransport({

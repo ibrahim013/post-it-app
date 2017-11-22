@@ -2,10 +2,11 @@ import React from 'react';
 import Login from '../component/LogIn';
 
 /**
+ * @description this component is the home page component
  *
- * @description Display Home page
  * @export
- *
+ * @class Homepage
+ * @extends {Component}
  */
 const HomePage = () => (
   <div>

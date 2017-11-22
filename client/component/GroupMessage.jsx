@@ -10,8 +10,8 @@ import Navigation from './Navigation';
 
 
 /**
- *
  * @description add user and post group message
+ *
  * @export
  * @param {object} props
  * @class GroupMessage
@@ -36,7 +36,8 @@ class GroupMessage extends React.Component {
   }
   /**
      * @description Makes an action call to add  members to group
-     * route with state parameters
+     * route with state parameter
+     *
      * @param {object} event
      * @memberof AddGroup
      *
@@ -67,6 +68,7 @@ class GroupMessage extends React.Component {
   /**
    * @method render
    * Render react component
+   *
    * @memberof AddGroup
    *
    * @returns {String} HTML markup for displaying board message
@@ -119,6 +121,11 @@ class GroupMessage extends React.Component {
           </li>
       ));
     }
+  /**
+   * @memberof GroupMessage
+   *
+   *  @return {jsx} rendered jsx element
+   */
     return (
       <div>
         <Grid data-spy="scroll">

@@ -1,14 +1,19 @@
- /**
-     * @description: validates the sign up
-     *
-     * @param {Object} req request object
-     * @param {Object} res response object
-     * @param {Function} next callback function
-     *
-     * @return {Object} response containing the validation status
-     */
 
+/**
+ * @description: This middleware validates the input field of every route
+ *
+ * @class Validate
+ */
 export default class Validate {
+/**
+ * @description: validates the sign up route
+ *
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @param {Function} next callback function
+ *
+ * @return {Object} response containing the validation status
+ */
   static validateSignUp(req, res, next) {
     req.check('displayName', 'Username is required').notEmpty().matches(/\w/);
     req.check('phoneNumber', 'Phone number is required').notEmpty().matches(/\d/);
@@ -26,7 +31,15 @@ export default class Validate {
       next();
     }
   }
-
+/**
+ * @description: validates the sign in route
+ *
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @param {Function} next callback function
+ *
+ * @return {Object} response containing the validation status
+ */
   static validateSignIn(req, res, next) {
     req.check('email', 'Email is required').notEmpty();
     req.check('email', 'The email address is badly formatted.').isEmail();
@@ -39,6 +52,15 @@ export default class Validate {
       next();
     }
   }
+/**
+ * @description: validates the google update route
+ *
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @param {Function} next callback function
+ *
+ * @return {Object} response containing the validation status
+ */
   static validateGoogleUpdate(req, res, next) {
     req.check('phoneNumber', 'Phone number is required').notEmpty().matches(/\d/);
     const errors = req.validationErrors();
@@ -49,6 +71,15 @@ export default class Validate {
       next();
     }
   }
+/**
+ * @description: validates the password reset route
+ *
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @param {Function} next callback function
+ *
+ * @return {Object} response containing the validation status
+ */
   static validatePasswordReset(req, res, next) {
     req.check('email', 'Email is required').notEmpty();
     req.check('email', 'The email address is badly formatted.').isEmail();
@@ -60,6 +91,15 @@ export default class Validate {
       next();
     }
   }
+/**
+ * @description: validates the post message route
+ *
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @param {Function} next callback function
+ *
+ * @return {Object} response containing the validation status
+ */
   static validatePostMessage(req, res, next) {
     req.check('message', 'message cant be empty').notEmpty();
     req.check('piority', 'piority cant be empty').notEmpty();
@@ -73,6 +113,15 @@ export default class Validate {
       next();
     }
   }
+/**
+ * @description: validates the add group route
+ *
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @param {Function} next callback function
+ *
+ * @return {Object} response containing the validation status
+ */
   static validateAddGroup(req, res, next) {
     req.check('groupName', 'group name cant be empty').notEmpty();
     req.check('description', 'discription cant be empty.').notEmpty();

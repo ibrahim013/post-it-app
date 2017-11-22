@@ -5,10 +5,11 @@ import { withRouter, Redirect } from 'react-router-dom';
 import { googleUpdate } from '../actions/GoogleLogin';
 
 /**
- *
  * @description verifying if user signing wit google has phone number verified
+ *
  * @export
  * @param {object} props
+ *
  * @class GooglePhoneVerification
  * @extends {Component}
  */
@@ -24,6 +25,7 @@ class GooglePhoneVerification extends React.Component {
   }
   /**
     * @method onChange
+    *
     * @description Listens for changes in form fileds
     * @memberof GooglePhoneVerification
     * @param {object} event

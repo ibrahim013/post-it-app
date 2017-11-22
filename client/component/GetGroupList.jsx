@@ -6,10 +6,11 @@ import Group from './Groups';
 import { getGroups } from '../actions/GroupAction';
 
 /**
+ *@description display group list
  *
- * @description display group list
  * @export
  * @param {object} props
+ *
  * @class GetGroupList
  * @extends {Component}
  */

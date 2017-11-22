@@ -3,9 +3,10 @@
  * the first word to uppercase
  *
  * @function capitalizeFirstLetter
+ *
  * @param {String} character
  *
- * @return {String} a string in lowercase and the First letter in Capital
+ * @return {String} a string with First letter in Capital
  *
  */
  const capitalizeFirstLetter = character =>

@@ -6,9 +6,14 @@ import { loggedInUser, loggedInError } from './UserAction';
 import { GOOGLE_LOGIN } from '../constants/ActionTypes';
 
 /**
-   * dispatches google action
-   * @param {any} google login user
-   */
+ * @description set google user to the store
+ *
+ * @function googleUser
+ *
+ * @param  {object} GLogin google user
+ *
+ * @return {object} - object of type GOOGLE_LOGIN and GLogin
+ */
 export function googleUser(GLogin) {
   return {
     type: GOOGLE_LOGIN,
@@ -16,9 +21,12 @@ export function googleUser(GLogin) {
   };
 }
 /**
-   * dispatches google login action
-   * @param {any} user
-   */
+ * @description make api call to sign in with google
+ *
+ * @function googleLogin
+ *
+ * @return {boolean} boolean
+ */
 export function googleLogin() {
   firebase.initializeApp(config);
   return (dispatch) => {
@@ -55,9 +63,14 @@ export function googleLogin() {
   };
 }
 /**
-   * dispatches an action for google update
-   * @param {any} user
-   */
+ * @description make api call to ubdate google record
+ *
+ * @function googleUpdate
+ *
+ * @param {string} number
+ *
+ * @return {boolean} return boolean
+ */
 export function googleUpdate(number) {
   return (dispatch) => {
     axios
