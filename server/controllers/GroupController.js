@@ -234,7 +234,7 @@ export const messageList = (req, res) => {
  *
  * @returns {Object}response containing a message object
  */
-export const group = (req, res) => {
+export const createGroup = (req, res) => {
   const { groupName, description } = req.body;
   firebase.auth().onAuthStateChanged((user) => {
     if (user !== null) {

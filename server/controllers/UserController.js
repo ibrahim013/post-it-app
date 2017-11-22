@@ -44,7 +44,7 @@ export default class User {
             userId,
             time,
           });
-        res.status(200).json({ message: 'signup sucessful proceed to login' });
+        res.status(201).json({ message: 'signup sucessful proceed to login' });
       })
       .catch((error) => {
         const errorCode = error.code;
