@@ -48,8 +48,8 @@ export function googleLogin() {
             const isConfirmed = res.data.isConfirmed;
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('GoogleLogin', JSON.stringify(isConfirmed));
-          });
-        return true;
+          })
+        .then(() => true);
       }).catch((error) => {
         dispatch(loggedInError());
         if (error) {
