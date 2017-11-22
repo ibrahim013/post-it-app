@@ -64,7 +64,7 @@ class GooglePhoneVerification extends React.Component {
    */
   render() {
     const { isConfirmed } = this.props;
-    if (isConfirmed) {
+    if (!isConfirmed) {
       return <Redirect to="/dashboard" />;
     }
     return (
