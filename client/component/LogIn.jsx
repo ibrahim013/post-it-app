@@ -55,7 +55,7 @@ export class LogIn extends React.Component {
   */
   onHandleSubmit() {
     this.props.googleLogin().then((res) => {
-      if (res) {
+      if (res === true) {
         this.props.history.push('/user/update');
       }
     });
