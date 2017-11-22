@@ -5,11 +5,12 @@ import { withRouter } from 'react-router-dom';
 import { addMessage } from '../actions/GroupAction';
 
 /**
+ *@description this component allow user add message
  *
- * @description add message
  * @export
  * @param {object} props
  * @class AddMessage
+ *
  * @extends {Component}
  */
 export class AddMessage extends React.Component {
@@ -26,8 +27,10 @@ export class AddMessage extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   /**
-    * @method onChange
     * @description Listens for changes in form fileds
+    *
+    * @method onChange
+    *
     * @memberof  AddMessage
     * @param {object} event
     *

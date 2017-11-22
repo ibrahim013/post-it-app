@@ -5,11 +5,14 @@ import { connect } from 'react-redux';
 import { addGroups } from '../actions/GroupAction';
 
 /**
+ * @description this component allow user add groups
  *
- * @description add groups
  * @export
+ *
  * @param {object} props
+ *
  * @class AddGroup
+ *
  * @extends {Component}
  */
 
@@ -25,8 +28,10 @@ export class AddGroup extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   /**
-    * @method onChange
     * @description Listens for changes in form filed
+    *
+    * @method onChange
+    *
     * @memberof AddGroup
     * @param {object} event
     *

@@ -3,15 +3,16 @@ import userObject from '../helpers/Users';
 import capitalizeFirstLetter from '../helpers/Utilities';
 
 /**
- * @description get user group.
+ * @description this metho get group a user belong to.
  * GET: /api/v1/group/groups
  *
- * @param {object} req;
- * @param {object} res;
+ * @method userGroups
  *
- *  @returns {Object}
+ * @param {object} req request
+ * @param {object} res response
+ *
+ * @returns {object} return all user group object
  */
-
 export const userGroups = (req, res) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -45,15 +46,16 @@ export const userGroups = (req, res) => {
 };
 
 /**
- * @description adding members to group.
+ * @description this method allow adding of members to  a group.
  * POST:/api/v1/group/addmember
  *
- * @param {object} req;
- * @param {object} res;
+ * @method addmember
  *
- * @return {Promise}
+ * @param {object} req request
+ * @param {object} res response
+ *
+ * @return {object} response containing a message object
  */
-
 export const addMember = (req, res) => {
   const { groupName, displayName, groupId } = req.body;
   const currentUser = firebase.auth().currentUser;
@@ -99,15 +101,16 @@ export const addMember = (req, res) => {
 };
 
 /**
- * @description posting of message.
+ * @description This method allow user to post messages to group.
  * POST:/api/v1/group/postmessage
  *
- * @param {object} req;
- * @param {object} res;
+ * @method postMessage
  *
- * @returns {Promise}
+ * @param {object} req request
+ * @param {object} res response
+ *
+ * @returns {object} response containing a message object
  */
-
 export const postMessage = (req, res) => {
   const { message, piority, groupId, groupName } = req.body;
   const currentUser = firebase.auth().currentUser;
@@ -148,15 +151,16 @@ export const postMessage = (req, res) => {
   }
 };
 /**
- * @description retuning group message.
+ * @description This method returns group messages.
  * GET:/api/v1/group/:groupid/messages
  *
- * @param {object} req; request
- * @param {object} res; response
+ * @method messageList
  *
- * @returns {object} message list
+ * @param {object} req request
+ * @param {object} res response
+ *
+ * @returns {object} response containing a message list object
  */
-
 export const messageList = (req, res) => {
   const user = firebase.auth().currentUser;
   if (user) {
@@ -220,15 +224,16 @@ export const messageList = (req, res) => {
 };
 
 /**
- * @description create user group.
+ * @description This method allow users to create user group.
  * POST:/api/v1/group
  *
- * @param {string} groupname;
- * @param {string} discription;
+ * @method group
  *
- * @returns {Object}
+ * @param {object} req request
+ * @param {object} res response
+ *
+ * @returns {Object}response containing a message object
  */
-
 export const group = (req, res) => {
   const { groupName, description } = req.body;
   firebase.auth().onAuthStateChanged((user) => {
@@ -257,15 +262,16 @@ export const group = (req, res) => {
 };
 
 /**
- * @description retuning all group members.
+ * @description This method allow retuning  of all group members.
  * GET:/api/v1/group/:groupid/members
+ *
+ * @method groupMember
  *
  * @param {object} req; request
  * @param {object} res; response
  *
- * @returns {object} member list
+ * @returns {object} response containing member list object
  */
-
 export const groupMember = (req, res) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {

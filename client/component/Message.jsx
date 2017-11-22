@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 /**
+ * @description Message Links component
  *
- * @description Message Links
  * @export
+ *
  * @class Message
+ *
  * @extends {Component}
  */
 

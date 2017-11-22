@@ -5,8 +5,8 @@ import 'react-s-alert/dist/s-alert-default.css';
 import Header from '../component/Header';
 
 /**
+ * @description this component is  an entry componnet
  *
- * @description entry componnet
  * @export
  * @class App
  * @extends {Component}

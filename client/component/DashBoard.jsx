@@ -7,11 +7,11 @@ import GetGroupList from '../component/GetGroupList';
 import Navigation from './Navigation';
 
 /**
- *@description add user to group
+ * @description add user to group
  *
- * @export
+ * @function DashBoard
  *
- * @extends {Component}
+ * @return {DOM} DOM component
  */
 const DashBoard = () => (
   <div>

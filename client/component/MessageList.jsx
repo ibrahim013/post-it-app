@@ -6,11 +6,14 @@ import Message from './Message';
 import { getMessges } from '../actions/GroupAction';
 
 /**
+ * @description display message list component
  *
- * @description display message list
  * @export
+ *
  * @param {object} props
+ *
  * @class MessageList
+ *
  * @extends {Component}
  */
 
@@ -32,7 +35,9 @@ class MessageList extends React.Component {
   }
   /**
    * @method render
+   *
    * Render react component
+   *
    * @memberof MessageList
    *
    * @returns {String} HTML markup for looping throug the group

@@ -5,7 +5,11 @@ import messages from '../reducer/GetMessagesReducer';
 import groupMembers from '../reducer/GetMembersReducer';
 import read from '../reducer/GetRead';
 import user from '../reducer/User';
-
+/**
+ * @description combine all reducer
+ *
+ *
+ */
 const rootReducer = combineReducers({
   googleLogin,
   groups,

@@ -7,11 +7,14 @@ import TextFieldGroup from '../component/common/TextFieldGroup';
 import validateInput from '../utilities/validation';
 
 /**
+ * @description user signup component
  *
- * @description user signup
  * @export
+ *
  * @param {object} props
+ *
  * @class SignUp
+ *
  * @extends {Component}
  */
 export class SignUp extends React.Component {
@@ -30,8 +33,11 @@ export class SignUp extends React.Component {
   }
   /**
     * @method onChange
+    *
     * @description Listens for changes in form fileds
+    *
     * @memberof SignUp
+    *
     * @param {object} event
     *
     * @returns {void}
@@ -49,7 +55,9 @@ export class SignUp extends React.Component {
   /**
      * @description Makes an action call to signup
      * route with user parameters
+     *
      * @param {object} event
+     *
      * @memberof SignUp
      *
      * @returns {Promise}
@@ -71,8 +79,10 @@ export class SignUp extends React.Component {
   }
   /**
    * @method render
-   * Render react component
-   * @memberof AddGroup
+   *
+   * @description Render react component
+   *
+   * @memberof SignUp
    *
    * @returns {String} HTML markup for the signup page
    */
@@ -114,7 +124,6 @@ export class SignUp extends React.Component {
                   pattern="\d{3}\d{2}\d{4}\d{4}"
                   label="Phone Number"
                   placeholder=" Format: 2349999999999"
-                  
                 />
                 <TextFieldGroup
                   value={this.state.password}

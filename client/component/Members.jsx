@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 import { addMembers } from '../actions/GroupAction';
 
 /**
- *
  * @description add user to groups
+ *
  * @export
+ *
  * @param {object} props
+ *
  * @class Members
+ *
  * @extends {Component}
  */
 
@@ -25,8 +28,11 @@ export class Members extends React.Component {
   }
   /**
     * @method onChange
+    *
     * @description Listens for changes in form filed
+    *
     * @memberof Members
+    *
     * @param {object} event
     *
     * @returns {void}
@@ -37,6 +43,7 @@ export class Members extends React.Component {
   /**
      * @description Makes an action call to add members
      * route with user parameters
+     *
      * @param {object} event
      *
      * @memberof Member
