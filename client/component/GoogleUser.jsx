@@ -49,6 +49,13 @@ class GooglePhoneVerification extends React.Component {
     this.setState({ isLoading: true });
     this.props.googleUpdate(this.state);
   }
+  componentDidMount() {
+    const { isConfirmed } = this.props;
+    if (isConfirmed) {
+      return <Redirect to="/dashboard" />;
+    }
+    return true;
+  }
   /**
    * @method render
    * Render react component
@@ -58,10 +65,6 @@ class GooglePhoneVerification extends React.Component {
    * @returns {String} HTML markup for the Adding user to group
    */
   render() {
-    const { isConfirmed } = this.props;
-    if (isConfirmed) {
-      return <Redirect to="/dashboard" />;
-    }
     return (
       <div className="row">
         <div className="col-md-4 col-sm-offset-4  blogin">
