@@ -42,12 +42,9 @@ describe('<PasswordReset />', () => {
     expect(wrapper.find('button').at(0).length).toEqual(1);
     expect(wrapper.find('button').at(0).text()).toEqual('Reset Password');
   });
-<<<<<<< HEAD
-=======
   it('should find a button', () => {
     expect(wrapper.find('button').length).toEqual(1);
   });
->>>>>>> 0977beaca520f233e2bd1750fcd67ac515654e6f
   it('should have the component default state as empty', () => {
     expect(wrapper.state().email).toEqual('');
     expect(wrapper.state().isLoading).toBe(false);

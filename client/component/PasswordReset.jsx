@@ -43,7 +43,7 @@ export class PasswordReset extends React.Component {
   /**
      * @description Makes an action call to add group
      * route with user parameters
-     * 
+     *
      * @param {object} event
      *
      * @memberof AddGroup
