@@ -78,12 +78,12 @@ class GooglePhoneVerification extends React.Component {
                 disabled={this.state.isLoading}
                 value={this.state.phoneNumber}
                 onChange={this.onChange}
-                field="phoneNumber"
                 name="phoneNumber"
                 type="number"
+                name="phoneNumber"
                 pattern="\d{3}\d{2}\d{4}\d{4}"
-                label="Phone Number"
-                placeholder="Format: 2349999999999"
+                className="form-control"
+                placeholder=" Format: 2349999999999"
                 required
               />
             </div>
