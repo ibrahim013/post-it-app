@@ -48,9 +48,9 @@ export function googleLogin() {
             const isConfirmed = res.data.isConfirmed;
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('GoogleLogin', JSON.stringify(isConfirmed));
-            return true;
           });
-      }).catch((error) => {
+      }).then(() => true)
+      .catch((error) => {
         dispatch(loggedInError());
         if (error) {
           Alert.error('oops somthing went wrong!!', {

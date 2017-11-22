@@ -68,9 +68,12 @@ export class SignUp extends React.Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.signUpAction(this.state).then((res) => {
-        this.props.history.push('/');
+        if (res) {
+          this.props.history.push('/');
+        }
         if (!res) {
           this.setState({
+            email: '',
             isLoading: false,
           });
         }
@@ -130,6 +133,7 @@ export class SignUp extends React.Component {
                   onChange={this.onChange}
                   field="password"
                   label="Password"
+                  type="password"
                   placeholder="At least 6 Characters"
                 />
                 <div className="form-group">

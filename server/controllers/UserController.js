@@ -49,13 +49,13 @@ export default class User {
       .catch((error) => {
         const errorCode = error.code;
         if (errorCode === 'auth/email-already-in-use') {
-          return res.status(409).json({ message: 'email already in use' });
+          res.status(409).send({ message: 'email already in use' });
         }
         if (errorCode === 'auth/invalid-email') {
-          return res.status(400).json({ message: 'invalid email' });
+          res.status(400).send({ message: 'invalid email' });
         }
         if (errorCode === 'auth/weak-password') {
-          return res.status(400).json({
+          res.status(400).send({
             message: 'password strength is too week' });
         }
       });
@@ -90,15 +90,16 @@ export default class User {
       .catch((error) => {
         const errorCode = error.code;
         if (errorCode === 'auth/invalid-email') {
-          return res.status(400).json({ message: 'invalid email or password' });
+          res.status(400).send({ message: 'invalid email or password' });
         }
         if (errorCode === 'auth/user-not-found') {
-          return res.status(400).json({ message: 'user not found' });
+          return res.status(400).send({
+            message: 'user not found or account may have being disabled' });
         }
         if (errorCode === 'auth/wrong-password') {
-          return res.status(400).json({ message: 'invalid email or password' });
+          return res.status(400).send({ message: 'invalid email or password' });
         }
-        return res.status(500).json({ message: 'oops!! Somthing went wrong' });
+        return res.status(500).send({ message: 'oops!! Somthing went wrong' });
       });
   }
 /**
@@ -125,12 +126,12 @@ export default class User {
       .catch((error) => {
         const errorCode = error.code;
         if (errorCode === 'auth/invalid-email') {
-          return res.status(400).json({ message: 'invalid email' });
+          return res.status(400).send({ message: 'invalid email' });
         }
         if (errorCode === 'auth/user-not-found') {
-          return res.status(400).json({ message: 'user not found' });
+          return res.status(400).send({ message: 'user not found' });
         }
-        return res.status(500).json({ message: 'oops! somthing went wrong' });
+        return res.status(500).send({ message: 'oops! somthing went wrong' });
       });
   }
 /**

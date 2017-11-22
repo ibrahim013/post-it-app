@@ -54,11 +54,10 @@ export class LogIn extends React.Component {
      * @returns {void}
   */
   onHandleSubmit() {
-    this.props.googleLogin().then((res) => {
-      if (res) {
-        this.props.history.push('/user/update');
-      }
-    });
+    this.props.googleLogin()
+    .then(
+        this.props.history.push('/user/update'),
+     );
   }
   /**
      * @description Makes an action call to Google Login
@@ -76,6 +75,9 @@ export class LogIn extends React.Component {
     this.props.signIn(this.state).then((res) => {
       if (res) {
         this.props.history.push('/dashboard');
+      }
+      if (!res) {
+        this.setState({ email: '', isLoading: false });
       }
     });
   }
