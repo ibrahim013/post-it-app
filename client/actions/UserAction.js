@@ -98,7 +98,7 @@ export function signOut() {
       })
       .catch((error) => {
         if (error) {
-          Alert.error(error.response.data.message, {
+          Alert.error(error.res.data.message, {
             position: 'top-right',
             offset: 100,
           });
@@ -127,7 +127,7 @@ export function signUpAction(userData) {
       })
       .catch((error) => {
         if (error) {
-          Alert.error(error.response.data.message, {
+          Alert.error(error.res.data.message, {
             position: 'top-right',
             offset: 100,
           });
@@ -157,7 +157,7 @@ export function passwordReset(email) {
       })
       .catch((error) => {
         if (error) {
-          Alert.error(error.response.data.message, {
+          Alert.error(error.res.data.message, {
             position: 'top-right',
             offset: 100,
           });

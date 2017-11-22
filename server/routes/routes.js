@@ -5,7 +5,7 @@ import {
   addMember,
   postMessage,
   messageList,
-  group,
+  createGroup,
   groupMember,
 } from '../controllers/GroupController';
 import Validator from '../helpers/Validator';
@@ -20,7 +20,7 @@ User.googleUpdate);
 router.get('/api/v1/user/signout', User.signOut);
 router.post('/api/v1/user/passwordreset', Validator.validatePasswordReset,
 User.passwordReset);
-router.post('/api/v1/group', Validator.validateAddGroup, group);
+router.post('/api/v1/group', Validator.validateAddGroup, createGroup);
 router.get('/api/v1/group/groups', userGroups);
 router.post('/api/v1/group/addmember', addMember);
 router.post('/api/v1/group/postmessage', Validator.validatePostMessage,

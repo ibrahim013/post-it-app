@@ -82,7 +82,14 @@ export function getGroups() {
       .then((response) => {
         dispatch(getGroupAction(response.data.groups));
       })
-      .catch();
+      .catch((error) => {
+        if (error) {
+          Alert.error(error.response.data.message, {
+            position: 'top-right',
+            offset: 100,
+          });
+        }
+      });
 }
 /**
  * @description make api call to get all group messages
@@ -98,6 +105,13 @@ export function getMessges(groupid) {
     axios.get(`/api/v1/group/${groupid}/messages/`).then((response) => {
       dispatch(getMessageAction(response.data.messages));
       dispatch(readAction(response.data.usersRead));
+    }).catch((error) => {
+      if (error) {
+        Alert.error(error.response.data.message, {
+          position: 'top-right',
+          offset: 100,
+        });
+      }
     });
 }
 /**
@@ -113,6 +127,13 @@ export function getMembers(groupid) {
   return dispatch =>
     axios.get(`/api/v1/group/${groupid}/members/`).then((response) => {
       dispatch(getGroupMembers(response.data.members));
+    }).catch((error) => {
+      if (error) {
+        Alert.error(error.response.data.message, {
+          position: 'top-right',
+          offset: 100,
+        });
+      }
     });
 }
 /**
