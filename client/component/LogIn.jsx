@@ -76,6 +76,9 @@ export class LogIn extends React.Component {
       if (res) {
         this.props.history.push('/dashboard');
       }
+      if (!res) {
+        this.setState({ email: '', isLoading: false });
+      }
     });
   }
   componentWillUnmount() {
