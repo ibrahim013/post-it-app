@@ -47,7 +47,12 @@ class GooglePhoneVerification extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     this.setState({ isLoading: true });
-    this.props.googleUpdate(this.state);
+    this.props.googleUpdate(this.state).then((res) => {
+      if (res) {
+        this.props.history.push('/dashboard');
+      }
+    },
+  );
   }
   /**
    * @method render
@@ -61,8 +66,8 @@ class GooglePhoneVerification extends React.Component {
     const { isConfirmed } = this.props;
     if (isConfirmed) {
       return <Redirect to="/dashboard" />;
-    } else {
-      return (
+    }
+    return (
       <div className="row">
         <div className="col-md-4 col-sm-offset-4  blogin">
           <div className="ubdate">Update Phone Number To Proceed</div>
@@ -73,11 +78,12 @@ class GooglePhoneVerification extends React.Component {
                 disabled={this.state.isLoading}
                 value={this.state.phoneNumber}
                 onChange={this.onChange}
-                type="tel"
-                pattern="\d{3}\d{2}\d{4}\d{4}"
+                field="phoneNumber"
                 name="phoneNumber"
-                className="form-control"
-                placeholder=" Format: 2349999999999"
+                type="number"
+                pattern="\d{3}\d{2}\d{4}\d{4}"
+                label="Phone Number"
+                placeholder="Format: 2349999999999"
                 required
               />
             </div>
@@ -95,8 +101,7 @@ class GooglePhoneVerification extends React.Component {
           <div />
         </div>
       </div>
-      );
-    }
+    );
   }
 }
 GooglePhoneVerification.PropType = {
