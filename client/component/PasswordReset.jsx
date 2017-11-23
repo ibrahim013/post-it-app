@@ -6,14 +6,17 @@ import { withRouter } from 'react-router-dom';
 import { passwordReset } from '../actions/UserAction';
 
 /**
+ * @description Password Reset component
  *
- * @description Password Reset
  * @export
+ *
  * @param {object} props
+ *
  * @class PasswordReset
+ *
  * @extends {Component}
  */
-class PasswordReset extends React.Component {
+export class PasswordReset extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,8 +28,11 @@ class PasswordReset extends React.Component {
   }
   /**
     * @method onChange
+    *
     * @description Listens for changes in form fileds
+    *
     * @memberof AddGroup
+    *
     * @param {object} event
     *
     * @returns {void}
@@ -37,6 +43,7 @@ class PasswordReset extends React.Component {
   /**
      * @description Makes an action call to add group
      * route with user parameters
+     *
      * @param {object} event
      *
      * @memberof AddGroup

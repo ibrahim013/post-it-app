@@ -7,10 +7,12 @@ import { withRouter } from 'react-router-dom';
 import { signOut } from '../actions/UserAction';
 
 /**
+ * @description display app header with login user component
  *
- * @description display app header with login user
  * @export
+ *
  * @class Navigation
+ *
  * @extends {Component}
  */
 class Navigation extends React.Component {
@@ -24,6 +26,7 @@ class Navigation extends React.Component {
 
   /**
      * @description Makes an action call to signout route
+     *
      * @memberof AddGroup
      *
      * @returns {void}

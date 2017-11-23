@@ -13,9 +13,9 @@ import { Route, Redirect, withRouter } from 'react-router-dom';
  */
 const UserRoute = ({ isAuthenticated, Component: component, ...rest }) => {
   if (!isEmpty(isAuthenticated)) {
-    return <Route {...rest} render={props => <Component {...props} />} />;
+    return <Redirect to="/dashboard" />;
   }
-  return <Redirect to="/" />;
+  return <Route {...rest} render={props => <Component {...props} />} />;
 };
 UserRoute.PropTypes = {
   component: PropTypes.func.isRequired,

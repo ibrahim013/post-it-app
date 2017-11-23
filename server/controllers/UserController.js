@@ -4,20 +4,22 @@ import config from '../../server/database';
 firebase.initializeApp(config);
 
 /**
- * class User: controls all user routes
- * @class
+ * @description this class controls all user routes
+ *
+ * @class user
  */
 export default class User {
-  /**
- * @description signing up a new user.
+/**
+ * @description this method allows a new user to sign up.
  * POST:/api/v1/user/signup
+ *
+ * @method signUp
  *
  * @param {object} req; request
  * @param {object} res; response
  *
- * @returns {object}  message
+ * @returns {object}  response containing a message
  */
-
   static signUp(req, res) {
     const { displayName, email, password, phoneNumber } = req.body;
     const time = new Date().toLocaleString();
@@ -42,32 +44,34 @@ export default class User {
             userId,
             time,
           });
-        res.status(200).json({ message: 'signup sucessful proceed to login' });
+        res.status(201).json({ message: 'signup sucessful proceed to login' });
       })
       .catch((error) => {
         const errorCode = error.code;
         if (errorCode === 'auth/email-already-in-use') {
-          return res.status(409).json({ message: 'email already in use' });
+          return res.status(409).send({ message: 'email already in use' });
         }
         if (errorCode === 'auth/invalid-email') {
-          return res.status(400).json({ message: 'invalid email' });
+          return res.status(400).send({ message: 'invalid email' });
         }
         if (errorCode === 'auth/weak-password') {
-          return res.status(400).json({
+          return res.status(400).send({
             message: 'password strength is too week' });
         }
       });
   }
 
 /**
- * @description Sign in users.
+ * @description  This method allow a users to sign in.
  * POST: /api/v1/user/signin
- * @param {object} req;
- * @param {object} res;
  *
- * @returns {object} user token
+ * @method signIn
+ *
+ * @param {object} req request
+ * @param {object} res response
+ *
+ * @returns {object} response contaning a login user details
  */
-
   static signIn(req, res) {
     const { email, password } = req.body;
     firebase
@@ -86,27 +90,29 @@ export default class User {
       .catch((error) => {
         const errorCode = error.code;
         if (errorCode === 'auth/invalid-email') {
-          return res.status(400).json({ message: 'invalid email or password' });
+          res.status(400).send({ message: 'invalid email or password' });
         }
         if (errorCode === 'auth/user-not-found') {
-          return res.status(400).json({ message: 'user does not found' });
+          return res.status(400).send({
+            message: 'user not found or account may have being disabled' });
         }
         if (errorCode === 'auth/wrong-password') {
-          return res.status(400).json({ message: 'invalid email or password' });
+          return res.status(400).send({ message: 'invalid email or password' });
         }
-        return res.status(500).json({ message: 'oops!! Somthing went wrong' });
+        return res.status(500).send({ message: 'oops!! Somthing went wrong' });
       });
   }
 /**
- * @description Route to reset user password.
- *
+ * @description This method allow users to resetpassword.
  * POST:/api/v1/user/passwordreset
  *
- * @param {string} email;
+ * @method passwordReset
  *
- * @returns {Promise}
+ * @param {object} req request
+ * @param {object} res response
+ *
+ * @returns {object} this return a message object to user
  */
-
   static passwordReset(req, res) {
     const auth = firebase.auth();
     const emailAddress = req.body.email;
@@ -120,14 +126,25 @@ export default class User {
       .catch((error) => {
         const errorCode = error.code;
         if (errorCode === 'auth/invalid-email') {
-          return res.status(400).json({ message: 'invalid email' });
+          return res.status(400).send({ message: 'invalid email' });
         }
         if (errorCode === 'auth/user-not-found') {
-          return res.status(400).json({ message: 'user not found' });
+          return res.status(400).send({ message: 'user not found' });
         }
-        return res.status(500).json({ message: 'oops! somthing went wrong' });
+        return res.status(500).send({ message: 'oops! somthing went wrong' });
       });
   }
+/**
+ * @description This method allow users to signin using google.
+ * POST:/api/v1/user/googlelogin
+ *
+ * @method googleLogin
+ *
+ * @param {object} req request
+ * @param {object} res response
+ *
+ * @returns {object} response contaning a login user details
+ */
   static googleLogin(req, res) {
     const userData = req.body;
     const credential = firebase.auth.GoogleAuthProvider.credential(
@@ -165,17 +182,17 @@ export default class User {
       .catch(() => res.status(500).json({
         message: 'oops! somthing went wrong' }));
   }
-
 /**
- * @description Signout Route.
+ * @description This method allow users to signout.
+ * POST:/api/v1/user/signout
  *
- * GET:/api/v1/user/signout
- * @param {object} req request;
+ * @method signOut
+ *
+ * @param {object} req request
  * @param {object} res response
  *
- * @returns {Promise}
+ * @returns {object} response contaning message object
  */
-
   static signOut(req, res) {
     firebase
       .auth()
@@ -183,7 +200,17 @@ export default class User {
       .then(() => res.status(200).json({ message: 'signed out successfully.' }))
       .catch(() => res.status(500).json({ message: 'Network Error' }));
   }
-
+/**
+ * @description This method allow users signin with google ubdate login details.
+ * POST:/api/v1/user/googlelupdate
+ *
+ * @method googleUpdate
+ *
+ * @param {object} req request
+ * @param {object} res response
+ *
+ * @returns {object} response contaning message object
+ */
   static googleUpdate(req, res) {
     const { phoneNumber } = req.body;
     const displayName = firebase.auth().currentUser.displayName;

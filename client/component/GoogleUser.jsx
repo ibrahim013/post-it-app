@@ -5,10 +5,11 @@ import { withRouter, Redirect } from 'react-router-dom';
 import { googleUpdate } from '../actions/GoogleLogin';
 
 /**
- *
  * @description verifying if user signing wit google has phone number verified
+ *
  * @export
  * @param {object} props
+ *
  * @class GooglePhoneVerification
  * @extends {Component}
  */
@@ -24,6 +25,7 @@ class GooglePhoneVerification extends React.Component {
   }
   /**
     * @method onChange
+    *
     * @description Listens for changes in form fileds
     * @memberof GooglePhoneVerification
     * @param {object} event
@@ -45,7 +47,12 @@ class GooglePhoneVerification extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     this.setState({ isLoading: true });
-    this.props.googleUpdate(this.state);
+    this.props.googleUpdate(this.state).then((res) => {
+      if (res) {
+        this.props.history.push('/dashboard');
+      }
+    },
+  );
   }
   /**
    * @method render
@@ -71,9 +78,10 @@ class GooglePhoneVerification extends React.Component {
                 disabled={this.state.isLoading}
                 value={this.state.phoneNumber}
                 onChange={this.onChange}
-                type="tel"
-                pattern="\d{3}\d{2}\d{4}\d{4}"
                 name="phoneNumber"
+                type="number"
+                name="phoneNumber"
+                pattern="\d{3}\d{2}\d{4}\d{4}"
                 className="form-control"
                 placeholder=" Format: 2349999999999"
                 required

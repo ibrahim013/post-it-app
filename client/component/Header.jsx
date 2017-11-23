@@ -4,7 +4,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import Navigation from '../component/Navigation';
 
 /**
- * @description display app header with login user
+ * @description this component is the header component
  *
  * @export
  * @class Header

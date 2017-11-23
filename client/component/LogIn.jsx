@@ -9,11 +9,14 @@ import { googleLogin } from '../actions/GoogleLogin';
 import TextFieldGroup from '../component/common/TextFieldGroup';
 
 /**
- *
  * @description Login user with valid parameters
+ *
  * @export
+ *
  * @param {object} props
+ *
  * @class LogIn
+ *
  * @extends {Component}
  */
 export class LogIn extends React.Component {
@@ -30,8 +33,11 @@ export class LogIn extends React.Component {
   }
   /**
     * @method onChange
+    *
     * @description Listens for changes in form fileds
+    *
     * @memberof AddGroup
+    *
     * @param {object} event
     *
     * @returns {void}
@@ -42,18 +48,21 @@ export class LogIn extends React.Component {
   /**
      * @description Makes an action call to Google Login
      * route with user parameters
+     *
      * @memberof Login
      *
      * @returns {void}
   */
   onHandleSubmit() {
-    this.props.googleLogin().then(() => {
-      this.props.history.push('/user/update');
-    });
+    this.props.googleLogin()
+    .then(
+        this.props.history.push('/user/update'),
+     );
   }
   /**
      * @description Makes an action call to Google Login
      * route with user parameters
+     *
      * @param {object} event
      *
      * @memberof Login
@@ -67,6 +76,9 @@ export class LogIn extends React.Component {
       if (res) {
         this.props.history.push('/dashboard');
       }
+      if (!res) {
+        this.setState({ email: '', isLoading: false });
+      }
     });
   }
   componentWillUnmount() {
@@ -78,11 +90,17 @@ export class LogIn extends React.Component {
   /**
    * @method render
    * Render react component
+   *
    * @memberof Login
    *
    * @returns {String} HTML markup for the Adding user to group
    */
   render() {
+  /**
+   * @memberof LogIn
+   *
+   *  @return {jsx} rendered jsx element
+   */
     return (
       <div>
         <div className="sweet-loading">

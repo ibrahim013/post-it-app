@@ -1,18 +1,21 @@
 import firebase from 'firebase';
 import sendEmail from '../utilities/emailTranspoter';
 import sendSms from '../utilities/smsTranspoter';
+
 /**
 * class userObject: controls all user function
-* @class
+* @class userObject
 */
 
 export default class userObject {
 /**
-* @description: This method check for passed in user
+* @description: This method check for passed in user in database
+*
+* @method userDetail
 *
 * @param {String} displayName
 *
-* @return {Object} response containing users details
+* @return {Boolean} return boolean
 */
   static userDetail(displayName) {
     const users = [];
@@ -39,9 +42,11 @@ export default class userObject {
 /**
 * @description: This method check for the avaliability of a group
 *
+* @method userGroup
+*
 * @param {String} groupId
 *
-* @return {Boolen}
+* @return {Boolen} return boolean
 */
   static userGroup(groupId) {
     const groups = [];
@@ -67,9 +72,11 @@ export default class userObject {
 /**
 * @description: This method check for the avaliability of a group
 *
+* @method userGroupName
+*
 * @param {String} groupId
 *
-* @return {Boolen}
+* @return {Boolen} return boolean
 */
   static userGroupName(groupName) {
     const groups = [];
@@ -95,10 +102,12 @@ export default class userObject {
 /**
 * @description: This method check for user existance in a perticuler group
 *
+* @method groupMember
+*
 * @param {string} displayName
 * @param {string} groupId
 *
-* @return {Boolen}
+* @return {Boolen} return boolean
 */
   static groupMember(groupId, displayName) {
     const groupMembers = [];
@@ -124,11 +133,13 @@ export default class userObject {
 /**
 * @description: This method add user to a perticuler group
 *
+* @method addToGroup
+*
 * @param {string} groupId
 * @param {string} diaplayName
 * @param {string} groupName
 *
-* @return {Boolen}
+* @return {Boolen} return boolean
 */
   static addToGroup(groupId, displayName, groupName) {
     return userObject.userDetail(displayName).then((user) => {
@@ -153,11 +164,13 @@ export default class userObject {
   }
 
 /**
-* @description: This method gets all group member  email in a group
+* @description: This method gets all group member email in a group
+*
+* @method getGroupMembersEmail
 *
 * @param {string} groupId
 *
-* @return {Boolen}
+* @return {Boolen} return boolean
 */
   static getGroupMembersEmail(groupId) {
     const userEmail = [];
@@ -172,6 +185,16 @@ export default class userObject {
       });
     }).then(() => userEmail);
   }
+
+/**
+* @description: This method gets all group member phone number
+*
+* @method getGroupMembersPhoneNumber
+*
+* @param {string} groupId
+*
+* @return {array} return an array of phone numbers
+*/
   static getGroupMembersPhoneNumber(groupId) {
     const phoneNumber = [];
     const memberPhone = firebase
@@ -189,6 +212,8 @@ export default class userObject {
 /**
 * @description: This method send email notification to members in a group
 *
+* @method sendNotification
+
 * @param {string} groupId
 * @param {string} piority
 * @param {string} groupName
@@ -207,6 +232,17 @@ export default class userObject {
       }
     });
   }
+
+/**
+* @description: This method allow user create a groups
+*
+* @method createGroup
+*
+* @param {string} groupName
+* @param {string} description
+
+* @return {boolean} return boolean
+*/
   static createGroup(groupName, description) {
     const currentUser = firebase.auth().currentUser;
     const dateCreated = new Date().toLocaleString();
@@ -223,7 +259,7 @@ export default class userObject {
       groupName,
       dateCreated,
       GroupAdmin: userEmail,
-      userEmail,
+      email: userEmail,
       displayName,
       Discription: description,
     }).then(() => {
@@ -231,7 +267,7 @@ export default class userObject {
       .database()
       .ref(`group/${groupKey}/members`)
       .push({
-        userEmail,
+        email: userEmail,
         displayName,
       });
     })

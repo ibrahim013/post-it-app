@@ -2,11 +2,12 @@ import configureMockStore from 'redux-mock-store';
 import moxios from 'moxios';
 import expect from 'expect';
 import thunk from 'redux-thunk';
-import mockLocalStorage from '../__tests__/__mock__/MockLocalStorage';
-import * as actions from '../actions/UserAction';
-import * as types from '../constants/ActionTypes';
+import mockLocalStorage from '../../__tests__/__mock__/MockLocalStorage';
+import * as actions from '../../actions/UserAction';
+import * as types from '../../constants/ActionTypes';
 import { userDetails,
-   userSigninData, invalidUserSigninData, signInState, signUpState } from '../__tests__/__mock__/action.mock';
+   userSigninData, invalidUserSigninData,
+   signInState, signUpState } from '../../__tests__/__mock__/action.mock';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -36,20 +37,21 @@ describe('Signin  Actions', () => {
     };
     expect(actions.loggedInUser(userSigninData)).toEqual(expectedAction);
   });
-  it('Should dispatch appropraite action type if there is an unexpected error', () => {
-    moxios.stubRequest('/api/v1/user/signin', {
-      status: 400,
-      response: {
-        message: 'oops! something went wrong',
-      },
-    });
-    const expectedAction = [{
-      type: types.LOGIN_ERROR,
-    }];
-    store.dispatch(actions.signIn(invalidUserSigninData)).then(() => {
-      expect(store.getActions()).toEqual(expectedAction);
-    });
-  });
+  it('Should dispatch appropraite action type if there is an unexpected error',
+   () => {
+     moxios.stubRequest('/api/v1/user/signin', {
+       status: 400,
+       response: {
+         message: 'oops! something went wrong',
+       },
+     });
+     const expectedAction = [{
+       type: types.LOGIN_ERROR,
+     }];
+     store.dispatch(actions.signIn(invalidUserSigninData)).then(() => {
+       expect(store.getActions()).toEqual(expectedAction);
+     });
+   });
 
   it('contains a userLoginRequest function', () => {
     expect(typeof (actions.signIn())).toBe('function');
@@ -108,20 +110,6 @@ describe('Logout Action', () => {
   it('contains a logout function', () => {
     expect(typeof (actions.signOut())).toBe('function');
   });
-
-  // it('should dispatch LOGOUT_USER on successful logout', (done) => {
-  //   moxios.stubRequest('/api/v1/user/signout', {
-  //     status: 200,
-  //     response: {
-  //       message: 'signed out successfully',
-  //     },
-  //   });
-  //   const expectedAction =
-  //     { type: types.LOGOUT_USER };
-  //   store.dispatch(actions.logOutUser());
-  //   expect(store.getActions().type).toEqual(expectedAction);
-  //   done();
-  // });
 });
 describe('Forgot password action', () => {
   beforeEach(() => moxios.install());

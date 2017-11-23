@@ -8,10 +8,14 @@ import {
 } from '../constants/ActionTypes';
 
 /**
-   * dispatches an action to get all groups
-   * @param {any} groupdata
-   */
-
+ * @description get all group in the store
+ *
+ * @function getGroupAction
+ *
+ * @param  {object} groupdata groupdata
+ *
+ * @return {object} - object of type GET_ALL_GROUPS and groupData
+ */
 export function getGroupAction(groupData) {
   return {
     type: GET_ALL_GROUPS,
@@ -19,9 +23,14 @@ export function getGroupAction(groupData) {
   };
 }
 /**
-   * dispatches an action to get all groups message
-   * @param {any} groupdata
-   */
+ * @description get all message in the store
+ *
+ * @function getMessageAction
+ *
+ * @param  {object} groupMessage groupdata
+ *
+ * @return {object} - object of type GET_ALL_MESSAGE and groupMessage
+ */
 export function getMessageAction(groupMessage) {
   return {
     type: GET_ALL_MESSAGE,
@@ -29,9 +38,14 @@ export function getMessageAction(groupMessage) {
   };
 }
 /**
-   * dispatches an action to get all group members
-   * @param {any} groupdata
-   */
+ * @description get all group members in the store
+ *
+ * @function getGroupMembers
+ *
+ * @param  {object} groupMembers group members
+ *
+ * @return {object} - object of type GET_ALL_GROUP_MEMBERS and groupMembers
+ */
 export function getGroupMembers(groupMembers) {
   return {
     type: GET_ALL_GROUP_MEMBERS,
@@ -39,22 +53,28 @@ export function getGroupMembers(groupMembers) {
   };
 }
 /**
-   * dispatches an action to show who saw messages
-   * @param {any} read
-   */
+ * @description get all read message in the store
+ *
+ * @function readAction
+ *
+ * @param  {object} read read messages
+ *
+ * @return {object} - object of type GET_ALL_READ and read
+ */
 export function readAction(read) {
   return {
     type: GET_ALL_READ,
     read,
   };
 }
-/**
- *
- * @param {string} groupname
- *
- * @return {promise} groups
- */
 
+/**
+ * @description make api call to get all groups from server
+ *
+ * @function getGroups
+ *
+ * @return {object} group data
+ */
 export function getGroups() {
   return dispatch =>
     axios
@@ -62,38 +82,68 @@ export function getGroups() {
       .then((response) => {
         dispatch(getGroupAction(response.data.groups));
       })
-      .catch();
+      .catch((error) => {
+        if (error) {
+          Alert.error(error.response.data.message, {
+            position: 'top-right',
+            offset: 100,
+          });
+        }
+      });
 }
 /**
+ * @description make api call to get all group messages
  *
- * @param {object} groupid
+ * @function getMessges
  *
- * @return {promise} messages
+ * @param {string} groupid
+ *
+ * @return {void} group data
  */
 export function getMessges(groupid) {
   return dispatch =>
     axios.get(`/api/v1/group/${groupid}/messages/`).then((response) => {
       dispatch(getMessageAction(response.data.messages));
       dispatch(readAction(response.data.usersRead));
+    }).catch((error) => {
+      if (error) {
+        Alert.error(error.response.data.message, {
+          position: 'top-right',
+          offset: 100,
+        });
+      }
     });
 }
 /**
+ * @description make api call to get all group members
  *
- * @param {object} groupid
+ * @function getMembers
  *
- * @return {promise} members
+ * @param {string} groupid
+ *
+ * @return {object} member data
  */
 export function getMembers(groupid) {
   return dispatch =>
     axios.get(`/api/v1/group/${groupid}/members/`).then((response) => {
       dispatch(getGroupMembers(response.data.members));
+    }).catch((error) => {
+      if (error) {
+        Alert.error(error.response.data.message, {
+          position: 'top-right',
+          offset: 100,
+        });
+      }
     });
 }
 /**
+ * @description make api call to get add member to group
  *
- * @param {object} userdetails
+ * @function addMembers
  *
- * @return {promise}
+ * @param {object} userDetails
+ *
+ * @return {object} userdatails
  */
 export function addMembers(userDetails) {
   return dispatch =>
@@ -116,10 +166,13 @@ export function addMembers(userDetails) {
       });
 }
 /**
+ * @description make api call to add group
  *
- * @param {object} groupdata
+ * @function addGroups
  *
- * @return {promise} messages
+ * @param {object} groupData
+ *
+ * @return {object} message
  */
 export function addGroups(groupData) {
   return dispatch =>
@@ -143,10 +196,13 @@ export function addGroups(groupData) {
 }
 
 /**
+ * @description make api call to add message
  *
- * @param {object} groupName
+ * @function addMessage
  *
- * @return {promise}
+ * @param {object} messageData
+ *
+ * @return {object} message
  */
 export function addMessage(messageData) {
   return dispatch =>

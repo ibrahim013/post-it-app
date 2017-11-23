@@ -64,7 +64,7 @@ describe('PostIt Endpoints', () => {
     chai.request(server)
       .post('/api/v1/user/signin')
       .send({
-        email: 'waleibrahim13@gmail.com',
+        email: 'musa@musa.com',
         password: '12345678',
       })
       .end(() => {
@@ -94,7 +94,8 @@ describe('PostIt Endpoints', () => {
         done();
       });
   });
-  it('should respond with an error message when trying to add a user who already exixt in the group', (done) => {
+  it('should respond with an error message when trying to add a user' +
+  ' who already exixt in the group', (done) => {
     chai.request(server)
       .post('/api/v1/group/addmember')
       .send({
@@ -123,7 +124,8 @@ describe('PostIt Endpoints', () => {
         done();
       });
   });
-  it('should respond with an error message when trying to add a group that already exist', (done) => {
+  it('should respond with an error message when trying to add' +
+  'a group that already exist', (done) => {
     chai.request(server)
       .post('/api/v1/group')
       .send({
@@ -180,7 +182,8 @@ describe('PostIt Endpoints', () => {
         done();
       });
   });
-  it('should respond with a success message when a right id is passed to get group members', (done) => {
+  it('should respond with a success message when a right id is' +
+   ' passed to get group members', (done) => {
     chai.request(server)
       .get('/api/v1/group/-KyNFzcil6R-RNUJSoXS/members')
       .end((err, res) => {
@@ -226,15 +229,16 @@ describe('PostIt Endpoints', () => {
     chai.request(server)
       .post('/api/v1/user/signin')
       .send({
-        email: 'waleibrahim13@gmail.com',
+        email: 'musa@musa.com',
         password: '12345678',
       })
       .end(() => {
         done();
       });
   });
-  it('should respond with an error message if no group name is selected', (done) => {
-    chai.request(server)
+  it('should respond with an error message if no group name is selected',
+   (done) => {
+     chai.request(server)
       .post('/api/v1/group/postmessage')
       .send({
         groupName: '',
@@ -249,5 +253,5 @@ describe('PostIt Endpoints', () => {
         res.body.message.should.equal('group name cant be empty');
         done();
       });
-  });
+   });
 });
