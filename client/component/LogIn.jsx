@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GoogleButton from 'react-google-button';
+import isEmpty from 'lodash/isEmpty';
 import { HashLoader } from 'react-spinners';
 import { signIn } from '../actions/UserAction';
 import { googleLogin } from '../actions/GoogleLogin';
@@ -55,9 +56,11 @@ export class LogIn extends React.Component {
   */
   onHandleSubmit() {
     this.props.googleLogin()
-    .then(
-        this.props.history.push('/user/update'),
-     );
+    .then((res) => {
+      if (res) {
+        this.props.history.push('/user/update');
+      }
+    });
   }
   /**
      * @description Makes an action call to Google Login
@@ -96,6 +99,15 @@ export class LogIn extends React.Component {
    * @returns {String} HTML markup for the Adding user to group
    */
   render() {
+    /**
+   * @memberof LogIn
+   *
+   *  @return {bolean}
+   */
+    const { isAuthenticated } = this.props;
+    if (!isEmpty(isAuthenticated)) {
+      return <Redirect to="/dashboard" />;
+    }
   /**
    * @memberof LogIn
    *
@@ -165,6 +177,15 @@ export class LogIn extends React.Component {
 LogIn.PropTypes = {
   SignIn: PropTypes.func.isRequired,
   GoogleLogin: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
-
-export default withRouter(connect(null, { signIn, googleLogin })(LogIn));
+/**
+   * connect to redux store
+   * @param {boolen} isConfirmed
+   */
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.user,
+  };
+}
+export default withRouter(connect(mapStateToProps, { signIn, googleLogin })(LogIn));

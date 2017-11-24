@@ -74,13 +74,13 @@ export function googleLogin() {
 export function googleUpdate(number) {
   return (dispatch) => {
     axios
-      .post('/api/v1/user/googleupdate', number).then((res) => {
-        dispatch(googleLogin(res.data.isConfirmed));
-        Alert.success(res.data.message, {
+      .post('/api/v1/user/googleupdate', number).then((response) => {
+        dispatch(googleUser(response.data.isConfirmed));
+        Alert.success(response.data.message, {
           position: 'top-right',
           offset: 100,
         });
-        const isConfirmed = res.data.isConfirmed;
+        const isConfirmed = response.data.isConfirmed;
         localStorage.setItem('GoogleLogin', JSON.stringify(isConfirmed));
         return true;
       })
