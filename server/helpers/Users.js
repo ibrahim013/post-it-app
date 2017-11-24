@@ -222,12 +222,12 @@ export default class userObject {
 */
   static sendNotification(groupId, piority, groupName) {
     userObject.getGroupMembersEmail(groupId).then((userEmail) => {
-      if (`${piority}` === 'Critical') {
-        sendEmail({ userEmail, groupName });
+      if (`${piority}` === 'Critical' || `${piority}` === 'Urgent') {
+        sendEmail({ userEmail, groupName, piority });
       }
     });
     userObject.getGroupMembersPhoneNumber(groupId).then((userNumber) => {
-      if (`${piority}` === 'Critical' || `${piority}` === 'Urgent') {
+      if (`${piority}` === 'Critical') {
         sendSms({ userNumber, groupName });
       }
     });

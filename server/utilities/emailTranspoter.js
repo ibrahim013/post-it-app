@@ -22,13 +22,22 @@ module.exports = (mailObject) => {
   });
   const mailOptions = {
     from: '"Post It App" <notification@postit.com>',
-    subject: '!critical Message Posted',
-    text: `You have been sent a message with piority as critical 
+    subject: '!Notification Message Posted',
+    text: `You have been sent a message with piority as "${mailObject.piority}" 
     in ${mailObject.groupName} 
     group. Kindly, login to view Message`,
-    html: `<header>Message Notificaton</header><b>You have been sent 
-    a message with piority as critical in "${mailObject.groupName}" group
-    .Kindly log into the application to view.</b>`,
+    html: `
+    <header>
+    <h2 style="padding-top: 5px; color: #1bb188;">Postit Message Notification</h2>
+   </header>
+   <b>You have been sent 
+    a message with piority as "${mailObject.piority}"  in "${mailObject.groupName}" group
+    .Kindly <a href="post-it-app.herokuapp.com">log into the application to 
+    view</a>.</b>
+    <footer>
+    <h2 style="padding-top: 5px; color: #1bb188;">Postit Team</h2>
+    </footer>
+    `,
   };
   mailObject.userEmail.map((email) => {
     const sendto = email;
