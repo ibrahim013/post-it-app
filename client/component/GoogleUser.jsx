@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { HashLoader } from 'react-spinners';
 import { withRouter, Redirect } from 'react-router-dom';
 import { googleUpdate } from '../actions/GoogleLogin';
 
@@ -47,12 +48,7 @@ class GooglePhoneVerification extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     this.setState({ isLoading: true });
-    this.props.googleUpdate(this.state).then((res) => {
-      if (res) {
-        this.props.history.push('/dashboard');
-      }
-    },
-  );
+    this.props.googleUpdate(this.state);
   }
   /**
    * @method render
@@ -64,6 +60,11 @@ class GooglePhoneVerification extends React.Component {
    */
   render() {
     const { isConfirmed } = this.props;
+    if (isConfirmed === undefined) {
+      return (<div className="google-sweet-loading">
+      <HashLoader color={'#1bb188'} size={70} />
+      </div>);
+    }
     if (isConfirmed) {
       return <Redirect to="/dashboard" />;
     }

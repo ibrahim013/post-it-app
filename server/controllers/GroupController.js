@@ -37,10 +37,6 @@ export const userGroups = (req, res) => {
             message: `Error occurred ${error.message}`,
           }),
         );
-    } else {
-      return res.status(403).json({
-        message: 'You are not signed in right now!',
-      });
     }
   });
 };

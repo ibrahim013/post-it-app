@@ -11,16 +11,15 @@ import GetGroupList from '../component/GetGroupList';
 import MessageList from '../component/MessageList';
 import GroupMessage from '../component/GroupMessage';
 import UserRoute from '../component/UserRoute';
-import MemberRoute from '../component/MemberRoute';
 import GoogleUser from '../component/GoogleUser';
 
 export default (
   <div>
     <Route component={App} />
     <Route exact path="/" component={HomePage} />
-    <MemberRoute exact path="/login" component={Login} />
+    <Route exact path="/login" component={Login} />
     <Route exact path="/addgroup" component={AddGroup} />
-    <MemberRoute exact path="/signup" component={SignUpPage} />
+    <Route exact path="/signup" component={SignUpPage} />
     <UserRoute exact path="/dashboard" component={DashBoard} />
     <Route exact path="/passwordreset" component={PasswordReset} />
     <Route exact path="/getgroup" component={GetGroupList} />
