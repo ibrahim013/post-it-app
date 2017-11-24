@@ -28,7 +28,7 @@ module.exports = (mailObject) => {
     group. Kindly, login to view Message`,
     html: `
     <header>
-    <h2 style="padding-top: 5px; color: #1bb188;">Postit Message Notificaton</h2>
+    <h2 style="padding-top: 5px; color: #1bb188;">Postit Message Notification</h2>
    </header>
    <b>You have been sent 
     a message with piority as "${mailObject.piority}"  in "${mailObject.groupName}" group
