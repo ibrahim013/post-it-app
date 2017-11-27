@@ -5,10 +5,11 @@ import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 
 /**
+ * @description High order component fro protected route
  *
- * @description High oder component for protected route
- * @export
+ * @function UserRoute
  *
+ * @return {string} any
  */
 const UserRoute = ({ isAuthenticated, Component: component, ...rest }) => {
   if (!isEmpty(isAuthenticated)) {

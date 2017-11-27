@@ -2,6 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+/**
+ * @description This is an input field for common component
+ *
+ * @function TextFieldGroup
+ *
+ * @param {any} props
+ *
+ * @return {DOM} DOM element
+ */
 const TextFieldGroup = ({ field, value, label, error, type, onChange,
   glyphicon, placeholder }) => (
   <div>

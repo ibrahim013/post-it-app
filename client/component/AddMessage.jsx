@@ -5,14 +5,15 @@ import { withRouter } from 'react-router-dom';
 import { addMessage } from '../actions/GroupAction';
 
 /**
+ *@description this component allow user add message
  *
- * @description add message
  * @export
  * @param {object} props
  * @class AddMessage
+ *
  * @extends {Component}
  */
-class AddMessage extends React.Component {
+export class AddMessage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,14 +21,15 @@ class AddMessage extends React.Component {
       piority: 'Normal',
       groupId: this.props.groupId,
       groupName: this.props.groupName,
-      errors: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
   /**
-    * @method onChange
     * @description Listens for changes in form fileds
+    *
+    * @method onChange
+    *
     * @memberof  AddMessage
     * @param {object} event
     *
@@ -35,6 +37,13 @@ class AddMessage extends React.Component {
     */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.groupName) {
+      this.setState({
+        groupName: nextProps.groupName,
+      });
+    }
   }
   /**
      * @description Makes an action call to add message
@@ -53,11 +62,6 @@ class AddMessage extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      groupName: nextProps.groupName,
-    });
-  }
   /**
    * @method render
    * Render react component
@@ -83,8 +87,8 @@ class AddMessage extends React.Component {
           <select className="form-control" id="sel1" onChange={this.onChange}
           name="piority">
             <option value="Normal">Normal</option>
-            <option value="Critical">Urgent</option>
-            <option value="Urgent">Critical</option>
+            <option value="Urgent">Urgent</option>
+            <option value="Critical">Critical</option>
           </select>
           </div>
           <div className="piority-s">

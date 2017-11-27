@@ -1,14 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { HashLoader } from 'react-spinners';
 import { withRouter, Redirect } from 'react-router-dom';
 import { googleUpdate } from '../actions/GoogleLogin';
 
 /**
- *
  * @description verifying if user signing wit google has phone number verified
+ *
  * @export
  * @param {object} props
+ *
  * @class GooglePhoneVerification
  * @extends {Component}
  */
@@ -24,6 +26,7 @@ class GooglePhoneVerification extends React.Component {
   }
   /**
     * @method onChange
+    *
     * @description Listens for changes in form fileds
     * @memberof GooglePhoneVerification
     * @param {object} event
@@ -57,6 +60,11 @@ class GooglePhoneVerification extends React.Component {
    */
   render() {
     const { isConfirmed } = this.props;
+    if (isConfirmed === undefined) {
+      return (<div className="google-sweet-loading">
+      <HashLoader color={'#1bb188'} size={70} />
+      </div>);
+    }
     if (isConfirmed) {
       return <Redirect to="/dashboard" />;
     }
@@ -71,9 +79,10 @@ class GooglePhoneVerification extends React.Component {
                 disabled={this.state.isLoading}
                 value={this.state.phoneNumber}
                 onChange={this.onChange}
-                type="tel"
-                pattern="\d{3}\d{2}\d{4}\d{4}"
                 name="phoneNumber"
+                type="number"
+                name="phoneNumber"
+                pattern="\d{3}\d{2}\d{4}\d{4}"
                 className="form-control"
                 placeholder=" Format: 2349999999999"
                 required

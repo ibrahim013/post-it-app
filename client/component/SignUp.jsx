@@ -7,14 +7,17 @@ import TextFieldGroup from '../component/common/TextFieldGroup';
 import validateInput from '../utilities/validation';
 
 /**
+ * @description user signup component
  *
- * @description user signup
  * @export
+ *
  * @param {object} props
+ *
  * @class SignUp
+ *
  * @extends {Component}
  */
-class SignUp extends React.Component {
+export class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,8 +33,11 @@ class SignUp extends React.Component {
   }
   /**
     * @method onChange
+    *
     * @description Listens for changes in form fileds
+    *
     * @memberof SignUp
+    *
     * @param {object} event
     *
     * @returns {void}
@@ -49,7 +55,9 @@ class SignUp extends React.Component {
   /**
      * @description Makes an action call to signup
      * route with user parameters
+     *
      * @param {object} event
+     *
      * @memberof SignUp
      *
      * @returns {Promise}
@@ -60,9 +68,12 @@ class SignUp extends React.Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.signUpAction(this.state).then((res) => {
-        this.props.history.push('/');
+        if (res) {
+          this.props.history.push('/');
+        }
         if (!res) {
           this.setState({
+            email: '',
             isLoading: false,
           });
         }
@@ -71,8 +82,10 @@ class SignUp extends React.Component {
   }
   /**
    * @method render
-   * Render react component
-   * @memberof AddGroup
+   *
+   * @description Render react component
+   *
+   * @memberof SignUp
    *
    * @returns {String} HTML markup for the signup page
    */
@@ -114,13 +127,13 @@ class SignUp extends React.Component {
                   pattern="\d{3}\d{2}\d{4}\d{4}"
                   label="Phone Number"
                   placeholder=" Format: 2349999999999"
-                  
                 />
                 <TextFieldGroup
                   value={this.state.password}
                   onChange={this.onChange}
                   field="password"
                   label="Password"
+                  type="password"
                   placeholder="At least 6 Characters"
                 />
                 <div className="form-group">

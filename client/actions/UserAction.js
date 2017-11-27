@@ -1,11 +1,15 @@
 import axios from 'axios';
 import Alert from 'react-s-alert';
 import { LOGIN_USER, LOGOUT_USER, LOGIN_ERROR } from '../constants/ActionTypes';
+
 /**
- * sign in action
- * @param {string} userData
+ * @description Set login user in the store
  *
- * @return {string} token
+ * @function loggedInUser
+ *
+ * @param  {object} user
+ *
+ * @return {object} - object of type LOGIN_USER and user
  */
 export function loggedInUser(user) {
   return {
@@ -13,16 +17,40 @@ export function loggedInUser(user) {
     user,
   };
 }
+/**
+ * @description Set login error in the store
+ *
+ * @function loggedInError
+ *
+ * @return {object} - object of type LOGIN_ERROR
+ */
 export function loggedInError() {
   return {
     type: LOGIN_ERROR,
   };
 }
+/**
+ * @description Set logout user
+ *
+ * @function logOutUser
+ *
+ * @return {object} - object of type LOGIN_ERROR
+ */
 export function logOutUser() {
   return {
     type: LOGOUT_USER,
   };
 }
+
+/**
+ * @description user sign in request
+ *
+ * @function signIn
+ *
+ * @param  {object} user userdata
+ *
+ * @return {boolean} - return boolean
+ */
 export function signIn(userData) {
   return dispatch =>
     axios
@@ -40,7 +68,7 @@ export function signIn(userData) {
       .catch((error) => {
         dispatch(loggedInError());
         if (error) {
-          Alert.error('oops! something went wrong', {
+          Alert.error(error.response.data.message, {
             position: 'top-right',
             offset: 100,
           });
@@ -48,7 +76,13 @@ export function signIn(userData) {
         return false;
       });
 }
-
+/**
+ * @description user sign out request
+ *
+ * @function signOut
+ *
+ * @return {void}
+ */
 export function signOut() {
   return dispatch =>
     axios
@@ -71,6 +105,15 @@ export function signOut() {
         }
       });
 }
+/**
+ * @description user sign up action
+ *
+ * @function signUpAction
+ *
+ * @param  {object} user userdata
+ *
+ * @return {boolean} - return boolean
+ */
 export function signUpAction(userData) {
   return () =>
     axios
@@ -92,7 +135,15 @@ export function signUpAction(userData) {
         }
       });
 }
-
+/**
+ * @description user sign up action
+ *
+ * @function passwordReset
+ *
+ * @param  {string} email userdata
+ *
+ * @return {boolean} - return boolean
+ */
 export function passwordReset(email) {
   return () =>
     axios
