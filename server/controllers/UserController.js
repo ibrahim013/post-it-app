@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 import config from '../../server/database';
+import userObject from '../helpers/Users';
 
 firebase.initializeApp(config);
 
@@ -23,29 +24,36 @@ export default class User {
   static signUp(req, res) {
     const { displayName, email, password, phoneNumber } = req.body;
     const time = new Date().toLocaleString();
-    return firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        firebase.auth().currentUser.updateProfile({
-          displayName,
-          phoneNumber,
-        });
-      })
-      .then(() => {
-        const userId = firebase.auth().currentUser.uid;
+    userObject
+    .userDetail(`${displayName}`).then((registeredUsers) => {
+      if (registeredUsers) {
+        res.status(409).send({ message: 'username already exist' });
+      } else {
         firebase
-          .database()
-          .ref(`user/${userId}`)
-          .set({
-            displayName,
-            email,
-            phoneNumber,
-            userId,
-            time,
-          });
-        res.status(201).json({ message: 'signup sucessful proceed to login' });
-      })
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      firebase.auth().currentUser.updateProfile({
+        displayName,
+        phoneNumber,
+      });
+    })
+    .then(() => {
+      const userId = firebase.auth().currentUser.uid;
+      firebase
+        .database()
+        .ref(`user/${userId}`)
+        .set({
+          displayName,
+          email,
+          phoneNumber,
+          userId,
+          time,
+        });
+      res.status(201).json({ message: 'signup sucessful proceed to login' });
+    });
+      }
+    })
       .catch((error) => {
         const errorCode = error.code;
         if (errorCode === 'auth/email-already-in-use') {
