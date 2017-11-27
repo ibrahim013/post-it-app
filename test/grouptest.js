@@ -99,9 +99,9 @@ describe('PostIt Endpoints', () => {
     chai.request(server)
       .post('/api/v1/group/addmember')
       .send({
-        groupName: 'Female',
-        displayName: 'master',
-        groupId: '-KyZaDwTtu6Ul-Lq4sNZ',
+        groupName: 'Andela',
+        displayName: 'musa',
+        groupId: '-Kyp-XkkztVrWq8xyMMb',
       })
       .end((err, res) => {
         res.status.should.equal(400);

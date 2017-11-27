@@ -1,6 +1,7 @@
 import chai from 'chai';
 import faker from 'faker';
 import server from '../server/index';
+import userObject from '../server/helpers/Users';
 
 const request = require('supertest');
 
@@ -23,7 +24,7 @@ describe('PostIt Endpoints', () => {
       .expect('Content-Type', /json/)
       .end((err, res) => {
         expect(200);
-        expect(res.statusCode).to.be.equal(200);
+        expect(res.statusCode).to.be.equal(201);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
         expect(res.body.message).to.be.equal('signup sucessful proceed to login');
@@ -195,7 +196,8 @@ describe('PostIt Endpoints', () => {
         expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('user not found');
+        expect(res.body.message).to.be.equal(
+          'user not found or account may have being disabled');
         done();
       });
   });
@@ -212,7 +214,8 @@ describe('PostIt Endpoints', () => {
         expect(res.statusCode).to.be.equal(400);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('user not found');
+        expect(res.body.message).to.be.equal(
+          'user not found or account may have being disabled');
         done();
       });
   });
