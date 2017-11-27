@@ -30,6 +30,8 @@ const webpackConfig = {
   },
   node: {
     fs: 'empty',
+    dns: 'empty',
+    net: 'empty',
   },
 
   module: {

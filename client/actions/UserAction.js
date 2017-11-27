@@ -62,6 +62,7 @@ export function signIn(userData) {
           offset: 100,
         });
         const token = res.data.user;
+        localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', JSON.stringify(token));
         return true;
       })
@@ -95,6 +96,7 @@ export function signOut() {
         });
         localStorage.removeItem('user');
         localStorage.removeItem('GoogleLogin');
+        localStorage.removeItem('token');
       })
       .catch((error) => {
         if (error) {

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.prod.js && babel-node -- server/index.js",
+    "postinstall": "npm run build",
+    "start": "babel-node -- server/index.js",
     "start:dev": "nodemon --watch server --exec babel-node -- server/index.js",
     "start2": "webpack-dev-server --hot",
     "build": "webpack --config webpack.config.prod.js",
