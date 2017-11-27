@@ -62,6 +62,7 @@ export function signIn(userData) {
           offset: 100,
         });
         const token = res.data.user;
+        localStorage.setItem('token', res.data.token);
         localStorage.setItem('user', JSON.stringify(token));
         return true;
       })

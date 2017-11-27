@@ -1,6 +1,10 @@
 import * as firebase from 'firebase';
 import config from '../../server/database';
 import userObject from '../helpers/Users';
+import jwt from 'jsonwebtoken';
+
+require('dotenv').config()
+;
 
 firebase.initializeApp(config);
 
@@ -54,19 +58,19 @@ export default class User {
     });
       }
     })
-      .catch((error) => {
-        const errorCode = error.code;
-        if (errorCode === 'auth/email-already-in-use') {
-          return res.status(409).send({ message: 'email already in use' });
-        }
-        if (errorCode === 'auth/invalid-email') {
-          return res.status(400).send({ message: 'invalid email' });
-        }
-        if (errorCode === 'auth/weak-password') {
-          return res.status(400).send({
-            message: 'password strength is too week' });
-        }
-      });
+    .catch((error) => {
+      const errorCode = error.code;
+      if (errorCode === 'auth/email-already-in-use') {
+        return res.status(409).send({ message: 'email already in use' });
+      }
+      if (errorCode === 'auth/invalid-email') {
+        return res.status(400).send({ message: 'invalid email' });
+      }
+      if (errorCode === 'auth/weak-password') {
+        return res.status(400).send({
+          message: 'password strength is too week' });
+      }
+    });
   }
 
 /**
@@ -88,9 +92,13 @@ export default class User {
       .then(() => {
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
+            const token = jwt.sign({
+              user,
+            }, process.env.JWT_SECERT, { expiresIn: '48h' });
             res.status(200).json({
               message: 'Sign In Successful',
               user,
+              token,
             });
           }
         });
