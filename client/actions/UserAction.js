@@ -96,6 +96,7 @@ export function signOut() {
         });
         localStorage.removeItem('user');
         localStorage.removeItem('GoogleLogin');
+        localStorage.removeItem('token');
       })
       .catch((error) => {
         if (error) {
