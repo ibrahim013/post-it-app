@@ -18,7 +18,6 @@ describe('<AddMessage />', () => {
     expect(wrapper.state().piority).toEqual('Normal');
     expect(wrapper.state().groupId).toEqual(undefined);
     expect(wrapper.state().groupName).toEqual(undefined);
-    expect(wrapper.state().errors).toEqual({});
   });
   it('should contain defined methods', () => {
     expect(wrapper.nodes[0].onChange).toBeDefined();
@@ -35,5 +34,23 @@ describe('<AddMessage />', () => {
       groupName: 'Andela' });
     wrapper.find('form').at(0).simulate('submit');
     expect(onSubmit.calledOnce).toEqual(false);
+  });
+  it('should call onChange method', () => {
+    const onChangeSpy = jest.spyOn(wrapper.instance(), 'onChange');
+    const event = {
+      target: {
+        groupName: 'Andela',
+        description: 'Fun group',
+      },
+    };
+    wrapper.instance().onChange(event);
+    expect(onChangeSpy).toHaveBeenCalled();
+  });
+  it('should receive props on componentDidReceiveProps', () => {
+    const nextProps = {
+      groupName: 'Andela',
+    };
+    wrapper.setProps(nextProps);
+    expect(wrapper.state('groupName')).toEqual(nextProps.groupName);
   });
 });

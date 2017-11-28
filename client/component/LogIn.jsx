@@ -75,7 +75,8 @@ export class LogIn extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     this.setState({ errors: {}, isLoading: true });
-    this.props.signIn(this.state).then((res) => {
+    this.props.signIn(this.state)
+    .then((res) => {
       if (res) {
         this.props.history.push('/dashboard');
       }
