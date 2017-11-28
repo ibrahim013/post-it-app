@@ -12,8 +12,8 @@ const request = require('supertest');
 describe('PostIt Endpoints', () => {
   it('should successfully create a new user', (done) => {
     const userTest = {
-      displayName: 'AndelaG',
-      email: 'andelatetr23@yahoo.com',
+      displayName: 'Andelabg',
+      email: 'andelatetr234@yahoo.com',
       password: '12345678',
       phoneNumber: '2347098776523',
     };
