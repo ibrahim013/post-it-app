@@ -189,17 +189,28 @@ export default class User {
           });
           const member = users.includes(`${alreadyRegistered}`);
           if (member) {
+            const token = jwt.sign(
+              {
+                user,
+              },
+              process.env.JWT_SECERT,
+              { expiresIn: '48h' },
+            );
+            if (member) {
+              return res.status(200).json({
+                message: 'sign in sucessful',
+                user,
+                token,
+                isConfirmed: true,
+              });
+            }
             return res.status(200).json({
               message: 'sign in sucessful',
               user,
-              isConfirmed: true,
+              token,
+              isConfirmed: false,
             });
           }
-          return res.status(200).json({
-            message: 'sign in sucessful',
-            user,
-            isConfirmed: false,
-          });
         });
       })
       .catch(() =>
