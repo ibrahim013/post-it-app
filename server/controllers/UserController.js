@@ -188,29 +188,27 @@ export default class User {
             users.push(addedUser);
           });
           const member = users.includes(`${alreadyRegistered}`);
-          if (member) {
-            const token = jwt.sign(
-              {
-                user,
-              },
+          const token = jwt.sign(
+            {
+              user,
+            },
               process.env.JWT_SECERT,
               { expiresIn: '48h' },
             );
-            if (member) {
-              return res.status(200).json({
-                message: 'sign in sucessful',
-                user,
-                token,
-                isConfirmed: true,
-              });
-            }
+          if (member) {
             return res.status(200).json({
               message: 'sign in sucessful',
               user,
               token,
-              isConfirmed: false,
+              isConfirmed: true,
             });
           }
+          return res.status(200).json({
+            message: 'sign in sucessful',
+            user,
+            token,
+            isConfirmed: false,
+          });
         });
       })
       .catch(() =>
