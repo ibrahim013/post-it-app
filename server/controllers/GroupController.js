@@ -70,7 +70,7 @@ export const addMember = (req, res) => {
         userObject.groupMember(`${groupId}`, `${displayName}`)
         .then((groupMember) => {
           if (groupMember) {
-            return res.status(400).json({
+            return res.status(409).json({
               message: 'This user is already a member of this group',
             });
           }
@@ -129,8 +129,8 @@ export const postMessage = (req, res) => {
                 Author: displayName,
               })
               .then(() => {
-                userObject.sendNotification(`${groupId}`, `${piority}`,
-                 `${groupName}`);
+                userObject.sendNotification(
+                  `${groupId}`, `${piority}`, `${groupName}`);
                 return res.status(201).json({
                   message: 'Message Posted Sucessfuly',
                 });
@@ -139,8 +139,8 @@ export const postMessage = (req, res) => {
             res.status(400).json({ message: 'this is not a group' });
           }
         })
-        .catch(
-          () => res.status(401).json({ message: 'oops! Somthing went wrong' }));
+        .catch(() => res.status(401).json({
+          message: 'oops! Somthing went wrong' }));
     }
   } else {
     res.status(401).json({ message: 'you are not signed in' });
@@ -174,8 +174,7 @@ export const messageList = (req, res) => {
         };
         usersRead.push(userName);
       });
-      const readMessage = usersRead.find(seen =>
-        seen.displayName === `${displayName}`);
+      const readMessage = usersRead.find(seen => seen.displayName === `${displayName}`);
       if (!readMessage) {
         firebase
           .database()
@@ -234,23 +233,23 @@ export const createGroup = (req, res) => {
   const { groupName, description } = req.body;
   firebase.auth().onAuthStateChanged((user) => {
     if (user !== null) {
-      userObject.userGroupName(capitalizeFirstLetter(`${groupName}`))
-      .then((result) => {
-        if (result) {
-          res.status(409).json({ message: 'group name already exist' });
-        } else {
-          const groupIdentity = capitalizeFirstLetter(`${groupName}`);
-          userObject.createGroup(`${groupIdentity}`, `${description}`)
-          .then((response) => {
-            if (response) {
-              res.status(201).json({
-                message: 'group created Sucessfuly',
-              });
-            }
-          });
-        }
-      }).catch(
-        () => res.status(500).json({ message: 'oops! Somthing went wrong' }));
+      userObject
+        .userGroupName(capitalizeFirstLetter(`${groupName}`))
+        .then((result) => {
+          if (result) {
+            res.status(409).json({ message: 'group name already exist' });
+          } else {
+            const groupIdentity = capitalizeFirstLetter(`${groupName}`);
+            userObject.createGroup(`${groupIdentity}`, `${description}`).then((response) => {
+              if (response) {
+                res.status(201).json({
+                  message: 'group created Sucessfuly',
+                });
+              }
+            });
+          }
+        })
+        .catch(() => res.status(500).json({ message: 'oops! Somthing went wrong' }));
     } else {
       res.status(401).json({ message: 'you must  be loged in to do this' });
     }
