@@ -2,9 +2,6 @@ import * as firebase from 'firebase';
 import jwt from 'jsonwebtoken';
 import config from '../../server/database';
 import userObject from '../helpers/Users';
-import jwt from 'jsonwebtoken';
-
-require('dotenv').config()
 
 require('dotenv').config();
 
@@ -73,7 +70,7 @@ export default class User {
                 message: 'password strength is too week',
               });
             }
-         });
+          });
       }
     });
   }
