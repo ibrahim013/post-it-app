@@ -13,7 +13,7 @@ import Navigation from './Navigation';
  *
  * @return {DOM} DOM component
  */
-const DashBoard = () => (
+export const DashBoard = () => (
   <div>
     <div>
       <div className="row linkheader" />

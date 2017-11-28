@@ -59,4 +59,15 @@ describe('<PasswordReset />', () => {
     wrapper.find('form').at(0).simulate('submit');
     expect(onSubmit.calledOnce).toEqual(false);
   });
+  it('should call onChange method', () => {
+    const onChangeSpy = jest.spyOn(wrapper.instance(), 'onChange');
+    const event = {
+      target: {
+        groupName: 'Andela',
+        description: 'Fun group',
+      },
+    };
+    wrapper.instance().onChange(event);
+    expect(onChangeSpy).toHaveBeenCalled();
+  });
 });
