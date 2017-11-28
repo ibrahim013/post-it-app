@@ -1,14 +1,14 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import PropTypes from 'prop-types';
 import { DashBoard } from '../../component/DashBoard';
-import { Navigation } from '../../component/Navigation';
-import { AddGroup } from '../../component/AddGroup';
-import { GetGroupList } from '../../component/GetGroupList';
+import Navigation from '../../component/Navigation';
+import AddGroup from '../../component/AddGroup';
+import GetGroupList from '../../component/GetGroupList';
 
 
 describe('<DashBoard />', () => {
-  const wrapper = mount(<DashBoard />,
+  const wrapper = shallow(<DashBoard />,
     {
       childContextTypes: { router: PropTypes.object },
       context: { router: {
@@ -22,23 +22,25 @@ describe('<DashBoard />', () => {
             isExact: true,
             params: {},
           },
-          location: {
-            pathname: '/dashboard',
-            search: '',
-            hash: '',
-            key: '8ziqbv',
+          route: {
+            location: {
+              pathname: '/dashboard',
+              search: '',
+              hash: '',
+              key: '8ziqbv',
+            },
           },
         },
       } },
     },
 );
   it('should contain a <Navigation /> component', () => {
-    expect(wrapper.find(Navigation).length).toEqual(1);
+    expect(wrapper.find(Navigation)).toHaveLength(1);
   });
   it('should contain a <AddGroup /> component', () => {
-    expect(wrapper.find(AddGroup).length).toEqual(1);
+    expect(wrapper.find(AddGroup)).toHaveLength(1);
   });
   it('should contain a <GetGroupList /> component', () => {
-    expect(wrapper.find(GetGroupList).length).toEqual(1);
+    expect(wrapper.find(GetGroupList)).toHaveLength(1);
   });
 });

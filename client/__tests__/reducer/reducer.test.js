@@ -1,6 +1,6 @@
 import mockAction from '../../__tests__/__mock__/ActionType.Mock';
-import * as group from '../../reducer/GetGroupsReducer';
-import * as users from '../../reducer/User';
+import group from '../../reducer/GetGroupsReducer';
+import users from '../../reducer/User';
 
 // test user reducer
 describe('User reducer', () => {
@@ -10,7 +10,7 @@ describe('User reducer', () => {
       const action = mockAction.CurrentUser;
       expect(users(state, action))
           .toEqual(
-            { user: { id: '-K4546778899000900', username: 'master' } },
+            [{ id: '-K4546778899000900', username: 'master' }],
           );
     });
   });
@@ -28,7 +28,7 @@ describe('User reducer', () => {
 describe('Group reducers', () => {
   describe('When GET_ALL_GROUP action type is fired from an action', () => {
     it('should get all the group a member belong  to the store', () => {
-      const state = {};
+      const state = [];
       const action = mockAction.GetGroup;
       expect(group(state, action)).toEqual({ groupData: action.groupData });
     });

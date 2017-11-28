@@ -10,7 +10,7 @@ import Navigation from '../component/Navigation';
  * @class Header
  * @extends {Component}
  */
-const Header = () => (
+export const Header = () => (
       <Grid bsClass="fluid header" className="wrapper">
         <Row className="show-grid">
           <Col xs={2} md={1} className="icon">
