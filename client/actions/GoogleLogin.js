@@ -46,8 +46,9 @@ export function googleLogin() {
             });
             const user = res.data.user;
             const isConfirmed = res.data.isConfirmed;
+            const token = res.data.token;
             localStorage.setItem('user', JSON.stringify(user));
-            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('token', token);
             localStorage.setItem('GoogleLogin', JSON.stringify(isConfirmed));
           });
       }).then(() => true)
