@@ -2,9 +2,12 @@ import Alert from 'react-s-alert';
 import axios from 'axios';
 import {
   GET_ALL_GROUPS,
-  GET_ALL_MESSAGE,
+  SET_GROUP_MESSAGES,
   GET_ALL_GROUP_MEMBERS,
   GET_ALL_READ,
+  POST_NEW_MESSAGE,
+  ADD_NEW_MEMBER,
+  ADD_NEW_GROUP,
 } from '../constants/ActionTypes';
 
 /**
@@ -25,16 +28,16 @@ export function getGroupAction(groupData) {
 /**
  * @description get all message in the store
  *
- * @function getMessageAction
+ * @function setMessages
  *
  * @param  {object} groupMessage groupdata
  *
- * @return {object} - object of type GET_ALL_MESSAGE and groupMessage
+ * @return {object} - object of type SET_GROUP_MESSAGES and groupMessage
  */
-export function getMessageAction(groupMessage) {
+export function setMessages(groupMessages) {
   return {
-    type: GET_ALL_MESSAGE,
-    groupMessage,
+    type: SET_GROUP_MESSAGES,
+    groupMessages,
   };
 }
 /**
@@ -55,19 +58,66 @@ export function getGroupMembers(groupMembers) {
 /**
  * @description get all read message in the store
  *
- * @function readAction
+ * @function updateReadStatus
  *
- * @param  {object} read read messages
+ * @param  {object} read read message status
  *
  * @return {object} - object of type GET_ALL_READ and read
  */
-export function readAction(read) {
+export function updateReadStatus(read) {
   return {
     type: GET_ALL_READ,
     read,
   };
 }
 
+/**
+ * @description add post new message in the store
+ *
+ * @function readAction
+ *
+ * @param  {object} messageDate post messages
+ *
+ * @return {object} - object of type POST_NEW_MESSAGE and messageData
+ */
+export function postNewMessage(messageData) {
+  return {
+    type: POST_NEW_MESSAGE,
+    messageData,
+  };
+}
+
+/**
+ * @description add new member to group
+ *
+ * @function addMember
+ *
+ * @param  {object} userDetails new member
+ *
+ * @return {object} - object of type ADD_NEW_MEMBER and userDetails
+ */
+export function addMember(userDetails) {
+  return {
+    type: ADD_NEW_MEMBER,
+    userDetails,
+  };
+}
+
+/**
+ * @description add new group
+ *
+ * @function addGroup
+ *
+ * @param  {object} userDetails new member
+ *
+ * @return {object} - object of type ADD_NEW_MEMBER and userDetails
+ */
+export function addGroup(groupDetail) {
+  return {
+    type: ADD_NEW_GROUP,
+    groupDetail,
+  };
+}
 /**
  * @description make api call to get all groups from server
  *
@@ -94,17 +144,17 @@ export function getGroups() {
 /**
  * @description make api call to get all group messages
  *
- * @function getMessges
+ * @function getAllMessages
  *
  * @param {string} groupid
  *
  * @return {void} group data
  */
-export function getMessges(groupid) {
+export function getAllMessages(groupid) {
   return dispatch =>
     axios.get(`/api/v1/group/${groupid}/messages/`).then((response) => {
-      dispatch(getMessageAction(response.data.messages));
-      dispatch(readAction(response.data.usersRead));
+      dispatch(setMessages(response.data.messages));
+      dispatch(updateReadStatus(response.data.usersRead));
     }).catch((error) => {
       if (error) {
         Alert.error(error.response.data.message, {
@@ -139,18 +189,20 @@ export function getMembers(groupid) {
 /**
  * @description make api call to get add member to group
  *
- * @function addMembers
+ * @function addMember
  *
- * @param {object} userDetails
+ * @param {object} userDetail
  *
  * @return {object} userdatails
  */
-export function addMembers(userDetails) {
-  return dispatch =>
+export function addNewMember(userDetails) {
+  return (dispatch) => {
+    dispatch(addMember({
+      displayName: userDetails.displayName,
+    }));
     axios
       .post('/api/v1/group/addmember', userDetails)
       .then((res) => {
-        dispatch(getMembers(userDetails.groupId));
         Alert.success(res.data.message, {
           position: 'top-right',
           offset: 100,
@@ -164,18 +216,22 @@ export function addMembers(userDetails) {
           });
         }
       });
+  };
 }
 /**
  * @description make api call to add group
  *
- * @function addGroups
+ * @function addNewGroup
  *
  * @param {object} groupData
  *
  * @return {object} message
  */
-export function addGroups(groupData) {
-  return dispatch =>
+export function addNewGroup(groupData) {
+  return (dispatch) => {
+    dispatch(addGroup({
+      groupname: groupData.groupName,
+    }));
     axios
       .post('/api/v1/group', groupData)
       .then((res) => {
@@ -193,27 +249,32 @@ export function addGroups(groupData) {
           });
         }
       });
+  };
 }
 
 /**
- * @description make api call to add message
+ * @description make api call to post new message
  *
- * @function addMessage
+ * @function postMessage
  *
  * @param {object} messageData
  *
  * @return {object} message
  */
-export function addMessage(messageData) {
-  return dispatch =>
-    axios
-      .post('/api/v1/group/postmessage', messageData)
+export function postMessage(messageData) {
+  return (dispatch) => {
+    dispatch(postNewMessage({
+      mesageId: messageData.groupId,
+      messageText: messageData.message,
+      PiorityLevel: messageData.piority,
+      date: messageData.date,
+    }));
+    axios.post('/api/v1/group/postmessage', messageData)
       .then((res) => {
         Alert.success(res.data.message, {
           position: 'top-right',
           offset: 100,
         });
-        return dispatch(getMessges(messageData.groupId));
       })
       .catch((error) => {
         if (error) {
@@ -223,4 +284,6 @@ export function addMessage(messageData) {
           });
         }
       });
+  };
 }
+

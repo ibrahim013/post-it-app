@@ -1,9 +1,9 @@
 import React from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { addMessage } from '../actions/GroupAction';
-
+import { postMessage } from '../actions/GroupAction';
 /**
  *@description this component allow user add message
  *
@@ -21,6 +21,7 @@ export class AddMessage extends React.Component {
       piority: 'Normal',
       groupId: this.props.groupId,
       groupName: this.props.groupName,
+      date: moment().format('MMMM Do YYYY, h:mm:ss a'),
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -56,7 +57,7 @@ export class AddMessage extends React.Component {
   */
   onSubmit(event) {
     event.preventDefault();
-    this.props.addMessage(this.state);
+    this.props.postMessage(this.state);
     this.setState({
       message: '',
     });
@@ -105,4 +106,4 @@ export class AddMessage extends React.Component {
 AddMessage.PropTypes = {
   Messages: PropTypes.array.isRequired,
 };
-export default withRouter(connect(null, { addMessage })(AddMessage));
+export default withRouter(connect(null, { postMessage })(AddMessage));

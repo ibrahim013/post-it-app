@@ -55,6 +55,7 @@
     "jwt-decode": "^2.2.0",
     "localStorage": "^1.0.3",
     "lodash": "^4.17.4",
+    "moment": "^2.19.2",
     "morgan": "^1.8.2",
     "moxios": "^0.4.0",
     "nexmo": "^2.0.2",

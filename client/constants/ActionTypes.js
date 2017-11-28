@@ -1,5 +1,5 @@
 export const ADD_NEW_MEMBER = 'ADD_NEW_MEMBER';
-export const ADD_GROUPS = 'ADD_GROUPS';
+export const ADD_NEW_GROUP = 'ADD_NEW_GROUP';
 export const GET_ALL_GROUPS = 'GET_ALL_GROUPS';
 export const GET_ALL_MESSAGE = 'GET_ALL_MESSAGE';
 export const GET_ALL_GROUP_MEMBERS = 'GET_ALL_GROUP_MEMBERS';
@@ -8,3 +8,5 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOGIN_ERROR = 'LOGOUT_ERROR';
 export const GOOGLE_LOGIN = 'GOOGLE_LOGIN';
 export const GET_ALL_READ = 'GET_ALL_READ';
+export const POST_NEW_MESSAGE = 'POST_NEW_MESSAGE';
+export const SET_GROUP_MESSAGES = 'SET_GROUP_MESSAGES';
