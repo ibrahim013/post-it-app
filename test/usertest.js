@@ -1,7 +1,7 @@
 import chai from 'chai';
 import faker from 'faker';
 import server from '../server/index';
-import userObject from '../server/helpers/Users';
+
 
 const request = require('supertest');
 
@@ -12,8 +12,8 @@ describe('PostIt Endpoints', () => {
   it('should respond with success message if correct details are supplied',
    (done) => {
      const userTest = {
-       displayName: 'user2',
-       email: faker.internet.email(),
+       displayName: 'mrmrlotlot',
+       email: 'todaytoday138@gmail.com',
        password: '12345678',
        phoneNumber: '2347098776523',
      };
@@ -23,7 +23,6 @@ describe('PostIt Endpoints', () => {
       .send(userTest)
       .expect('Content-Type', /json/)
       .end((err, res) => {
-        expect(200);
         expect(res.statusCode).to.be.equal(201);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
@@ -54,7 +53,28 @@ describe('PostIt Endpoints', () => {
         done();
       });
   });
-  it('should respond with error message if user is already registered',
+  it('should respond with error message if email is already registered',
+  (done) => {
+    const userTest = {
+      displayName: 'mrmruser2',
+      email: 'waleibrahim13@gmail.com',
+      password: '12345678',
+      phoneNumber: '2346756889314',
+    };
+    request(server)
+      .post('/api/v1/user/signup')
+      .set('Accept', 'application/x-www-form-urlencoded')
+      .send(userTest)
+      .expect('Content-Type', /json/)
+      .end((err, res) => {
+        expect(res.statusCode).to.be.equal(409);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.a.property('message');
+        expect(res.body.message).to.be.equal('email already in use');
+        done();
+      });
+  });
+  it('should respond with error message if username is already registered',
   (done) => {
     const userTest = {
       displayName: 'user2',
@@ -71,7 +91,7 @@ describe('PostIt Endpoints', () => {
         expect(res.statusCode).to.be.equal(409);
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.a.property('message');
-        expect(res.body.message).to.be.equal('email already in use');
+        expect(res.body.message).to.be.equal('username already exist');
         done();
       });
   });

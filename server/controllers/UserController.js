@@ -1,9 +1,12 @@
 import * as firebase from 'firebase';
+import jwt from 'jsonwebtoken';
 import config from '../../server/database';
 import userObject from '../helpers/Users';
 import jwt from 'jsonwebtoken';
 
 require('dotenv').config()
+
+require('dotenv').config();
 
 firebase.initializeApp(config);
 
@@ -13,76 +16,79 @@ firebase.initializeApp(config);
  * @class user
  */
 export default class User {
-/**
- * @description this method allows a new user to sign up.
- * POST:/api/v1/user/signup
- *
- * @method signUp
- *
- * @param {object} req; request
- * @param {object} res; response
- *
- * @returns {object}  response containing a message
- */
+  /**
+   * @description this method allows a new user to sign up.
+   * POST:/api/v1/user/signup
+   *
+   * @method signUp
+   *
+   * @param {object} req; request
+   * @param {object} res; response
+   *
+   * @returns {object}  response containing a message
+   */
   static signUp(req, res) {
     const { displayName, email, password, phoneNumber } = req.body;
     const time = new Date().toLocaleString();
-    userObject
-    .userDetail(`${displayName}`).then((registeredUsers) => {
+    userObject.userDetail(`${displayName}`).then((registeredUsers) => {
       if (registeredUsers) {
         res.status(409).send({ message: 'username already exist' });
       } else {
         firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      firebase.auth().currentUser.updateProfile({
-        displayName,
-        phoneNumber,
-      });
-    })
-    .then(() => {
-      const userId = firebase.auth().currentUser.uid;
-      firebase
-        .database()
-        .ref(`user/${userId}`)
-        .set({
-          displayName,
-          email,
-          phoneNumber,
-          userId,
-          time,
-        });
-      res.status(201).json({ message: 'signup sucessful proceed to login' });
-    });
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then(() => {
+            firebase.auth().currentUser.updateProfile({
+              displayName,
+              phoneNumber,
+            });
+          })
+          .then(() => {
+            const userId = firebase.auth().currentUser.uid;
+            firebase
+              .database()
+              .ref(`user/${userId}`)
+              .set({
+                displayName,
+                email,
+                phoneNumber,
+                userId,
+                time,
+              });
+            res.status(201).json({ message: 'signup sucessful proceed to login' });
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            if (errorCode === 'auth/email-already-in-use') {
+              return res.status(409).send({ message: 'email already in use' });
+            }
+            if (error === 'The email address is already in use by another account') {
+              return res.status(409).send({ message: 'email already in use' });
+            }
+            if (errorCode === 'auth/invalid-email') {
+              return res.status(400).send({ message: 'invalid email' });
+            }
+            if (errorCode === 'auth/weak-password') {
+              return res.status(400).send({
+                message: 'password strength is too week',
+              });
+            }
+         });
       }
-    })
-     .catch((error) => {
-        const errorCode = error.code;
-        if (errorCode === 'auth/email-already-in-use') {
-          return res.status(409).send({ message: 'email already in use' });
-        }
-        if (errorCode === 'auth/invalid-email') {
-          return res.status(400).send({ message: 'invalid email' });
-        }
-        if (errorCode === 'auth/weak-password') {
-          return res.status(400).send({
-            message: 'password strength is too week' });
-        }
-      });
+    });
   }
 
-/**
- * @description  This method allow a users to sign in.
- * POST: /api/v1/user/signin
- *
- * @method signIn
- *
- * @param {object} req request
- * @param {object} res response
- *
- * @returns {object} response contaning a login user details
- */
+  /**
+   * @description  This method allow a users to sign in.
+   * POST: /api/v1/user/signin
+   *
+   * @method signIn
+   *
+   * @param {object} req request
+   * @param {object} res response
+   *
+   * @returns {object} response contaning a login user details
+   */
   static signIn(req, res) {
     const { email, password } = req.body;
     firebase
@@ -91,9 +97,13 @@ export default class User {
       .then(() => {
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
-            const token = jwt.sign({
-              user,
-            }, process.env.JWT_SECERT, { expiresIn: '48h' });
+            const token = jwt.sign(
+              {
+                user,
+              },
+              process.env.JWT_SECERT,
+              { expiresIn: '48h' },
+            );
             res.status(200).json({
               message: 'Sign In Successful',
               user,
@@ -109,7 +119,8 @@ export default class User {
         }
         if (errorCode === 'auth/user-not-found') {
           return res.status(400).send({
-            message: 'user not found or account may have being disabled' });
+            message: 'user not found or account may have being disabled',
+          });
         }
         if (errorCode === 'auth/wrong-password') {
           return res.status(400).send({ message: 'invalid email or password' });
@@ -117,17 +128,17 @@ export default class User {
         return res.status(500).send({ message: 'oops!! Somthing went wrong' });
       });
   }
-/**
- * @description This method allow users to resetpassword.
- * POST:/api/v1/user/passwordreset
- *
- * @method passwordReset
- *
- * @param {object} req request
- * @param {object} res response
- *
- * @returns {object} this return a message object to user
- */
+  /**
+   * @description This method allow users to resetpassword.
+   * POST:/api/v1/user/passwordreset
+   *
+   * @method passwordReset
+   *
+   * @param {object} req request
+   * @param {object} res response
+   *
+   * @returns {object} this return a message object to user
+   */
   static passwordReset(req, res) {
     const auth = firebase.auth();
     const emailAddress = req.body.email;
@@ -149,21 +160,21 @@ export default class User {
         return res.status(500).send({ message: 'oops! somthing went wrong' });
       });
   }
-/**
- * @description This method allow users to signin using google.
- * POST:/api/v1/user/googlelogin
- *
- * @method googleLogin
- *
- * @param {object} req request
- * @param {object} res response
- *
- * @returns {object} response contaning a login user details
- */
+  /**
+   * @description This method allow users to signin using google.
+   * POST:/api/v1/user/googlelogin
+   *
+   * @method googleLogin
+   *
+   * @param {object} req request
+   * @param {object} res response
+   *
+   * @returns {object} response contaning a login user details
+   */
   static googleLogin(req, res) {
     const userData = req.body;
-    const credential = firebase.auth.GoogleAuthProvider.credential(
-      userData.credential.idToken);
+    const credential = firebase.auth.GoogleAuthProvider
+    .credential(userData.credential.idToken);
     firebase
       .auth()
       .signInWithCredential(credential)
@@ -194,20 +205,23 @@ export default class User {
           });
         });
       })
-      .catch(() => res.status(500).json({
-        message: 'oops! somthing went wrong' }));
+      .catch(() =>
+        res.status(500).json({
+          message: 'oops! somthing went wrong',
+        }),
+      );
   }
-/**
- * @description This method allow users to signout.
- * POST:/api/v1/user/signout
- *
- * @method signOut
- *
- * @param {object} req request
- * @param {object} res response
- *
- * @returns {object} response contaning message object
- */
+  /**
+   * @description This method allow users to signout.
+   * POST:/api/v1/user/signout
+   *
+   * @method signOut
+   *
+   * @param {object} req request
+   * @param {object} res response
+   *
+   * @returns {object} response contaning message object
+   */
   static signOut(req, res) {
     firebase
       .auth()
@@ -215,17 +229,17 @@ export default class User {
       .then(() => res.status(200).json({ message: 'signed out successfully.' }))
       .catch(() => res.status(500).json({ message: 'Network Error' }));
   }
-/**
- * @description This method allow users signin with google ubdate login details.
- * POST:/api/v1/user/googlelupdate
- *
- * @method googleUpdate
- *
- * @param {object} req request
- * @param {object} res response
- *
- * @returns {object} response contaning message object
- */
+  /**
+   * @description This method allow users signin with google ubdate login details.
+   * POST:/api/v1/user/googlelupdate
+   *
+   * @method googleUpdate
+   *
+   * @param {object} req request
+   * @param {object} res response
+   *
+   * @returns {object} response contaning message object
+   */
   static googleUpdate(req, res) {
     const { phoneNumber } = req.body;
     const displayName = firebase.auth().currentUser.displayName;
@@ -253,7 +267,10 @@ export default class User {
           isConfirmed: true,
         });
       })
-      .catch(() => res.status(500).json({
-        message: 'oops! somthing went wrong' }));
+      .catch(() =>
+        res.status(500).json({
+          message: 'oops! somthing went wrong',
+        }),
+      );
   }
 }
