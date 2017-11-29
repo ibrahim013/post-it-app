@@ -9,183 +9,178 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('group actions', () => {
-  it('should get group message', () => {
+  it('should get group messages', () => {
     const expectedAction = {
-      type: types.GET_ALL_MESSAGE,
-    };
-    expect(actions.getMessageAction()).toEqual(expectedAction);
-  });
-  it('should get group message', () => {
-    const expectedAction = {
-      type: types.GET_ALL_GROUP_MEMBERS,
-    };
-    expect(actions.getGroupMembers()).toEqual(expectedAction);
-  });
-});
-describe('Get group action', () => {
-  const initialState = {
-    group: '',
-  };
-  beforeEach(() => moxios.install());
-  afterEach(() => moxios.uninstall());
-  const store = mockStore(initialState);
+      type: types.SET_GROUP_MESSAGES,
 
-  it('contains a user getGroups function', () => {
-    expect(typeof (actions.getGroups())).toBe('function');
+    };
+    expect(actions.setMessages()).toEqual(expectedAction);
   });
+  describe('Get group action', () => {
+    const initialState = {
+      group: '',
+    };
+    beforeEach(() => moxios.install());
+    afterEach(() => moxios.uninstall());
+    const store = mockStore(initialState);
 
-  it('should dispatch GetGroupAction on successful getting groups', (done) => {
-    moxios.stubRequest('/api/v1/group/groups', {
-      status: 200,
-      response: {
-        groups: {
-          groupId: '-KHJETY879435',
-          groupname: 'final',
+    it('contains a user getGroups function', () => {
+      expect(typeof (actions.getGroups())).toBe('function');
+    });
+
+    it('should dispatch GetGroupAction on successful getting groups', (done) => {
+      moxios.stubRequest('/api/v1/group/groups', {
+        status: 200,
+        response: {
+          groupData: {
+            groupId: '-KHJETY879435',
+            groupname: 'final',
+          },
         },
+      });
+      const groupData = {
+        groupId: '-KHJETY879435',
+        groupname: 'final',
+      };
+      const expectedActions = [
+        {
+          type: types.GET_ALL_GROUPS,
+          groupData: {
+            groupId: '-KHJETY879435',
+            groupname: 'final',
+          },
+        },
+      ];
+
+      store.dispatch(actions.getGroups()).then(() => {
+        expect(store.getGroupAction(groupData)).toEqual(expectedActions);
+      });
+      done();
+    });
+  });
+  describe('get group member action', () => {
+    const initialState = {
+      members: 'master',
+    };
+    beforeEach(() => moxios.install());
+    afterEach(() => moxios.uninstall());
+    const store = mockStore(initialState);
+
+    it('contains a group getMembers function', () => {
+      expect(typeof (actions.getMembers())).toBe('function');
+    });
+
+    it('should dispatch getGroupMembers on successful getting members', (done) => {
+      moxios.stubRequest('/api/v1/group/:-KHJETY879435/members/', {
+        status: 200,
+        response: {
+          members: [{
+            groupMembers: 'Musa',
+          },
+          {
+            members: 'Issa',
+          },
+          {
+            members: 'Inusa',
+          }],
+        },
+      });
+      const groupMembers = [{
+        groupMembers: 'Musa',
       },
+      {
+        members: 'Issa',
+      },
+      {
+        members: 'Inusa',
+      }];
+      const expectedActions = [
+        {
+          type: types.GET_ALL_GROUP_MEMBERS,
+          groupMembers,
+        }];
+      store.dispatch(actions.getMembers()).then(() => {
+        expect(store.getGroupMembers(groupMembers)).toEqual(expectedActions);
+      });
+      done();
     });
-    const expectedActions = [
-      { type: types.GET_ALL_GROUPS },
-    ];
-    store.dispatch(actions.getMessges()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
+  });
+  describe('get all messages', () => {
+    const initialState = {
+      members: 'master',
+    };
+    const groupid = {
+      groupId: '-K234GHTJDKLSSL',
+    };
+    beforeEach(() => moxios.install());
+    afterEach(() => moxios.uninstall());
+    const store = mockStore(initialState);
+
+    it('contains a group getAllMessages function', () => {
+      expect(typeof (actions.getAllMessages(groupid))).toBe('function');
     });
-    done();
+
+    it('should dispatch getAllMessages on successful getting messages', (done) => {
+      moxios.stubRequest('/api/v1/group/-KHJETY879435/messages/', {
+        status: 200,
+        response: {
+          messages: {
+            messageText: 'hello checking on you',
+            Piority: 'Urgent',
+          },
+        },
+      });
+      const groupMessages = [{
+        messageText: 'hello checking on you',
+        Piority: 'Urgent',
+      }];
+      const expectedActions = [
+        { type: types.GET_ALL_GROUP_MEMBERS,
+          groupMessages,
+        },
+      ];
+      store.dispatch(actions.getAllMessages(groupid)).then(() => {
+        expect(store.setMessages(groupMessages)).toEqual(expectedActions);
+      });
+      done();
+    });
   });
 });
-describe('get member action', () => {
-  const initialState = {
-    members: 'master',
-  };
+
+describe('post new message', () => {
+  const initialState = [];
+  const messageData = [{
+    mesageId: 'K234GHTJDKLSSL',
+    messageText: 'today is cool',
+    PiorityLevel: 'Critical',
+  }];
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
   const store = mockStore(initialState);
 
-  it('contains a user getMembers function', () => {
-    expect(typeof (actions.getMembers())).toBe('function');
+  it('contains a user postNewMessage function', () => {
+    expect(typeof (actions.postMessage(messageData))).toBe('function');
   });
 
-  it('should dispatch GetGroupAction on successful getting groups', (done) => {
-    moxios.stubRequest('/api/v1/group/-KHJETY879435/members/', {
-      status: 200,
+  it('should dispatch post message on successful posting messages', (done) => {
+    moxios.stubRequest('/api/v1/group/postmessage', {
+      status: 201,
       response: {
-        groups: {
-          groupId: '-KHJETY879435',
-          groupname: 'final',
+        messages: {
+          message: 'message posted succesfully',
         },
       },
     });
     const expectedActions = [
       {
-        type: types.GET_ALL_GROUP_MEMBERS,
-      }];
-    store.dispatch(actions.getMembers()).then(() => {
-      expect(store.getGroupMembers()).toEqual(expectedActions);
-    });
-    done();
-  });
-});
-describe('add member action', () => {
-  const initialState = {
-    members: 'master',
-  };
-  const userDetails = {
-    members: 'master',
-  };
-  beforeEach(() => moxios.install());
-  afterEach(() => moxios.uninstall());
-  const store = mockStore(initialState);
-
-  it('contains a user getMembers function', () => {
-    expect(typeof (actions.addMembers(userDetails))).toBe('function');
-  });
-
-  it('should dispatch GetGroupAction on successful getting groups', (done) => {
-    moxios.stubRequest('/api/v1/group/-KHJETY879435/members/', {
-      status: 200,
-      response: {
-        groups: {
-          groupId: '-KHJETY879435',
-          groupname: 'final',
-        },
+        type: types.POST_NEW_MESSAGE,
+        messageData,
       },
-    });
-    const expectedActions = [
-      { type: types.GET_ALL_GROUP_MEMBERS },
     ];
-    store.dispatch(actions.addMembers()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
+    store.dispatch(actions.postMessage(messageData)).then(() => {
+      expect(store.postNewMessage(messageData)).toEqual(expectedActions);
     });
     done();
   });
 });
-describe('get member action', () => {
-  const initialState = {
-    groupName: '',
-    description: '',
-  };
-  const groupData = {
-    groupname: 'just test',
-  };
-  beforeEach(() => moxios.install());
-  afterEach(() => moxios.uninstall());
-  const store = mockStore(initialState);
 
-  it('contains a user addGroups function', () => {
-    expect(typeof (actions.addGroups(groupData))).toBe('function');
-  });
-
-  it('should dispatch GetGroupAction on successful getting groups', (done) => {
-    moxios.stubRequest('/api/v1/group', {
-      status: 200,
-      response: {
-        groups: {
-          groupId: '-KHJETY879435',
-          groupname: 'final',
-        },
-      },
-    });
-    const expectedActions = {
-      type: types.GET_ALL_GROUPS,
-      groupData,
-    };
-    store.dispatch(actions.addGroups(groupData)).then(() => {
-      expect(store.getGroupAction()).toEqual(expectedActions);
-    });
-    done();
-  });
-});
-describe('add member action', () => {
-  const initialState = {
-    members: 'master',
-  };
-  const userDetails = {
-    members: 'master',
-  };
-  beforeEach(() => moxios.install());
-  afterEach(() => moxios.uninstall());
-  const store = mockStore(initialState);
-
-  it('contains a user getMembers function', () => {
-    expect(typeof (actions.addMembers(userDetails))).toBe('function');
-  });
-
-  it('should dispatch GetGroupAction on successful getting groups', (done) => {
-    moxios.stubRequest('/api/v1/group/-KHJETY879435/members/', {
-      status: 200,
-      response: {
-        groups: {
-          groupId: '-KHJETY879435',
-          groupname: 'final',
-        },
-      },
-    });
-    const expectedActions = [
-      { type: types.GetMessageAction },
-    ];
-    store.dispatch(actions.addMembers()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-    done();
-  });
-});

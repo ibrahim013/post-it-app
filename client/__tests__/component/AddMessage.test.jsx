@@ -5,7 +5,7 @@ import { AddMessage } from '../../component/AddMessage';
 
 describe('<AddMessage />', () => {
   const onSubmit = sinon.spy();
-  const addMessage = sinon.spy(() => Promise
+  const postMessage = sinon.spy(() => Promise
       .resolve({ data: { message: 'message added sucesfuly' },
         response: { data: 'Error' } }));
   const wrapper = mount(<AddMessage />);
@@ -24,9 +24,9 @@ describe('<AddMessage />', () => {
     expect(wrapper.nodes[0].onSubmit).toBeDefined();
   });
   const props = {
-    addMessage,
+    postMessage,
   };
-  it('should call onSubmit when rgroup is added and submitted', () => {
+  it('should call onSubmit when group is added and submitted', () => {
     const wrapper = mount(<AddMessage {...props}/>);
     wrapper.setState({ message: 'hello from test',
       piority: 'critical',
