@@ -5,7 +5,7 @@ import { AddGroup } from '../../component/AddGroup';
 
 describe('<AddGroup />', () => {
   const onSubmit = sinon.spy();
-  const addGroups = sinon.spy(() =>
+  const addNewGroup = sinon.spy(() =>
     Promise.resolve({
       data: { message: 'Group added sucesfuly' },
       response: { data: 'Error' },
@@ -33,7 +33,7 @@ describe('<AddGroup />', () => {
     expect(wrapper.nodes[0].onSubmit).toBeDefined();
   });
   const props = {
-    addGroups,
+    addNewGroup,
   };
   it('should call onSubmit when a group is added and submitted', () => {
     const wrapper = mount(<AddGroup {...props} />);
