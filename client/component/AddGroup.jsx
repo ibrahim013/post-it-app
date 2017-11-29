@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addGroups } from '../actions/GroupAction';
+import { addNewGroup } from '../actions/GroupAction';
 
 /**
  * @description this component allow user add groups
@@ -51,7 +51,7 @@ export class AddGroup extends React.Component {
   */
   onSubmit(event) {
     event.preventDefault();
-    this.props.addGroups(this.state);
+    this.props.addNewGroup(this.state);
     this.setState({
       groupName: '',
       description: '',
@@ -98,7 +98,7 @@ export class AddGroup extends React.Component {
   }
 }
 AddGroup.PropTypes = {
-  addGroups: PropTypes.func.isRequired,
+  addNewGroup: PropTypes.func.isRequired,
 };
 
-export default withRouter(connect(null, { addGroups })(AddGroup));
+export default withRouter(connect(null, { addNewGroup })(AddGroup));

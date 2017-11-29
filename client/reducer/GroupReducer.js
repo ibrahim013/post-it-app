@@ -1,4 +1,4 @@
-import { GET_ALL_GROUPS } from '../constants/ActionTypes';
+import { GET_ALL_GROUPS, ADD_NEW_GROUP } from '../constants/ActionTypes';
 /**
  * @description this reducer acts on get all groups
  *
@@ -13,6 +13,9 @@ export default (state = [], action = {}) => {
   switch (action.type) {
     case GET_ALL_GROUPS: {
       return [...action.groupData];
+    }
+    case ADD_NEW_GROUP: {
+      return [...state, action.groupDetail];
     }
     default:
       return state;

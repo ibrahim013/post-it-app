@@ -4,8 +4,8 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import AddMessage from '../component/AddMessage';
-import { getGroups, addMembers,
-getMessges, getMembers } from '../actions/GroupAction';
+import { getGroups, addNewMember,
+getAllMessages, getMembers } from '../actions/GroupAction';
 import Navigation from './Navigation';
 
 
@@ -45,7 +45,7 @@ class GroupMessage extends React.Component {
   */
   onSubmit(event) {
     event.preventDefault();
-    this.props.addMembers(this.state);
+    this.props.addNewMember(this.state);
     this.setState({
       displayName: '',
       errors: {},
@@ -53,7 +53,7 @@ class GroupMessage extends React.Component {
   }
   componentDidMount() {
     this.props.getGroups();
-    this.props.getMessges(this.state.groupId);
+    this.props.getAllMessages(this.state.groupId);
     this.props.getMembers(this.state.groupId);
     const groupid = this.props.match.params.groupid;
     let groupName = '';
@@ -238,8 +238,8 @@ function mapStateToProps(state) {
 export default withRouter(
   connect(mapStateToProps, {
     getGroups,
-    addMembers,
-    getMessges,
+    addNewMember,
+    getAllMessages,
     getMembers,
   })(GroupMessage),
 );

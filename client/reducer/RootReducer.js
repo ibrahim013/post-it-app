@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
-import groups from '../reducer/GetGroupsReducer';
+import groups from '../reducer/GroupReducer';
 import googleLogin from './GoogleLogin';
-import messages from '../reducer/GetMessagesReducer';
-import groupMembers from '../reducer/GetMembersReducer';
-import read from '../reducer/GetRead';
+import messages from '../reducer/MessageReducer';
+import groupMembers from '../reducer/MemberReducer';
+import read from '../reducer/ReadMessageReducer';
 import user from '../reducer/User';
+
 /**
  * @description combine all reducer
  *
